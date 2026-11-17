@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MG Academy | Where Little Hands Create Big Dreams</title>
+  <meta name="description"
+    content="MG Academy - A joyful and creative arts and skill-development academy for kids. Offering Drawing & Painting, Bharatanatyam, Western Dance, Handwriting, Calligraphy, and Abacus.">
+  <meta name="keywords"
+    content="MG Academy, kids arts academy, drawing classes, dance academy, Bharatanatyam, calligraphy, handwriting improvement, abacus">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MG Academy - Every Child is an Artist">
+  <meta property="og:description"
+    content="Where Little Hands Create Big Dreams! A joyful space for children to explore creative arts, dance, and mind skills.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Fredoka (Playful, rounded headings) & Quicksand (Clean, readable body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css?v=2.6">
+</head>
+
+<body>
+
+  <!-- Top Announcement Bar (Smooth Marquee Ticker) -->
+  <div class="top-announcement-bar" id="announcement-bar">
+    <div class="announcement-marquee-wrapper">
+      <div class="marquee-badge">
+        <span class="badge-pulse">Admissions</span>
+      </div>
+      <marquee behavior="scroll" direction="left" scrollamount="6" class="top-marquee" onmouseover="this.stop();"
+        onmouseout="this.start();">
+        <span class="marquee-item"><strong>Admissions Open 2026 - 2027!</strong> A Little Place for Big Dreams. Enroll
+          your child today for a bright creative future.</span>
+        <span class="marquee-item">• Drawing &amp; Painting • Bharatanatyam, Folk &amp; Western Dance • Handwriting
+          &amp; Calligraphy • Abacus &amp; Mental Math.</span>
+        <span class="marquee-item">• Limited Seats Per Batch • Call for Admissions: <strong>+91 98765 43210</strong> •
+          Free Demo Class Available!</span>
+      </marquee>
+      <div class="announcement-actions">
+        <a href="tel:+919876543210" class="announcement-contact"><i class="fa-solid fa-phone"></i> +91 98765 43210</a>
+        <button class="announcement-btn" onclick="openAdmissionModal()">Free Demo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Sticky Glassmorphism Header / Navigation Bar -->
+  <header class="site-header" id="header">
+    <div class="container nav-container">
+      <a href="#home" class="brand-logo" id="brand-logo" title="MG Academy - Every Child is an Artist">
+        <img src="mg logo.png" alt="MG Academy Official Logo" class="brand-logo-img">
+        <div class="brand-logo-text">
+          <span class="brand-title">MG Academy</span>
+          <span class="brand-tagline">Creative Arts</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu Pill with Spotlight Effect -->
+      <nav class="nav-menu" id="nav-menu">
+        <ul class="nav-list spotlight-nav" id="nav-list">
+          <!-- Spotlight Cursor Glow & Sliding Pill -->
+          <div class="nav-spotlight-glow" id="nav-spotlight-glow" aria-hidden="true"></div>
+          <div class="nav-spotlight-pill" id="nav-spotlight-pill" aria-hidden="true"></div>
+
+          <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="#courses" class="nav-link">Our Courses</a></li>
+          <li class="nav-item"><a href="#fees" class="nav-link">Course Fees</a></li>
+          <li class="nav-item"><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action Group -->
+      <div class="header-action-group">
+        <button class="btn-admission-3d peek-admission-btn" id="header-admission-btn" onclick="openAdmissionModal()"
+          aria-label="Admission Open">
+          <!-- Animated Peeking Eyes Container -->
+          <span class="peek-eyes" aria-hidden="true">
+            <span class="peek-eye">
+              <span class="peek-pupil"></span>
+            </span>
+            <span class="peek-eye">
+              <span class="peek-pupil"></span>
+            </span>
+          </span>
+
+          <!-- Swinging Button Cover (-12deg open on hover, clean without glowing dot) -->
+          <span class="peek-cover">
+            <span>ADMISSION OPEN</span>
+          </span>
+
+          <!-- Ghost Spacer (preserves exact button size) -->
+          <span class="peek-spacer" aria-hidden="true">
+            <span>ADMISSION OPEN</span>
+          </span>
+        </button>
+        <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. Hero / Welcome Section -->
+    <section class="hero-section" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-pill-badge reveal-fade-up">
+            <span class="pill-dot"></span> Welcome to MG Academy
+          </div>
+
+          <!-- Staggered animated words -->
+          <h1 class="hero-title" id="hero-title">
+            <span class="hero-word-line">Where Little Hands</span>
+            <span class="hero-word-line highlight-gradient">Create Big Dreams!</span>
+          </h1>
+
+          <p class="hero-subtitle reveal-fade-up">
+            Every child is an artist. A joyful space where children discover their talents, develop new skills, and
+            express their creativity with confidence and happiness.
+          </p>
+
+          <div class="hero-cta-group reveal-fade-up">
+            <button class="btn btn-primary btn-bounce" onclick="openAdmissionModal()">
+              <span>Apply for Admission</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <a href="#courses" class="btn btn-outline btn-bounce">
+              <i class="fa-solid fa-compass"></i>
+              <span>Explore Courses</span>
+            </a>
+          </div>
+
+          <div class="hero-motto-row reveal-fade-up">
+            <div class="motto-item"><span class="motto-dot pink"></span> Learn</div>
+            <span class="motto-sep">•</span>
+            <div class="motto-item"><span class="motto-dot yellow"></span> Create</div>
+            <span class="motto-sep">•</span>
+            <div class="motto-item"><span class="motto-dot blue"></span> Grow</div>
+          </div>
+
+          <div class="hero-stat-ribbon reveal-fade-up">
+            <div class="stat-box">
+              <strong class="tabular-nums stats-counter" data-value="500" data-suffix="+"
+                data-duration="1.6">0+</strong>
+              <span>Happy Little Artists</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-box">
+              <strong class="tabular-nums stats-counter" data-value="6" data-suffix="+" data-duration="1.2">0+</strong>
+              <span>Creative Disciplines</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-box">
+              <strong class="tabular-nums stats-counter" data-value="100" data-suffix="%"
+                data-duration="1.5">0%</strong>
+              <span>Joyful &amp; Encouraging</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual-wrapper reveal-scale-up">
+          <div class="hero-image-frame glass-panel" id="hero-frame">
+            <!-- 3-Second Automatic Photo Slideshow -->
+            <div class="hero-slideshow-container" id="hero-slideshow-container" title="MG Academy student activities">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg"
+                alt="MG Academy happy children engaged in joyful creative painting" class="hero-featured-photo slide-active" id="hero-slide-1">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg"
+                alt="MG Academy art and skill classes" class="hero-featured-photo" id="hero-slide-2">
+            </div>
+
+            <!-- Live Moments Counter Badge -->
+            <div class="hero-slideshow-indicators" id="hero-slideshow-indicators">
+              <span class="live-pulse-dot"></span>
+              <span class="slideshow-label">Academy Moments</span>
+              <span class="slideshow-counter" id="hero-slideshow-counter">1 / 15</span>
+            </div>
+
+            <div class="hero-floating-sticker sticker-award">
+              <div class="sticker-icon bg-gold"><i class="fa-solid fa-star"></i></div>
+              <div class="sticker-text">
+                <strong>Certified Mentors</strong>
+                <span>Personal Care for Every Child</span>
+              </div>
+            </div>
+
+            <div class="hero-floating-sticker sticker-fun">
+              <div class="sticker-icon bg-pink"><i class="fa-solid fa-palette"></i></div>
+              <div class="sticker-text">
+                <strong><span class="tabular-nums stats-counter" data-value="100" data-suffix="%"
+                    data-duration="1.5">0%</span> Practical &amp; Fun</strong>
+                <span>Hands-on Creativity</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Academy Introduction, Mission & Vision ("A Little Place for Big Dreams!") -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <div class="section-header text-center reveal-fade-up">
+          <span class="section-tag bg-pink-light">About Our Academy</span>
+          <h2 class="section-title">A Little Place for <span class="text-primary">Big Dreams!</span></h2>
+          <p class="section-subtitle">
+            At MG Academy, we believe every child possesses unique creativity waiting to be unlocked. We provide a warm,
+            encouraging, and colorful sanctuary where little hands learn techniques and big minds build lifelong
+            confidence.
+          </p>
+        </div>
+
+        <!-- Mission & Vision Side-by-Side Cards -->
+        <div class="mission-vision-grid">
+          <div class="mission-card glass-panel reveal-fade-up">
+            <div class="card-icon-bubble bg-pink-light text-pink">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <h3>Our Mission</h3>
+            <p>
+              To ignite children's imaginations through structured, enjoyable learning programs in fine arts, expressive
+              dance, and foundational mental skills. We ensure every child receives patient individual guidance,
+              nurturing creative thinking alongside technical excellence.
+            </p>
+            <ul class="check-list">
+              <li><i class="fa-solid fa-circle-check"></i> Fostering joyful self-expression without fear of judgment
+              </li>
+              <li><i class="fa-solid fa-circle-check"></i> Personalized attention in small, supportive batches</li>
+              <li><i class="fa-solid fa-circle-check"></i> Building fine motor skills, focus, and artistic discipline
+              </li>
+            </ul>
+          </div>
+
+          <div class="vision-card glass-panel reveal-fade-up">
+            <div class="card-icon-bubble bg-gold-light text-gold">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <h3>Our Vision</h3>
+            <p>
+              To be the most loved creative learning community where every student discovers their inner artist, takes
+              pride in their creative journey, and carries forward the discipline, grace, and confidence needed to shine
+              in school and in life.
+            </p>
+            <ul class="check-list">
+              <li><i class="fa-solid fa-circle-check"></i> Creating future artists, performers, and holistic thinkers
+              </li>
+              <li><i class="fa-solid fa-circle-check"></i> Celebrating student achievements on stage and gallery
+                showcases</li>
+              <li><i class="fa-solid fa-circle-check"></i> Empowering young minds with both cultural roots &amp; modern
+                flair</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Why Choose MG Academy? (5-Point Interactive Grid) -->
+        <div class="why-choose-wrap">
+          <div class="section-header text-center reveal-fade-up">
+            <span class="section-tag bg-blue-light">Core Strengths</span>
+            <h3 class="subsection-title">Why Choose MG Academy?</h3>
+            <p class="section-subtitle">Five pillars that make learning at MG Academy a joyful adventure for your child.
+            </p>
+          </div>
+
+          <div class="five-pillars-grid">
+            <div class="pillar-card glass-panel reveal-fade-up" data-delay="1">
+              <div class="pillar-number">01</div>
+              <div class="pillar-icon text-pink"><i class="fa-solid fa-shield-heart"></i></div>
+              <h4>Child-Friendly Environment</h4>
+              <p>Safe, joyful, colorful, and fully supportive space designed specifically for children to feel
+                completely at home.</p>
+            </div>
+
+            <div class="pillar-card glass-panel reveal-fade-up" data-delay="2">
+              <div class="pillar-number">02</div>
+              <div class="pillar-icon text-gold"><i class="fa-solid fa-gamepad"></i></div>
+              <h4>Fun Activities</h4>
+              <p>Play-based learning techniques that make complex concepts easy, engaging, and memorable for young
+                minds.</p>
+            </div>
+
+            <div class="pillar-card glass-panel reveal-fade-up" data-delay="3">
+              <div class="pillar-number">03</div>
+              <div class="pillar-icon text-blue"><i class="fa-solid fa-compass-drafting"></i></div>
+              <h4>Artistic Talent Exploration</h4>
+              <p>Encouraging kids to experiment with diverse mediums — pastels, watercolors, acrylics, crafts, and stage
+                rhythms.</p>
+            </div>
+
+            <div class="pillar-card glass-panel reveal-fade-up" data-delay="4">
+              <div class="pillar-number">04</div>
+              <div class="pillar-icon text-green"><i class="fa-solid fa-lightbulb"></i></div>
+              <h4>Creativity Focus</h4>
+              <p>We celebrate originality over rigid perfection, inspiring kids to think creatively and dream without
+                boundaries.</p>
+            </div>
+
+            <div class="pillar-card glass-panel reveal-fade-up" data-delay="5">
+              <div class="pillar-number">05</div>
+              <div class="pillar-icon text-purple"><i class="fa-solid fa-seedling"></i></div>
+              <h4>Individual Growth</h4>
+              <p>Every child progresses at their own pace with tailored mentorship that builds genuine confidence and
+                pride.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Our Courses (Interactive 6-Card Grid) -->
+    <section class="section courses-section" id="courses">
+      <div class="container">
+        <div class="section-header text-center reveal-fade-up">
+          <span class="section-tag bg-pink-light">Comprehensive Curriculum</span>
+          <h2 class="section-title">Our Creative <span class="text-primary">Courses</span></h2>
+          <p class="section-subtitle">
+            Expertly crafted programs tailored for young learners to build practical skills, artistic flair, and
+            cognitive strength.
+          </p>
+        </div>
+
+        <!-- Category Tabs Pill Filter (GooeyNav Liquid Metaballs) -->
+        <div class="category-tabs-wrapper reveal-fade-up">
+          <nav class="category-tabs-pill gooey-nav gooey-nav--framed" id="category-gooey-nav" aria-label="Course Categories">
+            <span class="gooey-nav__rim" aria-hidden="true"></span>
+            <div class="gooey-nav__stage" id="category-gooey-stage">
+              <canvas class="gooey-nav__canvas" id="category-gooey-canvas" aria-hidden="true"></canvas>
+              <span class="gooey-nav__fallback" id="category-gooey-fallback" aria-hidden="true"></span>
+              <ul class="gooey-nav__list" id="category-gooey-list">
+                <li class="gooey-nav__item" data-gooey-index="0" data-active="">
+                  <button type="button" class="category-tab-btn gooey-nav__link active" data-category="all">
+                    <span>All Programs</span>
+                  </button>
+                </li>
+                <li class="gooey-nav__item" data-gooey-index="1">
+                  <button type="button" class="category-tab-btn gooey-nav__link" data-category="art">
+                    <span>Drawing &amp; Art</span>
+                  </button>
+                </li>
+                <li class="gooey-nav__item" data-gooey-index="2">
+                  <button type="button" class="category-tab-btn gooey-nav__link" data-category="dance">
+                    <span>Dance Classes</span>
+                  </button>
+                </li>
+                <li class="gooey-nav__item" data-gooey-index="3">
+                  <button type="button" class="category-tab-btn gooey-nav__link" data-category="skills">
+                    <span>Handwriting &amp; Abacus</span>
+                  </button>
+                </li>
+              </ul>
+              <ul class="gooey-nav__list gooey-nav__list--active" id="category-gooey-overlay" aria-hidden="true">
+                <li class="gooey-nav__item"><span class="gooey-nav__link"><span>All Programs</span></span></li>
+                <li class="gooey-nav__item"><span class="gooey-nav__link"><span>Drawing &amp; Art</span></span></li>
+                <li class="gooey-nav__item"><span class="gooey-nav__link"><span>Dance Classes</span></span></li>
+                <li class="gooey-nav__item"><span class="gooey-nav__link"><span>Handwriting &amp; Abacus</span></span></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+
+        <div class="courses-grid" id="courses-grid">
+          <!-- Course 1: Drawing & Painting -->
+          <div class="course-card glass-panel reveal-fade-up" data-category="art">
+            <div class="course-media">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg"
+                alt="Drawing and Painting classes at MG Academy" class="course-cover-img" loading="lazy">
+              <div class="course-badge bg-pink">Featured</div>
+              <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-palette"></i></div>
+            </div>
+            <div class="course-body">
+              <h3 class="course-title">Drawing &amp; Painting</h3>
+              <p class="course-desc">
+                From pencil lines, geometrical shapes, and color mixing to landscape scenery, portraiture, and acrylic
+                canvas painting across tiered levels.
+              </p>
+              <ul class="course-bullets">
+                <li><i class="fa-solid fa-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
+                <li><i class="fa-solid fa-check text-green"></i> Watercolor Washes &amp; Poster Colors</li>
+                <li><i class="fa-solid fa-check text-green"></i> Canvas Acrylics &amp; Exhibition Art</li>
+              </ul>
+              <div class="course-footer">
+                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Drawing & Painting')">Enroll
+                  Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 2: Handwriting Improvement -->
+          <div class="course-card glass-panel reveal-fade-up" data-category="skills">
+            <div class="course-media">
+              <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy"
+                class="course-cover-img" loading="lazy">
+              <div class="course-badge bg-gold">Essential</div>
+              <div class="course-icon-floating text-gold bg-gold-light"><i class="fa-solid fa-pen-fancy"></i></div>
+            </div>
+            <div class="course-body">
+              <h3 class="course-title">Handwriting Improvement</h3>
+              <p class="course-desc">
+                Scientific techniques to correct pencil grip, posture, stroke rhythm, letter spacing, and line alignment
+                into neat, beautiful cursive handwriting.
+              </p>
+              <ul class="course-bullets">
+                <li><i class="fa-solid fa-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
+                <li><i class="fa-solid fa-check text-green"></i> Cursive &amp; Print Letter Perfection</li>
+                <li><i class="fa-solid fa-check text-green"></i> Enhanced Exam Writing Speed</li>
+              </ul>
+              <div class="course-footer">
+                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
+                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Handwriting Improvement')">Enroll
+                  Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 3: Calligraphy -->
+          <div class="course-card glass-panel reveal-fade-up" data-category="skills">
+            <div class="course-media">
+              <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy"
+                class="course-cover-img" loading="lazy">
+              <div class="course-badge bg-purple">Artistic</div>
+              <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-feather-pointed"></i>
+              </div>
+            </div>
+            <div class="course-body">
+              <h3 class="course-title">Calligraphy</h3>
+              <p class="course-desc">
+                The noble art of beautiful lettering. Students master foundational nib angles, flourished alphabets, ink
+                flow control, and creative ornamental scripts.
+              </p>
+              <ul class="course-bullets">
+                <li><i class="fa-solid fa-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen Mastery</li>
+                <li><i class="fa-solid fa-check text-green"></i> Gothic, Italic &amp; Modern Script Styles</li>
+                <li><i class="fa-solid fa-check text-green"></i> Greeting Cards, Bookmarks &amp; Certificates</li>
+              </ul>
+              <div class="course-footer">
+                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
+                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Calligraphy')">Enroll Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 4: Abacus & Mental Math -->
+          <div class="course-card glass-panel reveal-fade-up" data-category="skills">
+            <div class="course-media">
+              <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy"
+                class="course-cover-img" loading="lazy">
+              <div class="course-badge bg-green">Brain Booster</div>
+              <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i></div>
+            </div>
+            <div class="course-body">
+              <h3 class="course-title">Abacus</h3>
+              <p class="course-desc">
+                Supercharge your child's brain. Enhances photographic concentration, visual calculations, mental
+                agility, speed arithmetic, and numeric self-confidence.
+              </p>
+              <ul class="course-bullets">
+                <li><i class="fa-solid fa-check text-green"></i> Soroban Bead Foundations &amp; Finger Movements</li>
+                <li><i class="fa-solid fa-check text-green"></i> Lightning Fast Mental Calculations</li>
+                <li><i class="fa-solid fa-check text-green"></i> Boosts Long-Term Focus &amp; Working Memory</li>
+              </ul>
+              <div class="course-footer">
+                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
+                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Abacus')">Enroll Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 5: Creative Art & Craft -->
+          <div class="course-card glass-panel reveal-fade-up" data-category="art">
+            <div class="course-media">
+              <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy"
+                class="course-cover-img" loading="lazy">
+              <div class="course-badge bg-blue">Hands-on</div>
+              <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-shapes"></i></div>
+            </div>
+            <div class="course-body">
+              <h3 class="course-title">Creative Art &amp; Craft</h3>
+              <p class="course-desc">
+                Tactile hands-on discovery through origami paper folding, clay sculpting, scrapbooking, greeting card
+                crafts, and colorful eco-friendly model making.
+              </p>
+              <ul class="course-bullets">
+                <li><i class="fa-solid fa-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
+                <li><i class="fa-solid fa-check text-green"></i> Japanese Origami &amp; Pop-up Cards</li>
+                <li><i class="fa-solid fa-check text-green"></i> Recycled Art &amp; Festive Projects</li>
+              </ul>
+              <div class="course-footer">
+                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
+                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Creative Art & Craft')">Enroll
+                  Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course 6: Dance Classes -->
+          <div class="course-card glass-panel reveal-fade-up highlight-dance-card" data-category="dance">
+            <div class="course-media">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
+                alt="Dance performance and training at MG Academy" class="course-cover-img" loading="lazy">
+              <div class="course-badge bg-pink">Stage Ready</div>
+              <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-music"></i></div>
+            </div>
+            <div class="course-body">
+              <h3 class="course-title">Dance Classes</h3>
+              <p class="course-desc">
+                Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam, energetic
+                Western dance, contemporary Free Style, and Tamil Folk.
+              </p>
+              <ul class="course-bullets">
+                <li><i class="fa-solid fa-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
+                <li><i class="fa-solid fa-check text-green"></i> High-Energy Western &amp; Freestyle Beats</li>
+                <li><i class="fa-solid fa-check text-green"></i> Vibrant Cultural Tamil Folk Rhythms</li>
+              </ul>
+              <div class="course-footer">
+                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                <a href="#dance" class="btn btn-sm btn-primary">Explore Dance</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Dedicated Dance Classes Spotlight (4 Dance Styles) -->
+    <section class="section dance-spotlight-section" id="dance">
+      <div class="container">
+        <div class="section-header text-center reveal-fade-up">
+          <span class="section-tag bg-purple-light">Rhythm &amp; Grace</span>
+          <h2 class="section-title">Dedicated <span class="text-primary">Dance Classes</span></h2>
+          <p class="section-subtitle">
+            From classical heritage to energetic modern rhythms, our dance studio offers 4 distinct styles to build
+            poise, flexibility, musicality, and stage confidence.
+          </p>
+        </div>
+
+        <div class="dance-styles-grid">
+          <!-- Style 1: Bharatanatyam -->
+          <div class="dance-style-card glass-panel reveal-fade-up">
+            <div class="dance-style-media">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
+                alt="Bharatanatyam classical dance training" class="dance-style-img">
+              <div class="dance-pill-tag bg-pink">Classical Heritage</div>
+            </div>
+            <div class="dance-style-content">
+              <h3>Bharatanatyam</h3>
+              <p>
+                Traditional Indian classical dance focusing on foundational Adavus (footwork), delicate Hastha Mudras
+                (hand gestures), Abhinaya (facial expressions), and rhythmic Salangai. Promotes posture, discipline, and
+                cultural appreciation.
+              </p>
+              <div class="dance-specs">
+                <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
+                <span><i class="fa-solid fa-certificate"></i> Salangai Pooja &amp; Arangetram Path</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Style 2: Western Dance -->
+          <div class="dance-style-card glass-panel reveal-fade-up">
+            <div class="dance-style-media">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM (1).jpeg" alt="Western modern dance routines"
+                class="dance-style-img">
+              <div class="dance-pill-tag bg-blue">Modern Energy</div>
+            </div>
+            <div class="dance-style-content">
+              <h3>Western Dance</h3>
+              <p>
+                High-energy modern routines that build physical coordination, stamina, and musicality. Kids groove to
+                upbeat international tracks while mastering crisp footwork, isolations, and synchronized group
+                choreography.
+              </p>
+              <div class="dance-specs">
+                <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
+                <span><i class="fa-solid fa-bolt"></i> Agility &amp; Team Synchronization</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Style 3: Free Style -->
+          <div class="dance-style-card glass-panel reveal-fade-up">
+            <div class="dance-style-media">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg" alt="Freestyle creative dance movement"
+                class="dance-style-img">
+              <div class="dance-pill-tag bg-gold">Expressive Groove</div>
+            </div>
+            <div class="dance-style-content">
+              <h3>Free Style</h3>
+              <p>
+                Creative, expressive movement that frees children from rigid boundaries. Blends elements of hip-hop,
+                lyrical flow, and contemporary pop routines, allowing children to develop their own personal groove and
+                rhythm.
+              </p>
+              <div class="dance-specs">
+                <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
+                <span><i class="fa-solid fa-sparkles"></i> Freestyle Expression &amp; Joy</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Style 4: Tamil Folk Dance -->
+          <div class="dance-style-card glass-panel reveal-fade-up">
+            <div class="dance-style-media">
+              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg" alt="Tamil Folk traditional dance"
+                class="dance-style-img">
+              <div class="dance-pill-tag bg-green">Cultural Celebration</div>
+            </div>
+            <div class="dance-style-content">
+              <h3>Tamil Folk Dance</h3>
+              <p>
+                Vibrant, energetic traditional folk styles including Karagattam, Oyilattam, and Kummi steps that
+                celebrate regional culture, pulsating drum beats, festive joy, and authentic community teamwork.
+              </p>
+              <div class="dance-specs">
+                <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
+                <span><i class="fa-solid fa-drum"></i> Festive Beats &amp; Stage Shows</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dance-cta-banner glass-panel text-center reveal-fade-up">
+          <div class="dance-cta-content">
+            <h3>Ready to see your child dance with joy and confidence?</h3>
+            <p>Book a free trial dance session to let them experience the studio vibe firsthand!</p>
+            <button class="btn btn-primary" onclick="openAdmissionModal('Dance Classes')">Book Free Demo Class</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Gallery & Achievements -->
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="section-header text-center reveal-fade-up">
+          <span class="section-tag bg-gold-light">Joyful Moments</span>
+          <h2 class="section-title">Moments of Creativity <span class="text-primary">&amp; Joy</span></h2>
+          <p class="section-subtitle">
+            A real glimpse into our vibrant classroom activities, colorful art projects, stage performances, and happy
+            smiles at MG Academy.
+          </p>
+        </div>
+
+        <!-- Skiper 30 Parallax Gallery (Parallax_002) -->
+        <div class="skiper30-parallax-root reveal-fade-up" id="skiper30-root">
+          <!-- Scroll Down Tag matching Skiper 30 -->
+          <div class="skiper30-scroll-tag">
+            <span class="scroll-tag-label">scroll down to see</span>
+            <div class="scroll-tag-line"></div>
+          </div>
+
+          <!-- Parallax Viewport: flex h-[175vh] gap-[2vw] overflow-hidden bg-white p-[2vw] -->
+          <div class="skiper30-gallery" id="skiper30-gallery">
+            <!-- Column 1: top -45%, y = scrollProgress * (height * 2) -->
+            <div class="skiper30-column col-1" id="skiper-col-1">
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg', 'Little Picasso Art Studio')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg" alt="Little Picasso Art Studio"
+                  loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg', 'Classical Poise & Rhythms')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg" alt="Classical Poise & Rhythms"
+                  loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg', 'Young Masters Exhibition')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Young Masters Exhibition"
+                  loading="lazy">
+              </div>
+            </div>
+
+            <!-- Column 2: top -95%, y2 = scrollProgress * (height * 3.3) -->
+            <div class="skiper30-column col-2" id="skiper-col-2">
+              <div class="skiper30-card"
+                onclick="openLightbox('./assets/craft_kids.jpg', 'Paper Origami & 3D Clay Crafts')">
+                <img src="./assets/craft_kids.jpg" alt="Paper Origami & 3D Clay Crafts" loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./assets/handwriting_kids.jpg', 'Handwriting & Calligraphy')">
+                <img src="./assets/handwriting_kids.jpg" alt="Handwriting & Calligraphy" loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', 'Competition Laurels & Awards')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg" alt="Competition Laurels & Awards"
+                  loading="lazy">
+              </div>
+            </div>
+
+            <!-- Column 3: top -45%, y3 = scrollProgress * (height * 1.25) -->
+            <div class="skiper30-column col-3" id="skiper-col-3">
+              <div class="skiper30-card" onclick="openLightbox('./assets/abacus_kids.jpg', 'Abacus & Brain Agility')">
+                <img src="./assets/abacus_kids.jpg" alt="Abacus & Brain Agility" loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./assets/calligraphy_kids.jpg', 'Ornamental Calligraphy')">
+                <img src="./assets/calligraphy_kids.jpg" alt="Ornamental Calligraphy" loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', 'Classroom Learning Workshop')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg" alt="Classroom Learning Workshop"
+                  loading="lazy">
+              </div>
+            </div>
+
+            <!-- Column 4: top -75%, y4 = scrollProgress * (height * 3) -->
+            <div class="skiper30-column col-4" id="skiper-col-4">
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg', 'Creative Studio Exploration')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg" alt="Creative Studio Exploration"
+                  loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg', 'Stage Dance Salangai')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg" alt="Stage Dance Salangai"
+                  loading="lazy">
+              </div>
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg', 'Joyful Creative Moments')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg" alt="Joyful Creative Moments"
+                  loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Scroll Up Tag matching Skiper 30 bottom -->
+          <div class="skiper30-scroll-tag bottom-tag">
+            <div class="scroll-tag-line"></div>
+            <span class="scroll-tag-label">scroll up to see</span>
+          </div>
+        </div>
+
+        <!-- Achievements Subsection: Celebrating Our Little Stars -->
+        <div class="achievements-section-inner" id="achievements">
+          <div class="section-header text-center reveal-fade-up">
+            <span class="section-tag bg-pink-light">Hall of Fame</span>
+            <h3 class="subsection-title">Celebrating Our <span class="text-primary">Little Stars!</span></h3>
+            <p class="section-subtitle">
+              Every badge, medal, and certificate won by our students is a celebration of dedication, guidance, and
+              joyful growth.
+            </p>
+          </div>
+
+          <div class="achievements-grid">
+            <div class="achievement-card glass-panel reveal-fade-up">
+              <div class="trophy-badge text-gold"><i class="fa-solid fa-trophy"></i></div>
+              <div class="achievement-metric"><span class="tabular-nums stats-counter" data-value="45" data-suffix="+"
+                  data-duration="1.6">0+</span> <small>Awards</small></div>
+              <h4>State Art Competitions</h4>
+              <p>Over 45+ students won top honors, medals, and state-level recognition in annual drawing and painting
+                festivals.</p>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+
+            <div class="achievement-card glass-panel reveal-fade-up">
+              <div class="trophy-badge text-pink"><i class="fa-solid fa-award"></i></div>
+              <div class="achievement-metric"><span class="tabular-nums stats-counter" data-value="80" data-suffix="+"
+                  data-duration="1.8">0+</span> <small>Recitals</small></div>
+              <h4>Stage Dance Salangai Recitals</h4>
+              <p>Annual stage performances where over 80+ kids successfully completed their classical dance salangai
+                presentations.</p>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+
+            <div class="achievement-card glass-panel reveal-fade-up">
+              <div class="trophy-badge text-green"><i class="fa-solid fa-medal"></i></div>
+              <div class="achievement-metric"><span class="tabular-nums stats-counter" data-value="98" data-suffix="%"
+                  data-duration="1.5">0%</span> <small>Accuracy</small></div>
+              <h4>Abacus Speed Milestones</h4>
+              <p>Recognized speed calculations where young minds solved complex arithmetic equations in seconds with 98%
+                accuracy.</p>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+
+            <div class="achievement-card glass-panel reveal-fade-up">
+              <div class="trophy-badge text-blue"><i class="fa-solid fa-certificate"></i></div>
+              <div class="achievement-metric"><span class="tabular-nums stats-counter" data-value="100" data-suffix="%"
+                  data-duration="1.5">0%</span> <small>Legibility</small></div>
+              <h4>Calligraphy &amp; Handwriting</h4>
+              <p>100% handwriting legibility improvement reported by parents, resulting in higher scores and
+                self-assured exam writing.</p>
+              <div class="star-rating">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Course Structure & Fees (Drawing & Painting Tiered Table/Cards) -->
+    <section class="section fees-section" id="fees">
+      <div class="container">
+        <div class="section-header text-center reveal-fade-up">
+          <span class="section-tag bg-green-light">Transparent Learning Structure</span>
+          <h2 class="section-title">Course Structure <span class="text-primary">&amp; Fees</span></h2>
+          <p class="section-subtitle">
+            Progressive curriculum thoughtfully calibrated to match each child's age group, fine motor abilities, and
+            creative stage.
+          </p>
+        </div>
+
+        <div class="fees-tiers-grid">
+          <!-- Level 1: Beginner Art Course -->
+          <div class="fee-card glass-panel reveal-fade-up">
+            <div class="tier-pill bg-pink">Entry Level</div>
+            <div class="fee-header">
+              <h3>Beginner Art Course</h3>
+              <div class="age-badge"><i class="fa-solid fa-child"></i> Age: <strong>4 to 8 Years</strong></div>
+            </div>
+
+            <div class="fee-price-box">
+              <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+              <span class="period">Batch Mentorship</span>
+            </div>
+
+            <div class="fee-curriculum-list">
+              <div class="list-heading">Curriculum Highlights:</div>
+              <ul>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Geometrical shapes &amp; line control</li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Crayon &amp; oil pastel blending methods</li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Simple animals, fruits, flowers &amp; nature
+                </li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic pencil grip &amp; hand-eye
+                  coordination</li>
+              </ul>
+            </div>
+
+            <div class="fee-features">
+              <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
+              <div class="feat-row"><span>Batch Size:</span> <strong>Max 8-10 Kids</strong></div>
+            </div>
+
+            <button class="btn btn-block btn-outline"
+              onclick="openAdmissionModal('Beginner Art Course (Age 4-8)')">Enroll in Beginner</button>
+          </div>
+
+          <!-- Level 2: Intermediate Art Course -->
+          <div class="fee-card glass-panel popular-tier reveal-fade-up">
+            <div class="tier-pill bg-gold">Most Popular</div>
+            <div class="fee-header">
+              <h3>Intermediate Art Course</h3>
+              <div class="age-badge"><i class="fa-solid fa-child-reaching"></i> Age: <strong>8 to 12 Years</strong>
+              </div>
+            </div>
+
+            <div class="fee-price-box">
+              <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+              <span class="period">Batch Mentorship</span>
+            </div>
+
+            <div class="fee-curriculum-list">
+              <div class="list-heading">Curriculum Highlights:</div>
+              <ul>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Pencil shading &amp; tonal pressure gradients
+                </li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Scenery landscapes, perspective &amp; trees</li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor washes &amp; poster color handling
+                </li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Still-life objects &amp; creative composition
+                </li>
+              </ul>
+            </div>
+
+            <div class="fee-features">
+              <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
+              <div class="feat-row"><span>Batch Size:</span> <strong>Max 10 Students</strong></div>
+            </div>
+
+            <button class="btn btn-block btn-primary"
+              onclick="openAdmissionModal('Intermediate Art Course (Age 8-12)')">Enroll in Intermediate</button>
+          </div>
+
+          <!-- Level 3: Advanced Art Course -->
+          <div class="fee-card glass-panel reveal-fade-up">
+            <div class="tier-pill bg-purple">Mastery Level</div>
+            <div class="fee-header">
+              <h3>Advanced Art Course</h3>
+              <div class="age-badge"><i class="fa-solid fa-user-graduate"></i> Age: <strong>10 Years &amp;
+                  Above</strong></div>
+            </div>
+
+            <div class="fee-price-box">
+              <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+              <span class="period">Batch Mentorship</span>
+            </div>
+
+            <div class="fee-curriculum-list">
+              <div class="list-heading">Curriculum Highlights:</div>
+              <ul>
+                <li><i class="fa-solid fa-circle-check text-green"></i> 1 &amp; 2-point perspective &amp; architectural
+                  sketch</li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Acrylic on stretched canvas &amp; palette knife
+                </li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Human anatomy, portrait proportions &amp;
+                  lighting</li>
+                <li><i class="fa-solid fa-circle-check text-green"></i> Exhibition portfolio &amp; competition mastery
+                </li>
+              </ul>
+            </div>
+
+            <div class="fee-features">
+              <div class="feat-row"><span>Sessions:</span> <strong>8-10 Classes / Month</strong></div>
+              <div class="feat-row"><span>Batch Size:</span> <strong>Max 8 Students</strong></div>
+            </div>
+
+            <button class="btn btn-block btn-outline"
+              onclick="openAdmissionModal('Advanced Art Course (Age 10+)')">Enroll in Advanced</button>
+          </div>
+        </div>
+
+        <!-- Additional Program Fees Structure Box -->
+        <div class="other-courses-fee-box glass-panel reveal-fade-up">
+          <div class="fee-box-header">
+            <h4><i class="fa-solid fa-tags text-pink"></i> Additional Skill &amp; Dance Tracks</h4>
+            <span class="badge-discount">Sibling Discount Available</span>
+          </div>
+
+          <div class="other-fees-list">
+            <div class="other-fee-row">
+              <div class="of-name"><strong>Dance Classes</strong> (Bharatanatyam / Folk / Western)</div>
+              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                  for Schedule</span></div>
+              <div class="of-note">2 Days/week • Stage recital preparation included</div>
+            </div>
+            <div class="other-fee-row">
+              <div class="of-name"><strong>Handwriting Improvement</strong></div>
+              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                  for Schedule</span></div>
+              <div class="of-note">Complete curriculum practice kit included</div>
+            </div>
+            <div class="other-fee-row">
+              <div class="of-name"><strong>Calligraphy Artistry</strong></div>
+              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                  for Schedule</span></div>
+              <div class="of-note">Pen sets &amp; artistic paper project materials provided</div>
+            </div>
+            <div class="other-fee-row">
+              <div class="of-name"><strong>Abacus &amp; Mental Math</strong></div>
+              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                  for Schedule</span></div>
+              <div class="of-note">Official Soroban abacus tool &amp; Level 1 workbook</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Location Section -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header text-center reveal-fade-up">
+          <span class="section-tag bg-pink-light">Get in Touch</span>
+          <h2 class="section-title">Visit Us &amp; <span class="text-primary">Enroll Today</span></h2>
+          <p class="section-subtitle">
+            Have questions about our batches, age recommendations, or scheduling? Contact our friendly mentors or book a
+            free trial class.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-panel glass-panel reveal-fade-up">
+            <h3>Academy Information</h3>
+            <p>We welcome parents to visit our child-friendly studio to meet the teachers and tour the classrooms.</p>
+
+            <div class="info-item">
+              <div class="info-icon text-pink bg-pink-light"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <strong>Academy Address</strong>
+                <p>MG Academy Creative Center, Main Road, City Center (Landmark: Near Central Park)</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon text-gold bg-gold-light"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <strong>Phone &amp; WhatsApp</strong>
+                <p><a href="tel:+919876543210">+91 98765 43210</a> / +91 98765 01234</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon text-blue bg-blue-light"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <strong>Email Inquiries</strong>
+                <p><a href="mailto:info@mgacademy.in">info@mgacademy.in</a></p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon text-green bg-green-light"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <strong>Studio Hours</strong>
+                <p>Monday – Saturday: 9:30 AM – 7:30 PM<br>Sunday: 10:00 AM – 2:00 PM (Special Batches)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-panel glass-panel reveal-fade-up">
+            <h3>Send a Message / Book Demo</h3>
+            <form id="contact-form" onsubmit="handleContactSubmit(event)">
+              <div class="form-group">
+                <label for="contact-name">Parent Name *</label>
+                <input type="text" id="contact-name" required placeholder="e.g. Priya Sharma">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-child-name">Child's Name *</label>
+                  <input type="text" id="contact-child-name" required placeholder="e.g. Aarav">
+                </div>
+                <div class="form-group">
+                  <label for="contact-child-age">Child's Age *</label>
+                  <input type="number" id="contact-child-age" min="3" max="18" required placeholder="e.g. 6">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-phone">Phone / WhatsApp *</label>
+                  <input type="tel" id="contact-phone" required placeholder="e.g. +91 98765 43210">
+                </div>
+                <div class="form-group">
+                  <label for="contact-course">Interested Course</label>
+                  <select id="contact-course">
+                    <option value="Drawing & Painting">Drawing &amp; Painting</option>
+                    <option value="Handwriting Improvement">Handwriting Improvement</option>
+                    <option value="Calligraphy">Calligraphy</option>
+                    <option value="Abacus">Abacus</option>
+                    <option value="Creative Art & Craft">Creative Art &amp; Craft</option>
+                    <option value="Bharatanatyam Dance">Bharatanatyam Dance</option>
+                    <option value="Western & Freestyle Dance">Western &amp; Freestyle Dance</option>
+                    <option value="Tamil Folk Dance">Tamil Folk Dance</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">Message or Questions</label>
+                <textarea id="contact-message" rows="3"
+                  placeholder="Tell us about your child's interests or preferred timings..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <span>Submit Inquiry &amp; Request Demo</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8. Mobile Responsiveness & Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-col">
+        <a href="#home" class="footer-logo">
+          <img src="mg logo.png" alt="MG Academy Logo" class="footer-logo-img">
+        </a>
+        <p class="footer-tagline-quote">
+          <em>"At MG Academy, we don't just teach skills — we inspire little minds to dream, create, and shine!"</em>
+        </p>
+        <p class="footer-desc">
+          A joyful, family-trusted creative academy nurturing young artists, graceful dancers, and sharp young minds
+          through certified coaching and personalized care.
+        </p>
+        <div class="footer-badge-pill">
+          <span>Learn</span> • <span>Create</span> • <span>Grow</span>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Creative Courses</h4>
+        <ul>
+          <li><a href="#courses">Drawing &amp; Painting (All Levels)</a></li>
+          <li><a href="#courses">Handwriting Improvement</a></li>
+          <li><a href="#courses">Calligraphy Artistry</a></li>
+          <li><a href="#courses">Abacus &amp; Mental Math</a></li>
+          <li><a href="#courses">Creative Art &amp; Craft</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Dance Studio</h4>
+        <ul>
+          <li><a href="#dance">Bharatanatyam Classical</a></li>
+          <li><a href="#dance">Western Dance Routine</a></li>
+          <li><a href="#dance">Free Style Groove</a></li>
+          <li><a href="#dance">Tamil Folk Dance</a></li>
+          <li><a href="#fees">Fee Structure</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact-col">
+        <h4>Quick Contact</h4>
+        <p><i class="fa-solid fa-phone text-pink"></i> <a href="tel:+919876543210">+91 98765 43210</a></p>
+        <p><i class="fa-solid fa-envelope text-pink"></i> <a href="mailto:info@mgacademy.in">info@mgacademy.in</a></p>
+        <p><i class="fa-solid fa-location-dot text-pink"></i> MG Academy Center, Main Road, City</p>
+        <div class="footer-social-links">
+          <a href="#" aria-label="Facebook" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://wa.me/919876543210" aria-label="WhatsApp" class="social-btn"><i
+              class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 MG Academy. All rights reserved. Where Little Hands Create Big Dreams.</p>
+        <p class="footer-signature">Crafted with care for children &amp; parents</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for Gallery -->
+  <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close modal">&times;</button>
+      <img id="lightbox-img" src="" alt="MG Academy Gallery Preview">
+      <p id="lightbox-caption" class="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Interactive Admission Popup Modal -->
+  <div class="modal-overlay" id="admission-modal" aria-hidden="true">
+    <div class="modal-container glass-panel">
+      <button class="modal-close-btn" onclick="closeAdmissionModal()" aria-label="Close Modal">&times;</button>
+      <div class="modal-header text-center">
+        <div class="modal-crown"><i class="fa-solid fa-crown text-gold"></i></div>
+        <h3>Admissions Open 2026 - 2027</h3>
+        <p>Enroll your child today or request a <strong>Free Demo Class</strong></p>
+      </div>
+
+      <form id="admission-form" onsubmit="handleAdmissionSubmit(event)">
+        <div class="form-group">
+          <label for="adm-child-name">Child's Name *</label>
+          <input type="text" id="adm-child-name" required placeholder="e.g. Diya">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="adm-child-age">Child's Age *</label>
+            <input type="number" id="adm-child-age" min="3" max="18" required placeholder="e.g. 5">
+          </div>
+          <div class="form-group">
+            <label for="adm-parent-name">Parent Name *</label>
+            <input type="text" id="adm-parent-name" required placeholder="e.g. Rajesh Kumar">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="adm-phone">Phone / WhatsApp Number *</label>
+            <input type="tel" id="adm-phone" required placeholder="e.g. +91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label for="adm-course">Select Course *</label>
+            <select id="adm-course" required>
+              <option value="Drawing & Painting">Drawing &amp; Painting</option>
+              <option value="Handwriting Improvement">Handwriting Improvement</option>
+              <option value="Calligraphy">Calligraphy</option>
+              <option value="Abacus & Mental Math">Abacus &amp; Mental Math</option>
+              <option value="Creative Art & Craft">Creative Art &amp; Craft</option>
+              <option value="Bharatanatyam Dance">Bharatanatyam Dance</option>
+              <option value="Western & Free Style Dance">Western &amp; Free Style Dance</option>
+              <option value="Tamil Folk Dance">Tamil Folk Dance</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="adm-batch">Preferred Timing / Batch</label>
+          <select id="adm-batch">
+            <option value="Weekday Evening (4:30 PM - 6:00 PM)">Weekday Evening (4:30 PM - 6:00 PM)</option>
+            <option value="Weekday Late (6:00 PM - 7:30 PM)">Weekday Late (6:00 PM - 7:30 PM)</option>
+            <option value="Weekend Morning (9:30 AM - 11:30 AM)">Weekend Morning (9:30 AM - 11:30 AM)</option>
+            <option value="Weekend Afternoon (2:30 PM - 4:30 PM)">Weekend Afternoon (2:30 PM - 4:30 PM)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-bounce">
+          <span>Confirm &amp; Book Demo Class</span>
+          <i class="fa-solid fa-sparkles"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="script.js?v=2.6"></script>
+</body>
+
+</html>
