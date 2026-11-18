@@ -9,3 +9,7 @@ Desktop.ini
 .idea/
 *.swp
 *.swo
+
+# User screenshots
+mobile view.png
+*.log
