@@ -651,6 +651,16 @@ marquee,
   white-space: nowrap;
 }
 
+.btn-text-desktop {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-text-mobile {
+  display: none;
+}
+
 .mobile-toggle-btn {
   display: none;
   background: #FFFFFF;
@@ -965,7 +975,7 @@ marquee,
 .hero-badge-wrapper {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 22px;
   position: relative;
 }
@@ -1000,10 +1010,23 @@ marquee,
   50% { transform: scale(1.5); opacity: 0.6; }
 }
 
+/* Flying Paper Airplane Doodle with Dotted Trail */
+.hero-airplane-doodle {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 2px;
+  filter: drop-shadow(0 2px 4px rgba(0, 90, 156, 0.15));
+  animation: floatAirplane 3.8s ease-in-out infinite;
+}
 
-
-
-
+@keyframes floatAirplane {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(3px, -3px) rotate(1.5deg);
+  }
+}
 
 /* Hero Title */
 .hero-title {
@@ -1026,6 +1049,18 @@ marquee,
   font-weight: 700;
   position: relative;
   margin-top: 4px;
+  padding-bottom: 12px;
+}
+
+/* Curved Yellow Brush Swoop Underline */
+.hero-swoop-underline {
+  position: absolute;
+  bottom: -3px;
+  left: 2%;
+  width: 96%;
+  height: 16px;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(255, 183, 3, 0.35));
 }
 
 
@@ -3088,42 +3123,25 @@ marquee,
    Does not affect desktop or tablet layouts (> 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-  /* ---------------- 1. Mobile Top Announcement Bar ---------------- */
+  /* ---------------- 1. Mobile Top Announcement Bar (Hidden on Mobile) ---------------- */
   .top-announcement-bar {
-    padding: 6px 12px !important;
-    font-size: 0.78rem !important;
-  }
-
-  .announcement-marquee-wrapper {
-    width: 100% !important;
-    display: flex !important;
-  }
-
-  marquee.top-marquee {
-    width: 100% !important;
-    flex: 1 1 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
-
-  .announcement-actions {
     display: none !important;
   }
 
-  /* ---------------- 2. Mobile Navigation Header ---------------- */
+  /* ---------------- 2. Mobile Navigation Header (Pure White Sticky Bar) ---------------- */
   .site-header {
     position: sticky !important;
     top: 0 !important;
     z-index: 100 !important;
-    background: rgba(240, 248, 255, 0.88) !important;
+    background: #FFFFFF !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
-    border-bottom: 1px solid rgba(160, 224, 239, 0.5) !important;
+    border-bottom: 1px solid rgba(220, 235, 247, 0.9) !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06) !important;
   }
 
   .site-header.scrolled {
-    background: rgba(255, 255, 255, 0.98) !important;
+    background: #FFFFFF !important;
     box-shadow: 0 4px 18px rgba(27, 54, 93, 0.1) !important;
   }
 
@@ -3168,14 +3186,7 @@ marquee,
   }
 
   .brand-tagline {
-    display: block !important;
-    font-family: var(--font-body) !important;
-    font-size: 0.52rem !important;
-    font-weight: 600 !important;
-    color: #005A9C !important;
-    line-height: 1.1 !important;
-    letter-spacing: 0.01em !important;
-    white-space: nowrap !important;
+    display: none !important;
   }
 
   /* Admission Button & Hamburger on Right */
@@ -3184,6 +3195,19 @@ marquee,
     align-items: center !important;
     gap: 6px !important;
     flex-shrink: 0 !important;
+  }
+
+  .btn-text-desktop {
+    display: none !important;
+  }
+
+  .btn-text-mobile {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.4px !important;
   }
 
   .admission-open-word {
@@ -3197,7 +3221,7 @@ marquee,
 
   .peek-cover,
   .peek-spacer {
-    padding: 6px 11px !important;
+    padding: 6px 12px !important;
     font-size: 0.72rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.3px !important;
@@ -3321,11 +3345,11 @@ marquee,
     background-color: #06234b !important;
     background-image: url('mg-hero-mobile.png') !important;
     background-image: url('mg-hero-mobile.webp') !important;
-    background-position: center top !important;
+    background-position: center bottom !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
-    min-height: clamp(680px, 94vh, 880px) !important;
-    padding: 16px 0 60px !important;
+    min-height: clamp(740px, 98vh, 920px) !important;
+    padding: 16px 0 50px !important;
     overflow: hidden !important;
     isolation: isolate !important;
   }
@@ -3335,7 +3359,7 @@ marquee,
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
-    background: linear-gradient(180deg, rgba(6, 20, 44, 0.52) 0%, rgba(6, 20, 44, 0.18) 35%, transparent 60%) !important;
+    background: linear-gradient(180deg, rgba(6, 20, 44, 0.48) 0%, rgba(6, 20, 44, 0.16) 35%, transparent 60%) !important;
     pointer-events: none !important;
     z-index: 1 !important;
   }
@@ -3364,22 +3388,22 @@ marquee,
     z-index: 4 !important;
   }
 
-  /* ---------------- 4. Certified Mentors Badge (Reduced ~15%) ---------------- */
+  /* ---------------- 4. Certified Mentors Badge (Centered Pill) ---------------- */
   .hero-mentor-badge {
     position: relative !important;
     top: auto !important;
     right: auto !important;
     display: inline-flex !important;
     align-self: center !important;
-    margin: 0 auto 12px auto !important;
-    padding: 6px 14px 6px 8px !important;
-    gap: 8px !important;
+    margin: 0 auto 10px auto !important;
+    padding: 6px 16px 6px 10px !important;
+    gap: 10px !important;
     border-radius: 9999px !important;
-    background: rgba(255, 255, 255, 0.88) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.85) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16) !important;
     z-index: 5 !important;
     animation: floatMentorCardMobile 4s ease-in-out infinite !important;
   }
@@ -3428,20 +3452,24 @@ marquee,
   .hero-badge-wrapper {
     display: flex !important;
     justify-content: center !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .hero-airplane-doodle {
+    display: none !important;
   }
 
   .hero-pill-badge {
     display: inline-flex !important;
     align-items: center !important;
     gap: 7px !important;
-    padding: 5px 13px !important;
+    padding: 5px 14px !important;
     font-family: var(--font-heading) !important;
     font-size: 0.8rem !important;
     font-weight: 600 !important;
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(225, 243, 255, 0.88) !important;
     color: #005A9C !important;
-    border: 1px solid #60C1E5 !important;
+    border: 1.5px solid #60C1E5 !important;
     border-radius: 9999px !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
     backdrop-filter: blur(8px) !important;
@@ -3458,45 +3486,57 @@ marquee,
   /* ---------------- 5. Main Heading ---------------- */
   .hero-title {
     font-family: var(--font-heading) !important;
-    font-size: clamp(1.35rem, 5.6vw, 1.85rem) !important;
-    line-height: 1.18 !important;
+    font-size: clamp(1.65rem, 6.4vw, 2.15rem) !important;
+    line-height: 1.15 !important;
     font-weight: 700 !important;
     text-align: center !important;
     margin: 0 auto 10px auto !important;
-    max-width: 310px !important;
+    max-width: 320px !important;
   }
 
   .hero-line-hands {
     display: block !important;
     color: #FFFFFF !important;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 0 16px rgba(96, 193, 229, 0.35) !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65) !important;
   }
 
   .hero-line-dreams {
-    display: block !important;
+    display: inline-block !important;
     color: #FFD54F !important;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 0 16px rgba(255, 213, 79, 0.45) !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 213, 79, 0.45) !important;
     margin-top: 2px !important;
+    padding-bottom: 8px !important;
+    position: relative !important;
+  }
+
+  .hero-swoop-underline {
+    position: absolute !important;
+    bottom: -3px !important;
+    left: 2% !important;
+    width: 96% !important;
+    height: 12px !important;
+    display: block !important;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) !important;
   }
 
   /* ---------------- 6. Description Box (Transparent dark-blue glass) ---------------- */
   .hero-subtitle {
     font-family: var(--font-body) !important;
     font-size: 0.82rem !important;
-    line-height: 1.48 !important;
+    line-height: 1.52 !important;
     font-weight: 500 !important;
     color: #FFFFFF !important;
     text-align: center !important;
-    background: rgba(8, 26, 56, 0.65) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    border-radius: 14px !important;
-    padding: 9px 12px !important;
-    margin: 0 auto 14px auto !important;
-    max-width: 320px !important;
+    background: rgba(6, 38, 92, 0.65) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1.5px solid rgba(96, 193, 229, 0.35) !important;
+    border-radius: 18px !important;
+    padding: 12px 18px !important;
+    margin: 0 auto 12px auto !important;
+    max-width: 330px !important;
     width: calc(100% - 16px) !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28) !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
     letter-spacing: 0.01em !important;
   }
@@ -3506,7 +3546,7 @@ marquee,
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: 9px !important;
     width: 100% !important;
     margin: 0 auto !important;
   }
@@ -3516,9 +3556,11 @@ marquee,
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    gap: 8px !important;
     width: 100% !important;
-    max-width: 240px !important;
-    padding: 10px 18px !important;
+    max-width: 275px !important;
+    height: 44px !important;
+    padding: 0 20px !important;
     font-family: var(--font-heading) !important;
     font-size: 0.92rem !important;
     font-weight: 700 !important;
@@ -3534,17 +3576,17 @@ marquee,
   }
 
   .btn-hero-admission {
-    background: linear-gradient(135deg, #005A9C 0%, #0073C7 60%, #60C1E5 100%) !important;
+    background: linear-gradient(135deg, #0073C7, #005A9C) !important;
     color: #FFFFFF !important;
     box-shadow: 0 6px 18px rgba(0, 90, 156, 0.45) !important;
     border: 1px solid rgba(255, 255, 255, 0.35) !important;
   }
 
   .btn-hero-explore {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: #FFFFFF !important;
     color: #005A9C !important;
     border: 1.5px solid #60C1E5 !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
   }
 
   /* ---------------- 8. Animations: Glowing Star & Floating Doodles ---------------- */
