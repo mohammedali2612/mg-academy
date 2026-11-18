@@ -15,6 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
   initPeekAdmissionButton();
   initHeroSlideshow();
   initGenerateButtons();
+
+  // Handle ?scrollTo= param if present
+  if (window.location.search.includes('scrollTo=')) {
+    const targetId = new URLSearchParams(window.location.search).get('scrollTo');
+    setTimeout(() => {
+      const target = document.getElementById(targetId);
+      if (target) {
+        if (window.__lenis) {
+          window.__lenis.scrollTo(target, { immediate: true });
+        } else {
+          target.scrollIntoView({ behavior: 'instant' });
+        }
+      }
+    }, 150);
+  }
 });
 
 /* ==========================================================================
@@ -1169,6 +1184,40 @@ function initSkiper30Parallax() {
   const col2 = document.getElementById('skiper-col-2');
   const col3 = document.getElementById('skiper-col-3');
   const col4 = document.getElementById('skiper-col-4');
+  const cards = gallery.querySelectorAll('.skiper30-card');
+
+  // Mobile Gallery Scroll Reveal (<= 860px)
+  if ('IntersectionObserver' in window) {
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('card-in-view');
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.05,
+      rootMargin: '50px 0px 50px 0px'
+    });
+
+    cards.forEach((card) => {
+      cardObserver.observe(card);
+      // If already in viewport on load, reveal immediately
+      const r = card.getBoundingClientRect();
+      if (r.top < window.innerHeight + 100 && r.bottom > -100) {
+        card.classList.add('card-in-view');
+      }
+    });
+
+    // Safety timeout: ensure all cards become visible even if scroll events are throttled
+    setTimeout(() => {
+      cards.forEach((c) => c.classList.add('card-in-view'));
+    }, 1200);
+  } else {
+    // Fallback: reveal immediately
+    cards.forEach((card) => card.classList.add('card-in-view'));
+  }
 
   // Initialize Lenis smooth scroll if loaded
   let lenis = null;
@@ -1185,6 +1234,7 @@ function initSkiper30Parallax() {
         requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);
+      window.__lenis = lenis;
     } catch (e) {
       console.warn('Lenis initialization skipped:', e);
     }
@@ -1193,15 +1243,36 @@ function initSkiper30Parallax() {
   let ticking = false;
 
   function updateParallax() {
-    // Normal gallery layout for mobile & tablet screens (<= 860px)
+    // Mobile & Tablet view (<= 860px): smooth card scroll parallax
     if (window.innerWidth <= 860) {
       if (col1 && col1.style.transform) col1.style.transform = '';
       if (col2 && col2.style.transform) col2.style.transform = '';
       if (col3 && col3.style.transform) col3.style.transform = '';
       if (col4 && col4.style.transform) col4.style.transform = '';
+
+      const H = window.innerHeight;
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom >= -50 && rect.top <= H + 50) {
+          const progress = (H - rect.top) / (H + rect.height);
+          const clamped = Math.min(Math.max(progress, 0), 1);
+          const shiftY = (clamped - 0.5) * 26;
+          const img = card.querySelector('img');
+          if (img) {
+            img.style.transform = `scale(1.14) translate3d(0, ${shiftY.toFixed(2)}px, 0)`;
+          }
+        }
+      });
+
       ticking = false;
       return;
     }
+
+    // Desktop view (> 860px): reset mobile transforms on cards & run desktop Skiper 30 parallax
+    cards.forEach((card) => {
+      const img = card.querySelector('img');
+      if (img && img.style.transform) img.style.transform = '';
+    });
 
     const rect = gallery.getBoundingClientRect();
     const H = window.innerHeight;
