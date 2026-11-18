@@ -26,7 +26,7 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=2.7">
+  <link rel="stylesheet" href="style.css?v=2.8">
 </head>
 
 <body>
@@ -130,9 +130,13 @@
           </p>
 
           <div class="hero-cta-group reveal-fade-up">
-            <button class="btn btn-primary btn-bounce" onclick="openAdmissionModal()">
-              <span>Apply for Admission</span>
-              <i class="fa-solid fa-arrow-right"></i>
+            <button class="btn btn-primary btn-bounce btn-animated-shine" onclick="openAdmissionModal()">
+              <span class="btn-shine-border" aria-hidden="true"></span>
+              <span class="btn-shine-surface" aria-hidden="true"></span>
+              <span class="btn-shine-text">
+                <span>Apply for Admission</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
             </button>
             <a href="#courses" class="btn btn-outline btn-bounce">
               <i class="fa-solid fa-compass"></i>
@@ -388,8 +392,11 @@
               </ul>
               <div class="course-footer">
                 <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Drawing & Painting')">Enroll
-                  Now</button>
+                <button class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Drawing & Painting')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll Now</span>
+                </button>
               </div>
             </div>
           </div>
@@ -415,8 +422,11 @@
               </ul>
               <div class="course-footer">
                 <span class="course-age"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
-                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Handwriting Improvement')">Enroll
-                  Now</button>
+                <button class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Handwriting Improvement')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll Now</span>
+                </button>
               </div>
             </div>
           </div>
@@ -443,7 +453,11 @@
               </ul>
               <div class="course-footer">
                 <span class="course-age"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
-                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Calligraphy')">Enroll Now</button>
+                <button class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Calligraphy')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll Now</span>
+                </button>
               </div>
             </div>
           </div>
@@ -469,7 +483,11 @@
               </ul>
               <div class="course-footer">
                 <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
-                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Abacus')">Enroll Now</button>
+                <button class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Abacus')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll Now</span>
+                </button>
               </div>
             </div>
           </div>
@@ -495,8 +513,11 @@
               </ul>
               <div class="course-footer">
                 <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
-                <button class="btn btn-sm btn-outline" onclick="openAdmissionModal('Creative Art & Craft')">Enroll
-                  Now</button>
+                <button class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Creative Art & Craft')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll Now</span>
+                </button>
               </div>
             </div>
           </div>
@@ -849,8 +870,12 @@
               <div class="feat-row"><span>Batch Size:</span> <strong>Max 8-10 Kids</strong></div>
             </div>
 
-            <button class="btn btn-block btn-outline"
-              onclick="openAdmissionModal('Beginner Art Course (Age 4-8)')">Enroll in Beginner</button>
+            <button class="btn btn-block btn-outline btn-animated-shine"
+              onclick="openAdmissionModal('Beginner Art Course (Age 4-8)')">
+              <span class="btn-shine-border" aria-hidden="true"></span>
+              <span class="btn-shine-surface" aria-hidden="true"></span>
+              <span class="btn-shine-text">Enroll in Beginner</span>
+            </button>
           </div>
 
           <!-- Level 2: Intermediate Art Course -->
@@ -885,8 +910,12 @@
               <div class="feat-row"><span>Batch Size:</span> <strong>Max 10 Students</strong></div>
             </div>
 
-            <button class="btn btn-block btn-primary"
-              onclick="openAdmissionModal('Intermediate Art Course (Age 8-12)')">Enroll in Intermediate</button>
+            <button class="btn btn-block btn-primary btn-animated-shine"
+              onclick="openAdmissionModal('Intermediate Art Course (Age 8-12)')">
+              <span class="btn-shine-border" aria-hidden="true"></span>
+              <span class="btn-shine-surface" aria-hidden="true"></span>
+              <span class="btn-shine-text">Enroll in Intermediate</span>
+            </button>
           </div>
 
           <!-- Level 3: Advanced Art Course -->
@@ -922,8 +951,12 @@
               <div class="feat-row"><span>Batch Size:</span> <strong>Max 8 Students</strong></div>
             </div>
 
-            <button class="btn btn-block btn-outline"
-              onclick="openAdmissionModal('Advanced Art Course (Age 10+)')">Enroll in Advanced</button>
+            <button class="btn btn-block btn-outline btn-animated-shine"
+              onclick="openAdmissionModal('Advanced Art Course (Age 10+)')">
+              <span class="btn-shine-border" aria-hidden="true"></span>
+              <span class="btn-shine-surface" aria-hidden="true"></span>
+              <span class="btn-shine-text">Enroll in Advanced</span>
+            </button>
           </div>
         </div>
 
@@ -1213,7 +1246,7 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=2.7"></script>
+  <script src="script.js?v=2.8"></script>
 </body>
 
 </html>
