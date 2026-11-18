@@ -26,7 +26,8 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=3.0">
+  <link rel="stylesheet" href="style.css?v=3.1">
+
 
 
 </head>
@@ -83,7 +84,6 @@
       <!-- Action Group -->
       <div class="header-action-group">
         <button class="btn-admission-pill" id="header-admission-btn" onclick="openAdmissionModal()" aria-label="Admission Open">
-          <span class="admission-dot" aria-hidden="true"></span>
           <span class="admission-label">ADMISSION<span class="admission-open-word"> OPEN</span></span>
         </button>
         <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Navigation Menu">
@@ -109,39 +109,25 @@
 
       <div class="container hero-container">
         <div class="hero-content">
-          <!-- Pill Badge with playful Paper Airplane Doodle -->
-          <div class="hero-badge-wrapper reveal-fade-up">
+          <!-- Pill Badge -->
+          <div class="hero-badge-wrapper">
             <div class="hero-pill-badge">
               <span class="pill-dot"></span> Welcome to MG Academy
             </div>
-            <div class="hero-paper-airplane" aria-hidden="true">
-              <svg width="74" height="40" viewBox="0 0 74 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 30C16 34 26 16 40 22C46 25 48 30 55 24" stroke="#005A9C" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="3 3.5"/>
-                <g transform="translate(54, 6) rotate(16)">
-                  <path d="M0 16L18 0L9 18L6 12L0 16Z" fill="#60C1E5" stroke="#005A9C" stroke-width="1.4" stroke-linejoin="round"/>
-                  <path d="M18 0L6 12V18L9 14L18 0Z" fill="#A0E0EF" stroke="#005A9C" stroke-width="1.4" stroke-linejoin="round"/>
-                </g>
-              </svg>
-            </div>
           </div>
 
-          <!-- Main Hero Headline with Fredoka & Smile Accent -->
+          <!-- Main Hero Headline -->
           <h1 class="hero-title" id="hero-title">
             <span class="hero-line-hands">Where Little Hands</span>
-            <span class="hero-line-dreams">
-              Create Big Dreams!
-              <svg class="hero-smile-curve" viewBox="0 0 280 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M4 14C55 24 215 24 276 6" stroke="#FFB800" stroke-width="7" stroke-linecap="round"/>
-              </svg>
-            </span>
+            <span class="hero-line-dreams">Create Big Dreams!</span>
           </h1>
 
-          <p class="hero-subtitle reveal-fade-up">
+          <p class="hero-subtitle">
             Every child is an artist. A joyful space where children discover their talents, develop new skills, and
             express their creativity with confidence and happiness.
           </p>
 
-          <div class="hero-cta-group reveal-fade-up">
+          <div class="hero-cta-group">
             <button class="btn btn-primary btn-hero-admission btn-animated-shine" onclick="openAdmissionModal()">
               <span class="btn-shine-border" aria-hidden="true"></span>
               <span class="btn-shine-surface" aria-hidden="true"></span>
