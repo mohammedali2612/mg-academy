@@ -487,6 +487,7 @@ marquee,
   flex-shrink: 0;
 }
 
+.btn-creepy,
 .btn-admission-3d,
 .peek-admission-btn {
   position: relative;
@@ -508,6 +509,7 @@ marquee,
   vertical-align: middle;
 }
 
+.btn-creepy:focus-visible,
 .peek-admission-btn:focus-visible,
 .btn-admission-3d:focus-visible {
   box-shadow: 0 0 0 3px rgba(96, 193, 229, 0.65), 0 4px 18px rgba(0, 90, 156, 0.4);
@@ -602,6 +604,9 @@ marquee,
 }
 
 /* Hover & Focus state: Swing cover open by -12deg */
+.btn-creepy:hover .peek-cover,
+.btn-creepy:focus-visible .peek-cover,
+.btn-creepy.is-hovered .peek-cover,
 .peek-admission-btn:hover .peek-cover,
 .peek-admission-btn:focus-visible .peek-cover,
 .peek-admission-btn.is-hovered .peek-cover,

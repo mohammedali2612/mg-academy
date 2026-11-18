@@ -1315,7 +1315,7 @@ function initStatsCounter() {
    9. INTERACTIVE PEEK-A-BOO EYE ADMISSION BUTTON (Port of CreepyButton)
    ========================================================================== */
 function initPeekAdmissionButton() {
-  const peekButtons = document.querySelectorAll('.peek-admission-btn, #header-admission-btn');
+  const peekButtons = document.querySelectorAll('.peek-admission-btn, #header-admission-btn, .btn-creepy');
   if (!peekButtons.length) return;
 
   peekButtons.forEach(btn => {

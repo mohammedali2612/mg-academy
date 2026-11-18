@@ -26,7 +26,7 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=3.1">
+  <link rel="stylesheet" href="style.css?v=3.2">
 
 
 
@@ -83,8 +83,28 @@
 
       <!-- Action Group -->
       <div class="header-action-group">
-        <button class="btn-admission-pill" id="header-admission-btn" onclick="openAdmissionModal()" aria-label="Admission Open">
-          <span class="admission-label">ADMISSION<span class="admission-open-word"> OPEN</span></span>
+        <button class="peek-admission-btn btn-creepy" id="header-admission-btn" onclick="openAdmissionModal()" aria-label="Admission Open">
+          <!-- Eyes Container (behind the cover) -->
+          <span class="peek-eyes" aria-hidden="true">
+            <!-- Left Eye -->
+            <span class="peek-eye">
+              <span class="peek-pupil"></span>
+            </span>
+            <!-- Right Eye -->
+            <span class="peek-eye">
+              <span class="peek-pupil"></span>
+            </span>
+          </span>
+
+          <!-- Button Cover (swings -12deg open on hover) -->
+          <span class="peek-cover">
+            <span>ADMISSION OPEN</span>
+          </span>
+
+          <!-- Invisible Spacer to maintain exact button size -->
+          <span class="peek-spacer" aria-hidden="true">
+            <span>ADMISSION OPEN</span>
+          </span>
         </button>
         <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Navigation Menu">
           <i class="fa-solid fa-bars"></i>
