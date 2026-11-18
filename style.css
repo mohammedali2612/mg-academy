@@ -1675,6 +1675,284 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 22px;
 }
 
+/* ---------------- GenerateButton (Book Free Demo Class) ---------------- */
+.gen-btn-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.gen-btn {
+  --border-radius: 28px;
+  --padding: 4px;
+  --transition: 0.4s;
+  --button-color: #101827;
+  --highlight-color-hue: 205deg;
+
+  user-select: none;
+  -webkit-user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7em 1.6em 0.7em 1.3em;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  position: relative;
+  background-color: var(--button-color);
+  color: #FFFFFF;
+
+  box-shadow:
+    inset 0px 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0px 2px 2px rgba(255, 255, 255, 0.15),
+    inset 0px 4px 4px rgba(255, 255, 255, 0.1),
+    inset 0px 8px 8px rgba(255, 255, 255, 0.05),
+    inset 0px 16px 16px rgba(255, 255, 255, 0.05),
+    0px -1px 1px rgba(0, 0, 0, 0.02),
+    0px -2px 2px rgba(0, 0, 0, 0.03), 
+    0px -4px 4px rgba(0, 0, 0, 0.05),
+    0px -8px 8px rgba(0, 0, 0, 0.06), 
+    0px 8px 24px rgba(0, 90, 156, 0.4);
+
+  border: solid 1px rgba(96, 193, 229, 0.4);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: box-shadow var(--transition), border var(--transition), background-color var(--transition), transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+  text-decoration: none;
+}
+
+.gen-btn::before {
+  content: "";
+  position: absolute;
+  top: calc(0px - var(--padding));
+  left: calc(0px - var(--padding));
+  width: calc(100% + var(--padding) * 2);
+  height: calc(100% + var(--padding) * 2);
+  border-radius: calc(var(--border-radius) + var(--padding));
+  pointer-events: none;
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.267), rgba(0,0,0,0.667));
+
+  z-index: -1;
+  transition: box-shadow var(--transition), filter var(--transition);
+  box-shadow: 0 -8px 8px -6px rgba(0,0,0,0) inset, 
+    0 -16px 16px -8px rgba(0,0,0,0) inset,
+    1px 1px 1px rgba(255,255,255,0.133), 
+    2px 2px 2px rgba(255,255,255,0.067), 
+    -1px -1px 1px rgba(0,0,0,0.133),
+    -2px -2px 2px rgba(0,0,0,0.067);
+}
+
+.gen-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: linear-gradient(
+    0deg,
+    #fff,
+    hsl(var(--highlight-color-hue), 100%, 70%),
+    hsla(var(--highlight-color-hue), 100%, 70%, 50%),
+    8%,
+    transparent
+  );
+  background-position: 0 0;
+  opacity: 0;
+  transition: opacity var(--transition), filter var(--transition);
+}
+
+.gen-btn-letter {
+  position: relative;
+  display: inline-block;
+  color: rgba(255,255,255,0.65);
+  animation: gen-letter-anim 2s ease-in-out infinite;
+  transition: color var(--transition), text-shadow var(--transition), opacity var(--transition);
+}
+
+@keyframes gen-letter-anim {
+  50% {
+    text-shadow: 0 0 6px hsl(var(--highlight-color-hue), 100%, 75%), 0 0 14px rgba(0, 90, 156, 0.8);
+    color: #fff;
+  }
+}
+
+.gen-btn-svg {
+  flex-shrink: 0;
+  height: 22px;
+  width: 22px;
+  margin-right: 0.65rem;
+  fill: #60C1E5;
+  animation: gen-flicker 2s linear infinite;
+  animation-delay: 0.5s;
+  filter: drop-shadow(0 0 4px rgba(96, 193, 229, 0.9));
+  transition: fill var(--transition), filter var(--transition), opacity var(--transition);
+}
+
+@keyframes gen-flicker {
+  50% { opacity: 0.35; }
+}
+
+.gen-txt-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 13.5em;
+  height: 1.5em;
+}
+
+.gen-txt-1,
+.gen-txt-2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.gen-txt-1 {
+  animation: gen-appear-anim 1s ease-in-out forwards;
+}
+
+.gen-txt-2 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes gen-appear-anim {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Generating (Focus / Click / Active) state */
+.gen-btn[data-generating="true"] .gen-txt-1 {
+  animation: gen-opacity-anim 0.3s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+.gen-btn[data-generating="true"] .gen-txt-2 {
+  animation: gen-opacity-anim 0.3s ease-in-out reverse forwards;
+  animation-delay: 0.5s;
+  opacity: 1;
+}
+
+@keyframes gen-opacity-anim {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.gen-btn[data-generating="true"] .gen-btn-letter {
+  animation: gen-focused-letter-anim 1s ease-in-out forwards, gen-letter-anim 1.2s ease-in-out infinite;
+  animation-delay: 0s, 1s;
+}
+
+@keyframes gen-focused-letter-anim {
+  0%, 100% { filter: blur(0px); }
+  50% {
+    transform: scale(1.6);
+    filter: blur(8px) brightness(150%) drop-shadow(-20px 8px 12px hsl(var(--highlight-color-hue), 100%, 70%));
+  }
+}
+
+.gen-btn[data-generating="true"] .gen-btn-svg {
+  animation-duration: 1.2s;
+  animation-delay: 0.2s;
+  fill: #fff;
+  filter: drop-shadow(0 0 8px hsl(var(--highlight-color-hue), 100%, 70%));
+}
+
+.gen-btn[data-generating="true"]::before {
+  box-shadow: 0 -8px 12px -6px rgba(255,255,255,0.2) inset,
+    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 30%) inset,
+    1px 1px 1px rgba(255,255,255,0.2), 
+    2px 2px 2px rgba(255,255,255,0.067), 
+    -1px -1px 1px rgba(0,0,0,0.133),
+    -2px -2px 2px rgba(0,0,0,0.067);
+}
+
+.gen-btn[data-generating="true"]::after {
+  opacity: 0.6;
+  mask-image: linear-gradient(0deg, #fff, transparent);
+  -webkit-mask-image: linear-gradient(0deg, #fff, transparent);
+  filter: brightness(120%);
+}
+
+/* Staggered animation delays for up to 20 letters */
+.gen-btn-letter:nth-child(1)  { animation-delay: 0s; }
+.gen-btn-letter:nth-child(2)  { animation-delay: 0.06s; }
+.gen-btn-letter:nth-child(3)  { animation-delay: 0.12s; }
+.gen-btn-letter:nth-child(4)  { animation-delay: 0.18s; }
+.gen-btn-letter:nth-child(5)  { animation-delay: 0.24s; }
+.gen-btn-letter:nth-child(6)  { animation-delay: 0.30s; }
+.gen-btn-letter:nth-child(7)  { animation-delay: 0.36s; }
+.gen-btn-letter:nth-child(8)  { animation-delay: 0.42s; }
+.gen-btn-letter:nth-child(9)  { animation-delay: 0.48s; }
+.gen-btn-letter:nth-child(10) { animation-delay: 0.54s; }
+.gen-btn-letter:nth-child(11) { animation-delay: 0.60s; }
+.gen-btn-letter:nth-child(12) { animation-delay: 0.66s; }
+.gen-btn-letter:nth-child(13) { animation-delay: 0.72s; }
+.gen-btn-letter:nth-child(14) { animation-delay: 0.78s; }
+.gen-btn-letter:nth-child(15) { animation-delay: 0.84s; }
+.gen-btn-letter:nth-child(16) { animation-delay: 0.90s; }
+.gen-btn-letter:nth-child(17) { animation-delay: 0.96s; }
+.gen-btn-letter:nth-child(18) { animation-delay: 1.02s; }
+.gen-btn-letter:nth-child(19) { animation-delay: 1.08s; }
+.gen-btn-letter:nth-child(20) { animation-delay: 1.14s; }
+
+/* Hover & Active states */
+.gen-btn:hover {
+  border: solid 1px hsla(var(--highlight-color-hue), 100%, 80%, 60%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 90, 156, 0.45);
+}
+.gen-btn:hover::before {
+  box-shadow: 0 -8px 8px -6px rgba(255,255,255,0.667) inset,
+    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 30%) inset,
+    1px 1px 1px rgba(255,255,255,0.133), 
+    2px 2px 2px rgba(255,255,255,0.067), 
+    -1px -1px 1px rgba(0,0,0,0.133),
+    -2px -2px 2px rgba(0,0,0,0.067);
+}
+.gen-btn:hover::after {
+  opacity: 1;
+  mask-image: linear-gradient(0deg, #fff, transparent);
+  -webkit-mask-image: linear-gradient(0deg, #fff, transparent);
+}
+.gen-btn:hover .gen-btn-svg {
+  fill: #fff;
+  filter: drop-shadow(0 0 6px hsl(var(--highlight-color-hue), 100%, 70%)) drop-shadow(0 -2px 4px rgba(0,0,0,0.6));
+  animation: none;
+}
+
+.gen-btn:active {
+  border: solid 1px hsla(var(--highlight-color-hue), 100%, 80%, 70%);
+  background-color: hsla(var(--highlight-color-hue), 50%, 20%, 0.5);
+  transform: scale(0.97);
+}
+.gen-btn:active::before {
+  box-shadow: 0 -8px 12px -6px rgba(255,255,255,0.667) inset,
+    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 80%) inset,
+    1px 1px 1px rgba(255,255,255,0.267), 
+    2px 2px 2px rgba(255,255,255,0.133), 
+    -1px -1px 1px rgba(0,0,0,0.133),
+    -2px -2px 2px rgba(0,0,0,0.067);
+}
+.gen-btn:active::after {
+  opacity: 1;
+  mask-image: linear-gradient(0deg, #fff, transparent);
+  -webkit-mask-image: linear-gradient(0deg, #fff, transparent);
+  filter: brightness(180%);
+}
+.gen-btn:active .gen-btn-letter {
+  text-shadow: 0 0 2px hsla(var(--highlight-color-hue), 100%, 90%, 90%);
+  animation: none;
+}
+
 /* ---------------- 6. Gallery & Achievements ---------------- */
 .gallery-section {
   background-color: #F4F9FC;

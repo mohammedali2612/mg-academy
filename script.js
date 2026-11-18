@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
+  initGenerateButtons();
 });
 
 /* ==========================================================================
@@ -1462,6 +1463,32 @@ function initHeroSlideshow() {
   // Start rotation
   startSlideshow();
 }
+
+/* ==========================================================================
+   11. GENERATE BUTTON (Book Free Demo Class - Pulsing Letter Glow & State)
+   ========================================================================== */
+function initGenerateButtons() {
+  const genButtons = document.querySelectorAll('.gen-btn');
+  if (!genButtons.length) return;
+
+  genButtons.forEach(btn => {
+    btn.addEventListener('focus', () => {
+      btn.setAttribute('data-generating', 'true');
+    });
+
+    btn.addEventListener('blur', () => {
+      btn.removeAttribute('data-generating');
+    });
+
+    btn.addEventListener('click', () => {
+      btn.setAttribute('data-generating', 'true');
+      setTimeout(() => {
+        btn.removeAttribute('data-generating');
+      }, 2500);
+    });
+  });
+}
+
 
 
 
