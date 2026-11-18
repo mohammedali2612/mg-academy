@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPeekAdmissionButton();
   initHeroSlideshow();
   initGenerateButtons();
+  initMobileCircularCarousel();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -1536,29 +1537,326 @@ function initHeroSlideshow() {
 }
 
 /* ==========================================================================
-   11. GENERATE BUTTON (Book Free Demo Class - Pulsing Letter Glow & State)
+   12. 3D CIRCULAR CAROUSEL (Mobile Gallery View Only: <= 860px)
    ========================================================================== */
-function initGenerateButtons() {
-  const genButtons = document.querySelectorAll('.gen-btn');
-  if (!genButtons.length) return;
+function initMobileCircularCarousel() {
+  const root = document.getElementById('mobile-circular-carousel');
+  const stage = document.getElementById('cc-stage');
+  const camera = document.getElementById('cc-camera');
+  const ring = document.getElementById('cc-ring');
+  if (!root || !stage || !camera || !ring) return;
 
-  genButtons.forEach(btn => {
-    btn.addEventListener('focus', () => {
-      btn.setAttribute('data-generating', 'true');
+  const titleEl = document.getElementById('cc-title');
+  const subtitleEl = document.getElementById('cc-subtitle');
+  const activeNumEl = document.getElementById('cc-active-num');
+  const totalNumEl = document.getElementById('cc-total-num');
+  const prevBtn = document.getElementById('cc-prev-btn');
+  const nextBtn = document.getElementById('cc-next-btn');
+
+  const items = [
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg',
+      title: 'Little Picasso Art Studio',
+      subtitle: 'Drawing & Painting'
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg',
+      title: 'Classical Poise & Rhythms',
+      subtitle: 'Bharatanatyam'
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg',
+      title: 'Young Masters Exhibition',
+      subtitle: 'Creative Showcase'
+    },
+    {
+      src: './assets/craft_kids.jpg',
+      title: 'Paper Origami & 3D Clay Crafts',
+      subtitle: 'Craft Studio'
+    },
+    {
+      src: './assets/handwriting_kids.jpg',
+      title: 'Handwriting & Calligraphy',
+      subtitle: 'Lettering & Scripts'
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg',
+      title: 'Competition Laurels & Awards',
+      subtitle: 'Student Trophies'
+    },
+    {
+      src: './assets/abacus_kids.jpg',
+      title: 'Abacus & Brain Agility',
+      subtitle: 'Mental Arithmetic'
+    },
+    {
+      src: './assets/calligraphy_kids.jpg',
+      title: 'Ornamental Calligraphy',
+      subtitle: 'Fine Penmanship'
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg',
+      title: 'Classroom Learning Workshop',
+      subtitle: 'Hands-on Mentorship'
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg',
+      title: 'Creative Studio Exploration',
+      subtitle: 'Young Creators'
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg',
+      title: 'Stage Dance Salangai',
+      subtitle: 'Performance Arts'
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg',
+      title: 'Joyful Creative Moments',
+      subtitle: 'Academy Life'
+    }
+  ];
+
+  const count = items.length;
+  if (totalNumEl) totalNumEl.textContent = String(count).padStart(2, '0');
+
+  const step = 360 / count;
+  const cardW = 210;
+  const tilt = -6;
+  const depthFade = 0.55;
+  const TO_RAD = Math.PI / 180;
+  const SPRING = 118;
+  const SETTLE_SPEED = 9;
+
+  // 3D Cylinder radius calculation matching preset
+  const pitch = (cardW + 16) * 1.0;
+  const chord = pitch / (2 * Math.sin(Math.PI / count));
+  const arc = (count * pitch) / (2 * Math.PI);
+  const radius = chord + (arc - chord) * 1.0; // ~430px
+
+  // State
+  let angle = 0;
+  let velocity = 0;
+  let target = null;
+  let isDragging = false;
+  let isHovered = false;
+  let press = null;
+  let suppressClick = false;
+  let activeIndex = 0;
+  let lastTime = performance.now();
+  let rafId = null;
+  let isVisible = true;
+
+  // Build or bind 3D Card DOM elements
+  let cardElements = Array.from(ring.querySelectorAll('.circular-carousel__card'));
+  if (!cardElements.length) {
+    items.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'circular-carousel__card';
+      card.setAttribute('data-cc-index', String(index));
+      card.setAttribute('role', 'group');
+      card.setAttribute('aria-roledescription', 'slide');
+      card.setAttribute('aria-label', `${item.title}, ${index + 1} of ${count}`);
+
+      card.innerHTML = `
+        <div class="circular-carousel__frame">
+          <img class="circular-carousel__photo" src="${item.src}" alt="${item.title}" loading="lazy">
+          <div class="circular-carousel__shade"></div>
+        </div>
+      `;
+      ring.appendChild(card);
+      cardElements.push(card);
     });
+  }
 
-    btn.addEventListener('blur', () => {
-      btn.removeAttribute('data-generating');
-    });
+  // Setup initial 3D transforms and click handlers
+  cardElements.forEach((card, index) => {
+    const base = index * step;
+    card.style.transform = `rotateY(${base.toFixed(2)}deg) translateZ(${radius.toFixed(2)}px)`;
 
-    btn.addEventListener('click', () => {
-      btn.setAttribute('data-generating', 'true');
-      setTimeout(() => {
-        btn.removeAttribute('data-generating');
-      }, 2500);
+    card.addEventListener('click', () => {
+      if (!suppressClick && items[index]) {
+        if (typeof openLightbox === 'function') {
+          openLightbox(items[index].src, items[index].title);
+        }
+      }
     });
   });
+
+  // Pointer drag interactions
+  const perPixel = 180 / (Math.PI * radius);
+
+  function onPointerDown(e) {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    suppressClick = false;
+    press = {
+      id: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      startAngle: angle,
+      moved: false,
+      samples: [{ time: performance.now(), angle }]
+    };
+    try {
+      root.setPointerCapture(e.pointerId);
+    } catch (_) {}
+  }
+
+  function onPointerMove(e) {
+    if (!press || press.id !== e.pointerId) return;
+    const dx = e.clientX - press.startX;
+    const dy = e.clientY - press.startY;
+
+    if (!press.moved) {
+      if (Math.abs(dx) > 5) {
+        press.moved = true;
+        isDragging = true;
+        suppressClick = true;
+        target = null;
+        velocity = 0;
+        root.setAttribute('data-dragging', '');
+      } else if (Math.abs(dy) > 10 && e.pointerType !== 'mouse') {
+        press = null;
+        return;
+      }
+    }
+
+    if (press && press.moved) {
+      angle = press.startAngle + dx * perPixel;
+      const now = performance.now();
+      press.samples.push({ time: now, angle });
+      while (press.samples.length > 2 && now - press.samples[0].time > 110) {
+        press.samples.shift();
+      }
+    }
+  }
+
+  function onPointerUp(e) {
+    if (!press || press.id !== e.pointerId) return;
+    try {
+      root.releasePointerCapture(e.pointerId);
+    } catch (_) {}
+
+    if (press.moved) {
+      isDragging = false;
+      root.removeAttribute('data-dragging');
+      const now = performance.now();
+      const first = press.samples[0];
+      const span = (now - first.time) / 1000;
+      velocity = span > 0.008 ? Math.max(-1200, Math.min(1200, (angle - first.angle) / span)) : 0;
+      
+      // Snap to nearest card
+      const tau = 0.35;
+      const projected = angle + velocity * tau;
+      target = Math.round(projected / step) * step;
+
+      setTimeout(() => {
+        suppressClick = false;
+      }, 80);
+    }
+    press = null;
+  }
+
+  root.addEventListener('pointerdown', onPointerDown);
+  root.addEventListener('pointermove', onPointerMove);
+  root.addEventListener('pointerup', onPointerUp);
+  root.addEventListener('pointercancel', onPointerUp);
+
+  root.addEventListener('mouseenter', () => { isHovered = true; });
+  root.addEventListener('mouseleave', () => { isHovered = false; });
+
+  // Navigation button handlers
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const currentSnap = target !== null ? target : Math.round(angle / step) * step;
+      target = currentSnap + step;
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const currentSnap = target !== null ? target : Math.round(angle / step) * step;
+      target = currentSnap - step;
+    });
+  }
+
+  // Animation & Physics Frame Loop
+  function tick(now) {
+    if (!isVisible || window.innerWidth > 860) {
+      rafId = requestAnimationFrame(tick);
+      return;
+    }
+
+    const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 1 / 60;
+    lastTime = now;
+
+    // Physics advance
+    if (isDragging) {
+      velocity = 0;
+    } else if (target !== null) {
+      const damping = 2 * Math.sqrt(SPRING);
+      const accel = SPRING * (target - angle) - damping * velocity;
+      velocity += accel * dt;
+      angle += velocity * dt;
+
+      if (Math.abs(target - angle) < 0.04 && Math.abs(velocity) < 0.2) {
+        angle = target;
+        velocity = 0;
+        target = null;
+      }
+    } else {
+      // Idle coast / auto-drift
+      const cruise = isHovered ? 0 : -9; // gentle left drift
+      const tau = 0.4;
+      velocity += (cruise - velocity) * (1 - Math.exp(-dt / tau));
+      angle += velocity * dt;
+
+      // Settle snapping if slowed down
+      if (Math.abs(velocity) < SETTLE_SPEED && Math.abs(cruise) < 0.1) {
+        target = Math.round(angle / step) * step;
+      }
+    }
+
+    // Render 3D transform on camera and ring
+    camera.style.transform = `translate3d(0, 0, ${(-radius).toFixed(2)}px) rotateX(${tilt}deg)`;
+    ring.style.transform = `rotateY(${angle.toFixed(2)}deg)`;
+
+    // Update depth shading per card
+    for (let i = 0; i < count; i++) {
+      const card = cardElements[i];
+      if (!card) continue;
+      const base = i * step;
+      const world = ((((base + angle) % 360) + 540) % 360) - 180;
+      const facing = Math.cos(world * TO_RAD);
+      const fade = depthFade * Math.pow((1 - facing) / 2, 1.25);
+      card.style.setProperty('--cc-depth', fade.toFixed(3));
+    }
+
+    // Update active caption and counter
+    const currentActive = ((Math.round(-angle / step) % count) + count) % count;
+    if (currentActive !== activeIndex) {
+      activeIndex = currentActive;
+      if (titleEl) titleEl.textContent = items[activeIndex].title;
+      if (subtitleEl) subtitleEl.textContent = items[activeIndex].subtitle;
+      if (activeNumEl) activeNumEl.textContent = String(activeIndex + 1).padStart(2, '0');
+    }
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  // Intersection Observer: pause loop when off-screen for battery/GPU efficiency
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { threshold: 0.05 });
+    io.observe(root);
+  }
+
+  // Start loop
+  rafId = requestAnimationFrame(tick);
 }
+
 
 
 
