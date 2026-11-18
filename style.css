@@ -252,23 +252,6 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px;
 }
 
-.marquee-badge {
-  flex-shrink: 0;
-}
-
-.badge-pulse {
-  background: linear-gradient(135deg, #005A9C 0%, #60C1E5 100%);
-  color: #FFFFFF;
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  box-shadow: 0 0 12px rgba(96, 193, 229, 0.6);
-}
-
 .top-marquee {
   flex: 1;
   overflow: hidden;
@@ -485,18 +468,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #005A9C;
   font-weight: 700;
   background: transparent;
-}
-
-.nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 18px;
-  right: 18px;
-  height: 2.5px;
-  background: #005A9C;
-  border-radius: 2px;
-  box-shadow: 0 0 8px #60C1E5;
 }
 
 /* Header Action Group - 3D Button matching User Reference */
