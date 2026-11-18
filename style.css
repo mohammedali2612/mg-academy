@@ -913,65 +913,7 @@ marquee,
   display: none;
 }
 
-/* Floating Certified Mentors Badge on Top Right */
-.hero-mentor-badge {
-  position: absolute;
-  top: 32px;
-  right: clamp(24px, 5vw, 68px);
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 10px 22px 10px 12px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 12px 32px rgba(27, 54, 93, 0.14), 0 2px 8px rgba(96, 193, 229, 0.25);
-  border: 1.5px solid rgba(255, 255, 255, 0.95);
-  z-index: 6;
-  animation: floatMentorCard 4.5s ease-in-out infinite;
-}
-
-@keyframes floatMentorCard {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
-}
-
-.mentor-badge-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #005A9C 0%, #1B365D 100%);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.05rem;
-  box-shadow: 0 4px 12px rgba(0, 90, 156, 0.35);
-  flex-shrink: 0;
-}
-
-.mentor-badge-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.mentor-badge-title {
-  font-family: var(--font-heading);
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #1B365D;
-  line-height: 1.2;
-}
-
-.mentor-badge-subtitle {
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #4B6B94;
-}
-
-/* Badge Wrapper & Paper Airplane Doodle */
+/* Badge Wrapper */
 .hero-badge-wrapper {
   display: inline-flex;
   align-items: center;
@@ -1010,24 +952,6 @@ marquee,
   50% { transform: scale(1.5); opacity: 0.6; }
 }
 
-/* Flying Paper Airplane Doodle with Dotted Trail */
-.hero-airplane-doodle {
-  display: inline-flex;
-  align-items: center;
-  margin-left: 2px;
-  filter: drop-shadow(0 2px 4px rgba(0, 90, 156, 0.15));
-  animation: floatAirplane 3.8s ease-in-out infinite;
-}
-
-@keyframes floatAirplane {
-  0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate(3px, -3px) rotate(1.5deg);
-  }
-}
-
 /* Hero Title */
 .hero-title {
   font-family: var(--font-heading);
@@ -1049,18 +973,6 @@ marquee,
   font-weight: 700;
   position: relative;
   margin-top: 4px;
-  padding-bottom: 12px;
-}
-
-/* Curved Yellow Brush Swoop Underline */
-.hero-swoop-underline {
-  position: absolute;
-  bottom: -3px;
-  left: 2%;
-  width: 96%;
-  height: 16px;
-  pointer-events: none;
-  filter: drop-shadow(0 2px 4px rgba(255, 183, 3, 0.35));
 }
 
 
@@ -3388,75 +3300,11 @@ marquee,
     z-index: 4 !important;
   }
 
-  /* ---------------- 4. Certified Mentors Badge (Centered Pill) ---------------- */
-  .hero-mentor-badge {
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    display: inline-flex !important;
-    align-self: center !important;
-    margin: 0 auto 10px auto !important;
-    padding: 6px 16px 6px 10px !important;
-    gap: 10px !important;
-    border-radius: 9999px !important;
-    background: rgba(255, 255, 255, 0.92) !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16) !important;
-    z-index: 5 !important;
-    animation: floatMentorCardMobile 4s ease-in-out infinite !important;
-  }
-
-  @keyframes floatMentorCardMobile {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
-
-  .mentor-badge-avatar {
-    width: 32px !important;
-    height: 32px !important;
-    font-size: 0.85rem !important;
-    border-radius: 50% !important;
-    background: linear-gradient(135deg, #005A9C 0%, #1B365D 100%) !important;
-    color: #FFFFFF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 3px 8px rgba(0, 90, 156, 0.3) !important;
-    flex-shrink: 0 !important;
-  }
-
-  .mentor-badge-info {
-    display: flex !important;
-    flex-direction: column !important;
-    text-align: left !important;
-  }
-
-  .mentor-badge-title {
-    font-family: var(--font-heading) !important;
-    font-size: 0.84rem !important;
-    font-weight: 700 !important;
-    color: #1B365D !important;
-    line-height: 1.15 !important;
-  }
-
-  .mentor-badge-subtitle {
-    font-family: var(--font-body) !important;
-    font-size: 0.68rem !important;
-    font-weight: 600 !important;
-    color: #4B6B94 !important;
-  }
-
   /* Welcome Pill Badge */
   .hero-badge-wrapper {
     display: flex !important;
     justify-content: center !important;
-    margin-bottom: 8px !important;
-  }
-
-  .hero-airplane-doodle {
-    display: none !important;
+    margin-bottom: 12px !important;
   }
 
   .hero-pill-badge {
@@ -3483,7 +3331,7 @@ marquee,
     box-shadow: 0 0 8px #60C1E5 !important;
   }
 
-  /* ---------------- 5. Main Heading ---------------- */
+  /* ---------------- 4. Main Heading ---------------- */
   .hero-title {
     font-family: var(--font-heading) !important;
     font-size: clamp(1.65rem, 6.4vw, 2.15rem) !important;
@@ -3505,18 +3353,7 @@ marquee,
     color: #FFD54F !important;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 213, 79, 0.45) !important;
     margin-top: 2px !important;
-    padding-bottom: 8px !important;
     position: relative !important;
-  }
-
-  .hero-swoop-underline {
-    position: absolute !important;
-    bottom: -3px !important;
-    left: 2% !important;
-    width: 96% !important;
-    height: 12px !important;
-    display: block !important;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)) !important;
   }
 
   /* ---------------- 6. Description Box (Transparent dark-blue glass) ---------------- */
@@ -3877,7 +3714,6 @@ marquee,
 @media (prefers-reduced-motion: reduce) {
   .mobile-star-glow,
   .mobile-sky-doodle,
-  .hero-mentor-badge,
   .pill-dot,
   .peek-eye,
   .btn-animated-shine .btn-shine-border,
