@@ -382,12 +382,11 @@ marquee,
 
 .brand-tagline {
   font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  font-weight: 600;
   color: #005A9C;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  line-height: 1.1;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
 }
 
 /* ---------------- Desktop Nav Menu - Spotlight Navbar Design ---------------- */
@@ -3169,7 +3168,14 @@ marquee,
   }
 
   .brand-tagline {
-    display: none !important;
+    display: block !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.52rem !important;
+    font-weight: 600 !important;
+    color: #005A9C !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.01em !important;
+    white-space: nowrap !important;
   }
 
   /* Admission Button & Hamburger on Right */
