@@ -26,7 +26,7 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=3.2">
+  <link rel="stylesheet" href="style.css?v=3.3">
 
 
 
@@ -98,12 +98,12 @@
 
           <!-- Button Cover (swings -12deg open on hover) -->
           <span class="peek-cover">
-            <span>ADMISSION OPEN</span>
+            <span>ADMISSION<span class="admission-open-word"> OPEN</span></span>
           </span>
 
           <!-- Invisible Spacer to maintain exact button size -->
           <span class="peek-spacer" aria-hidden="true">
-            <span>ADMISSION OPEN</span>
+            <span>ADMISSION<span class="admission-open-word"> OPEN</span></span>
           </span>
         </button>
         <button class="mobile-toggle-btn" id="mobile-toggle-btn" aria-label="Toggle Navigation Menu">
@@ -116,6 +116,11 @@
   <main>
     <!-- 2. Hero / Welcome Section -->
     <section class="hero-section" id="home">
+      <!-- Subtle Mobile Star Glow & Floating Sky Doodles (Mobile Only) -->
+      <div class="mobile-star-glow" aria-hidden="true"></div>
+      <div class="mobile-sky-doodle doodle-1" aria-hidden="true">✦</div>
+      <div class="mobile-sky-doodle doodle-2" aria-hidden="true">✧</div>
+
       <!-- Floating Certified Mentors Badge (Top Right as in reference image) -->
       <div class="hero-mentor-badge reveal-fade-down">
         <div class="mentor-badge-avatar">
@@ -1240,7 +1245,7 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=2.9"></script>
+  <script src="script.js?v=3.3"></script>
 
 </body>
 
