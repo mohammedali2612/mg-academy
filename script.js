@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
-  initMobileCircularCarousel();
+  initMobileContainerScroll();
+  initStaggerTestimonials();
+  initCustomCursor();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -43,7 +45,7 @@ function initNavbar() {
   const navMenu = document.getElementById('nav-menu');
   const spotlightGlow = document.getElementById('nav-spotlight-glow');
   const spotlightPill = document.getElementById('nav-spotlight-pill');
-  const sections = document.querySelectorAll('main section[id], #home, #about, #courses, #dance, #gallery, #achievements, #fees, #contact');
+  const sections = document.querySelectorAll('main section[id], #home, #about, #courses, #dance, #gallery, #achievements, #reviews, #fees, #contact');
 
   let isNavHovered = false;
 
@@ -1520,334 +1522,333 @@ function initHeroSlideshow() {
 /* ==========================================================================
    12. 3D CIRCULAR CAROUSEL (Mobile Gallery View Only: <= 860px)
    ========================================================================== */
-function initMobileCircularCarousel() {
-  const root = document.getElementById('mobile-circular-carousel');
-  const stage = document.getElementById('cc-stage');
-  const camera = document.getElementById('cc-camera');
-  const ring = document.getElementById('cc-ring');
-  if (!root || !stage || !camera || !ring) return;
+/* ==========================================================================
+   MOBILE 3D CONTAINER-SCROLL GALLERY (Framer Motion emulation in pure JS)
+   - Perspective container with rotateX: 75deg -> 0deg as scroll progress goes 0 -> 0.5
+   - Scale: 1.2 -> 1.0 as progress goes 0.5 -> 0.9
+   - Column Parallax:
+     * Col 1: 0% -> -14%
+     * Col 2: -6% -> +10%
+     * Col 3: 0% -> -16%
+   - Optimized for smooth 60fps across all mobile viewports (360px - 430px)
+   ========================================================================== */
+function initMobileContainerScroll() {
+  const root = document.getElementById('mobile-gallery-scroll');
+  const grid = document.getElementById('mobile-gallery-grid');
+  const col1 = document.getElementById('mg-col-1');
+  const col2 = document.getElementById('mg-col-2');
+  const col3 = document.getElementById('mg-col-3');
+  const hint = document.querySelector('.mobile-gallery-scroll-hint');
 
-  const titleEl = document.getElementById('cc-title');
-  const subtitleEl = document.getElementById('cc-subtitle');
-  const activeNumEl = document.getElementById('cc-active-num');
-  const totalNumEl = document.getElementById('cc-total-num');
-  const prevBtn = document.getElementById('cc-prev-btn');
-  const nextBtn = document.getElementById('cc-next-btn');
+  if (!root || !grid || !col1 || !col2 || !col3) return;
 
-  const items = [
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg',
-      title: 'Little Picasso Art Studio',
-      subtitle: 'Drawing & Painting'
-    },
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg',
-      title: 'Classical Poise & Rhythms',
-      subtitle: 'Bharatanatyam'
-    },
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg',
-      title: 'Young Masters Exhibition',
-      subtitle: 'Creative Showcase'
-    },
-    {
-      src: './assets/craft_kids.jpg',
-      title: 'Paper Origami & 3D Clay Crafts',
-      subtitle: 'Craft Studio'
-    },
-    {
-      src: './assets/handwriting_kids.jpg',
-      title: 'Handwriting & Calligraphy',
-      subtitle: 'Lettering & Scripts'
-    },
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg',
-      title: 'Competition Laurels & Awards',
-      subtitle: 'Student Trophies'
-    },
-    {
-      src: './assets/abacus_kids.jpg',
-      title: 'Abacus & Brain Agility',
-      subtitle: 'Mental Arithmetic'
-    },
-    {
-      src: './assets/calligraphy_kids.jpg',
-      title: 'Ornamental Calligraphy',
-      subtitle: 'Fine Penmanship'
-    },
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg',
-      title: 'Classroom Learning Workshop',
-      subtitle: 'Hands-on Mentorship'
-    },
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg',
-      title: 'Creative Studio Exploration',
-      subtitle: 'Young Creators'
-    },
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg',
-      title: 'Stage Dance Salangai',
-      subtitle: 'Performance Arts'
-    },
-    {
-      src: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg',
-      title: 'Joyful Creative Moments',
-      subtitle: 'Academy Life'
+  let ticking = false;
+
+  function update() {
+    if (window.innerWidth > 860) {
+      ticking = false;
+      return;
     }
-  ];
 
-  const count = items.length;
-  if (totalNumEl) totalNumEl.textContent = String(count).padStart(2, '0');
+    const rect = root.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const totalDist = rect.height - windowHeight;
 
-  const step = 360 / count;
-  const cardW = 210;
-  const tilt = -6;
-  const depthFade = 0.55;
-  const TO_RAD = Math.PI / 180;
-  const SPRING = 118;
-  const SETTLE_SPEED = 9;
+    if (totalDist <= 0) {
+      ticking = false;
+      return;
+    }
 
-  // 3D Cylinder radius calculation matching preset
-  const pitch = (cardW + 16) * 1.0;
-  const chord = pitch / (2 * Math.sin(Math.PI / count));
-  const arc = (count * pitch) / (2 * Math.PI);
-  const radius = chord + (arc - chord) * 1.0; // ~430px
+    // Scroll progress: 0 (top of section enters) to 1 (bottom exits)
+    const scrolled = -rect.top;
+    let progress = scrolled / totalDist;
+    progress = Math.max(0, Math.min(1, progress));
 
-  // State
-  let angle = 0;
-  let velocity = 0;
-  let target = null;
-  let isDragging = false;
-  let isHovered = false;
-  let press = null;
-  let suppressClick = false;
-  let activeIndex = 0;
-  let lastTime = performance.now();
-  let rafId = null;
-  let isVisible = true;
+    // 1. rotateX: [0, 0.5] -> [75, 0]
+    let rotX = 0;
+    if (progress <= 0.5) {
+      rotX = 75 * (1 - (progress / 0.5));
+    } else {
+      rotX = 0;
+    }
 
-  // Build or bind 3D Card DOM elements
-  let cardElements = Array.from(ring.querySelectorAll('.circular-carousel__card'));
-  if (!cardElements.length) {
-    items.forEach((item, index) => {
-      const card = document.createElement('div');
-      card.className = 'circular-carousel__card';
-      card.setAttribute('data-cc-index', String(index));
-      card.setAttribute('role', 'group');
-      card.setAttribute('aria-roledescription', 'slide');
-      card.setAttribute('aria-label', `${item.title}, ${index + 1} of ${count}`);
+    // 2. scale: [0.5, 0.9] -> [1.2, 1.0]
+    let scaleVal = 1.0;
+    if (progress < 0.5) {
+      scaleVal = 1.2;
+    } else if (progress <= 0.9) {
+      const p = (progress - 0.5) / 0.4;
+      scaleVal = 1.2 - (0.2 * p);
+    } else {
+      scaleVal = 1.0;
+    }
 
-      card.innerHTML = `
-        <div class="circular-carousel__frame">
-          <img class="circular-carousel__photo" src="${item.src}" alt="${item.title}" loading="lazy">
-          <div class="circular-carousel__shade"></div>
-        </div>
-      `;
-      ring.appendChild(card);
-      cardElements.push(card);
-    });
+    // 3. Parallax columns yRange on [0.5, 1.0]
+    let colP = 0;
+    if (progress >= 0.5) {
+      colP = (progress - 0.5) / 0.5; // 0 to 1
+    }
+
+    // Col 1: 0% to -14%
+    const yCol1 = -14 * colP;
+    // Col 2: -6% to +10%
+    const yCol2 = -6 + (16 * colP);
+    // Col 3: 0% to -16%
+    const yCol3 = -16 * colP;
+
+    // Apply transforms
+    grid.style.transform = `rotateX(${rotX.toFixed(2)}deg) scale(${scaleVal.toFixed(3)})`;
+    col1.style.transform = `translateY(${yCol1.toFixed(2)}%)`;
+    col2.style.transform = `translateY(${yCol2.toFixed(2)}%)`;
+    col3.style.transform = `translateY(${yCol3.toFixed(2)}%)`;
+
+    // Fade hint when user has scrolled past 15%
+    if (hint) {
+      if (progress > 0.15) {
+        hint.style.opacity = '0';
+        hint.style.transform = 'translateY(-10px)';
+      } else {
+        hint.style.opacity = '1';
+        hint.style.transform = 'translateY(0)';
+      }
+    }
+
+    ticking = false;
   }
 
-  // Setup initial 3D transforms and click handlers
-  cardElements.forEach((card, index) => {
-    const base = index * step;
-    card.style.transform = `rotateY(${base.toFixed(2)}deg) translateZ(${radius.toFixed(2)}px)`;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
 
-    const frame = card.querySelector('.circular-carousel__frame') || card;
-    frame.addEventListener('click', (e) => {
-      if (suppressClick) return;
-      const currentActive = ((Math.round(-angle / step) % count) + count) % count;
-      if (index !== currentActive) {
-        target = -index * step;
-      } else if (typeof window.openLightbox === 'function' && items[index]) {
-        window.openLightbox(items[index].src, items[index].title);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  if (window.__lenis) {
+    window.__lenis.on('scroll', onScroll);
+  }
+
+  // Initial calculation
+  setTimeout(update, 50);
+}
+
+/* ==========================================================================
+   STAGGER TESTIMONIALS (Staggered polygon card stack carousel)
+   - Chamfered cards with 45deg diagonal fold line
+   - Active card centered, elevated with brand gradient, white text & shadow
+   - Side cards offset by (cardSize / 1.5) * position, rotated +-2.5deg
+   - Click card to center, next/prev arrow buttons, touch swipe
+   ========================================================================== */
+function initStaggerTestimonials() {
+  const stage = document.getElementById('stagger-stage');
+  const prevBtn = document.getElementById('stagger-prev-btn');
+  const nextBtn = document.getElementById('stagger-next-btn');
+  const dotsContainer = document.getElementById('stagger-dots');
+  if (!stage) return;
+
+  const cards = Array.from(stage.querySelectorAll('.stagger-testimonial-card'));
+  const totalCards = cards.length;
+  if (totalCards === 0) return;
+
+  let activeIndex = 0;
+
+  function update() {
+    // Adapt card size: desktop 365px, tablet 330px, mobile 285px (capped by viewport)
+    let cardSize = 365;
+    if (window.innerWidth <= 400) {
+      cardSize = Math.max(260, window.innerWidth - 50);
+    } else if (window.innerWidth <= 640) {
+      cardSize = 290;
+    } else if (window.innerWidth <= 992) {
+      cardSize = 330;
+    }
+
+    cards.forEach((card, index) => {
+      // Calculate relative position offset: -2, -1, 0, 1, 2, 3 ...
+      let diff = (index - activeIndex) % totalCards;
+      if (diff > totalCards / 2) diff -= totalCards;
+      if (diff < -totalCards / 2) diff += totalCards;
+      const position = diff;
+      const isCenter = position === 0;
+
+      card.classList.toggle('is-center', isCenter);
+      card.style.width = `${cardSize}px`;
+      card.style.height = `${cardSize}px`;
+
+      // z-index: center is highest (10), side cards decrease with distance
+      card.style.zIndex = isCenter ? '10' : String(Math.max(1, 6 - Math.abs(position)));
+
+      const xOffset = (cardSize / 1.5) * position;
+      const yOffset = isCenter ? -55 : (position % 2 !== 0 ? 15 : -15);
+      const rotation = isCenter ? 0 : (position % 2 !== 0 ? 2.5 : -2.5);
+
+      card.style.transform = `translate(-50%, -50%) translateX(${xOffset.toFixed(1)}px) translateY(${yOffset}px) rotate(${rotation}deg)`;
+    });
+
+    // Update dot indicators
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.stagger-dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIndex);
+      });
+    }
+  }
+
+  function handleMove(steps) {
+    activeIndex = (activeIndex + steps) % totalCards;
+    if (activeIndex < 0) activeIndex += totalCards;
+    update();
+  }
+
+  // Click card to bring to center
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      let diff = (index - activeIndex) % totalCards;
+      if (diff > totalCards / 2) diff -= totalCards;
+      if (diff < -totalCards / 2) diff += totalCards;
+      if (diff !== 0) {
+        handleMove(diff);
+      }
+    });
+
+    // Accessible keyboard enter/space
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
       }
     });
   });
 
-  // Pointer drag interactions
-  const perPixel = 180 / (Math.PI * radius);
-
-  function onPointerDown(e) {
-    if (e.button !== 0 && e.pointerType === 'mouse') return;
-    suppressClick = false;
-    press = {
-      id: e.pointerId,
-      startX: e.clientX,
-      startY: e.clientY,
-      startAngle: angle,
-      moved: false,
-      captured: false,
-      samples: [{ time: performance.now(), angle }]
-    };
-  }
-
-  function onPointerMove(e) {
-    if (!press || press.id !== e.pointerId) return;
-    const dx = e.clientX - press.startX;
-    const dy = e.clientY - press.startY;
-
-    if (!press.moved) {
-      if (Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) {
-        press.moved = true;
-        isDragging = true;
-        suppressClick = true;
-        target = null;
-        velocity = 0;
-        root.setAttribute('data-dragging', '');
-        if (!press.captured) {
-          try {
-            root.setPointerCapture(e.pointerId);
-            press.captured = true;
-          } catch (_) {}
-        }
-      } else if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) {
-        press = null;
-        return;
-      }
-    }
-
-    if (press && press.moved) {
-      angle = press.startAngle + dx * perPixel;
-      const now = performance.now();
-      press.samples.push({ time: now, angle });
-      while (press.samples.length > 2 && now - press.samples[0].time > 110) {
-        press.samples.shift();
-      }
-    }
-  }
-
-  function onPointerUp(e) {
-    if (!press || press.id !== e.pointerId) return;
-    if (press.captured) {
-      try {
-        root.releasePointerCapture(e.pointerId);
-      } catch (_) {}
-    }
-
-    if (press.moved) {
-      isDragging = false;
-      root.removeAttribute('data-dragging');
-      const now = performance.now();
-      const first = press.samples[0];
-      const span = (now - first.time) / 1000;
-      velocity = span > 0.008 ? Math.max(-1200, Math.min(1200, (angle - first.angle) / span)) : 0;
-      
-      // Snap to nearest card
-      const tau = 0.35;
-      const projected = angle + velocity * tau;
-      target = Math.round(projected / step) * step;
-
-      setTimeout(() => {
-        suppressClick = false;
-      }, 80);
-    }
-    press = null;
-  }
-
-  root.addEventListener('pointerdown', onPointerDown);
-  root.addEventListener('pointermove', onPointerMove);
-  root.addEventListener('pointerup', onPointerUp);
-  root.addEventListener('pointercancel', onPointerUp);
-
-  root.addEventListener('mouseenter', () => { isHovered = true; });
-  root.addEventListener('mouseleave', () => { isHovered = false; });
-
-  // Navigation button handlers
+  // Buttons
   if (prevBtn) {
     prevBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const currentSnap = target !== null ? target : Math.round(angle / step) * step;
-      target = currentSnap + step;
+      e.preventDefault();
+      handleMove(-1);
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const currentSnap = target !== null ? target : Math.round(angle / step) * step;
-      target = currentSnap - step;
+      e.preventDefault();
+      handleMove(1);
     });
   }
 
-  // Animation & Physics Frame Loop
-  function tick(now) {
-    if (!isVisible || window.innerWidth > 860) {
-      rafId = requestAnimationFrame(tick);
-      return;
-    }
-
-    const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 1 / 60;
-    lastTime = now;
-
-    // Physics advance
-    if (isDragging) {
-      velocity = 0;
-    } else if (target !== null) {
-      const damping = 2 * Math.sqrt(SPRING);
-      const accel = SPRING * (target - angle) - damping * velocity;
-      velocity += accel * dt;
-      angle += velocity * dt;
-
-      if (Math.abs(target - angle) < 0.04 && Math.abs(velocity) < 0.2) {
-        angle = target;
-        velocity = 0;
-        target = null;
-      }
-    } else {
-      // Idle coast / auto-drift
-      const cruise = isHovered ? 0 : -9; // gentle left drift
-      const tau = 0.4;
-      velocity += (cruise - velocity) * (1 - Math.exp(-dt / tau));
-      angle += velocity * dt;
-
-      // Settle snapping if slowed down
-      if (Math.abs(velocity) < SETTLE_SPEED && Math.abs(cruise) < 0.1) {
-        target = Math.round(angle / step) * step;
-      }
-    }
-
-    // Render 3D transform on camera and ring
-    camera.style.transform = `translate3d(0, 0, ${(-radius).toFixed(2)}px) rotateX(${tilt}deg)`;
-    ring.style.transform = `rotateY(${angle.toFixed(2)}deg)`;
-
-    // Update depth shading per card
-    for (let i = 0; i < count; i++) {
-      const card = cardElements[i];
-      if (!card) continue;
-      const base = i * step;
-      const world = ((((base + angle) % 360) + 540) % 360) - 180;
-      const facing = Math.cos(world * TO_RAD);
-      const fade = depthFade * Math.pow((1 - facing) / 2, 1.25);
-      card.style.setProperty('--cc-depth', fade.toFixed(3));
-    }
-
-    // Update active caption and counter
-    const currentActive = ((Math.round(-angle / step) % count) + count) % count;
-    if (currentActive !== activeIndex) {
-      activeIndex = currentActive;
-      if (titleEl) titleEl.textContent = items[activeIndex].title;
-      if (subtitleEl) subtitleEl.textContent = items[activeIndex].subtitle;
-      if (activeNumEl) activeNumEl.textContent = String(activeIndex + 1).padStart(2, '0');
-    }
-
-    rafId = requestAnimationFrame(tick);
+  // Dots click
+  if (dotsContainer) {
+    const dots = dotsContainer.querySelectorAll('.stagger-dot');
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        activeIndex = i;
+        update();
+      });
+    });
   }
 
-  // Intersection Observer: pause loop when off-screen for battery/GPU efficiency
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting;
-    }, { threshold: 0.05 });
-    io.observe(root);
-  }
+  // Touch swipe support on mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
 
-  // Start loop
-  rafId = requestAnimationFrame(tick);
+  stage.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+
+  stage.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchEndX - touchStartX;
+    if (Math.abs(diffX) > 40) {
+      if (diffX < 0) {
+        handleMove(1); // swipe left -> next
+      } else {
+        handleMove(-1); // swipe right -> prev
+      }
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', update, { passive: true });
+  update();
 }
 
+/* ==========================================================================
+   CUSTOM MOUSE CURSOR (Desktop Only: pointer: fine)
+   ========================================================================== */
+function initCustomCursor() {
+  const dot = document.getElementById('cursor-dot');
+  const follower = document.getElementById('cursor-follower');
+  if (!dot || !follower) return;
 
+  // Check pointer: fine
+  const isPointerFine = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+  if (!isPointerFine) return;
 
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let followerX = mouseX;
+  let followerY = mouseY;
+  let isHovering = false;
+  let isDown = false;
+  let isVisible = false;
 
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!isVisible) {
+      isVisible = true;
+      dot.classList.remove('is-hidden');
+      follower.classList.remove('is-hidden');
+    }
+  }, { passive: true });
 
+  window.addEventListener('mouseleave', () => {
+    isVisible = false;
+    dot.classList.add('is-hidden');
+    follower.classList.add('is-hidden');
+  });
+
+  window.addEventListener('mousedown', () => {
+    isDown = true;
+    follower.classList.add('is-down');
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDown = false;
+    follower.classList.remove('is-down');
+  });
+
+  // Track hoverable elements
+  const hoverSelector = 'a, button, input, select, textarea, .skiper30-card, .mg-photo-card, .stagger-testimonial-card, .fee-card, .achievement-card, .course-visual-card, [role="button"]';
+  
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(hoverSelector)) {
+      if (!isHovering) {
+        isHovering = true;
+        follower.classList.add('is-hovering');
+      }
+    }
+  }, { passive: true });
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(hoverSelector)) {
+      isHovering = false;
+      follower.classList.remove('is-hovering');
+    }
+  }, { passive: true });
+
+  // Smooth lerp animation loop
+  function loop() {
+    if (isVisible) {
+      // Dot follows immediately
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+
+      // Follower trails with smooth lerp (factor 0.18)
+      followerX += (mouseX - followerX) * 0.18;
+      followerY += (mouseY - followerY) * 0.18;
+      follower.style.transform = `translate3d(${followerX.toFixed(2)}px, ${followerY.toFixed(2)}px, 0) translate(-50%, -50%)${isDown ? ' scale(0.82)' : ''}`;
+    }
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+}
