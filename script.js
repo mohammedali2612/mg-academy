@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
-  initGenerateButtons();
   initMobileCircularCarousel();
 
   // Handle ?scrollTo= param if present
@@ -413,12 +412,6 @@ void main() {
 
   const measure = () => {
     if (!stage || !list) return;
-    if (isMobile()) {
-      if (canvas) canvas.style.display = 'none';
-      if (overlay) overlay.style.display = 'none';
-      if (fallback) fallback.style.display = 'none';
-      return;
-    }
     const box = stage.getBoundingClientRect();
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     view.width = box.width;
@@ -426,21 +419,24 @@ void main() {
     const outerWidth = box.width + MARGIN * 2;
     const outerHeight = box.height + MARGIN * 2;
     if (canvas) {
-      canvas.style.display = pipeline ? 'block' : 'none';
-      Object.assign(canvas.style, {
-        left: `${-MARGIN}px`,
-        top: `${-MARGIN}px`,
-        width: `${outerWidth}px`,
-        height: `${outerHeight}px`
-      });
-      const width = Math.max(1, Math.round(outerWidth * ratio));
-      const height = Math.max(1, Math.round(outerHeight * ratio));
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
+      canvas.style.display = (pipeline && !isMobile()) ? 'block' : 'none';
+      if (!isMobile()) {
+        Object.assign(canvas.style, {
+          left: `${-MARGIN}px`,
+          top: `${-MARGIN}px`,
+          width: `${outerWidth}px`,
+          height: `${outerHeight}px`
+        });
+        const width = Math.max(1, Math.round(outerWidth * ratio));
+        const height = Math.max(1, Math.round(outerHeight * ratio));
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width;
+          canvas.height = height;
+        }
       }
     }
-    if (overlay) overlay.style.display = 'block';
+    if (overlay) overlay.style.display = (!isMobile() && pipeline) ? 'block' : 'none';
+    if (fallback) fallback.style.display = (isMobile() || !pipeline) ? 'block' : 'none';
     rects = Array.from(list.children).map(item => {
       const rect = item.getBoundingClientRect();
       return { x: rect.left - box.left, y: rect.top - box.top, w: rect.width, h: rect.height };
@@ -573,7 +569,18 @@ void main() {
   };
 
   const render = () => {
-    if (isMobile()) return;
+    if (isMobile() || !pipeline || !gl) {
+      const box = shape(target, 1);
+      if (fallback && box) {
+        fallback.style.transform = `translate(${box.x.toFixed(2)}px, ${box.y.toFixed(2)}px)`;
+        fallback.style.width = `${box.w}px`;
+        fallback.style.height = `${box.h}px`;
+        fallback.style.opacity = '1';
+        fallback.style.display = 'block';
+      }
+      return;
+    }
+
     const s = settings;
     const height = rects[target]?.h ?? rects[0]?.h ?? 36;
     const smooth = height * (0.18 + 0.5 * clamp01(s.gooeyness));
@@ -608,17 +615,6 @@ void main() {
         overlay.style.clipPath = `path('${trace(boxes, blobs, smooth) || 'M0,0Z'}')`;
       }
       overlay.style.visibility = 'visible';
-    }
-
-    if (!pipeline || !gl) {
-      const box = shape(target, 1);
-      if (fallback && box) {
-        fallback.style.transform = `translate(${box.x.toFixed(2)}px, ${box.y.toFixed(2)}px)`;
-        fallback.style.width = `${box.w}px`;
-        fallback.style.height = `${box.h}px`;
-        fallback.style.opacity = '1';
-      }
-      return;
     }
 
     let slot = 0;
@@ -785,9 +781,9 @@ void main() {
 
   const go = (index, animate) => {
     if (index === target) return;
-    if (isMobile() || !rects[index] || !animate || reduced || target < 0) {
-      target = index;
-      if (!isMobile()) settle(index);
+    target = index;
+    if (isMobile() || !pipeline || reduced || !rects[index] || !animate) {
+      settle(index);
       return;
     }
     const now = performance.now();
@@ -882,6 +878,10 @@ void main() {
   // Initial measurement & settling on active index (0: All Programs)
   measure();
   settle(0);
+  setTimeout(() => {
+    measure();
+    settle(0);
+  }, 50);
 }
 
 /* ==========================================================================
@@ -1244,27 +1244,8 @@ function initSkiper30Parallax() {
   let ticking = false;
 
   function updateParallax() {
-    // Mobile & Tablet view (<= 860px): smooth card scroll parallax
+    // Mobile view (<= 860px): skiper30-gallery is hidden (mobile 3D circular carousel active)
     if (window.innerWidth <= 860) {
-      if (col1 && col1.style.transform) col1.style.transform = '';
-      if (col2 && col2.style.transform) col2.style.transform = '';
-      if (col3 && col3.style.transform) col3.style.transform = '';
-      if (col4 && col4.style.transform) col4.style.transform = '';
-
-      const H = window.innerHeight;
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        if (rect.bottom >= -50 && rect.top <= H + 50) {
-          const progress = (H - rect.top) / (H + rect.height);
-          const clamped = Math.min(Math.max(progress, 0), 1);
-          const shiftY = (clamped - 0.5) * 26;
-          const img = card.querySelector('img');
-          if (img) {
-            img.style.transform = `scale(1.14) translate3d(0, ${shiftY.toFixed(2)}px, 0)`;
-          }
-        }
-      });
-
       ticking = false;
       return;
     }
@@ -1673,11 +1654,14 @@ function initMobileCircularCarousel() {
     const base = index * step;
     card.style.transform = `rotateY(${base.toFixed(2)}deg) translateZ(${radius.toFixed(2)}px)`;
 
-    card.addEventListener('click', () => {
-      if (!suppressClick && items[index]) {
-        if (typeof openLightbox === 'function') {
-          openLightbox(items[index].src, items[index].title);
-        }
+    const frame = card.querySelector('.circular-carousel__frame') || card;
+    frame.addEventListener('click', (e) => {
+      if (suppressClick) return;
+      const currentActive = ((Math.round(-angle / step) % count) + count) % count;
+      if (index !== currentActive) {
+        target = -index * step;
+      } else if (typeof window.openLightbox === 'function' && items[index]) {
+        window.openLightbox(items[index].src, items[index].title);
       }
     });
   });
@@ -1694,11 +1678,9 @@ function initMobileCircularCarousel() {
       startY: e.clientY,
       startAngle: angle,
       moved: false,
+      captured: false,
       samples: [{ time: performance.now(), angle }]
     };
-    try {
-      root.setPointerCapture(e.pointerId);
-    } catch (_) {}
   }
 
   function onPointerMove(e) {
@@ -1707,14 +1689,20 @@ function initMobileCircularCarousel() {
     const dy = e.clientY - press.startY;
 
     if (!press.moved) {
-      if (Math.abs(dx) > 5) {
+      if (Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) {
         press.moved = true;
         isDragging = true;
         suppressClick = true;
         target = null;
         velocity = 0;
         root.setAttribute('data-dragging', '');
-      } else if (Math.abs(dy) > 10 && e.pointerType !== 'mouse') {
+        if (!press.captured) {
+          try {
+            root.setPointerCapture(e.pointerId);
+            press.captured = true;
+          } catch (_) {}
+        }
+      } else if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) {
         press = null;
         return;
       }
@@ -1732,9 +1720,11 @@ function initMobileCircularCarousel() {
 
   function onPointerUp(e) {
     if (!press || press.id !== e.pointerId) return;
-    try {
-      root.releasePointerCapture(e.pointerId);
-    } catch (_) {}
+    if (press.captured) {
+      try {
+        root.releasePointerCapture(e.pointerId);
+      } catch (_) {}
+    }
 
     if (press.moved) {
       isDragging = false;
