@@ -5349,3 +5349,107 @@ marquee,
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   DANCE CLASSES SCROLL STACK (Mobile View Only: <= 860px)
+   Inspired by ScrollStack Component
+   ========================================================================== */
+/* Desktop 4-Column Grid (> 860px) */
+@media (min-width: 861px) {
+  .dance-styles-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 24px !important;
+    margin-bottom: 50px !important;
+  }
+
+  .dance-stack-slot {
+    display: flex !important;
+    flex-direction: column !important;
+    position: static !important;
+    height: 100% !important;
+  }
+
+  .dance-stack-slot .dance-style-card {
+    flex: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .scroll-stack-card__shade {
+    display: none !important;
+  }
+
+  .dance-stack-end {
+    display: none !important;
+  }
+}
+
+/* Mobile ScrollStack (<= 860px) */
+@media (max-width: 860px) {
+  .dance-styles-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 375px !important;
+    margin: 20px auto 30px auto !important;
+    padding: 0 4px !important;
+  }
+
+  .dance-stack-slot {
+    position: sticky !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    will-change: transform;
+  }
+
+  .dance-stack-slot:nth-child(1) {
+    top: 70px !important;
+    margin-bottom: calc(45px + 3 * 22px) !important;
+    z-index: 1 !important;
+  }
+
+  .dance-stack-slot:nth-child(2) {
+    top: 92px !important;
+    margin-bottom: calc(45px + 2 * 22px) !important;
+    z-index: 2 !important;
+  }
+
+  .dance-stack-slot:nth-child(3) {
+    top: 114px !important;
+    margin-bottom: calc(45px + 1 * 22px) !important;
+    z-index: 3 !important;
+  }
+
+  .dance-stack-slot:nth-child(4) {
+    top: 136px !important;
+    margin-bottom: 50px !important;
+    z-index: 4 !important;
+  }
+
+  .dance-style-card {
+    position: relative !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    border-radius: 24px !important;
+    background: #FFFFFF !important;
+    border: 2px solid rgba(0, 90, 156, 0.22) !important;
+    box-shadow: 0 16px 40px rgba(10, 37, 64, 0.12) !important;
+    transform-origin: 50% 0 !important;
+    will-change: transform, filter !important;
+    overflow: hidden !important;
+  }
+
+  .scroll-stack-card__shade {
+    position: absolute !important;
+    inset: 0 !important;
+    border-radius: inherit !important;
+    background: #0B1E36 !important;
+    opacity: var(--scroll-stack-dim, 0) !important;
+    pointer-events: none !important;
+    transition: opacity 0.12s ease !important;
+    z-index: 10 !important;
+  }
+}

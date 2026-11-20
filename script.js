@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initCourseTabs();
   initCircularGallery3D();
+  initDanceScrollStack();
   initScrollReveal();
   initHeroAnimation();
   initModals();
@@ -2556,4 +2557,77 @@ function initCircularGallery3D() {
       state.target = (state.target !== null ? state.target : nearest(state.angle)) - step;
     });
   }
+}
+
+/* ==========================================================================
+   DANCE CLASSES SCROLL STACK ENGINE (Mobile View Only: <= 860px)
+   ========================================================================== */
+function initDanceScrollStack() {
+  const container = document.getElementById('dance-styles-grid');
+  if (!container) return;
+
+  const slots = Array.from(container.querySelectorAll('.dance-stack-slot'));
+  if (!slots.length) return;
+
+  let rafId = 0;
+  const offset = 22;
+  const stackTop = 70;
+  const dimStep = 0.18;
+
+  function update() {
+    rafId = 0;
+    if (window.innerWidth > 860) {
+      slots.forEach(slot => {
+        const card = slot.firstElementChild;
+        if (card) {
+          card.style.transform = '';
+          card.style.filter = '';
+          card.style.removeProperty('--scroll-stack-dim');
+        }
+      });
+      return;
+    }
+
+    const heights = slots.map(slot => slot.offsetHeight);
+    const tops = slots.map(slot => slot.getBoundingClientRect().top);
+
+    const depths = slots.map(() => 0);
+    for (let j = 1; j < slots.length; j++) {
+      const pinBefore = stackTop + (j - 1) * offset;
+      const start = pinBefore + heights[j - 1];
+      const span = Math.max(1, start - pinBefore - offset);
+      const cover = Math.min(1, Math.max(0, (start - tops[j]) / span));
+      for (let i = 0; i < j; i++) depths[i] += cover;
+    }
+
+    slots.forEach((slot, i) => {
+      const card = slot.firstElementChild;
+      if (!card) return;
+      const depth = depths[i];
+      if (depth < 0.001) {
+        card.style.transform = '';
+        card.style.filter = '';
+        card.style.setProperty('--scroll-stack-dim', '0');
+      } else {
+        const lean = Math.min(depth, 1);
+        const scale = Math.max(0.85, 1 - depth * 0.045);
+        const tilt = -lean * 2.5;
+        const turn = lean * 1.5 * (i % 2 ? -1 : 1);
+        const blur = depth * 0.35;
+        const dim = 1 - Math.pow(1 - dimStep, depth);
+
+        card.style.transform = 'perspective(1200px) rotateX(' + tilt.toFixed(2) + 'deg) rotate(' + turn.toFixed(2) + 'deg) scale(' + scale.toFixed(4) + ')';
+        card.style.filter = blur > 0.05 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
+        card.style.setProperty('--scroll-stack-dim', dim.toFixed(3));
+      }
+    });
+  }
+
+  function schedule() {
+    if (!rafId) rafId = requestAnimationFrame(update);
+  }
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  schedule();
 }
