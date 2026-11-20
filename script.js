@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initStaggerTestimonials();
   initCustomCursor();
   initMobileDockNav();
+  initCourseCardStack();
+  initMobileFooterAutoFlip();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -870,6 +872,9 @@ void main() {
 
       // Filter course cards
       filterCards(selectedCategory);
+      if (window.filterCourseStackByCategory) {
+        window.filterCourseStackByCategory(selectedCategory);
+      }
 
       // Ensure mobile smooth scrolling to center the clicked tab in view
       item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -1940,4 +1945,254 @@ function initMobileDockNav() {
 
   // Initial check
   updateActiveOnScroll();
+}
+
+
+/* ==========================================================================
+   16. 3D ANIMATED CARD STACK (Spring Physics Deck for Courses)
+   Emulates Framer Motion AnimatedCardStack (scale 1, 0.95, 0.9; y 12, -16, -44; exit 340)
+   ========================================================================== */
+function initCourseCardStack() {
+  const wrapper = document.getElementById('course-stack-deck-wrapper');
+  const cardsContainer = document.getElementById('course-stack-cards');
+  if (!wrapper || !cardsContainer) return;
+
+  const allCards = Array.from(cardsContainer.querySelectorAll('.course-stack-card'));
+  if (!allCards.length) return;
+
+  let activeQueue = [...allCards];
+  let isAnimating = false;
+
+  const activeIndexEl = document.getElementById('course-stack-active-index');
+  const totalEl = document.getElementById('course-stack-total');
+  const activeNameEl = document.getElementById('course-stack-active-name');
+  const dotsContainer = document.getElementById('course-stack-dots');
+  const nextBtn = document.getElementById('course-stack-next-btn');
+  const prevBtn = document.getElementById('course-stack-prev-btn');
+
+  // Render dots
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    allCards.forEach((card, idx) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `course-stack-dot ${idx === 0 ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Go to course ${idx + 1}`);
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToCard(idx);
+      });
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function updateSlots() {
+    allCards.forEach(c => {
+      c.removeAttribute('data-slot');
+      c.classList.remove('card-exiting');
+    });
+
+    activeQueue.forEach((card, idx) => {
+      if (idx === 0) {
+        card.setAttribute('data-slot', '0');
+      } else if (idx === 1) {
+        card.setAttribute('data-slot', '1');
+      } else if (idx === 2) {
+        card.setAttribute('data-slot', '2');
+      } else {
+        card.setAttribute('data-slot', 'hidden');
+      }
+    });
+
+    // Update meta
+    if (activeQueue.length > 0) {
+      const frontCard = activeQueue[0];
+      const titleEl = frontCard.querySelector('.course-title');
+      const title = titleEl ? titleEl.textContent.trim() : '';
+      const originalIndex = allCards.indexOf(frontCard) + 1;
+
+      if (activeIndexEl) activeIndexEl.textContent = originalIndex;
+      if (totalEl) totalEl.textContent = allCards.length;
+      if (activeNameEl) activeNameEl.textContent = `— ${title}`;
+
+      // Update dots
+      if (dotsContainer) {
+        const dots = dotsContainer.querySelectorAll('.course-stack-dot');
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', (allCards.indexOf(frontCard)) === idx);
+        });
+      }
+    }
+  }
+
+  function nextCard() {
+    if (isAnimating || activeQueue.length <= 1) return;
+    isAnimating = true;
+
+    const topCard = activeQueue[0];
+    topCard.classList.add('card-exiting');
+
+    setTimeout(() => {
+      topCard.classList.remove('card-exiting');
+      const first = activeQueue.shift();
+      activeQueue.push(first);
+      updateSlots();
+      isAnimating = false;
+    }, 400);
+  }
+
+  function prevCard() {
+    if (isAnimating || activeQueue.length <= 1) return;
+    isAnimating = true;
+
+    const last = activeQueue.pop();
+    activeQueue.unshift(last);
+    updateSlots();
+    setTimeout(() => {
+      isAnimating = false;
+    }, 400);
+  }
+
+  function goToCard(targetIndex) {
+    if (isAnimating) return;
+    const targetCard = allCards[targetIndex];
+    if (!targetCard) return;
+
+    let iterations = 0;
+    while (activeQueue[0] !== targetCard && iterations < activeQueue.length) {
+      const first = activeQueue.shift();
+      activeQueue.push(first);
+      iterations++;
+    }
+    updateSlots();
+  }
+
+  // Next / Prev Button events
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextCard();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevCard();
+    });
+  }
+
+  // Click on front card to advance (ignoring buttons/links)
+  cardsContainer.addEventListener('click', (e) => {
+    if (e.target.closest('button') || e.target.closest('a')) return;
+    const clickedCard = e.target.closest('.course-stack-card');
+    if (!clickedCard) return;
+
+    const slot = clickedCard.getAttribute('data-slot');
+    if (slot === '0' || slot === '1') {
+      nextCard();
+    }
+  });
+
+  // Touch Swipe for Mobile (swipe down or horizontal to advance)
+  let touchStartX = 0;
+  let touchStartY = 0;
+  cardsContainer.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  cardsContainer.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+
+    // Swipe down to dismiss (matches exitAnimation y: 340)
+    if (diffY > 40 && Math.abs(diffY) > Math.abs(diffX)) {
+      nextCard();
+    } else if (diffX < -40 && Math.abs(diffX) > Math.abs(diffY)) {
+      nextCard();
+    } else if (diffX > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      prevCard();
+    }
+  }, { passive: true });
+
+  // Expose category filter hook
+  window.filterCourseStackByCategory = function (category) {
+    if (category === 'all' || !category) {
+      activeQueue = [...allCards];
+    } else {
+      const matches = allCards.filter(c => {
+        const cat = c.getAttribute('data-category') || '';
+        return cat === category || cat.includes(category);
+      });
+      const nonMatches = allCards.filter(c => !matches.includes(c));
+      activeQueue = [...matches, ...nonMatches];
+    }
+    updateSlots();
+  };
+
+  renderDots();
+  updateSlots();
+}
+
+/* ==========================================================================
+   17. MOBILE FOOTER AUTO-FLIP (Automatic C-O-N-T-A-C-T Wave Without Clicking)
+   ========================================================================== */
+function initMobileFooterAutoFlip() {
+  const card = document.getElementById('social-flip-card');
+  if (!card) return;
+  const nodes = Array.from(card.querySelectorAll('.social-flip-node'));
+  if (!nodes.length) return;
+
+  let waveInterval = null;
+  let isHovered = false;
+
+  card.addEventListener('mouseenter', () => { isHovered = true; });
+  card.addEventListener('mouseleave', () => { isHovered = false; });
+
+  function triggerWave() {
+    if (isHovered) return;
+
+    // Wave forwards: C-O-N-T-A-C-T flip to icons
+    nodes.forEach((node, idx) => {
+      setTimeout(() => {
+        node.classList.add('is-flipped');
+      }, idx * 90);
+    });
+
+    // Hold icons for 2.6 seconds, then wave back to letters
+    setTimeout(() => {
+      if (isHovered) return;
+      nodes.forEach((node, idx) => {
+        setTimeout(() => {
+          node.classList.remove('is-flipped');
+        }, idx * 90);
+      });
+    }, 2800);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Run wave flip on mobile / touch screens automatically without clicking
+        if (window.innerWidth <= 860) {
+          triggerWave();
+          if (!waveInterval) {
+            waveInterval = setInterval(triggerWave, 6000);
+          }
+        }
+      } else {
+        if (waveInterval) {
+          clearInterval(waveInterval);
+          waveInterval = null;
+        }
+        nodes.forEach(n => n.classList.remove('is-flipped'));
+      }
+    });
+  }, { threshold: 0.25 });
+
+  observer.observe(card);
 }

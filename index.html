@@ -26,7 +26,7 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=4.5">
+  <link rel="stylesheet" href="style.css?v=4.6">
 
 
 
@@ -347,185 +347,223 @@
           </nav>
         </div>
 
-        <div class="courses-grid" id="courses-grid">
-          <!-- Course 1: Drawing & Painting -->
-          <div class="course-card glass-panel reveal-fade-up" data-category="art">
-            <div class="course-media">
-              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg"
-                alt="Drawing and Painting classes at MG Academy" class="course-cover-img" loading="lazy">
-              <div class="course-badge bg-pink">Featured</div>
-              <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-palette"></i></div>
+        <!-- 3D Animated Card Stack Deck (Framer-Motion spring depth layering) -->
+        <div class="course-stack-deck-wrapper" id="course-stack-deck-wrapper">
+          <!-- Stack Meta Header: Counter & Instruction -->
+          <div class="course-stack-meta">
+            <div class="course-stack-counter-pill" id="course-stack-counter-pill">
+              <span class="course-stack-badge-icon"><i class="fa-solid fa-layer-group"></i></span>
+              <span class="course-stack-active-index" id="course-stack-active-index">1</span>
+              <span class="course-stack-sep">/</span>
+              <span class="course-stack-total" id="course-stack-total">6</span>
+              <span class="course-stack-active-name" id="course-stack-active-name">— Drawing &amp; Painting</span>
             </div>
-            <div class="course-body">
-              <h3 class="course-title">Drawing &amp; Painting</h3>
-              <p class="course-desc">
-                From pencil lines, geometrical shapes, and color mixing to landscape scenery, portraiture, and acrylic
-                canvas painting across tiered levels.
-              </p>
-              <ul class="course-bullets">
-                <li><i class="fa-solid fa-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
-                <li><i class="fa-solid fa-check text-green"></i> Watercolor Washes &amp; Poster Colors</li>
-                <li><i class="fa-solid fa-check text-green"></i> Canvas Acrylics &amp; Exhibition Art</li>
-              </ul>
-              <div class="course-footer">
-                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                <button class="btn btn-sm btn-outline btn-animated-shine"
-                  onclick="openAdmissionModal('Drawing & Painting')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll Now</span>
-                </button>
+            <div class="course-stack-instruction">
+              <i class="fa-solid fa-hand-pointer"></i> <span>Click card or Next</span>
+            </div>
+          </div>
+
+          <!-- 3D Stack Stage -->
+          <div class="course-stack-stage" id="course-stack-stage">
+            <div class="course-stack-cards" id="course-stack-cards">
+              <!-- Course 1: Drawing & Painting -->
+              <div class="course-stack-card course-card glass-panel" data-slot="0" data-card-id="1" data-category="art">
+                <div class="course-media">
+                  <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg"
+                    alt="Drawing and Painting classes at MG Academy" class="course-cover-img" loading="lazy">
+                  <div class="course-badge bg-pink">Featured</div>
+                  <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-palette"></i></div>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Drawing &amp; Painting</h3>
+                  <p class="course-desc">
+                    From pencil lines, geometrical shapes, and color mixing to landscape scenery, portraiture, and acrylic
+                    canvas painting across tiered levels.
+                  </p>
+                  <ul class="course-bullets">
+                    <li><i class="fa-solid fa-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Watercolor Washes &amp; Poster Colors</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Canvas Acrylics &amp; Exhibition Art</li>
+                  </ul>
+                  <div class="course-footer">
+                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                    <button class="btn btn-sm btn-outline btn-animated-shine"
+                      onclick="event.stopPropagation(); openAdmissionModal('Drawing & Painting')">
+                      <span class="btn-shine-border" aria-hidden="true"></span>
+                      <span class="btn-shine-surface" aria-hidden="true"></span>
+                      <span class="btn-shine-text">Enroll Now</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course 2: Handwriting Improvement -->
+              <div class="course-stack-card course-card glass-panel" data-slot="1" data-card-id="2" data-category="skills">
+                <div class="course-media">
+                  <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy"
+                    class="course-cover-img" loading="lazy">
+                  <div class="course-badge bg-gold">Essential</div>
+                  <div class="course-icon-floating text-gold bg-gold-light"><i class="fa-solid fa-pen-fancy"></i></div>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Handwriting Improvement</h3>
+                  <p class="course-desc">
+                    Scientific techniques to correct pencil grip, posture, stroke rhythm, letter spacing, and line alignment
+                    into neat, beautiful cursive handwriting.
+                  </p>
+                  <ul class="course-bullets">
+                    <li><i class="fa-solid fa-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Cursive &amp; Print Letter Perfection</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Enhanced Exam Writing Speed</li>
+                  </ul>
+                  <div class="course-footer">
+                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
+                    <button class="btn btn-sm btn-outline btn-animated-shine"
+                      onclick="event.stopPropagation(); openAdmissionModal('Handwriting Improvement')">
+                      <span class="btn-shine-border" aria-hidden="true"></span>
+                      <span class="btn-shine-surface" aria-hidden="true"></span>
+                      <span class="btn-shine-text">Enroll Now</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course 3: Calligraphy -->
+              <div class="course-stack-card course-card glass-panel" data-slot="2" data-card-id="3" data-category="skills">
+                <div class="course-media">
+                  <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy"
+                    class="course-cover-img" loading="lazy">
+                  <div class="course-badge bg-purple">Artistic</div>
+                  <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-feather-pointed"></i>
+                  </div>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Calligraphy</h3>
+                  <p class="course-desc">
+                    The noble art of beautiful lettering. Students master foundational nib angles, flourished alphabets, ink
+                    flow control, and creative ornamental scripts.
+                  </p>
+                  <ul class="course-bullets">
+                    <li><i class="fa-solid fa-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen Mastery</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Gothic, Italic &amp; Modern Script Styles</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Greeting Cards, Bookmarks &amp; Certificates</li>
+                  </ul>
+                  <div class="course-footer">
+                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
+                    <button class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Calligraphy')">
+                      <span class="btn-shine-border" aria-hidden="true"></span>
+                      <span class="btn-shine-surface" aria-hidden="true"></span>
+                      <span class="btn-shine-text">Enroll Now</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course 4: Abacus & Mental Math -->
+              <div class="course-stack-card course-card glass-panel" data-slot="hidden" data-card-id="4" data-category="skills">
+                <div class="course-media">
+                  <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy"
+                    class="course-cover-img" loading="lazy">
+                  <div class="course-badge bg-green">Brain Booster</div>
+                  <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i></div>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Abacus</h3>
+                  <p class="course-desc">
+                    Supercharge your child's brain. Enhances photographic concentration, visual calculations, mental
+                    agility, speed arithmetic, and numeric self-confidence.
+                  </p>
+                  <ul class="course-bullets">
+                    <li><i class="fa-solid fa-check text-green"></i> Soroban Bead Foundations &amp; Finger Movements</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Lightning Fast Mental Calculations</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Boosts Long-Term Focus &amp; Working Memory</li>
+                  </ul>
+                  <div class="course-footer">
+                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
+                    <button class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Abacus')">
+                      <span class="btn-shine-border" aria-hidden="true"></span>
+                      <span class="btn-shine-surface" aria-hidden="true"></span>
+                      <span class="btn-shine-text">Enroll Now</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course 5: Creative Art & Craft -->
+              <div class="course-stack-card course-card glass-panel" data-slot="hidden" data-card-id="5" data-category="art">
+                <div class="course-media">
+                  <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy"
+                    class="course-cover-img" loading="lazy">
+                  <div class="course-badge bg-blue">Hands-on</div>
+                  <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-shapes"></i></div>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Creative Art &amp; Craft</h3>
+                  <p class="course-desc">
+                    Tactile hands-on discovery through origami paper folding, clay sculpting, scrapbooking, greeting card
+                    crafts, and colorful eco-friendly model making.
+                  </p>
+                  <ul class="course-bullets">
+                    <li><i class="fa-solid fa-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Japanese Origami &amp; Pop-up Cards</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Recycled Art &amp; Festive Projects</li>
+                  </ul>
+                  <div class="course-footer">
+                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
+                    <button class="btn btn-sm btn-outline btn-animated-shine"
+                      onclick="event.stopPropagation(); openAdmissionModal('Creative Art & Craft')">
+                      <span class="btn-shine-border" aria-hidden="true"></span>
+                      <span class="btn-shine-surface" aria-hidden="true"></span>
+                      <span class="btn-shine-text">Enroll Now</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course 6: Dance Classes -->
+              <div class="course-stack-card course-card glass-panel highlight-dance-card" data-slot="hidden" data-card-id="6" data-category="dance">
+                <div class="course-media">
+                  <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
+                    alt="Dance performance and training at MG Academy" class="course-cover-img" loading="lazy">
+                  <div class="course-badge bg-pink">Stage Ready</div>
+                  <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-music"></i></div>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Dance Classes</h3>
+                  <p class="course-desc">
+                    Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam, energetic
+                    Western dance, contemporary Free Style, and Tamil Folk.
+                  </p>
+                  <ul class="course-bullets">
+                    <li><i class="fa-solid fa-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
+                    <li><i class="fa-solid fa-check text-green"></i> High-Energy Western &amp; Freestyle Beats</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Vibrant Cultural Tamil Folk Rhythms</li>
+                  </ul>
+                  <div class="course-footer">
+                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                    <a href="#dance" class="btn btn-sm btn-primary" onclick="event.stopPropagation();">Explore Dance</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Course 2: Handwriting Improvement -->
-          <div class="course-card glass-panel reveal-fade-up" data-category="skills">
-            <div class="course-media">
-              <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy"
-                class="course-cover-img" loading="lazy">
-              <div class="course-badge bg-gold">Essential</div>
-              <div class="course-icon-floating text-gold bg-gold-light"><i class="fa-solid fa-pen-fancy"></i></div>
-            </div>
-            <div class="course-body">
-              <h3 class="course-title">Handwriting Improvement</h3>
-              <p class="course-desc">
-                Scientific techniques to correct pencil grip, posture, stroke rhythm, letter spacing, and line alignment
-                into neat, beautiful cursive handwriting.
-              </p>
-              <ul class="course-bullets">
-                <li><i class="fa-solid fa-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
-                <li><i class="fa-solid fa-check text-green"></i> Cursive &amp; Print Letter Perfection</li>
-                <li><i class="fa-solid fa-check text-green"></i> Enhanced Exam Writing Speed</li>
-              </ul>
-              <div class="course-footer">
-                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
-                <button class="btn btn-sm btn-outline btn-animated-shine"
-                  onclick="openAdmissionModal('Handwriting Improvement')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll Now</span>
-                </button>
-              </div>
-            </div>
-          </div>
+          <!-- Bottom Navigation Controls -->
+          <div class="course-stack-controls">
+            <button type="button" class="course-stack-nav-btn course-stack-prev-btn" id="course-stack-prev-btn" aria-label="Previous Course">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
 
-          <!-- Course 3: Calligraphy -->
-          <div class="course-card glass-panel reveal-fade-up" data-category="skills">
-            <div class="course-media">
-              <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy"
-                class="course-cover-img" loading="lazy">
-              <div class="course-badge bg-purple">Artistic</div>
-              <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-feather-pointed"></i>
-              </div>
-            </div>
-            <div class="course-body">
-              <h3 class="course-title">Calligraphy</h3>
-              <p class="course-desc">
-                The noble art of beautiful lettering. Students master foundational nib angles, flourished alphabets, ink
-                flow control, and creative ornamental scripts.
-              </p>
-              <ul class="course-bullets">
-                <li><i class="fa-solid fa-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen Mastery</li>
-                <li><i class="fa-solid fa-check text-green"></i> Gothic, Italic &amp; Modern Script Styles</li>
-                <li><i class="fa-solid fa-check text-green"></i> Greeting Cards, Bookmarks &amp; Certificates</li>
-              </ul>
-              <div class="course-footer">
-                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
-                <button class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Calligraphy')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll Now</span>
-                </button>
-              </div>
-            </div>
-          </div>
+            <div class="course-stack-dots" id="course-stack-dots" aria-label="Course Stack Navigation Dots"></div>
 
-          <!-- Course 4: Abacus & Mental Math -->
-          <div class="course-card glass-panel reveal-fade-up" data-category="skills">
-            <div class="course-media">
-              <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy"
-                class="course-cover-img" loading="lazy">
-              <div class="course-badge bg-green">Brain Booster</div>
-              <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i></div>
-            </div>
-            <div class="course-body">
-              <h3 class="course-title">Abacus</h3>
-              <p class="course-desc">
-                Supercharge your child's brain. Enhances photographic concentration, visual calculations, mental
-                agility, speed arithmetic, and numeric self-confidence.
-              </p>
-              <ul class="course-bullets">
-                <li><i class="fa-solid fa-check text-green"></i> Soroban Bead Foundations &amp; Finger Movements</li>
-                <li><i class="fa-solid fa-check text-green"></i> Lightning Fast Mental Calculations</li>
-                <li><i class="fa-solid fa-check text-green"></i> Boosts Long-Term Focus &amp; Working Memory</li>
-              </ul>
-              <div class="course-footer">
-                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
-                <button class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Abacus')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll Now</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Course 5: Creative Art & Craft -->
-          <div class="course-card glass-panel reveal-fade-up" data-category="art">
-            <div class="course-media">
-              <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy"
-                class="course-cover-img" loading="lazy">
-              <div class="course-badge bg-blue">Hands-on</div>
-              <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-shapes"></i></div>
-            </div>
-            <div class="course-body">
-              <h3 class="course-title">Creative Art &amp; Craft</h3>
-              <p class="course-desc">
-                Tactile hands-on discovery through origami paper folding, clay sculpting, scrapbooking, greeting card
-                crafts, and colorful eco-friendly model making.
-              </p>
-              <ul class="course-bullets">
-                <li><i class="fa-solid fa-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
-                <li><i class="fa-solid fa-check text-green"></i> Japanese Origami &amp; Pop-up Cards</li>
-                <li><i class="fa-solid fa-check text-green"></i> Recycled Art &amp; Festive Projects</li>
-              </ul>
-              <div class="course-footer">
-                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
-                <button class="btn btn-sm btn-outline btn-animated-shine"
-                  onclick="openAdmissionModal('Creative Art & Craft')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll Now</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Course 6: Dance Classes -->
-          <div class="course-card glass-panel reveal-fade-up highlight-dance-card" data-category="dance">
-            <div class="course-media">
-              <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
-                alt="Dance performance and training at MG Academy" class="course-cover-img" loading="lazy">
-              <div class="course-badge bg-pink">Stage Ready</div>
-              <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-music"></i></div>
-            </div>
-            <div class="course-body">
-              <h3 class="course-title">Dance Classes</h3>
-              <p class="course-desc">
-                Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam, energetic
-                Western dance, contemporary Free Style, and Tamil Folk.
-              </p>
-              <ul class="course-bullets">
-                <li><i class="fa-solid fa-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
-                <li><i class="fa-solid fa-check text-green"></i> High-Energy Western &amp; Freestyle Beats</li>
-                <li><i class="fa-solid fa-check text-green"></i> Vibrant Cultural Tamil Folk Rhythms</li>
-              </ul>
-              <div class="course-footer">
-                <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                <a href="#dance" class="btn btn-sm btn-primary">Explore Dance</a>
-              </div>
-            </div>
+            <button type="button" class="btn btn-primary course-stack-next-btn btn-animated-shine" id="course-stack-next-btn" aria-label="Next Course">
+              <span class="btn-shine-border" aria-hidden="true"></span>
+              <span class="btn-shine-surface" aria-hidden="true"></span>
+              <span class="btn-shine-text">
+                <span>Next Course</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -1577,7 +1615,7 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=4.5"></script>
+  <script src="script.js?v=4.6"></script>
 
 </body>
 
