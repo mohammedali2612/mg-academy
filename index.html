@@ -26,7 +26,10 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=5.8">
+  <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <link rel="stylesheet" href="style.css?v=5.9">
 
 
 
@@ -1151,125 +1154,134 @@
           </p>
         </div>
 
-        <div class="fees-tiers-grid">
-          <!-- Level 1: Beginner Art Course -->
-          <div class="fee-card glass-panel reveal-fade-up">
-            <div class="tier-pill bg-pink">Entry Level</div>
-            <div class="fee-header">
-              <h3>Beginner Art Course</h3>
-              <div class="age-badge"><i class="fa-solid fa-child"></i> Age: <strong>4 to 8 Years</strong></div>
-            </div>
+        <div class="fees-swiper-container swiper Carousal_004" id="fees-swiper">
+          <div class="swiper-wrapper fees-tiers-grid">
+            <!-- Level 1: Beginner Art Course -->
+            <div class="swiper-slide fee-card-slide">
+              <div class="fee-card glass-panel reveal-fade-up">
+                <div class="tier-pill bg-pink">Entry Level</div>
+                <div class="fee-header">
+                  <h3>Beginner Art Course</h3>
+                  <div class="age-badge"><i class="fa-solid fa-child"></i> Age: <strong>4 to 8 Years</strong></div>
+                </div>
 
-            <div class="fee-price-box">
-              <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
-              <span class="period">Batch Mentorship</span>
-            </div>
+                <div class="fee-price-box">
+                  <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+                  <span class="period">Batch Mentorship</span>
+                </div>
 
-            <div class="fee-curriculum-list">
-              <div class="list-heading">Curriculum Highlights:</div>
-              <ul>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Geometrical shapes &amp; line control</li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Crayon &amp; oil pastel blending methods</li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Simple animals, fruits, flowers &amp; nature
-                </li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic pencil grip &amp; hand-eye
-                  coordination</li>
-              </ul>
-            </div>
+                <div class="fee-curriculum-list">
+                  <div class="list-heading">Curriculum Highlights:</div>
+                  <ul>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Geometrical shapes &amp; line control</li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Crayon &amp; oil pastel blending methods</li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Simple animals, fruits, flowers &amp; nature
+                    </li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic pencil grip &amp; hand-eye
+                      coordination</li>
+                  </ul>
+                </div>
 
-            <div class="fee-features">
-              <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
-              <div class="feat-row"><span>Batch Size:</span> <strong>Max 8-10 Kids</strong></div>
-            </div>
+                <div class="fee-features">
+                  <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
+                  <div class="feat-row"><span>Batch Size:</span> <strong>Max 8-10 Kids</strong></div>
+                </div>
 
-            <button class="btn btn-block btn-outline btn-animated-shine"
-              onclick="openAdmissionModal('Beginner Art Course (Age 4-8)')">
-              <span class="btn-shine-border" aria-hidden="true"></span>
-              <span class="btn-shine-surface" aria-hidden="true"></span>
-              <span class="btn-shine-text">Enroll in Beginner</span>
-            </button>
-          </div>
-
-          <!-- Level 2: Intermediate Art Course -->
-          <div class="fee-card glass-panel popular-tier reveal-fade-up">
-            <div class="tier-pill bg-gold">Most Popular</div>
-            <div class="fee-header">
-              <h3>Intermediate Art Course</h3>
-              <div class="age-badge"><i class="fa-solid fa-child-reaching"></i> Age: <strong>8 to 12 Years</strong>
+                <button class="btn btn-block btn-outline btn-animated-shine"
+                  onclick="openAdmissionModal('Beginner Art Course (Age 4-8)')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll in Beginner</span>
+                </button>
               </div>
             </div>
 
-            <div class="fee-price-box">
-              <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
-              <span class="period">Batch Mentorship</span>
+            <!-- Level 2: Intermediate Art Course -->
+            <div class="swiper-slide fee-card-slide">
+              <div class="fee-card glass-panel popular-tier reveal-fade-up">
+                <div class="tier-pill bg-gold">Most Popular</div>
+                <div class="fee-header">
+                  <h3>Intermediate Art Course</h3>
+                  <div class="age-badge"><i class="fa-solid fa-child-reaching"></i> Age: <strong>8 to 12 Years</strong>
+                  </div>
+                </div>
+
+                <div class="fee-price-box">
+                  <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+                  <span class="period">Batch Mentorship</span>
+                </div>
+
+                <div class="fee-curriculum-list">
+                  <div class="list-heading">Curriculum Highlights:</div>
+                  <ul>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Pencil shading &amp; tonal pressure gradients
+                    </li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Scenery landscapes, perspective &amp; trees</li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor washes &amp; poster color handling
+                    </li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Still-life objects &amp; creative composition
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="fee-features">
+                  <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
+                  <div class="feat-row"><span>Batch Size:</span> <strong>Max 10 Students</strong></div>
+                </div>
+
+                <button class="btn btn-block btn-primary btn-animated-shine"
+                  onclick="openAdmissionModal('Intermediate Art Course (Age 8-12)')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll in Intermediate</span>
+                </button>
+              </div>
             </div>
 
-            <div class="fee-curriculum-list">
-              <div class="list-heading">Curriculum Highlights:</div>
-              <ul>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Pencil shading &amp; tonal pressure gradients
-                </li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Scenery landscapes, perspective &amp; trees</li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor washes &amp; poster color handling
-                </li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Still-life objects &amp; creative composition
-                </li>
-              </ul>
-            </div>
+            <!-- Level 3: Advanced Art Course -->
+            <div class="swiper-slide fee-card-slide">
+              <div class="fee-card glass-panel reveal-fade-up">
+                <div class="tier-pill bg-purple">Mastery Level</div>
+                <div class="fee-header">
+                  <h3>Advanced Art Course</h3>
+                  <div class="age-badge"><i class="fa-solid fa-user-graduate"></i> Age: <strong>10 Years &amp;
+                      Above</strong></div>
+                </div>
 
-            <div class="fee-features">
-              <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
-              <div class="feat-row"><span>Batch Size:</span> <strong>Max 10 Students</strong></div>
-            </div>
+                <div class="fee-price-box">
+                  <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+                  <span class="period">Batch Mentorship</span>
+                </div>
 
-            <button class="btn btn-block btn-primary btn-animated-shine"
-              onclick="openAdmissionModal('Intermediate Art Course (Age 8-12)')">
-              <span class="btn-shine-border" aria-hidden="true"></span>
-              <span class="btn-shine-surface" aria-hidden="true"></span>
-              <span class="btn-shine-text">Enroll in Intermediate</span>
-            </button>
+                <div class="fee-curriculum-list">
+                  <div class="list-heading">Curriculum Highlights:</div>
+                  <ul>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> 1 &amp; 2-point perspective &amp; architectural
+                      sketch</li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Acrylic on stretched canvas &amp; palette knife
+                    </li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Human anatomy, portrait proportions &amp;
+                      lighting</li>
+                    <li><i class="fa-solid fa-circle-check text-green"></i> Exhibition portfolio &amp; competition mastery
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="fee-features">
+                  <div class="feat-row"><span>Sessions:</span> <strong>8-10 Classes / Month</strong></div>
+                  <div class="feat-row"><span>Batch Size:</span> <strong>Max 8 Students</strong></div>
+                </div>
+
+                <button class="btn btn-block btn-outline btn-animated-shine"
+                  onclick="openAdmissionModal('Advanced Art Course (Age 10+)')">
+                  <span class="btn-shine-border" aria-hidden="true"></span>
+                  <span class="btn-shine-surface" aria-hidden="true"></span>
+                  <span class="btn-shine-text">Enroll in Advanced</span>
+                </button>
+              </div>
+            </div>
           </div>
-
-          <!-- Level 3: Advanced Art Course -->
-          <div class="fee-card glass-panel reveal-fade-up">
-            <div class="tier-pill bg-purple">Mastery Level</div>
-            <div class="fee-header">
-              <h3>Advanced Art Course</h3>
-              <div class="age-badge"><i class="fa-solid fa-user-graduate"></i> Age: <strong>10 Years &amp;
-                  Above</strong></div>
-            </div>
-
-            <div class="fee-price-box">
-              <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
-              <span class="period">Batch Mentorship</span>
-            </div>
-
-            <div class="fee-curriculum-list">
-              <div class="list-heading">Curriculum Highlights:</div>
-              <ul>
-                <li><i class="fa-solid fa-circle-check text-green"></i> 1 &amp; 2-point perspective &amp; architectural
-                  sketch</li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Acrylic on stretched canvas &amp; palette knife
-                </li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Human anatomy, portrait proportions &amp;
-                  lighting</li>
-                <li><i class="fa-solid fa-circle-check text-green"></i> Exhibition portfolio &amp; competition mastery
-                </li>
-              </ul>
-            </div>
-
-            <div class="fee-features">
-              <div class="feat-row"><span>Sessions:</span> <strong>8-10 Classes / Month</strong></div>
-              <div class="feat-row"><span>Batch Size:</span> <strong>Max 8 Students</strong></div>
-            </div>
-
-            <button class="btn btn-block btn-outline btn-animated-shine"
-              onclick="openAdmissionModal('Advanced Art Course (Age 10+)')">
-              <span class="btn-shine-border" aria-hidden="true"></span>
-              <span class="btn-shine-surface" aria-hidden="true"></span>
-              <span class="btn-shine-text">Enroll in Advanced</span>
-            </button>
-          </div>
+          <div class="swiper-pagination fees-pagination"></div>
         </div>
 
         <!-- Additional Program Fees Structure Box -->
@@ -1632,7 +1644,9 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=5.6"></script>
+  <!-- Swiper 11 JS (for 3D Creative Carousel in Mobile View) -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="script.js?v=5.7"></script>
 
 </body>
 

@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileDockNav();
   initCourseCardStack();
   initMobileFooterAutoFlip();
+  initFeesCreativeCarousel();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -2404,4 +2405,59 @@ function initDanceScrollStack() {
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule, { passive: true });
   schedule();
+}
+
+/* ==========================================================================
+   SKIPER 50 CREATIVE 3D CAROUSEL (Carousel_004) - Fee Structure Mobile Only
+   ========================================================================== */
+let feesSwiperInstance = null;
+
+function initFeesCreativeCarousel() {
+  const container = document.getElementById('fees-swiper');
+  if (!container) return;
+
+  function update() {
+    if (window.innerWidth <= 860) {
+      if (!feesSwiperInstance && typeof Swiper !== 'undefined') {
+        feesSwiperInstance = new Swiper('#fees-swiper', {
+          effect: 'creative',
+          grabCursor: true,
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          initialSlide: 1, // Start focused on Intermediate (Most Popular)
+          spaceBetween: 0,
+          creativeEffect: {
+            prev: {
+              shadow: true,
+              origin: 'left center',
+              translate: ['-5%', 0, -200],
+              rotate: [0, 100, 0],
+            },
+            next: {
+              origin: 'right center',
+              translate: ['5%', 0, -200],
+              rotate: [0, -100, 0],
+            },
+          },
+          pagination: {
+            el: '.fees-pagination',
+            clickable: true,
+          },
+        });
+      }
+    } else {
+      if (feesSwiperInstance) {
+        feesSwiperInstance.destroy(true, true);
+        feesSwiperInstance = null;
+      }
+    }
+  }
+
+  // Ensure Swiper is ready
+  if (typeof Swiper !== 'undefined') {
+    update();
+  } else {
+    window.addEventListener('load', update);
+  }
+  window.addEventListener('resize', update);
 }
