@@ -26,7 +26,7 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=5.5">
+  <link rel="stylesheet" href="style.css?v=5.6">
 
 
 
@@ -798,94 +798,95 @@
             </div>
           </div>
 
-          <!-- Mobile 3D ContainerScroll Gallery (<= 860px view only: rotateX 75deg -> 0deg, scale 1.2 -> 1, column parallax) -->
-          <div class="mobile-gallery-scroll-root" id="mobile-gallery-scroll">
-            <div class="mobile-gallery-sticky" id="mobile-gallery-sticky">
-              <div class="mobile-gallery-scroll-hint">
-                <i class="fa-solid fa-angles-down"></i>
-                <span>Scroll down to unfold in 3D</span>
+          <!-- Mobile 3D Coverflow Carousel Gallery (<= 860px view only: Swipe & Auto 3D Coverflow) -->
+          <div class="mobile-coverflow-gallery-section" id="mobile-coverflow-gallery">
+            <div class="carousel-section" id="mobile-gallery-carousel" role="region" aria-roledescription="carousel" aria-label="MG Academy Student Gallery">
+              <div class="carousel-stage" id="mg-carousel-stage">
+                <!-- Card 01: Art Studio -->
+                <article class="carousel-card" data-index="0" data-active="false" role="group" aria-label="1 of 6">
+                  <img class="carousel-image" src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg" alt="Little Picasso Art Studio" loading="lazy">
+                  <div class="card-overlay"></div>
+                  <div class="card-shine"></div>
+                  <div class="card-information">
+                    <h3 class="card-label">Art Studio</h3>
+                    <span class="card-number">01</span>
+                  </div>
+                </article>
+
+                <!-- Card 02: Dance Classes -->
+                <article class="carousel-card" data-index="1" data-active="false" role="group" aria-label="2 of 6">
+                  <img class="carousel-image" src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg" alt="Classical Poise & Rhythms" loading="lazy">
+                  <div class="card-overlay"></div>
+                  <div class="card-shine"></div>
+                  <div class="card-information">
+                    <h3 class="card-label">Dance Classes</h3>
+                    <span class="card-number">02</span>
+                  </div>
+                </article>
+
+                <!-- Card 03: Exhibition (Initial Active) -->
+                <article class="carousel-card" data-index="2" data-active="true" role="group" aria-label="3 of 6">
+                  <img class="carousel-image" src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Young Masters Exhibition" loading="lazy">
+                  <div class="card-overlay"></div>
+                  <div class="card-shine"></div>
+                  <div class="card-information">
+                    <h3 class="card-label">Exhibition</h3>
+                    <span class="card-number">03</span>
+                  </div>
+                </article>
+
+                <!-- Card 04: Crafts -->
+                <article class="carousel-card" data-index="3" data-active="false" role="group" aria-label="4 of 6">
+                  <img class="carousel-image" src="./assets/craft_kids.jpg" alt="Paper Origami & 3D Clay Crafts" loading="lazy">
+                  <div class="card-overlay"></div>
+                  <div class="card-shine"></div>
+                  <div class="card-information">
+                    <h3 class="card-label">Crafts</h3>
+                    <span class="card-number">04</span>
+                  </div>
+                </article>
+
+                <!-- Card 05: Writing -->
+                <article class="carousel-card" data-index="4" data-active="false" role="group" aria-label="5 of 6">
+                  <img class="carousel-image" src="./assets/handwriting_kids.jpg" alt="Handwriting & Calligraphy" loading="lazy">
+                  <div class="card-overlay"></div>
+                  <div class="card-shine"></div>
+                  <div class="card-information">
+                    <h3 class="card-label">Writing</h3>
+                    <span class="card-number">05</span>
+                  </div>
+                </article>
+
+                <!-- Card 06: Awards -->
+                <article class="carousel-card" data-index="5" data-active="false" role="group" aria-label="6 of 6">
+                  <img class="carousel-image" src="./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg" alt="Competition Laurels & Awards" loading="lazy">
+                  <div class="card-overlay"></div>
+                  <div class="card-shine"></div>
+                  <div class="card-information">
+                    <h3 class="card-label">Awards</h3>
+                    <span class="card-number">06</span>
+                  </div>
+                </article>
               </div>
 
-              <!-- 3D Transform Container (perspective: 1000px, rotates from 75deg flat to 0deg upright) -->
-              <div class="mobile-gallery-3d-grid" id="mobile-gallery-grid">
-                <!-- Column 1 (parallax yRange: 0% -> -12%) -->
-                <div class="mobile-gallery-col col-1" id="mg-col-1">
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg', 'Little Picasso Art Studio')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg" alt="Little Picasso Art Studio"
-                      loading="lazy">
-                    <span class="mg-card-badge">Drawing</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg', 'Classical Poise &amp; Rhythms')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
-                      alt="Classical Poise &amp; Rhythms" loading="lazy">
-                    <span class="mg-card-badge">Dance</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg', 'Young Masters Exhibition')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Young Masters Exhibition"
-                      loading="lazy">
-                    <span class="mg-card-badge">Exhibition</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg', 'Joyful Creative Moments')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg" alt="Joyful Creative Moments"
-                      loading="lazy">
-                    <span class="mg-card-badge">Creative</span>
-                  </div>
-                </div>
+              <!-- Navigation Arrows -->
+              <button class="navigation-button previous-button" id="mg-carousel-prev" type="button" aria-label="Show previous image">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
 
-                <!-- Column 2 (parallax yRange: -6% -> +10%) -->
-                <div class="mobile-gallery-col col-2" id="mg-col-2">
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/craft_kids.jpg', 'Paper Origami &amp; 3D Clay Crafts')">
-                    <img src="./assets/craft_kids.jpg" alt="Paper Origami &amp; 3D Clay Crafts" loading="lazy">
-                    <span class="mg-card-badge">Crafts</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/handwriting_kids.jpg', 'Handwriting &amp; Calligraphy')">
-                    <img src="./assets/handwriting_kids.jpg" alt="Handwriting &amp; Calligraphy" loading="lazy">
-                    <span class="mg-card-badge">Writing</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', 'Competition Laurels &amp; Awards')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg"
-                      alt="Competition Laurels &amp; Awards" loading="lazy">
-                    <span class="mg-card-badge">Awards</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg', 'Stage Dance Salangai')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg" alt="Stage Dance Salangai"
-                      loading="lazy">
-                    <span class="mg-card-badge">Stage</span>
-                  </div>
-                </div>
+              <button class="navigation-button next-button" id="mg-carousel-next" type="button" aria-label="Show next image">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
 
-                <!-- Column 3 (parallax yRange: 0% -> -16%) -->
-                <div class="mobile-gallery-col col-3" id="mg-col-3">
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/abacus_kids.jpg', 'Abacus &amp; Brain Agility')">
-                    <img src="./assets/abacus_kids.jpg" alt="Abacus &amp; Brain Agility" loading="lazy">
-                    <span class="mg-card-badge">Abacus</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/calligraphy_kids.jpg', 'Ornamental Calligraphy')">
-                    <img src="./assets/calligraphy_kids.jpg" alt="Ornamental Calligraphy" loading="lazy">
-                    <span class="mg-card-badge">Penmanship</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', 'Classroom Learning Workshop')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg"
-                      alt="Classroom Learning Workshop" loading="lazy">
-                    <span class="mg-card-badge">Workshop</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg', 'Creative Studio Exploration')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg" alt="Creative Studio Exploration"
-                      loading="lazy">
-                    <span class="mg-card-badge">Studio</span>
-                  </div>
+              <!-- Pagination Pill Dots -->
+              <div class="carousel-footer">
+                <div class="pagination" id="mg-carousel-pagination" aria-label="Choose gallery slide">
+                  <button class="pagination-button" data-index="0" data-active="false" type="button" aria-label="Show slide 1"></button>
+                  <button class="pagination-button" data-index="1" data-active="false" type="button" aria-label="Show slide 2"></button>
+                  <button class="pagination-button" data-index="2" data-active="true" type="button" aria-label="Show slide 3"></button>
+                  <button class="pagination-button" data-index="3" data-active="false" type="button" aria-label="Show slide 4"></button>
+                  <button class="pagination-button" data-index="4" data-active="false" type="button" aria-label="Show slide 5"></button>
+                  <button class="pagination-button" data-index="5" data-active="false" type="button" aria-label="Show slide 6"></button>
                 </div>
               </div>
             </div>
@@ -1628,7 +1629,7 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=5.4"></script>
+  <script src="script.js?v=5.6"></script>
 
 </body>
 

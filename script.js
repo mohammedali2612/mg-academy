@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
-  initMobileContainerScroll();
+  initMobileCoverflowGallery();
   initStaggerTestimonials();
   initCustomCursor();
   initMobileDockNav();
@@ -1539,104 +1539,201 @@ function initHeroSlideshow() {
      * Col 3: 0% -> -16%
    - Optimized for smooth 60fps across all mobile viewports (360px - 430px)
    ========================================================================== */
-function initMobileContainerScroll() {
-  const root = document.getElementById('mobile-gallery-scroll');
-  const sticky = document.getElementById('mobile-gallery-sticky');
-  const grid = document.getElementById('mobile-gallery-grid');
-  const col1 = document.getElementById('mg-col-1');
-  const col2 = document.getElementById('mg-col-2');
-  const col3 = document.getElementById('mg-col-3');
-  const hint = document.querySelector('.mobile-gallery-scroll-hint');
+/* ==========================================================================
+   MOBILE 3D COVERFLOW GALLERY CAROUSEL (Mobile View Only: <= 860px)
+   - Inspired by the Coverflow 3D Card Carousel with auto-play & swipe gestures
+   - Applies wrapped relative 3D positions, rotateY, scale, blur, and opacity
+   ========================================================================== */
+function initMobileCoverflowGallery() {
+  const section = document.getElementById('mobile-gallery-carousel');
+  const stage = document.getElementById('mg-carousel-stage');
+  const prevBtn = document.getElementById('mg-carousel-prev');
+  const nextBtn = document.getElementById('mg-carousel-next');
+  const paginationContainer = document.getElementById('mg-carousel-pagination');
 
-  if (!root || !grid || !col1 || !col2 || !col3) return;
+  if (!section || !stage) return;
 
-  let ticking = false;
+  const cards = Array.from(stage.querySelectorAll('.carousel-card'));
+  const dots = paginationContainer ? Array.from(paginationContainer.querySelectorAll('.pagination-button')) : [];
+  const total = cards.length;
+  if (!total) return;
 
-  function update() {
-    if (window.innerWidth > 860) {
-      ticking = false;
-      return;
+  let activeIndex = 2; // Default starting at slide 3 (index 2)
+  let autoPlayTimer = null;
+  let pointerStartX = null;
+  let pointerStartY = null;
+
+  function getWrappedPosition(index, active, count) {
+    let position = (index - active + count) % count;
+    if (position > Math.floor(count / 2)) {
+      position -= count;
     }
+    return position;
+  }
 
-    const rect = root.getBoundingClientRect();
-    const topOffset = 60; // Mobile sticky top offset under header
-    const stickyHeight = sticky ? sticky.offsetHeight : (window.innerHeight - topOffset);
-    const totalDist = root.offsetHeight - stickyHeight;
+  function render() {
+    cards.forEach((card, index) => {
+      const position = getWrappedPosition(index, activeIndex, total);
+      const distance = Math.abs(position);
+      const isActive = position === 0;
 
-    if (totalDist <= 0) {
-      ticking = false;
-      return;
+      const scale = isActive ? 1 : (distance === 1 ? 0.86 : 0.72);
+      const rotation = position * -11;
+      const opacity = isActive ? 1 : (distance === 1 ? 0.52 : (distance === 2 ? 0.14 : 0));
+      const blur = isActive ? '0px' : (distance === 1 ? '3px' : '8px');
+      const zIndex = total - distance;
+      const visibility = distance > 2 ? 'hidden' : 'visible';
+
+      card.style.setProperty('--position', position);
+      card.style.setProperty('--absolute-position', distance);
+      card.style.setProperty('--scale', scale);
+      card.style.setProperty('--rotation', `${rotation}deg`);
+      card.style.setProperty('--opacity', opacity);
+      card.style.setProperty('--blur', blur);
+      card.style.setProperty('--z-index', zIndex);
+      card.style.visibility = visibility;
+
+      card.setAttribute('data-active', isActive ? 'true' : 'false');
+      card.setAttribute('data-distance', distance);
+    });
+
+    dots.forEach((dot, index) => {
+      const isCurrent = index === activeIndex;
+      dot.setAttribute('data-active', isCurrent ? 'true' : 'false');
+      dot.setAttribute('aria-current', isCurrent ? 'true' : 'false');
+    });
+  }
+
+  function nextSlide() {
+    activeIndex = (activeIndex + 1) % total;
+    render();
+  }
+
+  function previousSlide() {
+    activeIndex = (activeIndex - 1 + total) % total;
+    render();
+  }
+
+  function startAutoPlay() {
+    stopAutoPlay();
+    if (window.innerWidth > 860) return;
+    autoPlayTimer = setInterval(() => {
+      nextSlide();
+    }, 2500);
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayTimer) {
+      clearInterval(autoPlayTimer);
+      autoPlayTimer = null;
     }
+  }
 
-    // Scroll progress: 0 when sticky starts, 1 when sticky unpins
-    let progress = (topOffset - rect.top) / totalDist;
-    progress = Math.max(0, Math.min(1, progress));
+  // Pointer & Swipe events
+  function onPointerDown(e) {
+    if (e.target.closest('button') || e.target.closest('a')) return;
+    pointerStartX = e.clientX;
+    pointerStartY = e.clientY;
+    stopAutoPlay();
+    try {
+      section.setPointerCapture(e.pointerId);
+    } catch (_) {}
+  }
 
-    // 1. rotateX: [0, 0.5] -> [75, 0]
-    let rotX = 0;
-    if (progress <= 0.5) {
-      rotX = 75 * (1 - (progress / 0.5));
-    } else {
-      rotX = 0;
-    }
-
-    // 2. scale: [0.5, 0.9] -> [1.2, 1.0]
-    let scaleVal = 1.0;
-    if (progress < 0.5) {
-      scaleVal = 1.2;
-    } else if (progress <= 0.9) {
-      const p = (progress - 0.5) / 0.4;
-      scaleVal = 1.2 - (0.2 * p);
-    } else {
-      scaleVal = 1.0;
-    }
-
-    // 3. Parallax columns yRange on [0.5, 1.0]
-    let colP = 0;
-    if (progress >= 0.5) {
-      colP = (progress - 0.5) / 0.5; // 0 to 1
-    }
-
-    // Column 1: ["0%", "-14%"]
-    const yCol1 = -14 * colP;
-    // Column 2: ["-8%", "+10%"]
-    const yCol2 = -8 + (18 * colP);
-    // Column 3: ["0%", "-16%"]
-    const yCol3 = -16 * colP;
-
-    // Apply transforms
-    grid.style.transform = `rotateX(${rotX.toFixed(2)}deg) scale(${scaleVal.toFixed(3)})`;
-    col1.style.transform = `translateY(${yCol1.toFixed(2)}%)`;
-    col2.style.transform = `translateY(${yCol2.toFixed(2)}%)`;
-    col3.style.transform = `translateY(${yCol3.toFixed(2)}%)`;
-
-    // Fade hint when user has scrolled past 8%
-    if (hint) {
-      if (progress > 0.08) {
-        hint.style.opacity = '0';
-        hint.style.transform = 'translateY(-10px)';
-      } else {
-        hint.style.opacity = '1';
-        hint.style.transform = 'translateY(0)';
+  function onPointerUp(e) {
+    if (pointerStartX === null || pointerStartY === null) return;
+    const dx = e.clientX - pointerStartX;
+    const dy = e.clientY - pointerStartY;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx > 45) {
+        previousSlide();
+      } else if (dx < -45) {
+        nextSlide();
       }
     }
-
-    ticking = false;
+    pointerStartX = null;
+    pointerStartY = null;
+    try {
+      section.releasePointerCapture(e.pointerId);
+    } catch (_) {}
+    startAutoPlay();
   }
 
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(update);
-      ticking = true;
+  section.addEventListener('pointerdown', onPointerDown);
+  section.addEventListener('pointerup', onPointerUp);
+  section.addEventListener('pointercancel', () => {
+    pointerStartX = null;
+    pointerStartY = null;
+    startAutoPlay();
+  });
+
+  // Card click: Inactive brings to front, active opens Lightbox
+  cards.forEach((card, index) => {
+    card.addEventListener('click', (e) => {
+      const isCardActive = card.getAttribute('data-active') === 'true';
+      if (!isCardActive) {
+        e.preventDefault();
+        e.stopPropagation();
+        activeIndex = index;
+        render();
+        startAutoPlay();
+      } else {
+        // Open lightbox preview
+        const img = card.querySelector('.carousel-image');
+        const label = card.querySelector('.card-label')?.textContent || 'Gallery Preview';
+        if (img && window.openLightbox) {
+          window.openLightbox(img.src, label);
+        }
+      }
+    });
+  });
+
+  // Navigation buttons
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      previousSlide();
+      startAutoPlay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      nextSlide();
+      startAutoPlay();
+    });
+  }
+
+  // Pagination buttons
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      activeIndex = index;
+      render();
+      startAutoPlay();
+    });
+  });
+
+  // Pause on hover
+  section.addEventListener('mouseenter', stopAutoPlay);
+  section.addEventListener('mouseleave', startAutoPlay);
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 860) {
+      if (!autoPlayTimer) startAutoPlay();
+      render();
+    } else {
+      stopAutoPlay();
     }
-  }
+  }, { passive: true });
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-  if (window.__lenis) {
-    window.__lenis.on('scroll', onScroll);
-  }
-  update();
+  render();
+  startAutoPlay();
 }
 
 /* ==========================================================================
