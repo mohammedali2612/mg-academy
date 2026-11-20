@@ -2299,7 +2299,14 @@ function initMobileFooterAutoFlip() {
 }
 
 /* ==========================================================================
-   DANCE CLASSES SCROLL STACK ENGINE (Mobile View Only: <= 860px)
+   SKIPER 34 STICKY CARD ENGINE (StickyCard_003) - Mobile View Only (<= 860px)
+   Features:
+   - Sticky card locking under mobile header (72px)
+   - Dynamic scale reduction as subsequent cards approach
+   - Card tilt rotation (alternating +6.5deg / -6.5deg)
+   - Counter-rotated image with scale-125 (negateFilter effect)
+   - Stacking depth shade overlay with subtle progressive blur
+   - Complete cleanup on desktop (> 860px) to preserve 4-column grid
    ========================================================================== */
 function initDanceScrollStack() {
   const container = document.getElementById('dance-styles-grid');
@@ -2309,55 +2316,83 @@ function initDanceScrollStack() {
   if (!slots.length) return;
 
   let rafId = 0;
-  const offset = 22;
-  const stackTop = 70;
-  const dimStep = 0.18;
+  const stickyTop = 72; // Below sticky mobile header
 
   function update() {
     rafId = 0;
+
+    // Desktop View: Reset all card and image transforms
     if (window.innerWidth > 860) {
       slots.forEach(slot => {
-        const card = slot.firstElementChild;
+        const card = slot.querySelector('.dance-style-card');
+        const img = slot.querySelector('.dance-style-img');
         if (card) {
           card.style.transform = '';
           card.style.filter = '';
           card.style.removeProperty('--scroll-stack-dim');
         }
+        if (img) {
+          img.style.transform = '';
+        }
       });
       return;
     }
 
-    const heights = slots.map(slot => slot.offsetHeight);
-    const tops = slots.map(slot => slot.getBoundingClientRect().top);
-
-    const depths = slots.map(() => 0);
-    for (let j = 1; j < slots.length; j++) {
-      const pinBefore = stackTop + (j - 1) * offset;
-      const start = pinBefore + heights[j - 1];
-      const span = Math.max(1, start - pinBefore - offset);
-      const cover = Math.min(1, Math.max(0, (start - tops[j]) / span));
-      for (let i = 0; i < j; i++) depths[i] += cover;
-    }
+    // Mobile View: Compute Skiper 34 transforms
+    const slotTops = slots.map(slot => slot.getBoundingClientRect().top);
+    const travelDistance = slots.length > 1 && slots[1].offsetTop > slots[0].offsetTop
+      ? (slots[1].offsetTop - slots[0].offsetTop)
+      : 600;
 
     slots.forEach((slot, i) => {
-      const card = slot.firstElementChild;
+      const card = slot.querySelector('.dance-style-card');
+      const img = slot.querySelector('.dance-style-img');
       if (!card) return;
-      const depth = depths[i];
-      if (depth < 0.001) {
+
+      const top = slotTops[i];
+
+      // If card has not yet arrived at sticky lock position
+      if (top > stickyTop) {
         card.style.transform = '';
         card.style.filter = '';
         card.style.setProperty('--scroll-stack-dim', '0');
-      } else {
-        const lean = Math.min(depth, 1);
-        const scale = Math.max(0.85, 1 - depth * 0.045);
-        const tilt = -lean * 2.5;
-        const turn = lean * 1.5 * (i % 2 ? -1 : 1);
-        const blur = depth * 0.35;
-        const dim = 1 - Math.pow(1 - dimStep, depth);
+        if (img) img.style.transform = 'scale(1.25) rotate(0deg)';
+        return;
+      }
 
-        card.style.transform = 'perspective(1200px) rotateX(' + tilt.toFixed(2) + 'deg) rotate(' + turn.toFixed(2) + 'deg) scale(' + scale.toFixed(4) + ')';
-        card.style.filter = blur > 0.05 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
-        card.style.setProperty('--scroll-stack-dim', dim.toFixed(3));
+      // Card is stuck at stickyTop. Compute stack depth based on subsequent cards approaching
+      let depth = 0;
+      for (let j = i + 1; j < slots.length; j++) {
+        const nextDist = slotTops[j] - stickyTop;
+        const progress = 1 - Math.min(1, Math.max(0, nextDist / travelDistance));
+        depth += progress;
+      }
+
+      if (depth < 0.001) {
+        // Active top card in the stack: full scale, upright
+        card.style.transform = 'scale(1) rotate(0deg)';
+        card.style.filter = '';
+        card.style.setProperty('--scroll-stack-dim', '0');
+        if (img) img.style.transform = 'scale(1.25) rotate(0deg)';
+      } else {
+        // Card is being stacked under incoming card(s):
+        // Card tilts by rot angle; image counter-rotates by -rot angle (Skiper 34 negateFilter)
+        const maxRotAngle = (i % 2 === 0 ? 6.5 : -6.5);
+        const lean = Math.min(depth, 1);
+        const rot = lean * maxRotAngle;
+        const scale = Math.max(0.82, 1 - depth * 0.075);
+        const shade = Math.min(0.32, depth * 0.16);
+        const blur = Math.min(1.2, depth * 0.4);
+
+        // Skiper 34 card tilt & scale
+        card.style.transform = 'scale(' + scale.toFixed(4) + ') rotate(' + rot.toFixed(2) + 'deg)';
+        card.style.filter = blur > 0.15 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
+        card.style.setProperty('--scroll-stack-dim', shade.toFixed(3));
+
+        // Skiper 34 negateFilter counter-rotation on inner image with scale-125
+        if (img) {
+          img.style.transform = 'scale(1.25) rotate(' + (-rot).toFixed(2) + 'deg)';
+        }
       }
     });
   }

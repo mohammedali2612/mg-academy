@@ -5261,80 +5261,146 @@ marquee,
     flex-direction: column !important;
     position: static !important;
     height: 100% !important;
+    margin-bottom: 0 !important;
   }
 
   .dance-stack-slot .dance-style-card {
     flex: 1 !important;
     transform: none !important;
     filter: none !important;
+    border-radius: var(--radius-lg) !important;
+  }
+
+  .dance-stack-slot .dance-style-img {
+    transform: none !important;
   }
 
   .scroll-stack-card__shade {
     display: none !important;
   }
 
-  .dance-stack-end {
+  .dance-stack-end,
+  .dance-scroll-hint {
     display: none !important;
   }
 }
 
-/* Mobile ScrollStack (<= 860px) */
+/* Mobile Skiper 34 StickyCard_003 Stack Animation (<= 860px Only) */
 @media (max-width: 860px) {
+  .dance-scroll-hint {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 14px 0 20px 0 !important;
+  }
+
+  .dance-hint-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-family: var(--font-heading) !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: #0077B6 !important;
+    background: rgba(0, 119, 182, 0.08) !important;
+    border: 1px solid rgba(0, 119, 182, 0.22) !important;
+    padding: 6px 16px !important;
+    border-radius: 24px !important;
+    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.08) !important;
+    animation: danceHintBounce 2s ease-in-out infinite !important;
+  }
+
+  @keyframes danceHintBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
   .dance-styles-grid {
     display: flex !important;
     flex-direction: column !important;
     gap: 0 !important;
     position: relative !important;
     width: 100% !important;
-    max-width: 375px !important;
-    margin: 20px auto 30px auto !important;
-    padding: 0 4px !important;
+    max-width: 380px !important;
+    margin: 10px auto 40px auto !important;
+    padding: 0 8px !important;
+    perspective: 1200px !important;
   }
 
   .dance-stack-slot {
     position: sticky !important;
+    top: 72px !important; /* Stays locked just under the mobile sticky header */
     width: 100% !important;
     box-sizing: border-box !important;
-    will-change: transform;
+    margin-bottom: 230px !important; /* Smooth scroll travel distance between cards */
+    will-change: transform !important;
   }
 
-  .dance-stack-slot:nth-child(1) {
-    top: 70px !important;
-    margin-bottom: calc(45px + 3 * 22px) !important;
-    z-index: 1 !important;
-  }
-
-  .dance-stack-slot:nth-child(2) {
-    top: 92px !important;
-    margin-bottom: calc(45px + 2 * 22px) !important;
-    z-index: 2 !important;
-  }
-
-  .dance-stack-slot:nth-child(3) {
-    top: 114px !important;
-    margin-bottom: calc(45px + 1 * 22px) !important;
-    z-index: 3 !important;
-  }
-
-  .dance-stack-slot:nth-child(4) {
-    top: 136px !important;
-    margin-bottom: 50px !important;
+  .dance-stack-slot:nth-child(1) { z-index: 1 !important; }
+  .dance-stack-slot:nth-child(2) { z-index: 2 !important; }
+  .dance-stack-slot:nth-child(3) { z-index: 3 !important; }
+  .dance-stack-slot:nth-child(4) { 
     z-index: 4 !important;
+    margin-bottom: 20px !important; /* Final card finishes stack cleanly */
   }
 
+  /* Skiper 34 Card Frame: rounded-4xl, scale & tilt rotation */
   .dance-style-card {
     position: relative !important;
     box-sizing: border-box !important;
     width: 100% !important;
-    border-radius: 24px !important;
+    border-radius: 28px !important; /* Skiper 34 rounded-4xl */
     background: #FFFFFF !important;
-    border: 2px solid rgba(0, 90, 156, 0.22) !important;
-    box-shadow: 0 16px 40px rgba(10, 37, 64, 0.12) !important;
-    transform-origin: 50% 0 !important;
+    border: 1.5px solid rgba(0, 90, 156, 0.22) !important;
+    box-shadow: 0 16px 42px rgba(10, 37, 64, 0.14) !important;
+    transform-origin: 50% 50% !important;
     will-change: transform, filter !important;
     overflow: hidden !important;
   }
 
+  .dance-style-media {
+    position: relative !important;
+    height: 195px !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    border-radius: 26px 26px 0 0 !important;
+  }
+
+  /* Skiper 34 Counter-Rotated Image: scale-125 with negateFilter */
+  .dance-style-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transform-origin: 50% 50% !important;
+    transform: scale(1.25) rotate(0deg) !important; /* Initial scale-125 */
+    will-change: transform !important;
+    transition: none !important; /* Managed by 60fps rAF on scroll */
+  }
+
+  .dance-style-content {
+    padding: 18px 18px !important;
+  }
+
+  .dance-style-content h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .dance-style-content p {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .dance-specs {
+    font-size: 0.80rem !important;
+    gap: 5px !important;
+    padding-top: 10px !important;
+  }
+
+  /* Skiper 34 Smooth Stacking Depth Shade */
   .scroll-stack-card__shade {
     position: absolute !important;
     inset: 0 !important;
@@ -5342,7 +5408,7 @@ marquee,
     background: #0B1E36 !important;
     opacity: var(--scroll-stack-dim, 0) !important;
     pointer-events: none !important;
-    transition: opacity 0.12s ease !important;
+    transition: opacity 0.10s ease-out !important;
     z-index: 10 !important;
   }
 }
