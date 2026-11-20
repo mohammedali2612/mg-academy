@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileContainerScroll();
   initStaggerTestimonials();
   initCustomCursor();
+  initMobileDockNav();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -410,8 +411,6 @@ void main() {
   let raf = 0;
   let last = 0;
 
-  const isMobile = () => window.innerWidth <= 768;
-
   const measure = () => {
     if (!stage || !list) return;
     const box = stage.getBoundingClientRect();
@@ -421,24 +420,22 @@ void main() {
     const outerWidth = box.width + MARGIN * 2;
     const outerHeight = box.height + MARGIN * 2;
     if (canvas) {
-      canvas.style.display = (pipeline && !isMobile()) ? 'block' : 'none';
-      if (!isMobile()) {
-        Object.assign(canvas.style, {
-          left: `${-MARGIN}px`,
-          top: `${-MARGIN}px`,
-          width: `${outerWidth}px`,
-          height: `${outerHeight}px`
-        });
-        const width = Math.max(1, Math.round(outerWidth * ratio));
-        const height = Math.max(1, Math.round(outerHeight * ratio));
-        if (canvas.width !== width || canvas.height !== height) {
-          canvas.width = width;
-          canvas.height = height;
-        }
+      canvas.style.display = pipeline ? 'block' : 'none';
+      Object.assign(canvas.style, {
+        left: `${-MARGIN}px`,
+        top: `${-MARGIN}px`,
+        width: `${outerWidth}px`,
+        height: `${outerHeight}px`
+      });
+      const width = Math.max(1, Math.round(outerWidth * ratio));
+      const height = Math.max(1, Math.round(outerHeight * ratio));
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
       }
     }
-    if (overlay) overlay.style.display = (!isMobile() && pipeline) ? 'block' : 'none';
-    if (fallback) fallback.style.display = (isMobile() || !pipeline) ? 'block' : 'none';
+    if (overlay) overlay.style.display = pipeline ? 'block' : 'none';
+    if (fallback) fallback.style.display = pipeline ? 'none' : 'block';
     rects = Array.from(list.children).map(item => {
       const rect = item.getBoundingClientRect();
       return { x: rect.left - box.left, y: rect.top - box.top, w: rect.width, h: rect.height };
@@ -571,7 +568,7 @@ void main() {
   };
 
   const render = () => {
-    if (isMobile() || !pipeline || !gl) {
+    if (!pipeline || !gl) {
       const box = shape(target, 1);
       if (fallback && box) {
         fallback.style.transform = `translate(${box.x.toFixed(2)}px, ${box.y.toFixed(2)}px)`;
@@ -784,7 +781,7 @@ void main() {
   const go = (index, animate) => {
     if (index === target) return;
     target = index;
-    if (isMobile() || !pipeline || reduced || !rects[index] || !animate) {
+    if (!pipeline || reduced || !rects[index] || !animate) {
       settle(index);
       return;
     }
@@ -808,7 +805,6 @@ void main() {
   };
 
   const onOver = event => {
-    if (isMobile()) return;
     const item = event.target.closest('[data-gooey-index]');
     if (!item || !list.contains(item)) return;
     const index = Number(item.dataset.gooeyIndex);
@@ -866,6 +862,9 @@ void main() {
       document.querySelectorAll('.category-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
+      // Re-measure for precise offset alignment
+      measure();
+
       // Liquid gooey transition
       go(index, true);
 
@@ -922,7 +921,7 @@ function initHeroAnimation() {
     line.style.opacity = '0';
     line.style.transform = 'translateY(25px)';
     line.style.transition = `all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.2) ${index * 0.25 + 0.1}s`;
-    
+
     setTimeout(() => {
       line.style.opacity = '1';
       line.style.transform = 'translateY(0)';
@@ -964,7 +963,7 @@ function initModals() {
 }
 
 // Global modal triggers for inline onclicks
-window.openAdmissionModal = function(courseName = '') {
+window.openAdmissionModal = function (courseName = '') {
   const modal = document.getElementById('admission-modal');
   const courseSelect = document.getElementById('adm-course') || document.getElementById('modal-course-select');
   const successState = document.getElementById('modal-success-state');
@@ -988,7 +987,7 @@ window.openAdmissionModal = function(courseName = '') {
   }
 };
 
-window.closeAdmissionModal = function() {
+window.closeAdmissionModal = function () {
   const modal = document.getElementById('admission-modal');
   if (modal) {
     modal.classList.remove('active');
@@ -996,19 +995,19 @@ window.closeAdmissionModal = function() {
   }
 };
 
-window.handleAdmissionSubmit = function(event) {
+window.handleAdmissionSubmit = function (event) {
   if (event) event.preventDefault();
   const form = document.getElementById('admission-form');
   const childName = document.getElementById('adm-child-name')?.value || 'Little Artist';
-  
+
   launchConfetti();
   alert(`🎉 Congratulations! Admission request for ${childName} has been received. Our team will contact you shortly to schedule your child's free trial class!`);
-  
+
   if (form) form.reset();
   closeAdmissionModal();
 };
 
-window.openLightbox = function(imageSrc, caption = '') {
+window.openLightbox = function (imageSrc, caption = '') {
   const lightbox = document.getElementById('lightbox-modal');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxCap = document.getElementById('lightbox-caption');
@@ -1021,7 +1020,7 @@ window.openLightbox = function(imageSrc, caption = '') {
   }
 };
 
-window.closeLightbox = function() {
+window.closeLightbox = function () {
   const lightbox = document.getElementById('lightbox-modal');
   if (lightbox) {
     lightbox.classList.remove('active');
@@ -1039,10 +1038,10 @@ function initFormsAndConfetti() {
   if (admissionForm) {
     admissionForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
+
       const childName = document.getElementById('modal-child-name')?.value || 'Little Artist';
       const submitBtn = admissionForm.querySelector('button[type="submit"]');
-      
+
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
@@ -1055,7 +1054,7 @@ function initFormsAndConfetti() {
         admissionForm.style.display = 'none';
         const successBox = document.getElementById('modal-success-state');
         const successName = document.getElementById('success-child-name');
-        
+
         if (successName) successName.textContent = childName;
         if (successBox) successBox.style.display = 'block';
 
@@ -1224,7 +1223,7 @@ function initSkiper30Parallax() {
 
   // Initialize Lenis smooth scroll if loaded
   let lenis = null;
-  if (typeof Lenis !== 'undefined') {
+  if (typeof Lenis !== 'undefined' && window.innerWidth > 860) {
     try {
       lenis = new Lenis({
         duration: 1.2,
@@ -1300,7 +1299,7 @@ function initSkiper30Parallax() {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', updateParallax);
-  
+
   // Initial run
   updateParallax();
 }
@@ -1534,6 +1533,7 @@ function initHeroSlideshow() {
    ========================================================================== */
 function initMobileContainerScroll() {
   const root = document.getElementById('mobile-gallery-scroll');
+  const sticky = document.getElementById('mobile-gallery-sticky');
   const grid = document.getElementById('mobile-gallery-grid');
   const col1 = document.getElementById('mg-col-1');
   const col2 = document.getElementById('mg-col-2');
@@ -1551,32 +1551,62 @@ function initMobileContainerScroll() {
     }
 
     const rect = root.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    const topOffset = 60; // Mobile sticky top offset under header
+    const stickyHeight = sticky ? sticky.offsetHeight : (window.innerHeight - topOffset);
+    const totalDist = root.offsetHeight - stickyHeight;
 
-    // Trigger 3D perspective unfold when gallery enters the viewport
-    const startY = windowHeight;
-    const endY = 120;
-    let progress = (startY - rect.top) / (startY - endY);
+    if (totalDist <= 0) {
+      ticking = false;
+      return;
+    }
+
+    // Scroll progress: 0 when sticky starts, 1 when sticky unpins
+    let progress = (topOffset - rect.top) / totalDist;
     progress = Math.max(0, Math.min(1, progress));
 
-    // Gentle 3D perspective unfold: 24deg down to 0deg (flat upright)
-    const rotX = 24 * (1 - progress);
-    const scaleVal = 0.96 + (0.04 * progress);
+    // 1. rotateX: [0, 0.5] -> [75, 0]
+    let rotX = 0;
+    if (progress <= 0.5) {
+      rotX = 75 * (1 - (progress / 0.5));
+    } else {
+      rotX = 0;
+    }
 
+    // 2. scale: [0.5, 0.9] -> [1.2, 1.0]
+    let scaleVal = 1.0;
+    if (progress < 0.5) {
+      scaleVal = 1.2;
+    } else if (progress <= 0.9) {
+      const p = (progress - 0.5) / 0.4;
+      scaleVal = 1.2 - (0.2 * p);
+    } else {
+      scaleVal = 1.0;
+    }
+
+    // 3. Parallax columns yRange on [0.5, 1.0]
+    let colP = 0;
+    if (progress >= 0.5) {
+      colP = (progress - 0.5) / 0.5; // 0 to 1
+    }
+
+    // Column 1: ["0%", "-14%"]
+    const yCol1 = -14 * colP;
+    // Column 2: ["-8%", "+10%"]
+    const yCol2 = -8 + (18 * colP);
+    // Column 3: ["0%", "-16%"]
+    const yCol3 = -16 * colP;
+
+    // Apply transforms
     grid.style.transform = `rotateX(${rotX.toFixed(2)}deg) scale(${scaleVal.toFixed(3)})`;
+    col1.style.transform = `translateY(${yCol1.toFixed(2)}%)`;
+    col2.style.transform = `translateY(${yCol2.toFixed(2)}%)`;
+    col3.style.transform = `translateY(${yCol3.toFixed(2)}%)`;
 
-    // Subtle gentle column parallax (without clipping or moving cards out of bounds)
-    const yCol1 = -6 * (1 - progress);
-    const yCol2 = 4 * (1 - progress);
-    const yCol3 = -4 * (1 - progress);
-    col1.style.transform = `translateY(${yCol1.toFixed(1)}px)`;
-    col2.style.transform = `translateY(${yCol2.toFixed(1)}px)`;
-    col3.style.transform = `translateY(${yCol3.toFixed(1)}px)`;
-
+    // Fade hint when user has scrolled past 8%
     if (hint) {
-      if (progress > 0.45) {
+      if (progress > 0.08) {
         hint.style.opacity = '0';
-        hint.style.transform = 'translateY(-8px)';
+        hint.style.transform = 'translateY(-10px)';
       } else {
         hint.style.opacity = '1';
         hint.style.transform = 'translateY(0)';
@@ -1598,11 +1628,16 @@ function initMobileContainerScroll() {
   if (window.__lenis) {
     window.__lenis.on('scroll', onScroll);
   }
-
-  // Initial calculation
-  setTimeout(update, 50);
+  update();
 }
 
+/* ==========================================================================
+   STAGGER TESTIMONIALS (Staggered polygon card stack carousel)
+   - Chamfered cards with 45deg diagonal fold line
+   - Active card centered, elevated with brand gradient, white text & shadow
+   - Side cards offset by (cardSize / 1.5) * position, rotated +-2.5deg
+   - Click card to center, next/prev arrow buttons, touch swipe
+   ========================================================================== */
 function initStaggerTestimonials() {
   const stage = document.getElementById('stagger-stage');
   const prevBtn = document.getElementById('stagger-prev-btn');
@@ -1782,7 +1817,7 @@ function initCustomCursor() {
 
   // Track hoverable elements
   const hoverSelector = 'a, button, input, select, textarea, .skiper30-card, .mg-photo-card, .stagger-testimonial-card, .fee-card, .achievement-card, .course-visual-card, [role="button"]';
-  
+
   document.addEventListener('mouseover', (e) => {
     if (e.target.closest(hoverSelector)) {
       if (!isHovering) {
@@ -1814,4 +1849,95 @@ function initCustomCursor() {
   }
 
   requestAnimationFrame(loop);
+}
+
+/* ==========================================================================
+   FLOATING MOBILE PILL NAVBAR LOGIC
+   - Smooth active capsule transitions
+   - Tap to scroll smoothly to target section
+   - IntersectionObserver / scroll spy to auto-expand active section
+   - Hides when modals/lightboxes open
+   ========================================================================== */
+function initMobileDockNav() {
+  const dock = document.getElementById('mobile-dock-nav');
+  if (!dock) return;
+
+  const items = Array.from(dock.querySelectorAll('.mobile-dock-item'));
+  const targets = items.map(item => ({
+    item,
+    id: item.getAttribute('data-target'),
+    section: document.getElementById(item.getAttribute('data-target'))
+  })).filter(t => t.section);
+
+  function setActive(targetId) {
+    items.forEach(item => {
+      const match = item.getAttribute('data-target') === targetId;
+      item.classList.toggle('active', match);
+      if (match) {
+        item.setAttribute('aria-current', 'page');
+      } else {
+        item.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  // Click handler
+  items.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = item.getAttribute('data-target');
+      const targetEl = document.getElementById(targetId);
+
+      setActive(targetId);
+
+      if (targetEl) {
+        if (window.__lenis) {
+          window.__lenis.scrollTo(targetEl, { offset: -65 });
+        } else {
+          const y = targetEl.getBoundingClientRect().top + window.pageYOffset - 65;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  // Scroll spy observer
+  let scrollTimeout = null;
+  function updateActiveOnScroll() {
+    if (window.innerWidth > 860) return;
+
+    const scrollPos = window.scrollY + 180;
+    let currentId = 'home';
+
+    targets.forEach(t => {
+      const top = t.section.offsetTop;
+      const height = t.section.offsetHeight;
+      if (scrollPos >= top && scrollPos < top + height) {
+        currentId = t.id;
+      }
+    });
+
+    // If near bottom of page, highlight contact
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 120) {
+      currentId = 'contact';
+    }
+
+    setActive(currentId);
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!scrollTimeout) {
+      scrollTimeout = setTimeout(() => {
+        updateActiveOnScroll();
+        scrollTimeout = null;
+      }, 50);
+    }
+  }, { passive: true });
+
+  if (window.__lenis) {
+    window.__lenis.on('scroll', updateActiveOnScroll);
+  }
+
+  // Initial check
+  updateActiveOnScroll();
 }

@@ -2150,50 +2150,70 @@ marquee,
     display: none !important;
   }
 
+  /* ContainerScroll: Scroll track container */
   .mobile-gallery-scroll-root {
     display: block !important;
     position: relative !important;
     width: 100% !important;
-    perspective: 1200px;
-    -webkit-perspective: 1200px;
-    perspective-origin: center top;
-    -webkit-perspective-origin: center top;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    margin: 10px 0 25px 0 !important;
-    padding: 0 2px !important;
+    height: 160vh !important;
+    min-height: 150vh !important;
+    perspective: 1000px !important;
+    -webkit-perspective: 1000px !important;
+    perspective-origin: center top !important;
+    -webkit-perspective-origin: center top !important;
+    transform-style: preserve-3d !important;
+    -webkit-transform-style: preserve-3d !important;
+    margin: 0 0 24px 0 !important;
+    padding: 0 !important;
     overflow: visible !important;
   }
 
+  /* ContainerSticky: Sticky viewport pinned under header */
   .mobile-gallery-sticky {
-    position: relative !important;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 60px !important;
+    left: 0 !important;
     width: 100% !important;
-    height: auto !important;
-    overflow: visible !important;
+    height: calc(100vh - 68px) !important;
+    max-height: 820px !important;
+    overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    justify-content: center !important;
+    perspective: 1000px !important;
+    -webkit-perspective: 1000px !important;
+    perspective-origin: center top !important;
+    -webkit-perspective-origin: center top !important;
+    transform-style: preserve-3d !important;
+    -webkit-transform-style: preserve-3d !important;
+    transform-origin: 50% 50% !important;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%) !important;
   }
 
   /* Scroll unfold prompt badge */
   .mobile-gallery-scroll-hint {
+    position: absolute !important;
+    top: 10px !important;
+    z-index: 20 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 7px !important;
-    margin: 0 auto 14px auto !important;
+    margin: 0 auto !important;
     padding: 6px 14px !important;
     border-radius: var(--radius-full) !important;
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(255, 255, 255, 0.94) !important;
     border: 1.5px solid #A0E0EF !important;
-    box-shadow: 0 4px 14px rgba(27, 54, 93, 0.08) !important;
+    box-shadow: 0 4px 14px rgba(27, 54, 93, 0.1) !important;
     font-size: 0.72rem !important;
     font-weight: 700 !important;
     color: #005A9C !important;
     letter-spacing: 0.4px !important;
     text-transform: uppercase !important;
     transition: opacity 0.3s ease, transform 0.3s ease !important;
-    z-index: 5 !important;
     pointer-events: none !important;
     animation: hintBob 1.8s ease-in-out infinite !important;
   }
@@ -2214,29 +2234,32 @@ marquee,
     50% { transform: translateY(2px); }
   }
 
-  /* 3-Column 3D Perspective Grid - Edge to Edge with 0 side gaps */
+  /* GalleryContainer: 3-Column 3D Perspective Grid */
   .mobile-gallery-3d-grid {
     position: relative !important;
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 6px !important;
     width: 100% !important;
+    max-width: 440px !important;
+    padding: 8px 4px !important;
     transform-style: preserve-3d !important;
     -webkit-transform-style: preserve-3d !important;
-    perspective: 1200px !important;
-    -webkit-perspective: 1200px !important;
-    transform-origin: center top !important;
+    perspective: 1000px !important;
+    -webkit-perspective: 1000px !important;
+    transform-origin: 50% 50% !important;
     will-change: transform !important;
     overflow: visible !important;
-    transition: transform 0.15s ease-out !important;
   }
 
+  /* GalleryCol: Parallax Columns */
   .mobile-gallery-col {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 6px !important;
     width: 100% !important;
+    will-change: transform !important;
     overflow: visible !important;
   }
 
@@ -3951,12 +3974,17 @@ marquee,
   }
 
   .category-tabs-pill.gooey-nav {
+    --gn-pad: 4px;
+    --gn-gap: 4px;
+    --gn-font: 0.82rem;
+    --gn-x: 12px;
+    --gn-y: 8px;
     display: inline-flex !important;
     background: #FFFFFF !important;
     border: 1.5px solid #A0E0EF !important;
     box-shadow: 0 6px 20px rgba(27, 54, 93, 0.08), 0 2px 6px rgba(0, 90, 156, 0.04) !important;
     border-radius: 9999px !important;
-    padding: 4px !important;
+    padding: var(--gn-pad) !important;
     width: max-content !important;
     max-width: none !important;
     margin: 0 !important;
@@ -3972,25 +4000,21 @@ marquee,
     align-items: center !important;
   }
 
-  .gooey-nav__canvas,
-  .gooey-nav__rim,
-  .gooey-nav__list--active,
-  #category-gooey-overlay {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    pointer-events: none !important;
-    visibility: hidden !important;
+  .gooey-nav__canvas {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    display: block;
   }
 
   .gooey-nav__fallback {
-    display: block !important;
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
+    display: none;
     border-radius: 9999px !important;
-    background: #005A9C !important;
-    box-shadow: 0 3px 12px rgba(0, 90, 156, 0.32) !important;
+    background: linear-gradient(135deg, #005A9C 0%, #60C1E5 100%) !important;
+    box-shadow: 0 4px 14px rgba(0, 90, 156, 0.35) !important;
     pointer-events: none !important;
     transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2), width 0.28s ease, height 0.28s ease !important;
     z-index: 1 !important;
@@ -4001,7 +4025,7 @@ marquee,
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    gap: 3px !important;
+    gap: var(--gn-gap) !important;
     width: max-content !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -4009,50 +4033,54 @@ marquee,
     z-index: 2 !important;
   }
 
+  .gooey-nav__list--active {
+    position: absolute !important;
+    inset: 0 !important;
+    color: #FFFFFF !important;
+    visibility: hidden;
+    clip-path: inset(100%);
+    pointer-events: none !important;
+    z-index: 3 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: var(--gn-gap) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
   .gooey-nav__item {
     display: flex !important;
     flex-shrink: 0 !important;
   }
 
-  .category-tab-btn.gooey-nav__link {
+  .category-tab-btn.gooey-nav__link,
+  .gooey-nav__list--active .gooey-nav__link {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 7px 13px !important;
+    padding: var(--gn-y) var(--gn-x) !important;
     border-radius: 9999px !important;
     font-family: var(--font-heading) !important;
-    font-size: 0.8rem !important;
+    font-size: var(--gn-font) !important;
     font-weight: 700 !important;
     white-space: nowrap !important;
-    color: #1B365D !important;
-    background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     cursor: pointer !important;
-    transition: color 0.22s ease !important;
-    opacity: 1 !important;
-    visibility: visible !important;
     -webkit-tap-highlight-color: transparent !important;
   }
 
-  .category-tab-btn.gooey-nav__link:hover,
-  .category-tab-btn.gooey-nav__link:active {
-    color: #005A9C !important;
+  .category-tab-btn.gooey-nav__link {
+    color: #1B365D !important;
     background: transparent !important;
+    transition: color 0.22s ease !important;
   }
 
-  .category-tab-btn.gooey-nav__link.active {
+  .gooey-nav__list--active .gooey-nav__link {
     color: #FFFFFF !important;
     background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-  .gooey-nav__item[data-active] .category-tab-btn.gooey-nav__link {
-    color: #FFFFFF !important;
-    font-weight: 700 !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
   }
 
   .section {
