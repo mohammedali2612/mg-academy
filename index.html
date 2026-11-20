@@ -26,7 +26,7 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=5.0">
+  <link rel="stylesheet" href="style.css?v=5.1">
 
 
 
@@ -703,185 +703,41 @@
           </p>
         </div>
 
-        <!-- Skiper 30 Parallax Gallery (Parallax_002) -->
-        <div class="skiper30-parallax-root reveal-fade-up" id="skiper30-root">
-          <!-- Scroll Down Tag matching Skiper 30 -->
-          <div class="skiper30-scroll-tag">
-            <span class="scroll-tag-label">scroll down to see</span>
-            <div class="scroll-tag-line"></div>
-          </div>
-
-          <!-- Parallax Viewport: flex h-[175vh] gap-[2vw] overflow-hidden bg-white p-[2vw] -->
-          <div class="skiper30-gallery" id="skiper30-gallery">
-            <!-- Column 1: top -45%, y = scrollProgress * (height * 2) -->
-            <div class="skiper30-column col-1" id="skiper-col-1">
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg', 'Little Picasso Art Studio')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg" alt="Little Picasso Art Studio"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg', 'Classical Poise & Rhythms')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg" alt="Classical Poise & Rhythms"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg', 'Young Masters Exhibition')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Young Masters Exhibition"
-                  loading="lazy">
-              </div>
+        <!-- 3D Circular Cylinder Gallery Carousel (Animated 3D Cylindrical Showcase) -->
+        <div class="circular-gallery-wrapper reveal-fade-up" id="circular-gallery-wrapper">
+          <div class="circular-gallery-header">
+            <div class="circular-gallery-hint">
+              <i class="fa-solid fa-arrows-left-right"></i>
+              <span>Drag horizontally to rotate in 3D • Click photo to view</span>
             </div>
-
-            <!-- Column 2: top -95%, y2 = scrollProgress * (height * 3.3) -->
-            <div class="skiper30-column col-2" id="skiper-col-2">
-              <div class="skiper30-card"
-                onclick="openLightbox('./assets/craft_kids.jpg', 'Paper Origami & 3D Clay Crafts')">
-                <img src="./assets/craft_kids.jpg" alt="Paper Origami & 3D Clay Crafts" loading="lazy">
+            <div class="circular-gallery-nav-btns">
+              <button class="circular-gallery-nav-btn prev-btn" id="cg-prev-btn" aria-label="Previous Photo">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <div class="circular-gallery-counter-pill" id="cg-counter-pill">
+                <span class="cg-active-num" id="cg-active-num">01</span>
+                <span class="cg-slash">/</span>
+                <span class="cg-total-num" id="cg-total-num">12</span>
               </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./assets/handwriting_kids.jpg', 'Handwriting & Calligraphy')">
-                <img src="./assets/handwriting_kids.jpg" alt="Handwriting & Calligraphy" loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', 'Competition Laurels & Awards')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg" alt="Competition Laurels & Awards"
-                  loading="lazy">
-              </div>
-            </div>
-
-            <!-- Column 3: top -45%, y3 = scrollProgress * (height * 1.25) -->
-            <div class="skiper30-column col-3" id="skiper-col-3">
-              <div class="skiper30-card" onclick="openLightbox('./assets/abacus_kids.jpg', 'Abacus & Brain Agility')">
-                <img src="./assets/abacus_kids.jpg" alt="Abacus & Brain Agility" loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./assets/calligraphy_kids.jpg', 'Ornamental Calligraphy')">
-                <img src="./assets/calligraphy_kids.jpg" alt="Ornamental Calligraphy" loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', 'Classroom Learning Workshop')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg" alt="Classroom Learning Workshop"
-                  loading="lazy">
-              </div>
-            </div>
-
-            <!-- Column 4: top -75%, y4 = scrollProgress * (height * 3) -->
-            <div class="skiper30-column col-4" id="skiper-col-4">
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg', 'Creative Studio Exploration')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg" alt="Creative Studio Exploration"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg', 'Stage Dance Salangai')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg" alt="Stage Dance Salangai"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg', 'Joyful Creative Moments')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg" alt="Joyful Creative Moments"
-                  loading="lazy">
-              </div>
+              <button class="circular-gallery-nav-btn next-btn" id="cg-next-btn" aria-label="Next Photo">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
             </div>
           </div>
 
-          <!-- Mobile 3D ContainerScroll Gallery (<= 860px view only: rotateX 75deg -> 0deg, scale 1.2 -> 1, column parallax) -->
-          <div class="mobile-gallery-scroll-root" id="mobile-gallery-scroll">
-            <div class="mobile-gallery-sticky" id="mobile-gallery-sticky">
-              <div class="mobile-gallery-scroll-hint">
-                <i class="fa-solid fa-angles-down"></i>
-                <span>Scroll down to unfold in 3D</span>
+          <div class="circular-carousel-container">
+            <div class="circular-carousel" id="circular-gallery-carousel" data-axis="y" data-shape="cylinder" data-draggable="true">
+              <div class="circular-carousel__view">
+                <div class="circular-carousel__stage" id="cg-stage">
+                  <div class="circular-carousel__camera" id="cg-camera">
+                    <div class="circular-carousel__ring" id="cg-ring"></div>
+                  </div>
+                </div>
               </div>
-
-              <!-- 3-Column 3D Perspective Grid -->
-              <div class="mobile-gallery-3d-grid" id="mobile-gallery-grid">
-                <!-- Column 1 (parallax yRange: 0% -> -14%) -->
-                <div class="mobile-gallery-col col-1" id="mg-col-1">
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg', 'Little Picasso Art Studio')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg" alt="Little Picasso Art Studio"
-                      loading="lazy">
-                    <span class="mg-card-badge">Drawing</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg', 'Classical Poise &amp; Rhythms')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
-                      alt="Classical Poise &amp; Rhythms" loading="lazy">
-                    <span class="mg-card-badge">Dance</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg', 'Young Masters Exhibition')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Young Masters Exhibition"
-                      loading="lazy">
-                    <span class="mg-card-badge">Exhibition</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg', 'Joyful Creative Moments')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg" alt="Joyful Creative Moments"
-                      loading="lazy">
-                    <span class="mg-card-badge">Creative</span>
-                  </div>
-                </div>
-
-                <!-- Column 2 (parallax yRange: -6% -> +10%) -->
-                <div class="mobile-gallery-col col-2" id="mg-col-2">
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/craft_kids.jpg', 'Paper Origami &amp; 3D Clay Crafts')">
-                    <img src="./assets/craft_kids.jpg" alt="Paper Origami &amp; 3D Clay Crafts" loading="lazy">
-                    <span class="mg-card-badge">Crafts</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/handwriting_kids.jpg', 'Handwriting &amp; Calligraphy')">
-                    <img src="./assets/handwriting_kids.jpg" alt="Handwriting &amp; Calligraphy" loading="lazy">
-                    <span class="mg-card-badge">Writing</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', 'Competition Laurels &amp; Awards')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg"
-                      alt="Competition Laurels &amp; Awards" loading="lazy">
-                    <span class="mg-card-badge">Awards</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg', 'Stage Dance Salangai')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg" alt="Stage Dance Salangai"
-                      loading="lazy">
-                    <span class="mg-card-badge">Stage</span>
-                  </div>
-                </div>
-
-                <!-- Column 3 (parallax yRange: 0% -> -16%) -->
-                <div class="mobile-gallery-col col-3" id="mg-col-3">
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/abacus_kids.jpg', 'Abacus &amp; Brain Agility')">
-                    <img src="./assets/abacus_kids.jpg" alt="Abacus &amp; Brain Agility" loading="lazy">
-                    <span class="mg-card-badge">Abacus</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./assets/calligraphy_kids.jpg', 'Ornamental Calligraphy')">
-                    <img src="./assets/calligraphy_kids.jpg" alt="Ornamental Calligraphy" loading="lazy">
-                    <span class="mg-card-badge">Penmanship</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', 'Classroom Learning Workshop')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg"
-                      alt="Classroom Learning Workshop" loading="lazy">
-                    <span class="mg-card-badge">Workshop</span>
-                  </div>
-                  <div class="mg-photo-card"
-                    onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg', 'Creative Studio Exploration')">
-                    <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg" alt="Creative Studio Exploration"
-                      loading="lazy">
-                    <span class="mg-card-badge">Studio</span>
-                  </div>
-                </div>
+              <div class="circular-carousel__caption" id="cg-caption">
+                <div class="circular-carousel__title" id="cg-title">Little Picasso Art Studio <span class="circular-carousel__subtitle">Drawing &amp; Painting</span></div>
               </div>
             </div>
-          </div>
-
-          <!-- Scroll Up Tag matching Skiper 30 bottom -->
-          <div class="skiper30-scroll-tag bottom-tag">
-            <div class="scroll-tag-line"></div>
-            <span class="scroll-tag-label">scroll up to see</span>
           </div>
         </div>
 
@@ -1615,7 +1471,7 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=5.0"></script>
+  <script src="script.js?v=5.1"></script>
 
 </body>
 

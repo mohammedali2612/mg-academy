@@ -4892,3 +4892,291 @@ marquee,
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   3D CIRCULAR CYLINDER GALLERY CAROUSEL (Animated 3D Curved Cylinder)
+   ========================================================================== */
+.circular-gallery-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 30px auto 0;
+  background: #FFFFFF;
+  border: 1.5px solid #A0E0EF;
+  border-radius: 28px;
+  padding: 24px 24px 28px;
+  box-shadow: 0 20px 55px rgba(27, 54, 93, 0.08);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.circular-gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 6px;
+  gap: 12px;
+}
+
+.circular-gallery-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #005A9C;
+  background: rgba(0, 90, 156, 0.08);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 90, 156, 0.12);
+}
+
+.circular-gallery-nav-btns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.circular-gallery-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 90, 156, 0.22);
+  background: #FFFFFF;
+  color: #005A9C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(27, 54, 93, 0.08);
+}
+
+.circular-gallery-nav-btn:hover {
+  background: #005A9C;
+  color: #FFFFFF;
+  border-color: #005A9C;
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(0, 90, 156, 0.25);
+}
+
+.circular-gallery-counter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #1B365D;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  background: rgba(240, 248, 255, 0.92);
+  border: 1.5px solid rgba(0, 90, 156, 0.18);
+  box-shadow: 0 4px 14px rgba(27, 54, 93, 0.06);
+}
+
+.circular-carousel-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(235, 246, 255, 0.95) 0%, rgba(215, 238, 252, 0.65) 100%);
+  border: 1.5px solid rgba(160, 224, 239, 0.65);
+}
+
+/* Core 3D Circular Carousel Engine */
+.circular-carousel {
+  --cc-fade: #1B365D;
+  --cc-radius: 16px;
+  --cc-inner: 0.35;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: none;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.circular-carousel[data-draggable] {
+  cursor: grab;
+}
+
+.circular-carousel[data-dragging] {
+  cursor: grabbing;
+}
+
+.circular-carousel__view {
+  position: absolute;
+  inset: 0;
+}
+
+.circular-carousel__stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.circular-carousel[data-ready] .circular-carousel__stage {
+  opacity: 1;
+}
+
+.circular-carousel__camera,
+.circular-carousel__ring,
+.circular-carousel__card {
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+.circular-carousel__camera {
+  position: relative;
+}
+
+.circular-carousel__ring,
+.circular-carousel__card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  filter: drop-shadow(0 16px 32px rgba(27, 54, 93, 0.22));
+}
+
+.circular-carousel__tile {
+  position: absolute;
+  outline: 1px solid transparent;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.circular-carousel__frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(27, 54, 93, 0.20);
+}
+
+.circular-carousel__photo {
+  position: absolute;
+  display: block;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.circular-carousel__shade,
+.circular-carousel__inner {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.circular-carousel__shade {
+  background: var(--cc-fade);
+  opacity: var(--cc-depth, 0);
+}
+
+.circular-carousel__inner {
+  background: #000000;
+  opacity: var(--cc-inner);
+}
+
+.circular-carousel__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 18px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.circular-carousel__title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1B365D;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 22px;
+  border-radius: 9999px;
+  box-shadow: 0 10px 28px rgba(27, 54, 93, 0.14);
+  border: 1px solid rgba(160, 224, 239, 0.7);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  animation: circular-carousel-title 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.circular-carousel__subtitle {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #005A9C;
+  opacity: 0.85;
+}
+
+@keyframes circular-carousel-title {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsiveness for Circular 3D Gallery */
+@media (max-width: 860px) {
+  .circular-gallery-wrapper {
+    padding: 16px 10px 20px !important;
+    border-radius: 20px !important;
+    margin-top: 18px !important;
+  }
+
+  .circular-gallery-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .circular-gallery-hint {
+    font-size: 0.78rem !important;
+    padding: 4px 12px !important;
+  }
+
+  .circular-carousel-container {
+    height: 410px !important;
+    border-radius: 16px !important;
+  }
+
+  .circular-carousel__title {
+    font-size: 0.92rem !important;
+    padding: 6px 14px !important;
+  }
+
+  .circular-carousel__subtitle {
+    font-size: 0.75rem !important;
+  }
+}
