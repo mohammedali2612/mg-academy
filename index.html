@@ -29,7 +29,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=6.7">
+  <link rel="stylesheet" href="style.css?v=6.8">
 
 
 
@@ -599,104 +599,154 @@
             From classical heritage to energetic modern rhythms, our dance studio offers 4 distinct styles to build
             poise, flexibility, musicality, and stage confidence.
           </p>
-          <div class="dance-scroll-hint mobile-only" aria-hidden="true">
-            <span class="dance-hint-pill"><i class="fa-solid fa-arrow-down-long"></i> Scroll to stack styles</span>
+          <div class="dance-scroll-hint" aria-hidden="true">
+            <span class="dance-hint-pill"><i class="fa-solid fa-layer-group"></i> Scroll to explore styles · Stacked Deck</span>
           </div>
         </div>
 
         <div class="dance-styles-grid" id="dance-styles-grid">
           <!-- Style 1: Bharatanatyam -->
-          <div class="dance-stack-slot" data-stack-slot="">
-            <div class="dance-style-card glass-panel reveal-fade-up">
-              <div class="dance-style-media">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
-                  alt="Bharatanatyam classical dance training" class="dance-style-img">
-                <div class="dance-pill-tag bg-pink">Classical Heritage</div>
-              </div>
+          <div class="dance-stack-slot" data-stack-slot="1">
+            <div class="dance-style-card theme-bharatanatyam">
               <div class="dance-style-content">
-                <h3>Bharatanatyam</h3>
-                <p>
+                <div class="dance-badge badge-bharatanatyam">
+                  <span class="badge-index">01</span>
+                  <span class="badge-sep">/</span>
+                  <span class="badge-text">Classical Heritage</span>
+                </div>
+                <h3 class="dance-card-title">Bharatanatyam</h3>
+                <p class="dance-card-quote">"Sacred grace, rhythmic footwork, and timeless cultural poise."</p>
+                <p class="dance-card-desc">
                   Traditional Indian classical dance focusing on foundational Adavus (footwork), delicate Hastha Mudras
-                  (hand gestures), Abhinaya (facial expressions), and rhythmic Salangai. Promotes posture, discipline,
-                  and
-                  cultural appreciation.
+                  (hand gestures), Abhinaya (facial expressions), and rhythmic Salangai. Promotes discipline, balance,
+                  flexibility, and stage confidence.
                 </p>
                 <div class="dance-specs">
-                  <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
-                  <span><i class="fa-solid fa-certificate"></i> Salangai Pooja &amp; Arangetram Path</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-calendar-check"></i> 2 Days / Week</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-user-group"></i> Ages 4 – 15 Yrs</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-award"></i> Salangai Pooja &amp; Arangetram</span>
                 </div>
+                <div class="dance-card-action">
+                  <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Bharatanatyam')">
+                    <span>Book Free Demo</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="dance-style-media">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg"
+                  alt="Bharatanatyam classical dance training at MG Academy" class="dance-style-img" loading="lazy">
+                <span class="dance-media-badge"><i class="fa-solid fa-sparkles"></i> Classical Heritage</span>
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
           </div>
 
           <!-- Style 2: Western Dance -->
-          <div class="dance-stack-slot" data-stack-slot="">
-            <div class="dance-style-card glass-panel reveal-fade-up">
-              <div class="dance-style-media">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM (1).jpeg"
-                  alt="Western modern dance routines" class="dance-style-img">
-                <div class="dance-pill-tag bg-blue">Modern Energy</div>
-              </div>
+          <div class="dance-stack-slot" data-stack-slot="2">
+            <div class="dance-style-card theme-western">
               <div class="dance-style-content">
-                <h3>Western Dance</h3>
-                <p>
+                <div class="dance-badge badge-western">
+                  <span class="badge-index">02</span>
+                  <span class="badge-sep">/</span>
+                  <span class="badge-text">Modern Energy</span>
+                </div>
+                <h3 class="dance-card-title">Western Dance</h3>
+                <p class="dance-card-quote">"Dynamic beats, modern footwork, and high-energy stage performance."</p>
+                <p class="dance-card-desc">
                   High-energy modern routines that build physical coordination, stamina, and musicality. Kids groove to
                   upbeat international tracks while mastering crisp footwork, isolations, and synchronized group
                   choreography.
                 </p>
                 <div class="dance-specs">
-                  <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
-                  <span><i class="fa-solid fa-bolt"></i> Agility &amp; Team Synchronization</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-calendar-check"></i> 2 Days / Week</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-user-group"></i> Ages 5 – 16 Yrs</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-bolt"></i> Agility &amp; Group Synchronization</span>
                 </div>
+                <div class="dance-card-action">
+                  <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Western Dance')">
+                    <span>Book Free Demo</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="dance-style-media">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM (1).jpeg"
+                  alt="Western modern dance routines at MG Academy" class="dance-style-img" loading="lazy">
+                <span class="dance-media-badge"><i class="fa-solid fa-bolt"></i> Modern Energy</span>
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
           </div>
 
           <!-- Style 3: Free Style -->
-          <div class="dance-stack-slot" data-stack-slot="">
-            <div class="dance-style-card glass-panel reveal-fade-up">
-              <div class="dance-style-media">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg"
-                  alt="Freestyle creative dance movement" class="dance-style-img">
-                <div class="dance-pill-tag bg-gold">Expressive Groove</div>
-              </div>
+          <div class="dance-stack-slot" data-stack-slot="3">
+            <div class="dance-style-card theme-freestyle">
               <div class="dance-style-content">
-                <h3>Free Style</h3>
-                <p>
+                <div class="dance-badge badge-freestyle">
+                  <span class="badge-index">03</span>
+                  <span class="badge-sep">/</span>
+                  <span class="badge-text">Expressive Groove</span>
+                </div>
+                <h3 class="dance-card-title">Free Style</h3>
+                <p class="dance-card-quote">"Creative movement, joyful freedom, and individual rhythm expression."</p>
+                <p class="dance-card-desc">
                   Creative, expressive movement that frees children from rigid boundaries. Blends elements of hip-hop,
                   lyrical flow, and contemporary pop routines, allowing children to develop their own personal groove
-                  and
-                  rhythm.
+                  and rhythm.
                 </p>
                 <div class="dance-specs">
-                  <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
-                  <span><i class="fa-solid fa-sparkles"></i> Freestyle Expression &amp; Joy</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-calendar-check"></i> 2 Days / Week</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-user-group"></i> Ages 4 – 16 Yrs</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-music"></i> Freestyle Flow &amp; Confidence</span>
                 </div>
+                <div class="dance-card-action">
+                  <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Free Style')">
+                    <span>Book Free Demo</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="dance-style-media">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg"
+                  alt="Freestyle creative dance movement at MG Academy" class="dance-style-img" loading="lazy">
+                <span class="dance-media-badge"><i class="fa-solid fa-music"></i> Expressive Groove</span>
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
           </div>
 
           <!-- Style 4: Tamil Folk Dance -->
-          <div class="dance-stack-slot" data-stack-slot="">
-            <div class="dance-style-card glass-panel reveal-fade-up">
-              <div class="dance-style-media">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg" alt="Tamil Folk traditional dance"
-                  class="dance-style-img">
-                <div class="dance-pill-tag bg-green">Cultural Celebration</div>
-              </div>
+          <div class="dance-stack-slot" data-stack-slot="4">
+            <div class="dance-style-card theme-tamilfolk">
               <div class="dance-style-content">
-                <h3>Tamil Folk Dance</h3>
-                <p>
+                <div class="dance-badge badge-tamilfolk">
+                  <span class="badge-index">04</span>
+                  <span class="badge-sep">/</span>
+                  <span class="badge-text">Cultural Celebration</span>
+                </div>
+                <h3 class="dance-card-title">Tamil Folk Dance</h3>
+                <p class="dance-card-quote">"Pulsating drums, authentic folk traditions, and festive joy."</p>
+                <p class="dance-card-desc">
                   Vibrant, energetic traditional folk styles including Karagattam, Oyilattam, and Kummi steps that
                   celebrate regional culture, pulsating drum beats, festive joy, and authentic community teamwork.
                 </p>
                 <div class="dance-specs">
-                  <span><i class="fa-solid fa-clock"></i> 2 Days/Week</span>
-                  <span><i class="fa-solid fa-drum"></i> Festive Beats &amp; Stage Shows</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-calendar-check"></i> 2 Days / Week</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-user-group"></i> Ages 5 – 15 Yrs</span>
+                  <span class="dance-spec-chip"><i class="fa-solid fa-drum"></i> Festive Beats &amp; Stage Shows</span>
                 </div>
+                <div class="dance-card-action">
+                  <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Tamil Folk Dance')">
+                    <span>Book Free Demo</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="dance-style-media">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg"
+                  alt="Tamil Folk traditional dance training at MG Academy" class="dance-style-img" loading="lazy">
+                <span class="dance-media-badge"><i class="fa-solid fa-drum"></i> Cultural Celebration</span>
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
@@ -1689,7 +1739,7 @@
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <!-- Swiper 11 JS (for 3D Creative Carousel in Mobile View) -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=6.6"></script>
+  <script src="script.js?v=6.8"></script>
 
 </body>
 

@@ -1733,97 +1733,7 @@ marquee,
   background: linear-gradient(180deg, #FFFFFF 0%, #F0F8FB 100%);
 }
 
-.dance-styles-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-bottom: 50px;
-}
-
-.dance-style-card {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background: #FFFFFF;
-  border: 1px solid #A0E0EF;
-  box-shadow: 0 10px 30px rgba(27, 54, 93, 0.06);
-  border-radius: var(--radius-lg);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.dance-style-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: #60C1E5;
-  box-shadow: 0 18px 45px rgba(27, 54, 93, 0.12), 0 0 25px rgba(96, 193, 229, 0.3);
-}
-
-.dance-style-media {
-  position: relative;
-  height: 220px;
-  width: 100%;
-  overflow: hidden;
-}
-
-.dance-style-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.dance-style-card:hover .dance-style-img {
-  transform: scale(1.08);
-}
-
-.dance-pill-tag {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  font-family: var(--font-heading);
-  font-size: 0.76rem;
-  font-weight: 700;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-}
-
-.dance-style-content {
-  padding: 22px 20px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  background: #FFFFFF;
-}
-
-.dance-style-content h3 {
-  font-size: 1.35rem;
-  margin-bottom: 10px;
-  color: #1B365D;
-}
-
-.dance-style-content p {
-  font-size: 0.92rem;
-  color: #2D3F58;
-  line-height: 1.6;
-  margin-bottom: 18px;
-  flex-grow: 1;
-}
-
-.dance-specs {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.84rem;
-  color: #005A9C;
-  font-weight: 600;
-  border-top: 1px dashed rgba(160, 224, 239, 0.7);
-  padding-top: 12px;
-}
-
-.dance-specs span {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
+/* (Dance cards styling and physics are powered by the unified Kexsio STACK · SCROLL Engine below) */
 
 .dance-cta-banner {
   padding: 40px;
@@ -4513,7 +4423,6 @@ marquee,
   }
 
   .courses-grid,
-  .dance-styles-grid,
   .five-pillars-grid,
   .achievements-grid {
     grid-template-columns: 1fr !important;
@@ -5769,235 +5678,391 @@ marquee,
 }
 
 /* ==========================================================================
-   DANCE CLASSES SCROLL STACK (Mobile View Only: <= 860px)
-   Inspired by ScrollStack Component
+   KEXSIO STACK · SCROLL ENGINE (Cross-Device: Desktop & Mobile)
+   Inspired by kexsio.com/animations ScrollStack
+   Features:
+   - Sticky stacked card deck with scale reduction, vertical stepped offset,
+     and dynamic depth dimming (--scroll-stack-dim).
+   - Desktop (>860px): Wide horizontal 2-column card with left content and right photo.
+   - Mobile (<=860px): Single-column card optimized for touch & small viewports.
+   - 4 Distinct vibrant luminous themes with radiant glows & glass badge tags.
    ========================================================================== */
-/* Desktop Grid (> 860px) */
-@media (min-width: 861px) and (max-width: 1100px) {
-  .dance-styles-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px !important;
-    margin-bottom: 40px !important;
-  }
 
-  .dance-stack-slot {
-    display: flex !important;
-    flex-direction: column !important;
-    position: static !important;
-    height: 100% !important;
-    margin-bottom: 0 !important;
-  }
-
-  .dance-stack-slot .dance-style-card {
-    flex: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    border-radius: var(--radius-lg) !important;
-  }
-
-  .dance-stack-slot .dance-style-img {
-    transform: none !important;
-  }
-
-  .scroll-stack-card__shade {
-    display: none !important;
-  }
-
-  .dance-stack-end,
-  .dance-scroll-hint {
-    display: none !important;
-  }
+.dance-spotlight-section {
+  position: relative !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 50%, #FFFFFF 100%) !important;
+  overflow: visible !important;
+  padding-top: clamp(40px, 6vw, 70px) !important;
+  padding-bottom: clamp(50px, 8vw, 90px) !important;
 }
 
-@media (min-width: 1101px) {
-  .dance-styles-grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: clamp(16px, 1.8vw, 24px) !important;
-    margin-bottom: 50px !important;
-  }
-
-  .dance-stack-slot {
-    display: flex !important;
-    flex-direction: column !important;
-    position: static !important;
-    height: 100% !important;
-    margin-bottom: 0 !important;
-  }
-
-  .dance-stack-slot .dance-style-card {
-    flex: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    border-radius: var(--radius-lg) !important;
-  }
-
-  .dance-stack-slot .dance-style-img {
-    transform: none !important;
-  }
-
-  .scroll-stack-card__shade {
-    display: none !important;
-  }
-
-  .dance-stack-end,
-  .dance-scroll-hint {
-    display: none !important;
-  }
+.dance-scroll-hint {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 16px 0 28px 0 !important;
 }
 
-/* Mobile Skiper 34 StickyCard_003 Stack Animation (<= 860px Only) */
+.dance-hint-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  font-family: var(--font-heading) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #0077B6 !important;
+  background: rgba(0, 119, 182, 0.08) !important;
+  border: 1px solid rgba(0, 119, 182, 0.22) !important;
+  padding: 8px 20px !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 14px rgba(0, 119, 182, 0.09) !important;
+  animation: danceHintBounce 2.2s ease-in-out infinite !important;
+}
+
+@keyframes danceHintBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* Dance Stack Container */
+.dance-styles-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  position: relative !important;
+  width: 100% !important;
+  max-width: 1060px !important;
+  margin: 0 auto !important;
+  padding: 0 clamp(12px, 2vw, 24px) !important;
+  perspective: 1200px !important;
+  box-sizing: border-box !important;
+}
+
+/* Individual Card Slots */
+.dance-stack-slot {
+  position: sticky !important;
+  top: clamp(84px, 11vh, 100px) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-bottom: clamp(340px, 46vh, 480px) !important;
+  will-change: transform !important;
+}
+
+.dance-stack-slot:nth-child(1) { z-index: 1 !important; }
+.dance-stack-slot:nth-child(2) { z-index: 2 !important; }
+.dance-stack-slot:nth-child(3) { z-index: 3 !important; }
+.dance-stack-slot:nth-child(4) {
+  z-index: 4 !important;
+  margin-bottom: clamp(35px, 5vh, 55px) !important;
+}
+
+/* The Card Frame */
+.dance-style-card {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: 1.18fr 0.82fr !important;
+  min-height: clamp(380px, 46vh, 440px) !important;
+  border-radius: 28px !important;
+  background: #FFFFFF !important;
+  overflow: hidden !important;
+  transform-origin: 50% top !important;
+  will-change: transform, filter !important;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+  transition-property: box-shadow, border-color !important;
+}
+
+/* 4 Distinct Card Themes with Vibrant Luminous Glow */
+.dance-style-card.theme-bharatanatyam {
+  background: linear-gradient(135deg, #FFFFFF 62%, #FAF5FF 100%) !important;
+  border: 2px solid rgba(168, 85, 247, 0.42) !important;
+  box-shadow:
+    0 20px 48px rgba(126, 34, 206, 0.11),
+    0 0 28px rgba(168, 85, 247, 0.22),
+    0 0 54px rgba(168, 85, 247, 0.12),
+    inset 0 1px 0 #FFFFFF !important;
+}
+
+.dance-style-card.theme-western {
+  background: linear-gradient(135deg, #FFFFFF 62%, #F0F9FF 100%) !important;
+  border: 2px solid rgba(0, 180, 216, 0.45) !important;
+  box-shadow:
+    0 20px 48px rgba(0, 119, 182, 0.11),
+    0 0 28px rgba(0, 180, 216, 0.24),
+    0 0 54px rgba(0, 180, 216, 0.14),
+    inset 0 1px 0 #FFFFFF !important;
+}
+
+.dance-style-card.theme-freestyle {
+  background: linear-gradient(135deg, #FFFFFF 62%, #FFFBEB 100%) !important;
+  border: 2px solid rgba(245, 158, 11, 0.45) !important;
+  box-shadow:
+    0 20px 48px rgba(217, 119, 6, 0.11),
+    0 0 28px rgba(245, 158, 11, 0.22),
+    0 0 54px rgba(245, 158, 11, 0.12),
+    inset 0 1px 0 #FFFFFF !important;
+}
+
+.dance-style-card.theme-tamilfolk {
+  background: linear-gradient(135deg, #FFFFFF 62%, #ECFDF5 100%) !important;
+  border: 2px solid rgba(16, 185, 129, 0.45) !important;
+  box-shadow:
+    0 20px 48px rgba(5, 150, 105, 0.11),
+    0 0 28px rgba(16, 185, 129, 0.22),
+    0 0 54px rgba(16, 185, 129, 0.12),
+    inset 0 1px 0 #FFFFFF !important;
+}
+
+/* Content Area */
+.dance-style-content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: clamp(24px, 3.2vw, 38px) !important;
+  z-index: 2 !important;
+}
+
+/* Category Badge Pill */
+.dance-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  width: fit-content !important;
+  padding: 5px 14px !important;
+  border-radius: 999px !important;
+  font-family: var(--font-heading) !important;
+  font-size: 0.76rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 12px !important;
+}
+
+.dance-badge .badge-index { font-weight: 900; }
+.dance-badge .badge-sep { opacity: 0.55; }
+
+.badge-bharatanatyam {
+  background: rgba(168, 85, 247, 0.12) !important;
+  color: #7E22CE !important;
+  border: 1px solid rgba(168, 85, 247, 0.32) !important;
+}
+
+.badge-western {
+  background: rgba(0, 180, 216, 0.12) !important;
+  color: #0077B6 !important;
+  border: 1px solid rgba(0, 180, 216, 0.32) !important;
+}
+
+.badge-freestyle {
+  background: rgba(245, 158, 11, 0.12) !important;
+  color: #B45309 !important;
+  border: 1px solid rgba(245, 158, 11, 0.32) !important;
+}
+
+.badge-tamilfolk {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #047857 !important;
+  border: 1px solid rgba(16, 185, 129, 0.32) !important;
+}
+
+.dance-card-title {
+  font-family: var(--font-heading) !important;
+  font-size: clamp(1.6rem, 2.3vw, 2.2rem) !important;
+  font-weight: 800 !important;
+  color: #1B365D !important;
+  line-height: 1.2 !important;
+  margin: 0 0 6px 0 !important;
+}
+
+.dance-card-quote {
+  font-family: var(--font-heading) !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  color: #0077B6 !important;
+  line-height: 1.4 !important;
+  margin: 0 0 10px 0 !important;
+}
+
+.dance-card-desc {
+  font-size: 0.90rem !important;
+  line-height: 1.6 !important;
+  color: #374151 !important;
+  margin: 0 0 16px 0 !important;
+}
+
+.dance-specs {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-bottom: 20px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.dance-spec-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #1E293B !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  padding: 5px 12px !important;
+  border-radius: 999px !important;
+}
+
+.dance-spec-chip i {
+  color: #0077B6 !important;
+}
+
+.dance-card-action {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.btn-dance-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: linear-gradient(135deg, #0077B6 0%, #00B4D8 100%) !important;
+  color: #FFFFFF !important;
+  font-family: var(--font-heading) !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  padding: 9px 20px !important;
+  border-radius: 999px !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0, 119, 182, 0.25) !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.btn-dance-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 22px rgba(0, 119, 182, 0.35) !important;
+}
+
+/* Media Area */
+.dance-style-media {
+  position: relative !important;
+  height: calc(100% - 28px) !important;
+  margin: 14px 14px 14px 0 !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 24px rgba(15, 30, 60, 0.08) !important;
+  background: #E2E8F0 !important;
+}
+
+.dance-style-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.dance-style-card:hover .dance-style-img {
+  transform: scale(1.05) !important;
+}
+
+.dance-media-badge {
+  position: absolute !important;
+  bottom: 12px !important;
+  right: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(8px) !important;
+  color: #FFFFFF !important;
+  font-family: var(--font-heading) !important;
+  font-size: 0.74rem !important;
+  font-weight: 700 !important;
+  padding: 5px 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Depth Dim Shade Overlay */
+.scroll-stack-card__shade {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  background: #0B1E36 !important;
+  opacity: var(--scroll-stack-dim, 0) !important;
+  pointer-events: none !important;
+  transition: opacity 0.12s ease-out !important;
+  z-index: 10 !important;
+}
+
+/* Mobile Responsiveness (<= 860px) */
 @media (max-width: 860px) {
-  .dance-scroll-hint {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin: 14px 0 20px 0 !important;
-  }
-
-  .dance-hint-pill {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    font-family: var(--font-heading) !important;
-    font-size: 0.78rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
-    color: #0077B6 !important;
-    background: rgba(0, 119, 182, 0.08) !important;
-    border: 1px solid rgba(0, 119, 182, 0.22) !important;
-    padding: 6px 16px !important;
-    border-radius: 24px !important;
-    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.08) !important;
-    animation: danceHintBounce 2s ease-in-out infinite !important;
-  }
-
-  @keyframes danceHintBounce {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(4px);
-    }
-  }
-
   .dance-styles-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0 !important;
-    position: relative !important;
-    width: 100% !important;
-    max-width: clamp(290px, 92vw, 380px) !important;
-    margin: 10px auto 40px auto !important;
-    padding: 0 8px !important;
-    perspective: 1200px !important;
+    max-width: clamp(290px, 94vw, 420px) !important;
+    padding: 0 6px !important;
   }
 
   .dance-stack-slot {
-    position: sticky !important;
     top: 72px !important;
-    /* Stays locked just under the mobile sticky header */
-    width: 100% !important;
-    box-sizing: border-box !important;
-    margin-bottom: 230px !important;
-    /* Smooth scroll travel distance between cards */
-    will-change: transform !important;
-  }
-
-  .dance-stack-slot:nth-child(1) {
-    z-index: 1 !important;
-  }
-
-  .dance-stack-slot:nth-child(2) {
-    z-index: 2 !important;
-  }
-
-  .dance-stack-slot:nth-child(3) {
-    z-index: 3 !important;
+    margin-bottom: clamp(240px, 40vh, 320px) !important;
   }
 
   .dance-stack-slot:nth-child(4) {
-    z-index: 4 !important;
-    margin-bottom: 20px !important;
-    /* Final card finishes stack cleanly */
+    margin-bottom: 24px !important;
   }
 
-  /* Skiper 34 Card Frame: rounded-4xl, scale & tilt rotation with Luminous Cyan Glow */
   .dance-style-card {
-    position: relative !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    border-radius: clamp(20px, 5vw, 28px) !important;
-    /* Skiper 34 rounded-4xl */
-    background: #FFFFFF !important;
-    border: 2px solid rgba(56, 189, 248, 0.45) !important;
-    box-shadow:
-      0 16px 42px rgba(10, 37, 64, 0.10),
-      0 0 24px rgba(56, 189, 248, 0.32),
-      0 0 48px rgba(0, 180, 216, 0.18),
-      inset 0 1px 0 #FFFFFF !important;
-    transform-origin: 50% 50% !important;
-    will-change: transform, filter !important;
-    overflow: hidden !important;
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    border-radius: 24px !important;
   }
 
   .dance-style-media {
-    position: relative !important;
-    height: clamp(165px, 25vh, 195px) !important;
-    width: 100% !important;
-    overflow: hidden !important;
-    border-radius: clamp(18px, 4.5vw, 26px) clamp(18px, 4.5vw, 26px) 0 0 !important;
-  }
-
-  /* Skiper 34 Counter-Rotated Image: scale-125 with negateFilter */
-  .dance-style-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    transform-origin: 50% 50% !important;
-    transform: scale(1.25) rotate(0deg) !important;
-    /* Initial scale-125 */
-    will-change: transform !important;
-    transition: none !important;
-    /* Managed by 60fps rAF on scroll */
+    order: -1 !important;
+    height: clamp(170px, 26vh, 205px) !important;
+    margin: 10px 10px 0 10px !important;
+    border-radius: 18px !important;
   }
 
   .dance-style-content {
-    padding: 18px 18px !important;
+    padding: 16px 16px 20px 16px !important;
   }
 
-  .dance-style-content h3 {
-    font-size: 1.25rem !important;
+  .dance-card-title {
+    font-size: 1.35rem !important;
+  }
+
+  .dance-card-quote {
+    font-size: 0.85rem !important;
     margin-bottom: 8px !important;
   }
 
-  .dance-style-content p {
-    font-size: 0.88rem !important;
+  .dance-card-desc {
+    font-size: 0.84rem !important;
+    margin-bottom: 12px !important;
     line-height: 1.5 !important;
-    margin-bottom: 14px !important;
   }
 
   .dance-specs {
-    font-size: 0.80rem !important;
-    gap: 5px !important;
-    padding-top: 10px !important;
+    gap: 6px !important;
+    margin-bottom: 16px !important;
   }
 
-  /* Skiper 34 Smooth Stacking Depth Shade */
-  .scroll-stack-card__shade {
-    position: absolute !important;
-    inset: 0 !important;
-    border-radius: inherit !important;
-    background: #0B1E36 !important;
-    opacity: var(--scroll-stack-dim, 0) !important;
-    pointer-events: none !important;
-    transition: opacity 0.10s ease-out !important;
-    z-index: 10 !important;
+  .dance-spec-chip {
+    font-size: 0.74rem !important;
+    padding: 4px 10px !important;
+  }
+
+  .btn-dance-cta {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 10px 18px !important;
   }
 }
 
