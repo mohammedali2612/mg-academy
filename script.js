@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MG Academy - Interactive JavaScript
  * Premium animations, navigation, category filter tabs, modals, and confetti celebration
  */

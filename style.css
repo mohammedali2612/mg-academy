@@ -4583,6 +4583,9 @@ marquee,
   font-size: 1.15rem;
   font-weight: 800;
   box-shadow: inset 0 0 0 1px rgba(0, 90, 156, 0.12), 0 2px 6px rgba(27, 54, 93, 0.06);
+  transform: rotateY(0deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Back Face: Icon */
@@ -4955,39 +4958,74 @@ marquee,
 }
 
 @media (max-width: 860px) {
+  /* Contact Animation Alignment in Mobile View (Aligned with Quick Contact text) */
   .social-flip-wrapper {
-    justify-content: center !important;
+    display: flex !important;
+    justify-content: flex-start !important;
     width: 100% !important;
-    margin-top: 14px !important;
+    margin-top: 16px !important;
   }
 
   .social-flip-card {
-    padding: 6px 6px !important;
-    gap: 4px !important;
-    border-radius: 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 8px 10px !important;
+    gap: 5px !important;
+    border-radius: 16px !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
-    justify-content: center !important;
+    background: #FFFFFF !important;
+    border: 1.5px solid rgba(0, 90, 156, 0.22) !important;
+    box-shadow: 0 6px 20px rgba(11, 37, 69, 0.12) !important;
   }
 
   .social-flip-node {
-    width: clamp(31px, 8.4vw, 36px) !important;
-    height: clamp(31px, 8.4vw, 36px) !important;
+    width: clamp(32px, 8.5vw, 36px) !important;
+    height: clamp(32px, 8.5vw, 36px) !important;
     flex-shrink: 0 !important;
+    perspective: 1000px !important;
+    -webkit-perspective: 1000px !important;
   }
 
   .flip-front {
-    font-size: 0.92rem !important;
+    font-size: 0.95rem !important;
+    transform: rotateY(0deg) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
   }
 
   .flip-back {
+    font-size: 0.90rem !important;
+    transform: rotateY(180deg) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .social-flip-card {
+    padding: 6px 8px !important;
+    gap: 4px !important;
+  }
+
+  .social-flip-node {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .flip-front {
     font-size: 0.88rem !important;
+  }
+
+  .flip-back {
+    font-size: 0.82rem !important;
   }
 }
 
 @media (max-width: 860px) {
-  /* REMOVE NAVBAR COMPLETELY IN MOBILE VIEW (AS REQUESTED) */
-  .site-header,
+  /* Hide only the top ticker announcement bar on small screens to save vertical space;
+     Header (logo, admission CTA, hamburger menu) remains visible and sticky */
   .top-announcement-bar {
     display: none !important;
   }
