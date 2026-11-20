@@ -142,13 +142,13 @@ button {
 
 .container {
   width: 100%;
-  max-width: 1240px;
+  max-width: clamp(1180px, 86vw, 1340px);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 clamp(14px, 3vw, 28px);
 }
 
 .section {
-  padding: 90px 0;
+  padding: clamp(48px, 6vw, 92px) 0;
   position: relative;
   z-index: 2;
 }
@@ -310,7 +310,8 @@ h6 {
 .top-announcement-bar {
   background: #1B365D;
   overflow: hidden !important;
-  max-width: 100vw;
+  width: 100% !important;
+  max-width: 100% !important;
   color: #FFFFFF;
   padding: 6px 0;
   font-size: 0.88rem;
@@ -321,12 +322,11 @@ h6 {
 
 .announcement-marquee-wrapper {
   overflow: hidden !important;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: 1280px;
   margin: 0 auto;
   padding: 0 16px;
   gap: 16px;
@@ -3628,17 +3628,54 @@ marquee,
 }
 
 /* ---------------- Responsive Breakpoints ---------------- */
+@media (max-width: 1180px) and (min-width: 861px) {
+  .nav-container {
+    padding: 6px 12px !important;
+    gap: 8px !important;
+  }
+
+  .nav-link {
+    font-size: 0.78rem !important;
+    padding: 5px 8px !important;
+  }
+
+  .nav-list.spotlight-nav {
+    gap: 1px !important;
+    padding: 3px 4px !important;
+  }
+
+  .brand-logo-img {
+    height: 40px !important;
+  }
+
+  .brand-title {
+    font-size: 1.05rem !important;
+  }
+
+  .brand-tagline {
+    font-size: 0.60rem !important;
+  }
+
+  .header-action-group {
+    gap: 6px !important;
+  }
+
+  .btn-admission-3d,
+  .peek-admission-btn {
+    min-width: 6.8em !important;
+    padding: 7px 12px !important;
+    font-size: 0.78rem !important;
+  }
+}
+
 @media (max-width: 1180px) {
   .hero-title {
-    font-size: 3rem;
+    font-size: clamp(2rem, 3.8vw, 3rem);
   }
 
   .courses-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dance-styles-grid {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   .five-pillars-grid {
@@ -5055,8 +5092,8 @@ marquee,
   .course-stack-stage {
     position: relative;
     width: 100%;
-    max-width: 360px;
-    height: 500px;
+    max-width: clamp(290px, 92vw, 360px);
+    height: clamp(450px, 68vh, 500px);
     perspective: 1200px;
     display: flex;
     justify-content: center;
@@ -5078,9 +5115,9 @@ marquee,
     margin: 0 auto !important;
     bottom: 0;
     width: 100%;
-    max-width: 350px;
-    height: 490px;
-    border-radius: 22px;
+    max-width: 100%;
+    height: clamp(440px, 66vh, 490px);
+    border-radius: clamp(18px, 4vw, 22px);
     border: 1.5px solid rgba(160, 224, 239, 0.75);
     background: #FFFFFF;
     box-shadow: 0 16px 40px rgba(27, 54, 93, 0.12);
@@ -5673,12 +5710,49 @@ marquee,
    DANCE CLASSES SCROLL STACK (Mobile View Only: <= 860px)
    Inspired by ScrollStack Component
    ========================================================================== */
-/* Desktop 4-Column Grid (> 860px) */
-@media (min-width: 861px) {
+/* Desktop Grid (> 860px) */
+@media (min-width: 861px) and (max-width: 1100px) {
+  .dance-styles-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    margin-bottom: 40px !important;
+  }
+
+  .dance-stack-slot {
+    display: flex !important;
+    flex-direction: column !important;
+    position: static !important;
+    height: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  .dance-stack-slot .dance-style-card {
+    flex: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    border-radius: var(--radius-lg) !important;
+  }
+
+  .dance-stack-slot .dance-style-img {
+    transform: none !important;
+  }
+
+  .scroll-stack-card__shade {
+    display: none !important;
+  }
+
+  .dance-stack-end,
+  .dance-scroll-hint {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1101px) {
   .dance-styles-grid {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
-    gap: 24px !important;
+    gap: clamp(16px, 1.8vw, 24px) !important;
     margin-bottom: 50px !important;
   }
 
@@ -5756,7 +5830,7 @@ marquee,
     gap: 0 !important;
     position: relative !important;
     width: 100% !important;
-    max-width: 380px !important;
+    max-width: clamp(290px, 92vw, 380px) !important;
     margin: 10px auto 40px auto !important;
     padding: 0 8px !important;
     perspective: 1200px !important;
@@ -5796,7 +5870,7 @@ marquee,
     position: relative !important;
     box-sizing: border-box !important;
     width: 100% !important;
-    border-radius: 28px !important;
+    border-radius: clamp(20px, 5vw, 28px) !important;
     /* Skiper 34 rounded-4xl */
     background: #FFFFFF !important;
     border: 1.5px solid rgba(0, 90, 156, 0.22) !important;
@@ -5808,10 +5882,10 @@ marquee,
 
   .dance-style-media {
     position: relative !important;
-    height: 195px !important;
+    height: clamp(165px, 25vh, 195px) !important;
     width: 100% !important;
     overflow: hidden !important;
-    border-radius: 26px 26px 0 0 !important;
+    border-radius: clamp(18px, 4.5vw, 26px) clamp(18px, 4.5vw, 26px) 0 0 !important;
   }
 
   /* Skiper 34 Counter-Rotated Image: scale-125 with negateFilter */
@@ -5918,8 +5992,8 @@ marquee,
   }
 
   .Carousal_004 .swiper-slide.fee-card-slide {
-    width: clamp(285px, 80vw, 315px) !important;
-    border-radius: 25px !important;
+    width: clamp(265px, 80vw, 320px) !important;
+    border-radius: clamp(18px, 4vw, 25px) !important;
     box-sizing: border-box !important;
     display: flex !important;
     background: transparent !important;
@@ -5928,8 +6002,8 @@ marquee,
 
   .Carousal_004 .fee-card {
     width: 100% !important;
-    border-radius: 25px !important;
-    padding: 26px 20px !important;
+    border-radius: clamp(18px, 4vw, 25px) !important;
+    padding: clamp(20px, 5vw, 28px) clamp(14px, 4vw, 22px) !important;
     box-shadow: 0 16px 40px rgba(11, 37, 69, 0.12) !important;
   }
 
