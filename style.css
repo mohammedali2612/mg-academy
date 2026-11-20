@@ -2817,16 +2817,16 @@ marquee,
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
-  color: inherit;
+  color: #1B365D !important;
 }
 
 .stagger-relation {
   display: block;
   font-size: 0.74rem;
   font-weight: 600;
-  opacity: 0.85;
+  opacity: 0.9;
   margin-top: 2px;
-  color: inherit;
+  color: #0077B6 !important;
 }
 
 .stagger-stars {
@@ -2843,7 +2843,7 @@ marquee,
   line-height: 1.55;
   font-weight: 500;
   margin: 0 0 auto 0;
-  color: inherit;
+  color: #2D3748 !important;
   font-style: italic;
   overflow: hidden;
   display: -webkit-box;
@@ -2854,28 +2854,49 @@ marquee,
 .stagger-by {
   font-size: 0.78rem;
   font-weight: 600;
-  opacity: 0.8;
+  opacity: 0.85;
   margin-top: 14px;
   font-style: italic;
-  color: inherit;
+  color: #0077B6 !important;
 }
 
 /* Active Center Card Elevation */
 .stagger-testimonial-card.is-center {
-  background: linear-gradient(135deg, #005A9C 0%, #0073C7 60%, #1B365D 100%);
-  color: #FFFFFF;
-  border-color: #60C1E5;
-  box-shadow: 0 16px 42px rgba(0, 90, 156, 0.38), 0 0 0 4px rgba(96, 193, 229, 0.35);
+  background: #FFFFFF !important;
+  color: #1B365D !important;
+  border: 2px solid #00B4D8 !important;
+  box-shadow:
+    0 22px 52px rgba(0, 90, 156, 0.18),
+    0 0 36px rgba(56, 189, 248, 0.55),
+    0 0 70px rgba(0, 180, 216, 0.32),
+    inset 0 1px 1px #FFFFFF,
+    inset 0 0 16px rgba(56, 189, 248, 0.14) !important;
   z-index: 10 !important;
 }
 
 .stagger-testimonial-card.is-center .stagger-avatar {
-  border-color: #FFFFFF;
-  box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.3);
+  border-color: #00B4D8 !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
+}
+
+.stagger-testimonial-card.is-center .stagger-name {
+  color: #1B365D !important;
+}
+
+.stagger-testimonial-card.is-center .stagger-relation {
+  color: #0077B6 !important;
+}
+
+.stagger-testimonial-card.is-center .stagger-quote {
+  color: #2D3748 !important;
+}
+
+.stagger-testimonial-card.is-center .stagger-by {
+  color: #0077B6 !important;
 }
 
 .stagger-testimonial-card.is-center .stagger-stars {
-  color: #FFD233;
+  color: #FFAE00 !important;
 }
 
 .stagger-testimonial-card:not(.is-center):hover {
