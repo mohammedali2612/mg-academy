@@ -2241,7 +2241,7 @@ function initCourseCardStack() {
 }
 
 /* ==========================================================================
-   17. MOBILE FOOTER AUTO-FLIP (Automatic C-O-N-T-A-C-T Wave Without Clicking)
+   17. MOBILE FOOTER CONTACT ANIMATION (Interactive 3D C-O-N-T-A-C-T Dock)
    ========================================================================== */
 function initMobileFooterAutoFlip() {
   const card = document.getElementById('social-flip-card');
@@ -2249,52 +2249,61 @@ function initMobileFooterAutoFlip() {
   const nodes = Array.from(card.querySelectorAll('.social-flip-node'));
   if (!nodes.length) return;
 
-  let waveInterval = null;
+  let hasWaved = false;
   let isHovered = false;
 
   card.addEventListener('mouseenter', () => { isHovered = true; });
   card.addEventListener('mouseleave', () => { isHovered = false; });
 
-  function triggerWave() {
-    if (isHovered) return;
+  function triggerIntroWave() {
+    if (isHovered || hasWaved) return;
+    hasWaved = true;
 
-    // Wave forwards: C-O-N-T-A-C-T flip to icons
+    // Smooth intro wave: C-O-N-T-A-C-T reveal icons
     nodes.forEach((node, idx) => {
       setTimeout(() => {
         node.classList.add('is-flipped');
-      }, idx * 90);
+      }, idx * 70);
     });
 
-    // Hold icons for 2.6 seconds, then wave back to letters
+    // Hold icons for 1.8 seconds, then wave cleanly back to letters
     setTimeout(() => {
       if (isHovered) return;
       nodes.forEach((node, idx) => {
         setTimeout(() => {
           node.classList.remove('is-flipped');
-        }, idx * 90);
+        }, idx * 70);
       });
-    }, 2800);
+    }, 2000);
   }
+
+  // Interactive mobile tap: tap flips node, second tap or follow-through opens link
+  nodes.forEach(node => {
+    node.addEventListener('touchstart', (e) => {
+      if (!node.classList.contains('is-flipped')) {
+        // First tap reveals icon
+        nodes.forEach(n => n.classList.remove('is-flipped'));
+        node.classList.add('is-flipped');
+      }
+    }, { passive: true });
+  });
+
+  // Tap outside resets flipped cards to clean C-O-N-T-A-C-T letters
+  document.addEventListener('touchstart', (e) => {
+    if (!card.contains(e.target)) {
+      nodes.forEach(n => n.classList.remove('is-flipped'));
+    }
+  }, { passive: true });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Run wave flip on mobile / touch screens automatically without clicking
+      if (entry.isIntersecting && !hasWaved) {
         if (window.innerWidth <= 860) {
-          triggerWave();
-          if (!waveInterval) {
-            waveInterval = setInterval(triggerWave, 6000);
-          }
+          triggerIntroWave();
         }
-      } else {
-        if (waveInterval) {
-          clearInterval(waveInterval);
-          waveInterval = null;
-        }
-        nodes.forEach(n => n.classList.remove('is-flipped'));
       }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.35 });
 
   observer.observe(card);
 }

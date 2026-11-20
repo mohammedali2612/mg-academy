@@ -93,7 +93,9 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 72px;
   font-size: 16px;
+  overflow-x: clip;
 }
 
 body {
@@ -101,7 +103,7 @@ body {
   color: var(--text-charcoal);
   background-color: var(--bg-cream);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   -webkit-font-smoothing: antialiased;
 }
@@ -1046,13 +1048,13 @@ marquee,
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border: 2px solid rgba(56, 189, 248, 0.45);
   border-radius: 28px;
   padding: 38px 42px;
-  box-shadow: 0 20px 50px rgba(10, 35, 75, 0.14), 0 4px 16px rgba(0, 90, 156, 0.08);
+  box-shadow: 0 20px 50px rgba(10, 35, 75, 0.12), 0 0 32px rgba(56, 189, 248, 0.35), 0 0 65px rgba(0, 180, 216, 0.18), inset 0 1px 0 #FFFFFF;
 }
 
 /* Mobile-only hero accents (hidden on desktop & tablet) */
@@ -2318,16 +2320,16 @@ marquee,
   overflow: hidden;
   border-radius: 20px;
   cursor: pointer;
-  background: #F4F9FC;
-  border: 1px solid rgba(160, 224, 239, 0.7);
-  box-shadow: 0 10px 28px rgba(27, 54, 93, 0.08);
-  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.4s ease;
+  background: #FFFFFF;
+  border: 1.8px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 14px 36px rgba(10, 37, 64, 0.10), 0 0 24px rgba(56, 189, 248, 0.30), 0 0 45px rgba(0, 180, 216, 0.16);
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .skiper30-card:hover {
   transform: scale(1.03);
-  border-color: #60C1E5;
-  box-shadow: 0 20px 45px rgba(27, 54, 93, 0.16);
+  border-color: rgba(56, 189, 248, 0.85);
+  box-shadow: 0 22px 50px rgba(0, 119, 182, 0.18), 0 0 35px rgba(56, 189, 248, 0.55), 0 0 65px rgba(0, 180, 216, 0.30);
 }
 
 .skiper30-card img {
@@ -2763,15 +2765,15 @@ marquee,
   top: 50%;
   left: 50%;
   cursor: pointer;
-  border: 2px solid #C5E5F5;
-  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(56, 189, 248, 0.45);
+  background: rgba(255, 255, 255, 0.96);
   color: #1B365D;
   padding: 30px 26px 26px 26px;
   clip-path: polygon(48px 0%, calc(100% - 48px) 0%, 100% 48px, 100% 100%, calc(100% - 48px) 100%, 48px 100%, 0 100%, 0 0);
   -webkit-clip-path: polygon(48px 0%, calc(100% - 48px) 0%, 100% 48px, 100% 100%, calc(100% - 48px) 100%, 48px 100%, 0 100%, 0 0);
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.3s ease, background 0.3s ease, color 0.3s ease, z-index 0.3s ease;
   will-change: transform, box-shadow;
-  box-shadow: 0 4px 18px rgba(27, 54, 93, 0.07);
+  box-shadow: 0 12px 34px rgba(10, 37, 64, 0.10), 0 0 24px rgba(56, 189, 248, 0.32), 0 0 45px rgba(0, 180, 216, 0.16);
   user-select: none;
   display: flex;
   flex-direction: column;
@@ -3881,21 +3883,32 @@ marquee,
     display: none !important;
   }
 
-  /* ---------------- 2. Mobile Navigation Header (Pure White Sticky Bar) ---------------- */
+  /* ---------------- 2. Mobile Navigation Header (Pure White Fixed Pinned Bar) ---------------- */
+  html {
+    scroll-padding-top: 60px !important;
+  }
+
+  body {
+    padding-top: 58px !important;
+  }
+
   .site-header {
-    position: sticky !important;
+    position: fixed !important;
     top: 0 !important;
-    z-index: 100 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
     background: #FFFFFF !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
-    border-bottom: 1px solid rgba(220, 235, 247, 0.9) !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06) !important;
+    border-bottom: 1.5px solid rgba(56, 189, 248, 0.45) !important;
+    box-shadow: 0 4px 18px rgba(10, 37, 64, 0.08), 0 0 16px rgba(56, 189, 248, 0.16) !important;
   }
 
   .site-header.scrolled {
     background: #FFFFFF !important;
-    box-shadow: 0 4px 18px rgba(27, 54, 93, 0.1) !important;
+    box-shadow: 0 4px 20px rgba(10, 37, 64, 0.12), 0 0 20px rgba(56, 189, 248, 0.22) !important;
   }
 
   .nav-container {
@@ -4136,13 +4149,13 @@ marquee,
     width: 100% !important;
     max-width: 350px !important;
     margin: 0 auto !important;
-    background: rgba(255, 255, 255, 0.88) !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 2px solid rgba(56, 189, 248, 0.45) !important;
     border-radius: 22px !important;
     padding: 20px 16px !important;
-    box-shadow: 0 14px 40px rgba(10, 35, 75, 0.16) !important;
+    box-shadow: 0 14px 40px rgba(10, 35, 75, 0.12), 0 0 28px rgba(56, 189, 248, 0.35), 0 0 55px rgba(0, 180, 216, 0.16), inset 0 1px 0 #FFFFFF !important;
     position: relative !important;
     z-index: 4 !important;
   }
@@ -5118,9 +5131,13 @@ marquee,
     max-width: 100%;
     height: clamp(440px, 66vh, 490px);
     border-radius: clamp(18px, 4vw, 22px);
-    border: 1.5px solid rgba(160, 224, 239, 0.75);
-    background: #FFFFFF;
-    box-shadow: 0 16px 40px rgba(27, 54, 93, 0.12);
+    border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
+    background: #FFFFFF !important;
+    box-shadow:
+      0 16px 40px rgba(10, 37, 64, 0.10),
+      0 0 24px rgba(56, 189, 248, 0.32),
+      0 0 45px rgba(0, 180, 216, 0.16),
+      inset 0 1px 0 #FFFFFF !important;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -5136,7 +5153,12 @@ marquee,
     pointer-events: auto !important;
     cursor: pointer !important;
     filter: blur(0px) !important;
-    box-shadow: 0 22px 50px rgba(27, 54, 93, 0.18), 0 0 25px rgba(96, 193, 229, 0.22) !important;
+    border-color: #00B4D8 !important;
+    box-shadow:
+      0 22px 50px rgba(0, 90, 156, 0.18),
+      0 0 32px rgba(56, 189, 248, 0.52),
+      0 0 65px rgba(0, 180, 216, 0.30),
+      inset 0 1px 0 #FFFFFF !important;
   }
 
   .course-stack-card[data-slot="1"] {
@@ -5146,7 +5168,10 @@ marquee,
     pointer-events: auto !important;
     cursor: pointer !important;
     filter: blur(0.2px) !important;
-    box-shadow: 0 14px 32px rgba(27, 54, 93, 0.10) !important;
+    box-shadow:
+      0 14px 34px rgba(10, 37, 64, 0.10),
+      0 0 20px rgba(56, 189, 248, 0.25),
+      inset 0 1px 0 #FFFFFF !important;
   }
 
   .course-stack-card[data-slot="2"] {
@@ -5289,68 +5314,88 @@ marquee,
 
 @media (max-width: 860px) {
 
-  /* Contact Animation Alignment in Mobile View (Aligned with Quick Contact text) */
+  /* Contact Animation Alignment in Mobile View (Aligned flush with Quick Contact text) */
   .social-flip-wrapper {
     display: flex !important;
     justify-content: flex-start !important;
+    align-items: center !important;
     width: 100% !important;
-    margin-top: 16px !important;
+    margin: 16px 0 0 0 !important;
+    padding: 0 !important;
   }
 
   .social-flip-card {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    padding: 8px 10px !important;
-    gap: 5px !important;
+    margin: 0 !important;
+    padding: 7px 9px !important;
+    gap: 4px !important;
     border-radius: 16px !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     background: #FFFFFF !important;
-    border: 1.5px solid rgba(0, 90, 156, 0.22) !important;
-    box-shadow: 0 6px 20px rgba(11, 37, 69, 0.12) !important;
+    border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
+    box-shadow:
+      0 12px 30px rgba(10, 37, 64, 0.08),
+      0 0 20px rgba(56, 189, 248, 0.32),
+      0 0 40px rgba(0, 180, 216, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.98) !important;
   }
 
   .social-flip-node {
-    width: clamp(32px, 8.5vw, 36px) !important;
-    height: clamp(32px, 8.5vw, 36px) !important;
+    width: clamp(28px, 8vw, 35px) !important;
+    height: clamp(28px, 8vw, 35px) !important;
     flex-shrink: 0 !important;
     perspective: 1000px !important;
     -webkit-perspective: 1000px !important;
+    transform: translateZ(0) !important;
+    cursor: pointer !important;
+  }
+
+  .flip-inner {
+    transform-style: preserve-3d !important;
+    -webkit-transform-style: preserve-3d !important;
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   }
 
   .flip-front {
-    font-size: 0.95rem !important;
+    font-size: clamp(0.80rem, 2.3vw, 0.92rem) !important;
+    font-weight: 800 !important;
+    background: #F0F6FA !important;
+    color: #1B365D !important;
     transform: rotateY(0deg) !important;
     -webkit-backface-visibility: hidden !important;
     backface-visibility: hidden !important;
+    border-radius: 8px !important;
   }
 
   .flip-back {
-    font-size: 0.90rem !important;
+    font-size: clamp(0.76rem, 2.1vw, 0.88rem) !important;
     transform: rotateY(180deg) !important;
     -webkit-backface-visibility: hidden !important;
     backface-visibility: hidden !important;
+    border-radius: 8px !important;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 380px) {
   .social-flip-card {
-    padding: 6px 8px !important;
-    gap: 4px !important;
+    padding: 5px 6px !important;
+    gap: 3px !important;
   }
 
   .social-flip-node {
-    width: 32px !important;
-    height: 32px !important;
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .flip-front {
-    font-size: 0.88rem !important;
+    font-size: 0.80rem !important;
   }
 
   .flip-back {
-    font-size: 0.82rem !important;
+    font-size: 0.74rem !important;
   }
 }
 
@@ -5540,87 +5585,83 @@ marquee,
   border: 1px solid rgba(6, 214, 160, 0.28) !important;
 }
 
-/* Luminous Bright Cards System */
+/* ==========================================================================
+   MASTER LUMINOUS CARD GLOW SYSTEM (Desktop & Mobile Views)
+   Adds vibrant radiant cyan/sapphire glow, crisp borders, and ambient light
+   across every card section on the entire website in both views.
+   ========================================================================== */
 .course-card,
+.course-stack-card,
 .dance-style-card,
 .fee-card,
-.review-card,
-.faq-card,
-.glass-panel {
-  background: #FFFFFF !important;
-  border: 1.5px solid rgba(0, 180, 216, 0.26) !important;
-  box-shadow: 0 14px 38px rgba(0, 119, 182, 0.08), 0 0 20px rgba(56, 189, 248, 0.10) !important;
-}
-
-/* Electric Vivid Primary Buttons */
-.btn-primary {
-  background: linear-gradient(135deg, #0096C7 0%, #0077B6 100%) !important;
-  color: #FFFFFF !important;
-  font-weight: 700 !important;
-  box-shadow: 0 8px 25px rgba(0, 150, 199, 0.40), 0 0 16px rgba(56, 189, 248, 0.30) !important;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(135deg, #00A8E8 0%, #0096C7 100%) !important;
-  box-shadow: 0 12px 32px rgba(0, 150, 199, 0.50), 0 0 25px rgba(56, 189, 248, 0.50) !important;
-}
-
-/* Luminous Sapphire Glowing Footer */
-.site-footer {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(0, 180, 216, 0.35) 0%, transparent 65%),
-    linear-gradient(180deg, #0F2E52 0%, #174271 100%) !important;
-  border-top: 2px solid rgba(56, 189, 248, 0.50) !important;
-  box-shadow: 0 -10px 40px rgba(0, 150, 199, 0.15) !important;
-}
-
-.bg-blue {
-  background: linear-gradient(135deg, #005A9C 0%, #0084D1 100%) !important;
-  color: #FFFFFF !important;
-}
-
-.bg-green {
-  background: linear-gradient(135deg, #0096C7 0%, #48CAE4 100%) !important;
-  color: #FFFFFF !important;
-}
-
-.bg-purple {
-  background: linear-gradient(135deg, #0353A4 0%, #0077B6 100%) !important;
-  color: #FFFFFF !important;
-}
-
-.bg-pink-light,
-.bg-gold-light,
-.bg-blue-light,
-.bg-green-light,
-.bg-purple-light {
-  background: linear-gradient(135deg, rgba(224, 242, 254, 0.95) 0%, rgba(186, 230, 253, 0.85) 100%) !important;
-  color: #005A9C !important;
-  border: 1.5px solid rgba(0, 90, 156, 0.32) !important;
-  box-shadow: 0 4px 12px rgba(0, 90, 156, 0.10) !important;
-}
-
-/* Thicker Card Outlines & Richer Elevation */
-.course-stack-card,
+.skiper30-card,
+.gallery-card,
+.coverflow-slide,
+.carousel-card,
 .achievement-card,
-.dance-style-card,
+.stat-card,
+.stagger-testimonial-card,
+.review-card,
 .mission-card,
 .vision-card,
-.stat-card,
-.pricing-card,
-.review-card,
+.pillar-card,
+.five-pillar-card,
+.hero-content,
+.other-courses-fee-box,
+.faq-card,
+.faq-item,
+.social-flip-card,
 .glass-panel {
-  border: 2px solid rgba(0, 90, 156, 0.22) !important;
-  box-shadow: 0 16px 38px rgba(10, 37, 64, 0.10), 0 4px 14px rgba(0, 90, 156, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  background: #FFFFFF !important;
+  border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
+  box-shadow:
+    0 14px 36px rgba(10, 37, 64, 0.08),
+    0 0 22px rgba(56, 189, 248, 0.32),
+    0 0 45px rgba(0, 180, 216, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 12px rgba(56, 189, 248, 0.08) !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease !important;
 }
 
-.course-stack-card:hover,
-.achievement-card:hover,
-.dance-style-card:hover,
-.pricing-card:hover,
-.review-card:hover {
-  border-color: #0084D1 !important;
-  box-shadow: 0 24px 50px rgba(10, 37, 64, 0.16), 0 0 26px rgba(0, 132, 209, 0.28) !important;
+/* Featured / Active / Popular Cards: Enhanced Radiant Glow */
+.fee-card.popular-tier,
+.course-stack-card[data-slot="0"],
+.stagger-testimonial-card.is-center,
+.carousel-card[data-active="true"] {
+  border: 2px solid #00B4D8 !important;
+  box-shadow:
+    0 18px 46px rgba(0, 90, 156, 0.16),
+    0 0 32px rgba(56, 189, 248, 0.52),
+    0 0 65px rgba(0, 180, 216, 0.30),
+    inset 0 1px 1px #FFFFFF,
+    inset 0 0 16px rgba(56, 189, 248, 0.14) !important;
+}
+
+/* Interactive Hover State (Desktop & Pointer Devices) */
+@media (hover: hover) {
+  .course-card:hover,
+  .dance-style-card:hover,
+  .fee-card:hover,
+  .skiper30-card:hover,
+  .achievement-card:hover,
+  .stat-card:hover,
+  .stagger-testimonial-card:hover,
+  .review-card:hover,
+  .mission-card:hover,
+  .vision-card:hover,
+  .pillar-card:hover,
+  .faq-card:hover,
+  .glass-panel:hover {
+    border-color: rgba(56, 189, 248, 0.85) !important;
+    box-shadow:
+      0 22px 52px rgba(0, 119, 182, 0.18),
+      0 0 36px rgba(56, 189, 248, 0.60),
+      0 0 70px rgba(0, 180, 216, 0.35),
+      inset 0 1px 1px #FFFFFF,
+      inset 0 0 16px rgba(56, 189, 248, 0.14) !important;
+  }
 }
 
 /* ==========================================================================
@@ -5865,7 +5906,7 @@ marquee,
     /* Final card finishes stack cleanly */
   }
 
-  /* Skiper 34 Card Frame: rounded-4xl, scale & tilt rotation */
+  /* Skiper 34 Card Frame: rounded-4xl, scale & tilt rotation with Luminous Cyan Glow */
   .dance-style-card {
     position: relative !important;
     box-sizing: border-box !important;
@@ -5873,8 +5914,12 @@ marquee,
     border-radius: clamp(20px, 5vw, 28px) !important;
     /* Skiper 34 rounded-4xl */
     background: #FFFFFF !important;
-    border: 1.5px solid rgba(0, 90, 156, 0.22) !important;
-    box-shadow: 0 16px 42px rgba(10, 37, 64, 0.14) !important;
+    border: 2px solid rgba(56, 189, 248, 0.45) !important;
+    box-shadow:
+      0 16px 42px rgba(10, 37, 64, 0.10),
+      0 0 24px rgba(56, 189, 248, 0.32),
+      0 0 48px rgba(0, 180, 216, 0.18),
+      inset 0 1px 0 #FFFFFF !important;
     transform-origin: 50% 50% !important;
     will-change: transform, filter !important;
     overflow: hidden !important;
@@ -6004,12 +6049,22 @@ marquee,
     width: 100% !important;
     border-radius: clamp(18px, 4vw, 25px) !important;
     padding: clamp(20px, 5vw, 28px) clamp(14px, 4vw, 22px) !important;
-    box-shadow: 0 16px 40px rgba(11, 37, 69, 0.12) !important;
+    background: #FFFFFF !important;
+    border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
+    box-shadow:
+      0 16px 40px rgba(11, 37, 69, 0.10),
+      0 0 24px rgba(56, 189, 248, 0.32),
+      0 0 45px rgba(0, 180, 216, 0.16),
+      inset 0 1px 0 #FFFFFF !important;
   }
 
   .Carousal_004 .fee-card.popular-tier {
-    border: 2px solid #005A9C !important;
-    box-shadow: 0 18px 45px rgba(0, 90, 156, 0.18) !important;
+    border: 2px solid #00B4D8 !important;
+    box-shadow:
+      0 18px 46px rgba(0, 90, 156, 0.16),
+      0 0 32px rgba(56, 189, 248, 0.52),
+      0 0 65px rgba(0, 180, 216, 0.30),
+      inset 0 1px 0 #FFFFFF !important;
     transform: none !important;
   }
 
