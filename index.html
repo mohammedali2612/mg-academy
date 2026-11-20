@@ -26,7 +26,7 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css?v=4.2">
+  <link rel="stylesheet" href="style.css?v=4.4">
 
 
 
@@ -1358,12 +1358,78 @@
         <p><i class="fa-solid fa-phone text-pink"></i> <a href="tel:+919876543210">+91 98765 43210</a></p>
         <p><i class="fa-solid fa-envelope text-pink"></i> <a href="mailto:info@mgacademy.in">info@mgacademy.in</a></p>
         <p><i class="fa-solid fa-location-dot text-pink"></i> MG Academy Center, Main Road, City</p>
-        <div class="footer-social-links">
-          <a href="#" aria-label="Facebook" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="Instagram" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" aria-label="YouTube" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
-          <a href="https://wa.me/919876543210" aria-label="WhatsApp" class="social-btn"><i
-              class="fa-brands fa-whatsapp"></i></a>
+        <!-- SocialFlipButton: Interactive 3D C-O-N-T-A-C-T Flip Nodes -->
+        <div class="social-flip-wrapper" id="social-flip-wrapper">
+          <div class="social-flip-card" id="social-flip-card">
+            <!-- Animated Top & Bottom Border Lines -->
+            <div class="flip-border-lines" aria-hidden="true">
+              <span class="flip-line flip-line-top"></span>
+              <span class="flip-line flip-line-bottom"></span>
+            </div>
+
+            <!-- Node 0: C -> WhatsApp -->
+            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" class="social-flip-node" data-index="0" aria-label="WhatsApp">
+              <span class="flip-tooltip">WhatsApp<span class="flip-tooltip-arrow"></span></span>
+              <div class="flip-inner">
+                <div class="flip-front">C</div>
+                <div class="flip-back flip-back-wa"><i class="fa-brands fa-whatsapp"></i></div>
+              </div>
+            </a>
+
+            <!-- Node 1: O -> Instagram -->
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-flip-node" data-index="1" aria-label="Instagram">
+              <span class="flip-tooltip">Instagram<span class="flip-tooltip-arrow"></span></span>
+              <div class="flip-inner">
+                <div class="flip-front">O</div>
+                <div class="flip-back flip-back-ig"><i class="fa-brands fa-instagram"></i></div>
+              </div>
+            </a>
+
+            <!-- Node 2: N -> Facebook -->
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-flip-node" data-index="2" aria-label="Facebook">
+              <span class="flip-tooltip">Facebook<span class="flip-tooltip-arrow"></span></span>
+              <div class="flip-inner">
+                <div class="flip-front">N</div>
+                <div class="flip-back flip-back-fb"><i class="fa-brands fa-facebook-f"></i></div>
+              </div>
+            </a>
+
+            <!-- Node 3: T -> YouTube -->
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-flip-node" data-index="3" aria-label="YouTube">
+              <span class="flip-tooltip">YouTube<span class="flip-tooltip-arrow"></span></span>
+              <div class="flip-inner">
+                <div class="flip-front">T</div>
+                <div class="flip-back flip-back-yt"><i class="fa-brands fa-youtube"></i></div>
+              </div>
+            </a>
+
+            <!-- Node 4: A -> Phone -->
+            <a href="tel:+919876543210" class="social-flip-node" data-index="4" aria-label="Call Us">
+              <span class="flip-tooltip">Call Us<span class="flip-tooltip-arrow"></span></span>
+              <div class="flip-inner">
+                <div class="flip-front">A</div>
+                <div class="flip-back flip-back-phone"><i class="fa-solid fa-phone"></i></div>
+              </div>
+            </a>
+
+            <!-- Node 5: C -> Email -->
+            <a href="mailto:info@mgacademy.in" class="social-flip-node" data-index="5" aria-label="Email Us">
+              <span class="flip-tooltip">Email Us<span class="flip-tooltip-arrow"></span></span>
+              <div class="flip-inner">
+                <div class="flip-front">C</div>
+                <div class="flip-back flip-back-mail"><i class="fa-solid fa-envelope"></i></div>
+              </div>
+            </a>
+
+            <!-- Node 6: T -> Location -->
+            <a href="#contact" class="social-flip-node" data-index="6" aria-label="Visit Us">
+              <span class="flip-tooltip">Visit Us<span class="flip-tooltip-arrow"></span></span>
+              <div class="flip-inner">
+                <div class="flip-front">T</div>
+                <div class="flip-back flip-back-loc"><i class="fa-solid fa-location-dot"></i></div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -1459,7 +1525,7 @@
 
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script src="script.js?v=4.2"></script>
+  <script src="script.js?v=4.4"></script>
 
 </body>
 

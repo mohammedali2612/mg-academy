@@ -1552,61 +1552,31 @@ function initMobileContainerScroll() {
 
     const rect = root.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    const totalDist = rect.height - windowHeight;
 
-    if (totalDist <= 0) {
-      ticking = false;
-      return;
-    }
-
-    // Scroll progress: 0 (top of section enters) to 1 (bottom exits)
-    const scrolled = -rect.top;
-    let progress = scrolled / totalDist;
+    // Trigger 3D perspective unfold when gallery enters the viewport
+    const startY = windowHeight;
+    const endY = 120;
+    let progress = (startY - rect.top) / (startY - endY);
     progress = Math.max(0, Math.min(1, progress));
 
-    // 1. rotateX: [0, 0.5] -> [75, 0]
-    let rotX = 0;
-    if (progress <= 0.5) {
-      rotX = 75 * (1 - (progress / 0.5));
-    } else {
-      rotX = 0;
-    }
+    // Gentle 3D perspective unfold: 24deg down to 0deg (flat upright)
+    const rotX = 24 * (1 - progress);
+    const scaleVal = 0.96 + (0.04 * progress);
 
-    // 2. scale: [0.5, 0.9] -> [1.2, 1.0]
-    let scaleVal = 1.0;
-    if (progress < 0.5) {
-      scaleVal = 1.2;
-    } else if (progress <= 0.9) {
-      const p = (progress - 0.5) / 0.4;
-      scaleVal = 1.2 - (0.2 * p);
-    } else {
-      scaleVal = 1.0;
-    }
-
-    // 3. Parallax columns yRange on [0.5, 1.0]
-    let colP = 0;
-    if (progress >= 0.5) {
-      colP = (progress - 0.5) / 0.5; // 0 to 1
-    }
-
-    // Col 1: 0% to -14%
-    const yCol1 = -14 * colP;
-    // Col 2: -6% to +10%
-    const yCol2 = -6 + (16 * colP);
-    // Col 3: 0% to -16%
-    const yCol3 = -16 * colP;
-
-    // Apply transforms
     grid.style.transform = `rotateX(${rotX.toFixed(2)}deg) scale(${scaleVal.toFixed(3)})`;
-    col1.style.transform = `translateY(${yCol1.toFixed(2)}%)`;
-    col2.style.transform = `translateY(${yCol2.toFixed(2)}%)`;
-    col3.style.transform = `translateY(${yCol3.toFixed(2)}%)`;
 
-    // Fade hint when user has scrolled past 15%
+    // Subtle gentle column parallax (without clipping or moving cards out of bounds)
+    const yCol1 = -6 * (1 - progress);
+    const yCol2 = 4 * (1 - progress);
+    const yCol3 = -4 * (1 - progress);
+    col1.style.transform = `translateY(${yCol1.toFixed(1)}px)`;
+    col2.style.transform = `translateY(${yCol2.toFixed(1)}px)`;
+    col3.style.transform = `translateY(${yCol3.toFixed(1)}px)`;
+
     if (hint) {
-      if (progress > 0.15) {
+      if (progress > 0.45) {
         hint.style.opacity = '0';
-        hint.style.transform = 'translateY(-10px)';
+        hint.style.transform = 'translateY(-8px)';
       } else {
         hint.style.opacity = '1';
         hint.style.transform = 'translateY(0)';
@@ -1633,13 +1603,6 @@ function initMobileContainerScroll() {
   setTimeout(update, 50);
 }
 
-/* ==========================================================================
-   STAGGER TESTIMONIALS (Staggered polygon card stack carousel)
-   - Chamfered cards with 45deg diagonal fold line
-   - Active card centered, elevated with brand gradient, white text & shadow
-   - Side cards offset by (cardSize / 1.5) * position, rotated +-2.5deg
-   - Click card to center, next/prev arrow buttons, touch swipe
-   ========================================================================== */
 function initStaggerTestimonials() {
   const stage = document.getElementById('stagger-stage');
   const prevBtn = document.getElementById('stagger-prev-btn');
