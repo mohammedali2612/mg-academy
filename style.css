@@ -4895,89 +4895,128 @@ marquee,
 }
 
 /* ==========================================================================
-   RICH THEME COLOR THICKNESS & SECTION TONES
-   Adds visual depth, vibrancy, and removes plainness across all sections
+   RICH BLUE SPECTRUM & DEPTH TONES (Cohesive Royal & Ocean Blue Palette)
+   Maintains the unified brand blue while adding rich depth, glowing orbs, & texture
    ========================================================================== */
 .about-section {
-  background: linear-gradient(180deg, #EDF7FF 0%, #FFF8F0 50%, #F0F8FE 100%) !important;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(0, 90, 156, 0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #F0F8FF 0%, #E3F2FD 50%, #D8EDFD 100%) !important;
 }
 
 .courses-section {
-  background: linear-gradient(180deg, #E8F4FD 0%, #D8ECFA 45%, #EBF6FE 100%) !important;
+  background: 
+    radial-gradient(circle at 85% 15%, rgba(0, 180, 216, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 15% 85%, rgba(2, 62, 138, 0.12) 0%, transparent 45%),
+    linear-gradient(180deg, #E6F3FE 0%, #D5EAFD 50%, #CBE4FA 100%) !important;
 }
 
 .dance-spotlight-section {
-  background: linear-gradient(135deg, #FFF0F6 0%, #F5EEFF 45%, #EBF6FE 100%) !important;
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.22) 0%, transparent 60%),
+    radial-gradient(circle at 85% 90%, rgba(0, 119, 182, 0.16) 0%, transparent 50%),
+    linear-gradient(135deg, #EDF7FF 0%, #D9ECFD 45%, #CAE4FC 100%) !important;
 }
 
 .gallery-section {
-  background: linear-gradient(180deg, #E6F6FC 0%, #DCF0FA 50%, #E8F7FD 100%) !important;
+  background: 
+    radial-gradient(circle at 20% 25%, rgba(112, 214, 255, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 80% 75%, rgba(0, 90, 156, 0.14) 0%, transparent 50%),
+    linear-gradient(180deg, #E2F2FE 0%, #CFE7FB 50%, #DFEFFD 100%) !important;
 }
 
 .achievements-section-inner {
-  background: linear-gradient(135deg, #FFFDF0 0%, #FFF8E1 50%, #FFFDEB 100%) !important;
-  border: 2px solid rgba(255, 179, 0, 0.4) !important;
+  background: linear-gradient(135deg, #F0F8FF 0%, #E2F0FE 50%, #D5E9FD 100%) !important;
+  border: 2px solid rgba(0, 90, 156, 0.32) !important;
   border-radius: 28px !important;
   padding: 38px 24px 30px !important;
-  box-shadow: 0 16px 45px rgba(255, 159, 28, 0.12) !important;
+  box-shadow: 0 16px 45px rgba(0, 90, 156, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
   margin-top: 25px !important;
 }
 
 .reviews-section {
-  background: linear-gradient(180deg, #F3EEFF 0%, #E9E1FF 50%, #F5F0FF 100%) !important;
+  background: 
+    radial-gradient(circle at 75% 25%, rgba(0, 150, 199, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(0, 90, 156, 0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #EAF5FD 0%, #D7EBFD 50%, #E3F2FD 100%) !important;
 }
 
 .pricing-section,
 .fees-section,
 #fees {
-  background: linear-gradient(180deg, #F0FDF4 0%, #DCFCE7 50%, #F0FDF4 100%) !important;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(56, 189, 248, 0.20) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 90, 156, 0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #ECF6FE 0%, #D9EDFD 50%, #E6F4FE 100%) !important;
 }
 
 .contact-section {
-  background: linear-gradient(180deg, #EBF3FA 0%, #DCE9F6 100%) !important;
+  background: 
+    radial-gradient(circle at 50% 0%, rgba(0, 119, 182, 0.16) 0%, transparent 60%),
+    linear-gradient(180deg, #E0F0FD 0%, #D0E6FA 100%) !important;
 }
 
-/* Vibrant Tags & Badges */
-.text-pink { color: #FF3366 !important; }
-.text-gold { color: #FF9F1C !important; }
+/* Subtle Geometric Micro-Grid Texture that removes plainness across sections */
+.about-section,
+.courses-section,
+.dance-spotlight-section,
+.gallery-section,
+.reviews-section,
+.pricing-section,
+.contact-section {
+  position: relative;
+}
+
+.about-section::before,
+.courses-section::before,
+.dance-spotlight-section::before,
+.gallery-section::before,
+.reviews-section::before,
+.pricing-section::before,
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 90, 156, 0.05) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-section > *,
+.courses-section > *,
+.dance-spotlight-section > *,
+.gallery-section > *,
+.reviews-section > *,
+.pricing-section > *,
+.contact-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rich Sapphire & Ocean Badges */
+.text-pink { color: #0284C7 !important; }
+.text-gold { color: #0077B6 !important; }
 .text-blue { color: #005A9C !important; }
-.text-green { color: #059669 !important; }
-.text-purple { color: #7B2CBF !important; }
+.text-green { color: #0096C7 !important; }
+.text-purple { color: #0353A4 !important; }
 
-.bg-pink { background: linear-gradient(135deg, #FF3366 0%, #FF6584 100%) !important; color: #FFFFFF !important; }
-.bg-gold { background: linear-gradient(135deg, #FF9F1C 0%, #FFB703 100%) !important; color: #1B365D !important; }
+.bg-pink { background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%) !important; color: #FFFFFF !important; }
+.bg-gold { background: linear-gradient(135deg, #0077B6 0%, #0096C7 100%) !important; color: #FFFFFF !important; }
 .bg-blue { background: linear-gradient(135deg, #005A9C 0%, #0084D1 100%) !important; color: #FFFFFF !important; }
-.bg-green { background: linear-gradient(135deg, #06D6A0 0%, #10B981 100%) !important; color: #FFFFFF !important; }
-.bg-purple { background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%) !important; color: #FFFFFF !important; }
+.bg-green { background: linear-gradient(135deg, #0096C7 0%, #48CAE4 100%) !important; color: #FFFFFF !important; }
+.bg-purple { background: linear-gradient(135deg, #0353A4 0%, #0077B6 100%) !important; color: #FFFFFF !important; }
 
-.bg-pink-light {
-  background-color: rgba(255, 51, 102, 0.14) !important;
-  color: #D81159 !important;
-  border: 1.5px solid rgba(255, 51, 102, 0.38) !important;
-}
-
-.bg-gold-light {
-  background-color: rgba(255, 159, 28, 0.16) !important;
-  color: #D97706 !important;
-  border: 1.5px solid rgba(255, 159, 28, 0.40) !important;
-}
-
-.bg-blue-light {
-  background-color: rgba(0, 90, 156, 0.14) !important;
-  color: #005A9C !important;
-  border: 1.5px solid rgba(0, 90, 156, 0.35) !important;
-}
-
-.bg-green-light {
-  background-color: rgba(6, 214, 160, 0.16) !important;
-  color: #059669 !important;
-  border: 1.5px solid rgba(6, 214, 160, 0.40) !important;
-}
-
+.bg-pink-light,
+.bg-gold-light,
+.bg-blue-light,
+.bg-green-light,
 .bg-purple-light {
-  background-color: rgba(123, 44, 191, 0.14) !important;
-  color: #6D28D9 !important;
-  border: 1.5px solid rgba(123, 44, 191, 0.35) !important;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.95) 0%, rgba(186, 230, 253, 0.85) 100%) !important;
+  color: #005A9C !important;
+  border: 1.5px solid rgba(0, 90, 156, 0.32) !important;
+  box-shadow: 0 4px 12px rgba(0, 90, 156, 0.10) !important;
 }
 
 /* Thicker Card Outlines & Richer Elevation */
@@ -4986,16 +5025,21 @@ marquee,
 .dance-style-card,
 .mission-card,
 .vision-card,
-.stat-card {
+.stat-card,
+.pricing-card,
+.review-card,
+.glass-panel {
   border: 2px solid rgba(0, 90, 156, 0.22) !important;
-  box-shadow: 0 16px 38px rgba(10, 37, 64, 0.10) !important;
+  box-shadow: 0 16px 38px rgba(10, 37, 64, 0.10), 0 4px 14px rgba(0, 90, 156, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 
 .course-stack-card:hover,
 .achievement-card:hover,
-.dance-style-card:hover {
+.dance-style-card:hover,
+.pricing-card:hover,
+.review-card:hover {
   border-color: #0084D1 !important;
-  box-shadow: 0 22px 50px rgba(10, 37, 64, 0.16), 0 0 25px rgba(0, 132, 209, 0.25) !important;
+  box-shadow: 0 24px 50px rgba(10, 37, 64, 0.16), 0 0 26px rgba(0, 132, 209, 0.28) !important;
 }
 
 /* ==========================================================================
@@ -5011,7 +5055,7 @@ marquee,
 .hero-line-dreams,
 .hero-highlight,
 .animated-gradient-text {
-  background: linear-gradient(115deg, #005A9C 0%, #0084D1 24%, #FF8A00 50%, #FF3366 75%, #005A9C 100%) !important;
+  background: linear-gradient(115deg, #005A9C 0%, #0084D1 24%, #00B4D8 48%, #0077B6 72%, #005A9C 100%) !important;
   background-size: 260% 260% !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
