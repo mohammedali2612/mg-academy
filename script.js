@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileDockNav();
   initCourseCardStack();
   initMobileFooterAutoFlip();
-  initFeesCreativeCarousel();
+  initFeesSkiper47Carousel();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -2417,56 +2417,98 @@ function initDanceScrollStack() {
 }
 
 /* ==========================================================================
-   SKIPER 50 CREATIVE 3D CAROUSEL (Carousel_004) - Fee Structure Mobile Only
+   SKIPER 47 3D COVERFLOW CAROUSEL (Carousel_001) - Fee Structure Cards
+   Features:
+   - Swiper Coverflow with rotate: 0, slideShadows: false, depth: 100, modifier: 2.5
+   - Responsive slidesPerView: 2.43 (desktop), 1.6 (tablet), 1.18 (mobile)
+   - Centered slide active glow & depth recession on adjacent cards
+   - Slide-to-clicked-slide + Grab cursor + Chevron buttons + Pagination
    ========================================================================== */
 let feesSwiperInstance = null;
 
-function initFeesCreativeCarousel() {
+function initFeesSkiper47Carousel() {
   const container = document.getElementById('fees-swiper');
   if (!container) return;
 
-  function update() {
-    if (window.innerWidth <= 860) {
-      if (!feesSwiperInstance && typeof Swiper !== 'undefined') {
-        feesSwiperInstance = new Swiper('#fees-swiper', {
-          effect: 'creative',
-          grabCursor: true,
-          slidesPerView: 'auto',
-          centeredSlides: true,
-          initialSlide: 1, // Start focused on Intermediate (Most Popular)
-          spaceBetween: 0,
-          creativeEffect: {
-            prev: {
-              shadow: true,
-              origin: 'left center',
-              translate: ['-5%', 0, -200],
-              rotate: [0, 100, 0],
-            },
-            next: {
-              origin: 'right center',
-              translate: ['5%', 0, -200],
-              rotate: [0, -100, 0],
-            },
-          },
-          pagination: {
-            el: '.fees-pagination',
-            clickable: true,
-          },
-        });
-      }
-    } else {
-      if (feesSwiperInstance) {
-        feesSwiperInstance.destroy(true, true);
-        feesSwiperInstance = null;
-      }
+  function init() {
+    if (typeof Swiper === 'undefined') return;
+
+    if (feesSwiperInstance) {
+      feesSwiperInstance.destroy(true, true);
+      feesSwiperInstance = null;
     }
+
+    feesSwiperInstance = new Swiper('#fees-swiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      initialSlide: 1, // Start centered on Intermediate Art Course (Most Popular)
+      slideToClickedSlide: true,
+      spaceBetween: 40,
+      slidesPerView: 2.43,
+      coverflowEffect: {
+        rotate: 0,
+        slideShadows: false,
+        stretch: 0,
+        depth: 100,
+        modifier: 2.5,
+      },
+      pagination: {
+        el: '.fees-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.fees-button-next',
+        prevEl: '.fees-button-prev',
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1.18,
+          spaceBetween: 16,
+          coverflowEffect: {
+            rotate: 0,
+            slideShadows: false,
+            stretch: 0,
+            depth: 70,
+            modifier: 2.2,
+          }
+        },
+        640: {
+          slidesPerView: 1.6,
+          spaceBetween: 24,
+          coverflowEffect: {
+            rotate: 0,
+            slideShadows: false,
+            stretch: 0,
+            depth: 85,
+            modifier: 2.4,
+          }
+        },
+        992: {
+          slidesPerView: 2.43,
+          spaceBetween: 40,
+          coverflowEffect: {
+            rotate: 0,
+            slideShadows: false,
+            stretch: 0,
+            depth: 100,
+            modifier: 2.5,
+          }
+        }
+      }
+    });
   }
 
-  // Ensure Swiper is ready
+  // Ensure Swiper library is loaded
   if (typeof Swiper !== 'undefined') {
-    update();
+    init();
   } else {
-    window.addEventListener('load', update);
+    window.addEventListener('load', init);
   }
-  window.addEventListener('resize', update);
+
+  window.addEventListener('resize', () => {
+    if (feesSwiperInstance) {
+      feesSwiperInstance.update();
+    }
+  }, { passive: true });
 }
