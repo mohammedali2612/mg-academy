@@ -186,7 +186,7 @@ function initCourseTabs() {
   if (!container || !stage || !list || !courseCards.length) return;
 
   function filterCards(category) {
-    if (window.filterCourseStackByCategory) {
+    if (window.innerWidth <= 860 && window.filterCourseStackByCategory) {
       window.filterCourseStackByCategory(category);
       return;
     }
@@ -2085,8 +2085,9 @@ function initCourseCardStack() {
     });
   }
 
-  // Click on front card to advance (ignoring buttons/links)
+  // Click on front card to advance (mobile view only: <= 860px)
   cardsContainer.addEventListener('click', (e) => {
+    if (window.innerWidth > 860) return; // Desktop uses standard grid!
     if (e.target.closest('button') || e.target.closest('a')) return;
     const clickedCard = e.target.closest('.course-stack-card');
     if (!clickedCard) return;
