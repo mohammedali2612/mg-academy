@@ -13,60 +13,61 @@
    ========================================================================== */
 
 :root {
-  --navy-deep: #1B365D;
+  --navy-deep: #0D2447;
   --ocean-blue: #005A9C;
-  --sky-blue: #60C1E5;
-  --ice-blue: #A0E0EF;
+  --sky-blue: #0084D1;
+  --ice-blue: #70D6FF;
 
-  --bg-main: #F4F9FC;
-  --bg-cream: #F4F9FC;
+  --bg-main: #EDF6FD;
+  --bg-cream: #FFFDF9;
   --bg-white: #FFFFFF;
   --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #F8FBFE;
-  --bg-surface-light: #EBF5F9;
+  --bg-surface-elevated: #F4FAFF;
+  --bg-surface-light: #E6F3FB;
 
-  --primary-pink: #005A9C;
-  --primary-pink-hover: #004B82;
-  --primary-pink-light: rgba(160, 224, 239, 0.35);
+  /* Rich Saturated Accent Colors (Enhanced Visual Thickness) */
+  --primary-pink: #FF3366;
+  --primary-pink-hover: #E61E50;
+  --primary-pink-light: rgba(255, 51, 102, 0.14);
 
-  --primary-gold: #005A9C;
-  --primary-gold-hover: #004B82;
-  --primary-gold-light: rgba(96, 193, 229, 0.22);
+  --primary-gold: #FF9F1C;
+  --primary-gold-hover: #E08500;
+  --primary-gold-light: rgba(255, 159, 28, 0.16);
 
-  --accent-gold: #60C1E5;
-  --accent-gold-hover: #43B1DC;
-  --accent-gold-light: rgba(160, 224, 239, 0.35);
+  --accent-gold: #FFB703;
+  --accent-gold-hover: #F7A300;
+  --accent-gold-light: rgba(255, 183, 3, 0.18);
 
-  --accent-tangerine: #005A9C;
-  --accent-tangerine-hover: #004B82;
-  --accent-tangerine-light: rgba(0, 90, 156, 0.12);
+  --accent-tangerine: #FF6B35;
+  --accent-tangerine-hover: #E8551E;
+  --accent-tangerine-light: rgba(255, 107, 53, 0.15);
 
-  --accent-blue: #005A9C;
-  --accent-blue-light: rgba(96, 193, 229, 0.22);
+  --accent-blue: #0077B6;
+  --accent-blue-light: rgba(0, 119, 182, 0.15);
 
-  --accent-green: #60C1E5;
-  --accent-green-hover: #005A9C;
-  --accent-green-light: rgba(160, 224, 239, 0.35);
+  --accent-green: #06D6A0;
+  --accent-green-hover: #05B385;
+  --accent-green-light: rgba(6, 214, 160, 0.16);
 
-  --accent-purple: #1B365D;
-  --accent-purple-light: rgba(160, 224, 239, 0.25);
+  --accent-purple: #7B2CBF;
+  --accent-purple-light: rgba(123, 44, 191, 0.15);
 
-  --text-charcoal: #1B365D;
-  --text-heading: #1B365D;
-  --text-body: #2D3F58;
-  --text-muted: #5B6F8A;
-  --text-light: #8A9BB5;
+  --text-charcoal: #0B1E36;
+  --text-heading: #0A2540;
+  --text-body: #1E293B;
+  --text-muted: #475569;
+  --text-light: #64748B;
 
-  --border-subtle: rgba(160, 224, 239, 0.65);
-  --border-glass: rgba(255, 255, 255, 0.9);
+  --border-subtle: rgba(0, 90, 156, 0.22);
+  --border-glass: rgba(255, 255, 255, 0.95);
 
-  --shadow-sm: 0 4px 14px rgba(27, 54, 93, 0.05);
-  --shadow-md: 0 8px 24px rgba(27, 54, 93, 0.08);
-  --shadow-lg: 0 16px 40px rgba(27, 54, 93, 0.12);
-  --shadow-glow: 0 0 25px rgba(96, 193, 229, 0.4);
-  --shadow-glow-gold: 0 0 25px rgba(96, 193, 229, 0.45);
-  --shadow-glow-tangerine: 0 0 25px rgba(0, 90, 156, 0.35);
-  --shadow-glow-purple: 0 0 25px rgba(27, 54, 93, 0.25);
+  --shadow-sm: 0 4px 14px rgba(10, 37, 64, 0.06);
+  --shadow-md: 0 10px 28px rgba(10, 37, 64, 0.10);
+  --shadow-lg: 0 18px 45px rgba(10, 37, 64, 0.14);
+  --shadow-glow: 0 0 25px rgba(0, 132, 209, 0.35);
+  --shadow-glow-gold: 0 0 25px rgba(255, 159, 28, 0.35);
+  --shadow-glow-tangerine: 0 0 25px rgba(255, 107, 53, 0.35);
+  --shadow-glow-purple: 0 0 25px rgba(123, 44, 191, 0.35);
 
   --font-heading: 'Fredoka', cursive, sans-serif;
   --font-body: 'Quicksand', sans-serif;
@@ -5178,5 +5179,173 @@ marquee,
 
   .circular-carousel__subtitle {
     font-size: 0.75rem !important;
+  }
+}
+
+/* ==========================================================================
+   RICH THEME COLOR THICKNESS & SECTION TONES
+   Adds visual depth, vibrancy, and removes plainness across all sections
+   ========================================================================== */
+.about-section {
+  background: linear-gradient(180deg, #EDF7FF 0%, #FFF8F0 50%, #F0F8FE 100%) !important;
+}
+
+.courses-section {
+  background: linear-gradient(180deg, #E8F4FD 0%, #D8ECFA 45%, #EBF6FE 100%) !important;
+}
+
+.dance-spotlight-section {
+  background: linear-gradient(135deg, #FFF0F6 0%, #F5EEFF 45%, #EBF6FE 100%) !important;
+}
+
+.gallery-section {
+  background: linear-gradient(180deg, #E6F6FC 0%, #DCF0FA 50%, #E8F7FD 100%) !important;
+}
+
+.achievements-section-inner {
+  background: linear-gradient(135deg, #FFFDF0 0%, #FFF8E1 50%, #FFFDEB 100%) !important;
+  border: 2px solid rgba(255, 179, 0, 0.4) !important;
+  border-radius: 28px !important;
+  padding: 38px 24px 30px !important;
+  box-shadow: 0 16px 45px rgba(255, 159, 28, 0.12) !important;
+  margin-top: 25px !important;
+}
+
+.reviews-section {
+  background: linear-gradient(180deg, #F3EEFF 0%, #E9E1FF 50%, #F5F0FF 100%) !important;
+}
+
+.pricing-section,
+.fees-section,
+#fees {
+  background: linear-gradient(180deg, #F0FDF4 0%, #DCFCE7 50%, #F0FDF4 100%) !important;
+}
+
+.contact-section {
+  background: linear-gradient(180deg, #EBF3FA 0%, #DCE9F6 100%) !important;
+}
+
+/* Vibrant Tags & Badges */
+.text-pink { color: #FF3366 !important; }
+.text-gold { color: #FF9F1C !important; }
+.text-blue { color: #005A9C !important; }
+.text-green { color: #059669 !important; }
+.text-purple { color: #7B2CBF !important; }
+
+.bg-pink { background: linear-gradient(135deg, #FF3366 0%, #FF6584 100%) !important; color: #FFFFFF !important; }
+.bg-gold { background: linear-gradient(135deg, #FF9F1C 0%, #FFB703 100%) !important; color: #1B365D !important; }
+.bg-blue { background: linear-gradient(135deg, #005A9C 0%, #0084D1 100%) !important; color: #FFFFFF !important; }
+.bg-green { background: linear-gradient(135deg, #06D6A0 0%, #10B981 100%) !important; color: #FFFFFF !important; }
+.bg-purple { background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%) !important; color: #FFFFFF !important; }
+
+.bg-pink-light {
+  background-color: rgba(255, 51, 102, 0.14) !important;
+  color: #D81159 !important;
+  border: 1.5px solid rgba(255, 51, 102, 0.38) !important;
+}
+
+.bg-gold-light {
+  background-color: rgba(255, 159, 28, 0.16) !important;
+  color: #D97706 !important;
+  border: 1.5px solid rgba(255, 159, 28, 0.40) !important;
+}
+
+.bg-blue-light {
+  background-color: rgba(0, 90, 156, 0.14) !important;
+  color: #005A9C !important;
+  border: 1.5px solid rgba(0, 90, 156, 0.35) !important;
+}
+
+.bg-green-light {
+  background-color: rgba(6, 214, 160, 0.16) !important;
+  color: #059669 !important;
+  border: 1.5px solid rgba(6, 214, 160, 0.40) !important;
+}
+
+.bg-purple-light {
+  background-color: rgba(123, 44, 191, 0.14) !important;
+  color: #6D28D9 !important;
+  border: 1.5px solid rgba(123, 44, 191, 0.35) !important;
+}
+
+/* Thicker Card Outlines & Richer Elevation */
+.course-stack-card,
+.achievement-card,
+.dance-style-card,
+.mission-card,
+.vision-card,
+.stat-card {
+  border: 2px solid rgba(0, 90, 156, 0.22) !important;
+  box-shadow: 0 16px 38px rgba(10, 37, 64, 0.10) !important;
+}
+
+.course-stack-card:hover,
+.achievement-card:hover,
+.dance-style-card:hover {
+  border-color: #0084D1 !important;
+  box-shadow: 0 22px 50px rgba(10, 37, 64, 0.16), 0 0 25px rgba(0, 132, 209, 0.25) !important;
+}
+
+/* ==========================================================================
+   DYNAMIC TEXT ANIMATIONS (Desktop & Mobile)
+   ========================================================================== */
+@keyframes textGradientShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.text-primary,
+.hero-line-dreams,
+.hero-highlight,
+.animated-gradient-text {
+  background: linear-gradient(115deg, #005A9C 0%, #0084D1 24%, #FF8A00 50%, #FF3366 75%, #005A9C 100%) !important;
+  background-size: 260% 260% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textGradientShimmer 5s ease infinite !important;
+  display: inline-block !important;
+  font-weight: 800 !important;
+}
+
+@keyframes headingFloatSubtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3.5px); }
+}
+
+.section-title {
+  animation: headingFloatSubtle 6s ease-in-out infinite;
+}
+
+@keyframes badgePulseSoft {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(0, 90, 156, 0.08);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0, 90, 156, 0.20), 0 0 14px rgba(255, 159, 28, 0.25);
+  }
+}
+
+.section-tag,
+.hero-pill-badge {
+  animation: badgePulseSoft 3.8s ease-in-out infinite !important;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.section-tag:hover,
+.hero-pill-badge:hover {
+  transform: scale(1.08) !important;
+}
+
+/* ==========================================================================
+   MOBILE VIEW ONLY: REMOVE OUR COURSES NAV BAR
+   ========================================================================== */
+@media (max-width: 860px) {
+  .category-tabs-wrapper,
+  .category-tabs-pill,
+  #category-gooey-nav {
+    display: none !important;
   }
 }
