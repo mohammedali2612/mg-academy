@@ -186,6 +186,10 @@ function initCourseTabs() {
   if (!container || !stage || !list || !courseCards.length) return;
 
   function filterCards(category) {
+    if (window.filterCourseStackByCategory) {
+      window.filterCourseStackByCategory(category);
+      return;
+    }
     courseCards.forEach(card => {
       const cardCat = card.getAttribute('data-category');
       if (category === 'all' || !category || cardCat === category || cardCat.includes(category)) {
@@ -193,11 +197,9 @@ function initCourseTabs() {
         card.classList.remove('hidden-card');
         setTimeout(() => {
           card.style.opacity = '1';
-          card.style.transform = 'translateY(0) scale(1)';
         }, 30);
       } else {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(15px) scale(0.97)';
         setTimeout(() => {
           card.style.display = 'none';
           card.classList.add('hidden-card');
