@@ -972,29 +972,12 @@ function initModals() {
   }
 }
 
-// Global modal triggers for inline onclicks
+// Official Google Admission & Enrollment Form URL
+const GOOGLE_ADMISSION_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeO3i9Zs6bc7cFcwR72ii8JfPZumFF3y4ttTjq1Y5IOtiKj4g/viewform?usp=dialog';
+
+// Global admission triggers for inline onclicks - Opens Google Form in new tab
 window.openAdmissionModal = function (courseName = '') {
-  const modal = document.getElementById('admission-modal');
-  const courseSelect = document.getElementById('adm-course') || document.getElementById('modal-course-select');
-  const successState = document.getElementById('modal-success-state');
-  const formEl = document.getElementById('admission-form');
-
-  if (courseSelect && courseName) {
-    for (let i = 0; i < courseSelect.options.length; i++) {
-      if (courseSelect.options[i].text.toLowerCase().includes(courseName.toLowerCase())) {
-        courseSelect.selectedIndex = i;
-        break;
-      }
-    }
-  }
-
-  if (successState) successState.style.display = 'none';
-  if (formEl) formEl.style.display = 'block';
-
-  if (modal) {
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+  window.open(GOOGLE_ADMISSION_FORM_URL, '_blank', 'noopener,noreferrer');
 };
 
 window.closeAdmissionModal = function () {
