@@ -1192,23 +1192,18 @@ function initSkiper30Parallax() {
       });
     }, {
       root: null,
-      threshold: 0.05,
-      rootMargin: '50px 0px 50px 0px'
+      threshold: 0.1,
+      rootMargin: '0px 0px -20px 0px'
     });
 
     cards.forEach((card) => {
       cardObserver.observe(card);
       // If already in viewport on load, reveal immediately
       const r = card.getBoundingClientRect();
-      if (r.top < window.innerHeight + 100 && r.bottom > -100) {
+      if (r.top < window.innerHeight - 30 && r.bottom > 30) {
         card.classList.add('card-in-view');
       }
     });
-
-    // Safety timeout: ensure all cards become visible even if scroll events are throttled
-    setTimeout(() => {
-      cards.forEach((c) => c.classList.add('card-in-view'));
-    }, 1200);
   } else {
     // Fallback: reveal immediately
     cards.forEach((card) => card.classList.add('card-in-view'));
@@ -1220,8 +1215,24 @@ function initSkiper30Parallax() {
   let ticking = false;
 
   function updateParallax() {
-    // Mobile view (<= 860px): skiper30-gallery is hidden (mobile 3D circular carousel active)
+    // Mobile view (<= 860px): smooth staggered parallax float on scroll
     if (window.innerWidth <= 860) {
+      const rect = gallery.getBoundingClientRect();
+      const H = window.innerHeight;
+      if (rect.bottom >= -100 && rect.top <= H + 100) {
+        const totalSpan = H + rect.height;
+        const progress = (H - rect.top) / totalSpan;
+        const clamped = Math.min(Math.max(progress, 0), 1);
+
+        cards.forEach((card, idx) => {
+          const img = card.querySelector('img');
+          if (!img) return;
+          // Alternate column parallax depth: Column 1 drifts +12px, Column 2 drifts -12px
+          const isEven = idx % 2 === 1;
+          const shift = isEven ? (clamped - 0.5) * 20 : (clamped - 0.5) * -20;
+          img.style.transform = `translate3d(0, ${shift.toFixed(1)}px, 0) scale(1.08)`;
+        });
+      }
       ticking = false;
       return;
     }
