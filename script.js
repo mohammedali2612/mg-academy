@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCourseCardStack();
   initMobileFooterAutoFlip();
   initFeesSkiper47Carousel();
+  initMascotPeekScroll();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -2451,3 +2452,122 @@ function initFeesSkiper47Carousel() {
 
   window.addEventListener('resize', update, { passive: true });
 }
+
+/* ==========================================================================
+   MASCOT PEEK-IN SCROLL OBSERVER (Girl Artist & Boy Scholar)
+   ========================================================================== */
+function initMascotPeekScroll() {
+  const girlWrap = document.getElementById('mgGirlMascot');
+  const boyWrap  = document.getElementById('mgBoyMascot');
+  const girlText = document.getElementById('mgGirlText');
+  const boyText  = document.getElementById('mgBoyText');
+  if (!girlWrap || !boyWrap || !girlText || !boyText) return;
+
+  // Section-by-section configuration matching 8 nav links (+ dance studio)
+  const sectionConfig = {
+    home:         { side: 'none' },
+    about:        { side: 'left',  text: '👋 Hi! About Us' },
+    courses:      { side: 'right', text: '📚 Our Courses!' },
+    dance:        { side: 'right', text: '💃 Dance Classes!' },
+    gallery:      { side: 'left',  text: '🎨 Art Gallery!' },
+    achievements: { side: 'right', text: '🏆 Achievements!' },
+    reviews:      { side: 'left',  text: '⭐ Parent Reviews!' },
+    fees:         { side: 'right', text: '💡 Course Fees!' },
+    contact:      { side: 'both',  leftText: '👋 Say Hello!', rightText: '📞 Contact Us!' }
+  };
+
+  let currentActiveSection = null;
+
+  function updateMascots(sectionId) {
+    if (!sectionId || sectionId === currentActiveSection) return;
+    const config = sectionConfig[sectionId];
+    if (!config) return;
+    currentActiveSection = sectionId;
+
+    if (config.side === 'left') {
+      girlText.textContent = config.text;
+      girlWrap.classList.add('show');
+      boyWrap.classList.remove('show');
+    } else if (config.side === 'right') {
+      boyText.textContent = config.text;
+      boyWrap.classList.add('show');
+      girlWrap.classList.remove('show');
+    } else if (config.side === 'both') {
+      girlText.textContent = config.leftText;
+      boyText.textContent  = config.rightText;
+      girlWrap.classList.add('show');
+      boyWrap.classList.add('show');
+    } else {
+      girlWrap.classList.remove('show');
+      boyWrap.classList.remove('show');
+    }
+  }
+
+  // Dual trigger: IntersectionObserver + Viewport position tracking for 100% reliable detection across all devices
+  const sectionIds = Object.keys(sectionConfig);
+  const sectionElements = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  function checkActiveSection() {
+    const vh = window.innerHeight;
+    const midPoint = vh * 0.45;
+    // Top of page: home
+    if (window.scrollY < 180) {
+      updateMascots('home');
+      return;
+    }
+    // Bottom of page: contact
+    if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 120) {
+      updateMascots('contact');
+      return;
+    }
+    // Find section covering the midPoint
+    for (let i = 0; i < sectionElements.length; i++) {
+      const el = sectionElements[i];
+      const r = el.getBoundingClientRect();
+      if (r.top <= midPoint && r.bottom > midPoint) {
+        updateMascots(el.id);
+        return;
+      }
+    }
+  }
+
+  if ('IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          updateMascots(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: '-15% 0px -25% 0px',
+      threshold: [0.15, 0.4]
+    });
+
+    sectionElements.forEach(el => sectionObserver.observe(el));
+  }
+
+  // Scroll event backup to catch quick flicks, Lenis smooth scroll updates, or hashtag clicks
+  let scrollThrottle = false;
+  function onScrollHandler() {
+    if (scrollThrottle) return;
+    scrollThrottle = true;
+    requestAnimationFrame(() => {
+      scrollThrottle = false;
+      checkActiveSection();
+    });
+  }
+
+  window.addEventListener('scroll', onScrollHandler, { passive: true });
+  if (window.__lenis) {
+    window.__lenis.on('scroll', onScrollHandler);
+  } else {
+    // Retry hooking if Lenis initializes slightly later
+    window.addEventListener('load', () => {
+      if (window.__lenis) window.__lenis.on('scroll', onScrollHandler);
+    });
+  }
+
+  // Initial check on load
+  setTimeout(checkActiveSection, 150);
+}
+
