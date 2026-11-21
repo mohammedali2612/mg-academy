@@ -2309,14 +2309,16 @@ function initMobileFooterAutoFlip() {
 }
 
 /* ==========================================================================
-   KEXSIO STACK · SCROLL ENGINE (Cross-Device: Desktop & Mobile)
-   Inspired by kexsio.com/animations ScrollStack
-   Features:
-   - Sticky stacked card deck with scale reduction, vertical stepped offset,
-     and dynamic depth dimming (--scroll-stack-dim).
-   - Desktop & Mobile cross-device support with smooth 60fps rAF updates.
-   - Stepped scale (1.0 -> 0.955 -> 0.910 -> 0.865) & peek offsets.
-   - Depth dimming (--scroll-stack-dim) and subtle depth blur for layered realism.
+   DANCE CLASSES SCROLL STACK ENGINE
+   - Mobile View (<= 860px): Framer Motion StackedCards Engine
+     * Progressive sticky top: calc(68px + index * 16px)
+     * Step: 1 / total (0.25)
+     * Range: [Math.max(0, index * step), 1]
+     * TargetScale: 1 - (total - index - 1) * 0.075
+     * Scale: useTransform(progress, range, [1, targetScale])
+     * transformOrigin: 'top center'
+   - Desktop View (> 860px): Kexsio ScrollStack Horizontal Engine
+     * Pinned deck with stepped scale, vertical offset, and depth dimming
    ========================================================================== */
 function initDanceScrollStack() {
   const container = document.getElementById('dance-styles-grid');
@@ -2330,12 +2332,64 @@ function initDanceScrollStack() {
   function update() {
     rafId = 0;
     const isMobile = window.innerWidth <= 860;
-    const stickyTop = isMobile ? 72 : Math.max(82, Math.min(100, Math.round(window.innerHeight * 0.11)));
 
+    if (isMobile) {
+      // ----------------------------------------------------------------------
+      // Mobile View: Framer Motion StackedCards Physics
+      // ----------------------------------------------------------------------
+      const containerRect = container.getBoundingClientRect();
+      const containerTop = containerRect.top + window.scrollY;
+      const containerHeight = container.offsetHeight;
+      const stickyHeaderHeight = 68;
+      const startY = containerTop - stickyHeaderHeight;
+      const endY = containerTop + containerHeight - window.innerHeight;
+      const scrollY = window.scrollY;
+
+      let progress = 0;
+      if (endY > startY) {
+        progress = Math.min(1, Math.max(0, (scrollY - startY) / (endY - startY)));
+      }
+
+      const total = slots.length;
+      const step = 1 / total; // 0.25
+
+      slots.forEach((slot, index) => {
+        const card = slot.querySelector('.dance-style-card');
+        if (!card) return;
+
+        // Card scaling range: begins scaling down when the next card scrolls in
+        const rangeStart = Math.max(0, index * step);
+        const targetScale = total > 1 ? 1 - (total - index - 1) * 0.075 : 1;
+
+        let scale = 1;
+        if (progress >= 1) {
+          scale = targetScale;
+        } else if (progress > rangeStart) {
+          const p = (progress - rangeStart) / (1 - rangeStart);
+          scale = 1 - p * (1 - targetScale);
+        }
+
+        // Framer Motion: scale with transformOrigin: top center
+        card.style.transformOrigin = 'top center';
+        card.style.transform = `scale(${scale.toFixed(4)})`;
+        card.style.filter = '';
+
+        // Depth dimming on mobile cards for physical depth
+        const depth = targetScale < 1 ? (1 - scale) / (1 - targetScale) : 0;
+        const dim = Math.min(0.22, depth * 0.18);
+        card.style.setProperty('--scroll-stack-dim', dim.toFixed(3));
+      });
+      return;
+    }
+
+    // ----------------------------------------------------------------------
+    // Desktop View (> 860px): Kexsio ScrollStack Horizontal Engine
+    // ----------------------------------------------------------------------
+    const stickyTop = Math.max(82, Math.min(100, Math.round(window.innerHeight * 0.11)));
     const slotTops = slots.map(slot => slot.getBoundingClientRect().top);
     const travelDistance = slots.length > 1 && slots[1].offsetTop > slots[0].offsetTop
-      ? Math.max(260, (slots[1].offsetTop - slots[0].offsetTop))
-      : (isMobile ? 300 : 480);
+      ? Math.max(300, (slots[1].offsetTop - slots[0].offsetTop))
+      : 480;
 
     slots.forEach((slot, i) => {
       const card = slot.querySelector('.dance-style-card');
@@ -2343,38 +2397,33 @@ function initDanceScrollStack() {
 
       const top = slotTops[i];
 
-      // If card has not yet reached stickyTop, keep it at resting position
       if (top > stickyTop + 1) {
+        card.style.transformOrigin = '50% top';
         card.style.transform = 'translate3d(0, 0, 0) scale(1)';
         card.style.filter = '';
         card.style.setProperty('--scroll-stack-dim', '0');
         return;
       }
 
-      // Card is pinned at stickyTop. Compute stack depth based on subsequent incoming cards
       let depth = 0;
       for (let j = i + 1; j < slots.length; j++) {
         const nextDist = slotTops[j] - stickyTop;
-        const progress = 1 - Math.min(1, Math.max(0, nextDist / travelDistance));
-        depth += progress;
+        const p = 1 - Math.min(1, Math.max(0, nextDist / travelDistance));
+        depth += p;
       }
 
       if (depth < 0.005) {
-        // Active top card in the stack
+        card.style.transformOrigin = '50% top';
         card.style.transform = 'translate3d(0, 0, 0) scale(1)';
         card.style.filter = '';
         card.style.setProperty('--scroll-stack-dim', '0');
       } else {
-        // Card is stacked under subsequent card(s)
-        // Stepped scale down: ~0.045 per layer (0.955 -> 0.910 -> 0.865)
         const scale = Math.max(0.84, 1 - depth * 0.045);
-        // Stepped vertical offset: layers peek out neatly at the top
-        const yOffset = Math.min(depth * (isMobile ? 7 : 12), isMobile ? 22 : 36);
-        // Progressive darkening
+        const yOffset = Math.min(depth * 12, 36);
         const dim = Math.min(0.26, depth * 0.09);
-        // Subtle depth blur
         const blur = Math.min(0.8, depth * 0.28);
 
+        card.style.transformOrigin = '50% top';
         card.style.transform = `translate3d(0, ${yOffset.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
         card.style.filter = blur > 0.15 ? `blur(${blur.toFixed(2)}px)` : '';
         card.style.setProperty('--scroll-stack-dim', dim.toFixed(3));

@@ -29,7 +29,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=6.8">
+  <link rel="stylesheet" href="style.css?v=6.9">
 
 
 
@@ -605,9 +605,9 @@
         </div>
 
         <div class="dance-styles-grid" id="dance-styles-grid">
-          <!-- Style 1: Bharatanatyam -->
+          <!-- Style 1: Bharatanatyam (Even) -->
           <div class="dance-stack-slot" data-stack-slot="1">
-            <div class="dance-style-card theme-bharatanatyam">
+            <div class="dance-style-card theme-bharatanatyam card-is-even">
               <div class="dance-style-content">
                 <div class="dance-badge badge-bharatanatyam">
                   <span class="badge-index">01</span>
@@ -629,7 +629,9 @@
                 <div class="dance-card-action">
                   <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Bharatanatyam')">
                     <span>Book Free Demo</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M5 12H19M13 6L19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -642,9 +644,9 @@
             </div>
           </div>
 
-          <!-- Style 2: Western Dance -->
+          <!-- Style 2: Western Dance (Odd) -->
           <div class="dance-stack-slot" data-stack-slot="2">
-            <div class="dance-style-card theme-western">
+            <div class="dance-style-card theme-western card-is-odd">
               <div class="dance-style-content">
                 <div class="dance-badge badge-western">
                   <span class="badge-index">02</span>
@@ -666,7 +668,9 @@
                 <div class="dance-card-action">
                   <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Western Dance')">
                     <span>Book Free Demo</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M5 12H19M13 6L19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -679,9 +683,9 @@
             </div>
           </div>
 
-          <!-- Style 3: Free Style -->
+          <!-- Style 3: Free Style (Even) -->
           <div class="dance-stack-slot" data-stack-slot="3">
-            <div class="dance-style-card theme-freestyle">
+            <div class="dance-style-card theme-freestyle card-is-even">
               <div class="dance-style-content">
                 <div class="dance-badge badge-freestyle">
                   <span class="badge-index">03</span>
@@ -703,7 +707,9 @@
                 <div class="dance-card-action">
                   <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Free Style')">
                     <span>Book Free Demo</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M5 12H19M13 6L19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -716,9 +722,9 @@
             </div>
           </div>
 
-          <!-- Style 4: Tamil Folk Dance -->
+          <!-- Style 4: Tamil Folk Dance (Odd) -->
           <div class="dance-stack-slot" data-stack-slot="4">
-            <div class="dance-style-card theme-tamilfolk">
+            <div class="dance-style-card theme-tamilfolk card-is-odd">
               <div class="dance-style-content">
                 <div class="dance-badge badge-tamilfolk">
                   <span class="badge-index">04</span>
@@ -739,7 +745,9 @@
                 <div class="dance-card-action">
                   <button type="button" class="btn btn-dance-cta" onclick="openAdmissionModal('Dance - Tamil Folk Dance')">
                     <span>Book Free Demo</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M5 12H19M13 6L19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -1076,7 +1084,8 @@
               aria-label="Review by Priya S.">
               <span class="stagger-corner-fold" aria-hidden="true"></span>
               <div class="stagger-card-header">
-                <img src="./assets/calligraphy_kids.jpg" alt="Priya S." class="stagger-avatar" loading="lazy" onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
+                <img src="./assets/calligraphy_kids.jpg" alt="Priya S." class="stagger-avatar" loading="lazy"
+                  onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
                 <div class="stagger-meta">
                   <h4 class="stagger-name">Priya S.</h4>
                   <span class="stagger-relation">Mother of Ananya (Age 6) • Drawing &amp; Art</span>
@@ -1098,7 +1107,9 @@
               aria-label="Review by Karthik R.">
               <span class="stagger-corner-fold" aria-hidden="true"></span>
               <div class="stagger-card-header">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Karthik R." class="stagger-avatar" loading="lazy" onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Karthik R."
+                  class="stagger-avatar" loading="lazy"
+                  onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
                 <div class="stagger-meta">
                   <h4 class="stagger-name">Karthik R.</h4>
                   <span class="stagger-relation">Father of Vihaan (Age 8) • Bharatanatyam</span>
@@ -1120,7 +1131,8 @@
               aria-label="Review by Meera Patel">
               <span class="stagger-corner-fold" aria-hidden="true"></span>
               <div class="stagger-card-header">
-                <img src="./assets/handwriting_kids.jpg" alt="Meera Patel" class="stagger-avatar" loading="lazy" onerror="this.onerror=null; this.src='assets/abacus_kids.jpg'">
+                <img src="./assets/handwriting_kids.jpg" alt="Meera Patel" class="stagger-avatar" loading="lazy"
+                  onerror="this.onerror=null; this.src='assets/abacus_kids.jpg'">
                 <div class="stagger-meta">
                   <h4 class="stagger-name">Meera Patel</h4>
                   <span class="stagger-relation">Mother of Aarav (Age 9) • Handwriting &amp; Calligraphy</span>
@@ -1142,7 +1154,8 @@
               aria-label="Review by Rajesh Kumar">
               <span class="stagger-corner-fold" aria-hidden="true"></span>
               <div class="stagger-card-header">
-                <img src="./assets/abacus_kids.jpg" alt="Rajesh Kumar" class="stagger-avatar" loading="lazy" onerror="this.onerror=null; this.src='assets/craft_kids.jpg'">
+                <img src="./assets/abacus_kids.jpg" alt="Rajesh Kumar" class="stagger-avatar" loading="lazy"
+                  onerror="this.onerror=null; this.src='assets/craft_kids.jpg'">
                 <div class="stagger-meta">
                   <h4 class="stagger-name">Rajesh Kumar</h4>
                   <span class="stagger-relation">Father of Diya (Age 7) • Abacus &amp; Mental Math</span>
@@ -1164,7 +1177,8 @@
               aria-label="Review by Deepa N.">
               <span class="stagger-corner-fold" aria-hidden="true"></span>
               <div class="stagger-card-header">
-                <img src="./assets/craft_kids.jpg" alt="Deepa N." class="stagger-avatar" loading="lazy" onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
+                <img src="./assets/craft_kids.jpg" alt="Deepa N." class="stagger-avatar" loading="lazy"
+                  onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
                 <div class="stagger-meta">
                   <h4 class="stagger-name">Deepa N.</h4>
                   <span class="stagger-relation">Mother of Kabir (Age 5) • 3D Crafts &amp; Origami</span>
@@ -1187,7 +1201,8 @@
               <span class="stagger-corner-fold" aria-hidden="true"></span>
               <div class="stagger-card-header">
                 <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg" alt="Suresh &amp; Shalini"
-                  class="stagger-avatar" loading="lazy" onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
+                  class="stagger-avatar" loading="lazy"
+                  onerror="this.onerror=null; this.src='assets/handwriting_kids.jpg'">
                 <div class="stagger-meta">
                   <h4 class="stagger-name">Suresh &amp; Shalini V.</h4>
                   <span class="stagger-relation">Parents of Tara (Age 8) • Drawing &amp; Dance</span>
@@ -1238,180 +1253,192 @@
           </p>
         </div>
 
-        <div class="fees-swiper-container swiper Carousal_001" id="fees-swiper">
-          <div class="swiper-wrapper fees-tiers-grid">
-            <!-- Level 1: Beginner Art Course -->
-            <div class="swiper-slide fee-card-slide">
-              <div class="fee-card glass-panel reveal-fade-up">
-                <div class="tier-pill bg-pink">Entry Level</div>
-                <div class="fee-header">
-                  <h3>Beginner Art Course</h3>
-                  <div class="age-badge"><i class="fa-solid fa-child"></i> Age: <strong>4 to 8 Years</strong></div>
-                </div>
-
-                <div class="fee-price-box">
-                  <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
-                  <span class="period">Batch Mentorship</span>
-                </div>
-
-                <div class="fee-curriculum-list">
-                  <div class="list-heading">Curriculum Highlights:</div>
-                  <ul>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Geometrical shapes &amp; line control</li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Crayon &amp; oil pastel blending methods</li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Simple animals, fruits, flowers &amp; nature
-                    </li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic pencil grip &amp; hand-eye
-                      coordination</li>
-                  </ul>
-                </div>
-
-                <div class="fee-features">
-                  <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
-                  <div class="feat-row"><span>Batch Size:</span> <strong>Max 8-10 Kids</strong></div>
-                </div>
-
-                <button class="btn btn-block btn-outline btn-animated-shine"
-                  onclick="openAdmissionModal('Beginner Art Course (Age 4-8)')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll in Beginner</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Level 2: Intermediate Art Course -->
-            <div class="swiper-slide fee-card-slide">
-              <div class="fee-card glass-panel popular-tier reveal-fade-up">
-                <div class="tier-pill bg-gold">Most Popular</div>
-                <div class="fee-header">
-                  <h3>Intermediate Art Course</h3>
-                  <div class="age-badge"><i class="fa-solid fa-child-reaching"></i> Age: <strong>8 to 12 Years</strong>
+        <div class="fees-swiper-container swiper Carousal_004" id="fees-swiper">
+          <div class="fees-swiper-container swiper Carousal_001" id="fees-swiper">
+            <div class="swiper-wrapper fees-tiers-grid">
+              <!-- Level 1: Beginner Art Course -->
+              <div class="swiper-slide fee-card-slide">
+                <div class="fee-card glass-panel reveal-fade-up">
+                  <div class="tier-pill bg-pink">Entry Level</div>
+                  <div class="fee-header">
+                    <h3>Beginner Art Course</h3>
+                    <div class="age-badge"><i class="fa-solid fa-child"></i> Age: <strong>4 to 8 Years</strong></div>
                   </div>
-                </div>
 
-                <div class="fee-price-box">
-                  <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
-                  <span class="period">Batch Mentorship</span>
-                </div>
+                  <div class="fee-price-box">
+                    <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+                    <span class="period">Batch Mentorship</span>
+                  </div>
 
-                <div class="fee-curriculum-list">
-                  <div class="list-heading">Curriculum Highlights:</div>
-                  <ul>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Pencil shading &amp; tonal pressure gradients
-                    </li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Scenery landscapes, perspective &amp; trees</li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor washes &amp; poster color handling
-                    </li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Still-life objects &amp; creative composition
-                    </li>
-                  </ul>
-                </div>
+                  <div class="fee-curriculum-list">
+                    <div class="list-heading">Curriculum Highlights:</div>
+                    <ul>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Geometrical shapes &amp; line control</li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Crayon &amp; oil pastel blending methods
+                      </li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Simple animals, fruits, flowers &amp;
+                        nature
+                      </li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic pencil grip &amp; hand-eye
+                        coordination</li>
+                    </ul>
+                  </div>
 
-                <div class="fee-features">
-                  <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
-                  <div class="feat-row"><span>Batch Size:</span> <strong>Max 10 Students</strong></div>
-                </div>
+                  <div class="fee-features">
+                    <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
+                    <div class="feat-row"><span>Batch Size:</span> <strong>Max 8-10 Kids</strong></div>
+                  </div>
 
-                <button class="btn btn-block btn-primary btn-animated-shine"
-                  onclick="openAdmissionModal('Intermediate Art Course (Age 8-12)')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll in Intermediate</span>
-                </button>
+                  <button class="btn btn-block btn-outline btn-animated-shine"
+                    onclick="openAdmissionModal('Beginner Art Course (Age 4-8)')">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll in Beginner</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Level 2: Intermediate Art Course -->
+              <div class="swiper-slide fee-card-slide">
+                <div class="fee-card glass-panel popular-tier reveal-fade-up">
+                  <div class="tier-pill bg-gold">Most Popular</div>
+                  <div class="fee-header">
+                    <h3>Intermediate Art Course</h3>
+                    <div class="age-badge"><i class="fa-solid fa-child-reaching"></i> Age: <strong>8 to 12
+                        Years</strong>
+                    </div>
+                  </div>
+
+                  <div class="fee-price-box">
+                    <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+                    <span class="period">Batch Mentorship</span>
+                  </div>
+
+                  <div class="fee-curriculum-list">
+                    <div class="list-heading">Curriculum Highlights:</div>
+                    <ul>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Pencil shading &amp; tonal pressure
+                        gradients
+                      </li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Scenery landscapes, perspective &amp;
+                        trees
+                      </li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor washes &amp; poster color
+                        handling
+                      </li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Still-life objects &amp; creative
+                        composition
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="fee-features">
+                    <div class="feat-row"><span>Sessions:</span> <strong>8 Classes / Month</strong></div>
+                    <div class="feat-row"><span>Batch Size:</span> <strong>Max 10 Students</strong></div>
+                  </div>
+
+                  <button class="btn btn-block btn-primary btn-animated-shine"
+                    onclick="openAdmissionModal('Intermediate Art Course (Age 8-12)')">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll in Intermediate</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Level 3: Advanced Art Course -->
+              <div class="swiper-slide fee-card-slide">
+                <div class="fee-card glass-panel reveal-fade-up">
+                  <div class="tier-pill bg-purple">Mastery Level</div>
+                  <div class="fee-header">
+                    <h3>Advanced Art Course</h3>
+                    <div class="age-badge"><i class="fa-solid fa-user-graduate"></i> Age: <strong>10 Years &amp;
+                        Above</strong></div>
+                  </div>
+
+                  <div class="fee-price-box">
+                    <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
+                    <span class="period">Batch Mentorship</span>
+                  </div>
+
+                  <div class="fee-curriculum-list">
+                    <div class="list-heading">Curriculum Highlights:</div>
+                    <ul>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> 1 &amp; 2-point perspective &amp;
+                        architectural
+                        sketch</li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Acrylic on stretched canvas &amp; palette
+                        knife
+                      </li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Human anatomy, portrait proportions &amp;
+                        lighting</li>
+                      <li><i class="fa-solid fa-circle-check text-green"></i> Exhibition portfolio &amp; competition
+                        mastery
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="fee-features">
+                    <div class="feat-row"><span>Sessions:</span> <strong>8-10 Classes / Month</strong></div>
+                    <div class="feat-row"><span>Batch Size:</span> <strong>Max 8 Students</strong></div>
+                  </div>
+
+                  <button class="btn btn-block btn-outline btn-animated-shine"
+                    onclick="openAdmissionModal('Advanced Art Course (Age 10+)')">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll in Advanced</span>
+                  </button>
+                </div>
               </div>
             </div>
+            <!-- Skiper 47 Pagination Bullets -->
+            <div class="swiper-pagination fees-pagination"></div>
 
-            <!-- Level 3: Advanced Art Course -->
-            <div class="swiper-slide fee-card-slide">
-              <div class="fee-card glass-panel reveal-fade-up">
-                <div class="tier-pill bg-purple">Mastery Level</div>
-                <div class="fee-header">
-                  <h3>Advanced Art Course</h3>
-                  <div class="age-badge"><i class="fa-solid fa-user-graduate"></i> Age: <strong>10 Years &amp;
-                      Above</strong></div>
-                </div>
+            <!-- Skiper 47 Chevron Navigation Arrows -->
+            <div class="swiper-button-prev fees-button-prev" aria-label="Previous Course Tier">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            </div>
+            <div class="swiper-button-next fees-button-next" aria-label="Next Course Tier">
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </div>
+          </div>
 
-                <div class="fee-price-box">
-                  <span class="fee-badge-text"><i class="fa-solid fa-sparkles"></i> Affordable Monthly Plans</span>
-                  <span class="period">Batch Mentorship</span>
-                </div>
+          <!-- Additional Program Fees Structure Box -->
+          <div class="other-courses-fee-box glass-panel reveal-fade-up">
+            <div class="fee-box-header">
+              <h4><i class="fa-solid fa-tags text-pink"></i> Additional Skill &amp; Dance Tracks</h4>
+              <span class="badge-discount">Sibling Discount Available</span>
+            </div>
 
-                <div class="fee-curriculum-list">
-                  <div class="list-heading">Curriculum Highlights:</div>
-                  <ul>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> 1 &amp; 2-point perspective &amp; architectural
-                      sketch</li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Acrylic on stretched canvas &amp; palette knife
-                    </li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Human anatomy, portrait proportions &amp;
-                      lighting</li>
-                    <li><i class="fa-solid fa-circle-check text-green"></i> Exhibition portfolio &amp; competition mastery
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="fee-features">
-                  <div class="feat-row"><span>Sessions:</span> <strong>8-10 Classes / Month</strong></div>
-                  <div class="feat-row"><span>Batch Size:</span> <strong>Max 8 Students</strong></div>
-                </div>
-
-                <button class="btn btn-block btn-outline btn-animated-shine"
-                  onclick="openAdmissionModal('Advanced Art Course (Age 10+)')">
-                  <span class="btn-shine-border" aria-hidden="true"></span>
-                  <span class="btn-shine-surface" aria-hidden="true"></span>
-                  <span class="btn-shine-text">Enroll in Advanced</span>
-                </button>
+            <div class="other-fees-list">
+              <div class="other-fee-row">
+                <div class="of-name"><strong>Dance Classes</strong> (Bharatanatyam / Folk / Western)</div>
+                <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                    for Schedule</span></div>
+                <div class="of-note">2 Days/week • Stage recital preparation included</div>
+              </div>
+              <div class="other-fee-row">
+                <div class="of-name"><strong>Handwriting Improvement</strong></div>
+                <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                    for Schedule</span></div>
+                <div class="of-note">Complete curriculum practice kit included</div>
+              </div>
+              <div class="other-fee-row">
+                <div class="of-name"><strong>Calligraphy Artistry</strong></div>
+                <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                    for Schedule</span></div>
+                <div class="of-note">Pen sets &amp; artistic paper project materials provided</div>
+              </div>
+              <div class="other-fee-row">
+                <div class="of-name"><strong>Abacus &amp; Mental Math</strong></div>
+                <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
+                    for Schedule</span></div>
+                <div class="of-note">Official Soroban abacus tool &amp; Level 1 workbook</div>
               </div>
             </div>
           </div>
-          <!-- Skiper 47 Pagination Bullets -->
-          <div class="swiper-pagination fees-pagination"></div>
-
-          <!-- Skiper 47 Chevron Navigation Arrows -->
-          <div class="swiper-button-prev fees-button-prev" aria-label="Previous Course Tier">
-            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-          </div>
-          <div class="swiper-button-next fees-button-next" aria-label="Next Course Tier">
-            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-          </div>
         </div>
-
-        <!-- Additional Program Fees Structure Box -->
-        <div class="other-courses-fee-box glass-panel reveal-fade-up">
-          <div class="fee-box-header">
-            <h4><i class="fa-solid fa-tags text-pink"></i> Additional Skill &amp; Dance Tracks</h4>
-            <span class="badge-discount">Sibling Discount Available</span>
-          </div>
-
-          <div class="other-fees-list">
-            <div class="other-fee-row">
-              <div class="of-name"><strong>Dance Classes</strong> (Bharatanatyam / Folk / Western)</div>
-              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
-                  for Schedule</span></div>
-              <div class="of-note">2 Days/week • Stage recital preparation included</div>
-            </div>
-            <div class="other-fee-row">
-              <div class="of-name"><strong>Handwriting Improvement</strong></div>
-              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
-                  for Schedule</span></div>
-              <div class="of-note">Complete curriculum practice kit included</div>
-            </div>
-            <div class="other-fee-row">
-              <div class="of-name"><strong>Calligraphy Artistry</strong></div>
-              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
-                  for Schedule</span></div>
-              <div class="of-note">Pen sets &amp; artistic paper project materials provided</div>
-            </div>
-            <div class="other-fee-row">
-              <div class="of-name"><strong>Abacus &amp; Mental Math</strong></div>
-              <div class="of-price"><span class="fee-inquire-pill"><i class="fa-solid fa-calendar-check"></i> Inquire
-                  for Schedule</span></div>
-              <div class="of-note">Official Soroban abacus tool &amp; Level 1 workbook</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Contact & Location Section -->
@@ -1739,7 +1766,7 @@
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <!-- Swiper 11 JS (for 3D Creative Carousel in Mobile View) -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=6.8"></script>
+  <script src="script.js?v=6.9"></script>
 
 </body>
 

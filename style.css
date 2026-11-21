@@ -6001,57 +6001,251 @@ marquee,
   z-index: 10 !important;
 }
 
-/* Mobile Responsiveness (<= 860px) */
+/* Mobile Responsiveness (<= 860px) - Framer Motion StackedCards Engine */
 @media (max-width: 860px) {
   .dance-styles-grid {
-    max-width: clamp(290px, 94vw, 420px) !important;
-    padding: 0 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: clamp(300px, 94vw, 440px) !important;
+    margin: 12px auto 40px auto !important;
+    padding: 0 6px 96px 6px !important;
+    perspective: 1200px !important;
   }
 
+  /* Progressive sticky top offsets: calc(4.25rem + index * 16px) */
   .dance-stack-slot {
-    top: 72px !important;
-    margin-bottom: clamp(240px, 40vh, 320px) !important;
+    position: sticky !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: clamp(260px, 42vh, 360px) !important;
+    will-change: transform !important;
+  }
+
+  .dance-stack-slot:nth-child(1) {
+    top: calc(68px + 0px) !important;
+    z-index: 1 !important;
+  }
+
+  .dance-stack-slot:nth-child(2) {
+    top: calc(68px + 16px) !important;
+    z-index: 2 !important;
+  }
+
+  .dance-stack-slot:nth-child(3) {
+    top: calc(68px + 32px) !important;
+    z-index: 3 !important;
   }
 
   .dance-stack-slot:nth-child(4) {
+    top: calc(68px + 48px) !important;
+    z-index: 4 !important;
     margin-bottom: 24px !important;
   }
 
+  /* Card Article: rounded-[22px], transform-origin: top center */
   .dance-style-card {
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
     min-height: auto !important;
-    border-radius: 24px !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+    transform-origin: top center !important;
+    will-change: transform !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+    transition-property: box-shadow, border-color !important;
   }
 
+  /* Alternating Card Styles from user's isEven ? 'bg-zinc-950 text-white' : 'bg-white text-zinc-950' */
+  .dance-style-card.card-is-even {
+    background: #090D16 !important;
+    color: #FFFFFF !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.40),
+      0 0 25px rgba(120, 119, 198, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  }
+
+  .dance-style-card.card-is-even .dance-card-title {
+    color: #FFFFFF !important;
+  }
+
+  .dance-style-card.card-is-even .dance-card-quote {
+    color: #A78BFA !important;
+  }
+
+  .dance-style-card.card-is-even .dance-card-desc {
+    color: #D1D5DB !important;
+  }
+
+  .dance-style-card.card-is-even .dance-spec-chip {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #F3F4F6 !important;
+  }
+
+  .dance-style-card.card-is-even .dance-spec-chip i {
+    color: #A78BFA !important;
+  }
+
+  .dance-style-card.card-is-even .btn-dance-cta {
+    background: #FFFFFF !important;
+    color: #090D16 !important;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25) !important;
+  }
+
+  .dance-style-card.card-is-even .btn-dance-cta:hover {
+    background: #E5E7EB !important;
+    color: #090D16 !important;
+  }
+
+  /* Odd Cards: Clean luminous white */
+  .dance-style-card.card-is-odd {
+    background: #FFFFFF !important;
+    color: #090D16 !important;
+    border: 1.5px solid rgba(0, 180, 216, 0.45) !important;
+    box-shadow:
+      0 16px 40px rgba(10, 37, 64, 0.10),
+      0 0 25px rgba(0, 180, 216, 0.22),
+      inset 0 1px 0 #FFFFFF !important;
+  }
+
+  .dance-style-card.card-is-odd .dance-card-title {
+    color: #090D16 !important;
+  }
+
+  .dance-style-card.card-is-odd .dance-card-quote {
+    color: #0077B6 !important;
+  }
+
+  .dance-style-card.card-is-odd .dance-card-desc {
+    color: #4B5563 !important;
+  }
+
+  .dance-style-card.card-is-odd .dance-spec-chip {
+    background: #F1F5F9 !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #1E293B !important;
+  }
+
+  .dance-style-card.card-is-odd .dance-spec-chip i {
+    color: #0077B6 !important;
+  }
+
+  .dance-style-card.card-is-odd .btn-dance-cta {
+    background: #090D16 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(9, 13, 22, 0.25) !important;
+  }
+
+  .dance-style-card.card-is-odd .btn-dance-cta:hover {
+    background: #1F2937 !important;
+    color: #FFFFFF !important;
+  }
+
+  /* Specific Glowing Accent borders */
+  .dance-style-card.theme-freestyle.card-is-even {
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.40),
+      0 0 25px rgba(245, 158, 11, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(245, 158, 11, 0.45) !important;
+  }
+  .dance-style-card.theme-freestyle.card-is-even .dance-card-quote {
+    color: #FBBF24 !important;
+  }
+  .dance-style-card.theme-freestyle.card-is-even .dance-spec-chip i {
+    color: #FBBF24 !important;
+  }
+
+  .dance-style-card.theme-tamilfolk.card-is-odd {
+    border-color: rgba(16, 185, 129, 0.45) !important;
+    box-shadow:
+      0 16px 40px rgba(10, 37, 64, 0.10),
+      0 0 25px rgba(16, 185, 129, 0.22),
+      inset 0 1px 0 #FFFFFF !important;
+  }
+  .dance-style-card.theme-tamilfolk.card-is-odd .dance-card-quote {
+    color: #059669 !important;
+  }
+  .dance-style-card.theme-tamilfolk.card-is-odd .dance-spec-chip i {
+    color: #059669 !important;
+  }
+
+  /* Image Column: h-[220px] min-h-[220px], subtle scrim on mobile */
   .dance-style-media {
-    order: -1 !important;
-    height: clamp(170px, 26vh, 205px) !important;
-    margin: 10px 10px 0 10px !important;
-    border-radius: 18px !important;
+    order: 1 !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 220px !important;
+    margin: 0 !important;
+    border-radius: 22px 22px 0 0 !important;
+    overflow: hidden !important;
+    background: #090D16 !important;
   }
 
+  .dance-style-img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    transition: transform 0.7s ease !important;
+  }
+
+  /* Subtle scrim on mobile */
+  .dance-style-media::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0) 65%) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  .dance-media-badge {
+    z-index: 2 !important;
+  }
+
+  /* Content Column: order-2 */
   .dance-style-content {
-    padding: 16px 16px 20px 16px !important;
+    order: 2 !important;
+    padding: 22px 20px 24px 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    z-index: 2 !important;
   }
 
   .dance-card-title {
-    font-size: 1.35rem !important;
+    font-size: 1.45rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.25 !important;
+    margin-bottom: 6px !important;
   }
 
   .dance-card-quote {
-    font-size: 0.85rem !important;
+    font-size: 0.88rem !important;
+    line-height: 1.4 !important;
     margin-bottom: 8px !important;
   }
 
   .dance-card-desc {
-    font-size: 0.84rem !important;
-    margin-bottom: 12px !important;
-    line-height: 1.5 !important;
+    font-size: 0.86rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 14px !important;
   }
 
   .dance-specs {
     gap: 6px !important;
-    margin-bottom: 16px !important;
+    margin-bottom: 18px !important;
   }
 
   .dance-spec-chip {
@@ -6063,6 +6257,8 @@ marquee,
     width: 100% !important;
     justify-content: center !important;
     padding: 10px 18px !important;
+    font-size: 0.88rem !important;
+    border-radius: 12px !important;
   }
 }
 
