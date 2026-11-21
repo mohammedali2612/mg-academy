@@ -2472,7 +2472,7 @@ function initMascotVideoPlayers() {
     try {
       gl = canvas.getContext('webgl', { premultipliedAlpha: false, alpha: true })
         || canvas.getContext('experimental-webgl', { premultipliedAlpha: false, alpha: true });
-    } catch (e) {}
+    } catch (e) { }
 
     // Fallback if WebGL unavailable: draw static fallback image
     if (!gl) {
@@ -2535,8 +2535,8 @@ function initMascotVideoPlayers() {
     const posBuf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-      -1, -1,   1, -1,  -1,  1,
-      -1,  1,   1, -1,   1,  1
+      -1, -1, 1, -1, -1, 1,
+      -1, 1, 1, -1, 1, 1
     ]), gl.STATIC_DRAW);
     const aPos = gl.getAttribLocation(program, 'a_pos');
     gl.enableVertexAttribArray(aPos);
@@ -2564,7 +2564,7 @@ function initMascotVideoPlayers() {
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     function startPlayback() {
-      video.play().catch(() => {});
+      video.play().catch(() => { });
     }
 
     startPlayback();
@@ -2615,72 +2615,31 @@ function initMascotPeekScroll() {
   const vBoy = document.getElementById('mgBoyVideo');
   if (!girlWrap || !boyWrap || !girlText || !boyText) return;
 
-  // Section configuration:
-  // Mascots appear ONLY ONCE per character, and are completely removed from About & Achievements
+  // Section configuration matching 8 navigation links (+ dance studio)
   const sectionConfig = {
     home: { side: 'none' },
-    about: { side: 'none' }, // Removed: No mascot appears on About page
-    courses: { side: 'right', text: '📚 Our Courses!' }, // Boy Scholar Mascot (appears once)
-    dance: { side: 'none' },
-    gallery: { side: 'left', text: '🎨 Art Gallery!' }, // Girl Artist Mascot (appears once)
-    achievements: { side: 'none' }, // Removed: No mascot appears on Achievements page
-    reviews: { side: 'none' },
-    fees: { side: 'none' },
-    contact: { side: 'none' }
+    about: { side: 'left', text: '👋 Hi! About Us' },
+    courses: { side: 'right', text: '📚 Our Courses!' },
+    dance: { side: 'right', text: '💃 Dance Classes!' },
+    gallery: { side: 'left', text: '🎨 Art Gallery!' },
+    achievements: { side: 'right', text: '🏆 Achievements!' },
+    reviews: { side: 'left', text: '⭐ Parent Reviews!' },
+    fees: { side: 'right', text: '💡 Course Fees!' },
+    contact: { side: 'both', leftText: '👋 Say Hello!', rightText: '📞 Contact Us!' }
   };
 
-  // State: each character appears ONLY ONE TIME throughout the session
-  const appeared = {
-    girl: false,
-    boy: false
-  };
-
-  let hideTimerGirl = null;
-  let hideTimerBoy = null;
+  // Track sections shown: each section only triggers entrance once ("only one time they should come")
+  const shownSections = new Set();
   let currentActiveSection = null;
+  let hideTimer = null;
 
-  function showBoy(text) {
-    if (appeared.boy) return;
-    appeared.boy = true;
-    boyText.textContent = text;
-    if (vBoy && vBoy.paused) vBoy.play().catch(() => {});
-    boyWrap.classList.add('show');
-
-    // Auto-dismiss smoothly after 7 seconds so it doesn't linger permanently
-    if (hideTimerBoy) clearTimeout(hideTimerBoy);
-    hideTimerBoy = setTimeout(() => {
-      boyWrap.classList.remove('show');
-    }, 7000);
-  }
-
-  function hideBoy() {
-    if (hideTimerBoy) {
-      clearTimeout(hideTimerBoy);
-      hideTimerBoy = null;
-    }
-    boyWrap.classList.remove('show');
-  }
-
-  function showGirl(text) {
-    if (appeared.girl) return;
-    appeared.girl = true;
-    girlText.textContent = text;
-    if (vGirl && vGirl.paused) vGirl.play().catch(() => {});
-    girlWrap.classList.add('show');
-
-    // Auto-dismiss smoothly after 7 seconds so it doesn't linger permanently
-    if (hideTimerGirl) clearTimeout(hideTimerGirl);
-    hideTimerGirl = setTimeout(() => {
-      girlWrap.classList.remove('show');
-    }, 7000);
-  }
-
-  function hideGirl() {
-    if (hideTimerGirl) {
-      clearTimeout(hideTimerGirl);
-      hideTimerGirl = null;
+  function hideAllMascots() {
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+      hideTimer = null;
     }
     girlWrap.classList.remove('show');
+    boyWrap.classList.remove('show');
   }
 
   function updateMascots(sectionId) {
@@ -2689,17 +2648,50 @@ function initMascotPeekScroll() {
     if (!config) return;
     currentActiveSection = sectionId;
 
-    if (config.side === 'left') {
-      showGirl(config.text);
-      hideBoy();
-    } else if (config.side === 'right') {
-      showBoy(config.text);
-      hideGirl();
-    } else {
-      // 'none' or section without mascot (About, Achievements, etc.)
-      hideGirl();
-      hideBoy();
+    if (config.side === 'none') {
+      hideAllMascots();
+      return;
     }
+
+    // If section has already been shown, do not re-trigger repeatedly
+    if (shownSections.has(sectionId)) {
+      hideAllMascots();
+      return;
+    }
+
+    // Mark section as shown
+    shownSections.add(sectionId);
+
+    if (hideTimer) {
+      clearTimeout(hideTimer);
+      hideTimer = null;
+    }
+
+    if (config.side === 'left') {
+      girlText.textContent = config.text;
+      if (vGirl && vGirl.paused) vGirl.play().catch(() => {});
+      girlWrap.classList.add('show');
+      boyWrap.classList.remove('show');
+    } else if (config.side === 'right') {
+      boyText.textContent = config.text;
+      if (vBoy && vBoy.paused) vBoy.play().catch(() => {});
+      boyWrap.classList.add('show');
+      girlWrap.classList.remove('show');
+    } else if (config.side === 'both') {
+      girlText.textContent = config.leftText;
+      boyText.textContent = config.rightText;
+      if (vGirl && vGirl.paused) vGirl.play().catch(() => {});
+      if (vBoy && vBoy.paused) vBoy.play().catch(() => {});
+      girlWrap.classList.add('show');
+      boyWrap.classList.add('show');
+    }
+
+    // Auto-dismiss smoothly after 7 seconds so it doesn't linger indefinitely
+    hideTimer = setTimeout(() => {
+      girlWrap.classList.remove('show');
+      boyWrap.classList.remove('show');
+      hideTimer = null;
+    }, 7000);
   }
 
   // Dual trigger: IntersectionObserver + Viewport position tracking for 100% reliable detection
@@ -2730,9 +2722,8 @@ function initMascotPeekScroll() {
     }
   }
 
-  let sectionObserver = null;
   if ('IntersectionObserver' in window) {
-    sectionObserver = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           updateMascots(entry.target.id);
