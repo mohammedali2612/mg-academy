@@ -2398,6 +2398,7 @@ function initMascotPeekScroll() {
   const shownSections = new Set();
   let currentActiveSection = null;
   let hideTimer = null;
+  let hasShownOnMobile = false; // Strictly appear only once in mobile view (<= 860px)
 
   function hideAllMascots() {
     if (hideTimer) {
@@ -2419,6 +2420,13 @@ function initMascotPeekScroll() {
       return;
     }
 
+    // In mobile view (<= 860px), mascot appears ONLY ONCE in total across the entire visit
+    const isMobile = window.innerWidth <= 860;
+    if (isMobile && hasShownOnMobile) {
+      hideAllMascots();
+      return;
+    }
+
     // If section has already been shown, do not re-trigger repeatedly
     if (shownSections.has(sectionId)) {
       hideAllMascots();
@@ -2427,6 +2435,9 @@ function initMascotPeekScroll() {
 
     // Mark section as shown
     shownSections.add(sectionId);
+    if (isMobile) {
+      hasShownOnMobile = true;
+    }
 
     if (hideTimer) {
       clearTimeout(hideTimer);
@@ -2452,12 +2463,13 @@ function initMascotPeekScroll() {
       boyWrap.classList.add('show');
     }
 
-    // Auto-dismiss smoothly after 7 seconds so it doesn't linger indefinitely
+    // Auto-dismiss smoothly after timeout so it doesn't linger indefinitely
+    const autoDismissTime = isMobile ? 5000 : 6500;
     hideTimer = setTimeout(() => {
       girlWrap.classList.remove('show');
       boyWrap.classList.remove('show');
       hideTimer = null;
-    }, 7000);
+    }, autoDismissTime);
   }
 
   // Dual trigger: IntersectionObserver + Viewport position tracking for 100% reliable detection
