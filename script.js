@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroSlideshow();
   initSpotlightFramesGallery();
   initStaggerTestimonials();
-  initCustomCursor();
   initMobileDockNav();
   initCourseCardStack();
   initMobileFooterAutoFlip();
@@ -1887,88 +1886,6 @@ function initStaggerTestimonials() {
 
   window.addEventListener('resize', update, { passive: true });
   update();
-}
-
-/* ==========================================================================
-   CUSTOM MOUSE CURSOR (Desktop Only: pointer: fine)
-   ========================================================================== */
-function initCustomCursor() {
-  const dot = document.getElementById('cursor-dot');
-  const follower = document.getElementById('cursor-follower');
-  if (!dot || !follower) return;
-
-  // Check pointer: fine
-  const isPointerFine = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
-  if (!isPointerFine) return;
-
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let followerX = mouseX;
-  let followerY = mouseY;
-  let isHovering = false;
-  let isDown = false;
-  let isVisible = false;
-
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    if (!isVisible) {
-      isVisible = true;
-      dot.classList.remove('is-hidden');
-      follower.classList.remove('is-hidden');
-    }
-  }, { passive: true });
-
-  window.addEventListener('mouseleave', () => {
-    isVisible = false;
-    dot.classList.add('is-hidden');
-    follower.classList.add('is-hidden');
-  });
-
-  window.addEventListener('mousedown', () => {
-    isDown = true;
-    follower.classList.add('is-down');
-  });
-
-  window.addEventListener('mouseup', () => {
-    isDown = false;
-    follower.classList.remove('is-down');
-  });
-
-  // Track hoverable elements
-  const hoverSelector = 'a, button, input, select, textarea, .skiper30-card, .mg-photo-card, .stagger-testimonial-card, .fee-card, .achievement-card, .course-visual-card, [role="button"]';
-
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest(hoverSelector)) {
-      if (!isHovering) {
-        isHovering = true;
-        follower.classList.add('is-hovering');
-      }
-    }
-  }, { passive: true });
-
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest(hoverSelector)) {
-      isHovering = false;
-      follower.classList.remove('is-hovering');
-    }
-  }, { passive: true });
-
-  // Smooth lerp animation loop
-  function loop() {
-    if (isVisible) {
-      // Dot follows immediately
-      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-
-      // Follower trails with smooth lerp (factor 0.18)
-      followerX += (mouseX - followerX) * 0.18;
-      followerY += (mouseY - followerY) * 0.18;
-      follower.style.transform = `translate3d(${followerX.toFixed(2)}px, ${followerY.toFixed(2)}px, 0) translate(-50%, -50%)${isDown ? ' scale(0.82)' : ''}`;
-    }
-    requestAnimationFrame(loop);
-  }
-
-  requestAnimationFrame(loop);
 }
 
 /* ==========================================================================
