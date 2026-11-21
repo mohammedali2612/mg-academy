@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initFormsAndConfetti();
   initSkiper30Parallax();
-  initGallerySkiper47Mobile();
+  initGallerySkiper48Mobile();
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
@@ -2089,15 +2089,17 @@ function initDanceScrollStack() {
 }
 
 /* ==========================================================================
-   SKIPER 47 3D COVERFLOW CAROUSEL (Carousel_001) - Mobile Gallery (<= 860px Only)
+   SKIPER 48 STACKED CARDS CAROUSEL (Carousel_002) - Mobile Gallery (<= 860px Only)
    Features:
-   - Mobile View (<= 860px): Swiper Coverflow with depth, centered active slide, loop & autoplay
+   - Mobile View (<= 860px): Swiper Effect "cards" (3D card stacking with rotation & depth)
+   - Loop & Autoplay
+   - Pagination & Chevrons
    - Desktop View (> 860px): Static Skiper 30 Parallax Gallery (no Swiper)
    ========================================================================== */
-let gallerySkiper47Instance = null;
+let gallerySkiper48Instance = null;
 
-function initGallerySkiper47Mobile() {
-  const container = document.getElementById('gallery-skiper47-swiper');
+function initGallerySkiper48Mobile() {
+  const container = document.getElementById('gallery-skiper48-swiper');
   if (!container) return;
 
   function update() {
@@ -2105,47 +2107,43 @@ function initGallerySkiper47Mobile() {
 
     if (!isMobile) {
       // Desktop View (> 860px): Destroy Swiper to save memory
-      if (gallerySkiper47Instance) {
-        gallerySkiper47Instance.destroy(true, true);
-        gallerySkiper47Instance = null;
+      if (gallerySkiper48Instance) {
+        gallerySkiper48Instance.destroy(true, true);
+        gallerySkiper48Instance = null;
       }
       return;
     }
 
-    // Mobile View (<= 860px): Initialize Swiper Coverflow matching Skiper 47 Carousel_001
+    // Mobile View (<= 860px): Initialize Swiper Effect Cards matching Skiper 48 Carousel_002
     if (typeof Swiper === 'undefined') return;
 
-    if (gallerySkiper47Instance) {
-      gallerySkiper47Instance.update();
+    if (gallerySkiper48Instance) {
+      gallerySkiper48Instance.update();
       return;
     }
 
-    gallerySkiper47Instance = new Swiper('#gallery-skiper47-swiper', {
-      effect: 'coverflow',
+    gallerySkiper48Instance = new Swiper('#gallery-skiper48-swiper', {
+      effect: 'cards',
       grabCursor: true,
-      centeredSlides: true,
       loop: true,
-      slidesPerView: 'auto',
-      spaceBetween: 28,
+      cardsEffect: {
+        perSlideOffset: 8,
+        perSlideRotate: 2,
+        rotate: true,
+        slideShadows: true,
+      },
       autoplay: {
-        delay: 2500,
+        delay: 2000,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       },
-      coverflowEffect: {
-        rotate: 0,
-        slideShadows: false,
-        stretch: 0,
-        depth: 100,
-        modifier: 2.5,
-      },
       pagination: {
-        el: '.gallery-skiper47-pagination',
+        el: '.gallery-skiper48-pagination',
         clickable: true,
       },
       navigation: {
-        nextEl: '.gallery-skiper47-next',
-        prevEl: '.gallery-skiper47-prev',
+        nextEl: '.gallery-skiper48-next',
+        prevEl: '.gallery-skiper48-prev',
       },
     });
   }
