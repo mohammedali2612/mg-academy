@@ -1426,64 +1426,8 @@ marquee,
 }
 
 .pillar-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 64px;
   font-size: 2.2rem;
   margin-bottom: 16px;
-}
-
-/* Realistic 3D Icons (Both Desktop & Mobile Views) */
-.realistic-3d-icon {
-  width: 58px;
-  height: 58px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
-  will-change: transform;
-}
-
-.pillar-card:hover .realistic-3d-icon {
-  transform: scale(1.15) rotate(4deg);
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
-}
-
-.realistic-3d-icon-sm {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
-  transition: transform 0.3s ease;
-}
-
-.glass-panel:hover .realistic-3d-icon-sm {
-  transform: scale(1.1);
-}
-
-.realistic-3d-icon-xs {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.1));
-}
-
-.course-icon-floating img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-}
-
-.info-icon img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
 }
 
 .pillar-card h4 {
