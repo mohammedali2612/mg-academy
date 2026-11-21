@@ -2549,14 +2549,10 @@ marquee,
 }
 
 .stagger-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  object-fit: cover;
-  flex-shrink: 0;
-  border: 2px solid #00B4D8;
-  background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  visibility: hidden !important;
 }
 
 .stagger-name {
