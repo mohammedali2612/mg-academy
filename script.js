@@ -989,16 +989,95 @@ window.closeAdmissionModal = function () {
   }
 };
 
+// Official Academy WhatsApp Contact (+91 86819 94164)
+const MG_ACADEMY_WHATSAPP = '918681994164';
+
 window.handleAdmissionSubmit = function (event) {
-  if (event) event.preventDefault();
+  if (event) {
+    event.preventDefault();
+    if (event._waHandled) return;
+    event._waHandled = true;
+  }
   const form = document.getElementById('admission-form');
-  const childName = document.getElementById('adm-child-name')?.value || 'Little Artist';
+  const childName = document.getElementById('adm-child-name')?.value.trim() || 'Little Artist';
+  const childAge = document.getElementById('adm-child-age')?.value.trim() || '';
+  const parentName = document.getElementById('adm-parent-name')?.value.trim() || 'Parent';
+  const phone = document.getElementById('adm-phone')?.value.trim() || '';
+  const course = document.getElementById('adm-course')?.value || 'Creative Course';
+  const batch = document.getElementById('adm-batch')?.value || 'Flexible';
+
+  const waLines = [
+    '🌟 *Admission & Demo Class Booking - MG Academy* 🌟',
+    '',
+    `👤 *Parent Name:* ${parentName}`,
+    `👶 *Child's Name:* ${childName}${childAge ? ` (${childAge} Years)` : ''}`,
+    `📞 *Phone / WhatsApp:* ${phone || 'Not provided'}`,
+    `🎨 *Selected Course:* ${course}`,
+    `⏰ *Preferred Timing:* ${batch}`,
+    '',
+    'Hello MG Academy! Please confirm our slot for the free demo class! ✨'
+  ];
+
+  const waText = waLines.join('\n');
+  const waUrl = `https://wa.me/${MG_ACADEMY_WHATSAPP}?text=${encodeURIComponent(waText)}`;
 
   launchConfetti();
-  alert(`🎉 Congratulations! Admission request for ${childName} has been received. Our team will contact you shortly to schedule your child's free trial class!`);
+  window.open(waUrl, '_blank', 'noopener,noreferrer');
 
   if (form) form.reset();
   closeAdmissionModal();
+};
+
+window.handleContactSubmit = function (event) {
+  if (event) {
+    event.preventDefault();
+    if (event._waHandled) return;
+    event._waHandled = true;
+  }
+  const form = document.getElementById('contact-form');
+  const parentName = document.getElementById('contact-name')?.value.trim() || 'Parent';
+  const childName = document.getElementById('contact-child-name')?.value.trim() || 'Child';
+  const childAge = document.getElementById('contact-child-age')?.value.trim() || '';
+  const phone = document.getElementById('contact-phone')?.value.trim() || '';
+  const course = document.getElementById('contact-course')?.value || 'General Inquiry';
+  const message = document.getElementById('contact-message')?.value.trim() || '';
+
+  const waLines = [
+    '🎨 *New Inquiry for MG Academy* 🎨',
+    '',
+    `👤 *Parent Name:* ${parentName}`,
+    `👶 *Child's Name:* ${childName}${childAge ? ` (Age: ${childAge} yrs)` : ''}`,
+    `📞 *Phone / WhatsApp:* ${phone || 'Not provided'}`,
+    `📚 *Interested Course:* ${course}`,
+  ];
+  if (message) {
+    waLines.push(`💬 *Message / Questions:* ${message}`);
+  } else {
+    waLines.push('💬 *Message:* Hello MG Academy! I would like to inquire about upcoming batch timings and arrange a free trial class.');
+  }
+  waLines.push('');
+  waLines.push('Thank you! ✨');
+
+  const waText = waLines.join('\n');
+  const waUrl = `https://wa.me/${MG_ACADEMY_WHATSAPP}?text=${encodeURIComponent(waText)}`;
+
+  launchConfetti();
+
+  const submitBtn = form?.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    const origHTML = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fa-brands fa-whatsapp fa-bounce"></i> Opening WhatsApp...';
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = origHTML;
+    }, 1800);
+  }
+
+  // Open WhatsApp directly to +91 86819 94164
+  window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+  if (form) form.reset();
 };
 
 window.openLightbox = function (imageSrc, caption = '') {
@@ -1031,54 +1110,13 @@ function initFormsAndConfetti() {
 
   if (admissionForm) {
     admissionForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const childName = document.getElementById('modal-child-name')?.value || 'Little Artist';
-      const submitBtn = admissionForm.querySelector('button[type="submit"]');
-
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
-      }
-
-      setTimeout(() => {
-        // Trigger celebratory confetti
-        launchConfetti();
-
-        admissionForm.style.display = 'none';
-        const successBox = document.getElementById('modal-success-state');
-        const successName = document.getElementById('success-child-name');
-
-        if (successName) successName.textContent = childName;
-        if (successBox) successBox.style.display = 'block';
-
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span>Submit Admission Inquiry</span> <i class="fa-solid fa-paper-plane"></i>';
-        }
-        admissionForm.reset();
-      }, 700);
+      window.handleAdmissionSubmit(e);
     });
   }
 
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-      }
-
-      setTimeout(() => {
-        launchConfetti();
-        alert('🎉 Thank you for reaching out to MG Academy! Our academic coordinator will contact you shortly.');
-        contactForm.reset();
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span>Send Inquiry</span> <i class="fa-solid fa-paper-plane"></i>';
-        }
-      }, 700);
+      window.handleContactSubmit(e);
     });
   }
 }
