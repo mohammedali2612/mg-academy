@@ -3840,6 +3840,7 @@ marquee,
     width: 100% !important;
     max-width: 350px !important;
     margin: 0 auto !important;
+    transform: translateY(-38px) !important;
     background: rgba(255, 255, 255, 0.94) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
