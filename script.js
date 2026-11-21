@@ -2171,6 +2171,7 @@ function initFeesSkiper47Carousel() {
       effect: 'coverflow',
       grabCursor: true,
       centeredSlides: true,
+      spaceBetween: 0,
       loop: true,
       autoplay: {
         delay: 3000,

@@ -6151,6 +6151,7 @@ marquee,
     perspective: none !important;
     transform-style: flat !important;
     margin-bottom: 0 !important;
+    gap: 0 !important;
   }
 
   .Carousal_001 .swiper-slide.fee-card-slide {
@@ -6159,7 +6160,7 @@ marquee,
     box-sizing: border-box !important;
     display: flex !important;
     background: transparent !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
     transition-property: transform, opacity, filter, box-shadow !important;
   }
 
