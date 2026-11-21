@@ -2626,14 +2626,14 @@ function initMascotPeekScroll() {
   // Section configuration matching 8 navigation links (+ dance studio)
   const sectionConfig = {
     home: { side: 'none' },
-    about: { side: 'left', text: '👋 Hi! About Us' },
+    about: { side: 'left', text: '🎨 About Us!' },
     courses: { side: 'right', text: '📚 Our Courses!' },
     dance: { side: 'right', text: '💃 Dance Classes!' },
     gallery: { side: 'left', text: '🎨 Art Gallery!' },
     achievements: { side: 'right', text: '🏆 Achievements!' },
     reviews: { side: 'left', text: '⭐ Parent Reviews!' },
     fees: { side: 'right', text: '💡 Course Fees!' },
-    contact: { side: 'both', leftText: '👋 Say Hello!', rightText: '📞 Contact Us!' }
+    contact: { side: 'both', leftText: '💌 Contact Us!', rightText: '📞 Contact Us!' }
   };
 
   // Track sections shown: each section only triggers entrance once ("only one time they should come")
