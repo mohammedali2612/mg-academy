@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initFormsAndConfetti();
   initSkiper30Parallax();
+  initGallerySkiper47Mobile();
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
@@ -1215,24 +1216,8 @@ function initSkiper30Parallax() {
   let ticking = false;
 
   function updateParallax() {
-    // Mobile view (<= 860px): smooth staggered parallax float on scroll
+    // Mobile view (<= 860px): Desktop parallax gallery is hidden, Skiper 47 Coverflow Carousel active
     if (window.innerWidth <= 860) {
-      const rect = gallery.getBoundingClientRect();
-      const H = window.innerHeight;
-      if (rect.bottom >= -100 && rect.top <= H + 100) {
-        const totalSpan = H + rect.height;
-        const progress = (H - rect.top) / totalSpan;
-        const clamped = Math.min(Math.max(progress, 0), 1);
-
-        cards.forEach((card, idx) => {
-          const img = card.querySelector('img');
-          if (!img) return;
-          // Alternate column parallax depth: Column 1 drifts +12px, Column 2 drifts -12px
-          const isEven = idx % 2 === 1;
-          const shift = isEven ? (clamped - 0.5) * 20 : (clamped - 0.5) * -20;
-          img.style.transform = `translate3d(0, ${shift.toFixed(1)}px, 0) scale(1.08)`;
-        });
-      }
       ticking = false;
       return;
     }
@@ -2101,6 +2086,77 @@ function initDanceScrollStack() {
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule, { passive: true });
   schedule();
+}
+
+/* ==========================================================================
+   SKIPER 47 3D COVERFLOW CAROUSEL (Carousel_001) - Mobile Gallery (<= 860px Only)
+   Features:
+   - Mobile View (<= 860px): Swiper Coverflow with depth, centered active slide, loop & autoplay
+   - Desktop View (> 860px): Static Skiper 30 Parallax Gallery (no Swiper)
+   ========================================================================== */
+let gallerySkiper47Instance = null;
+
+function initGallerySkiper47Mobile() {
+  const container = document.getElementById('gallery-skiper47-swiper');
+  if (!container) return;
+
+  function update() {
+    const isMobile = window.innerWidth <= 860;
+
+    if (!isMobile) {
+      // Desktop View (> 860px): Destroy Swiper to save memory
+      if (gallerySkiper47Instance) {
+        gallerySkiper47Instance.destroy(true, true);
+        gallerySkiper47Instance = null;
+      }
+      return;
+    }
+
+    // Mobile View (<= 860px): Initialize Swiper Coverflow matching Skiper 47 Carousel_001
+    if (typeof Swiper === 'undefined') return;
+
+    if (gallerySkiper47Instance) {
+      gallerySkiper47Instance.update();
+      return;
+    }
+
+    gallerySkiper47Instance = new Swiper('#gallery-skiper47-swiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      loop: true,
+      slidesPerView: 'auto',
+      spaceBetween: 28,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      coverflowEffect: {
+        rotate: 0,
+        slideShadows: false,
+        stretch: 0,
+        depth: 100,
+        modifier: 2.5,
+      },
+      pagination: {
+        el: '.gallery-skiper47-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.gallery-skiper47-next',
+        prevEl: '.gallery-skiper47-prev',
+      },
+    });
+  }
+
+  if (typeof Swiper !== 'undefined') {
+    update();
+  } else {
+    window.addEventListener('load', update);
+  }
+
+  window.addEventListener('resize', update, { passive: true });
 }
 
 /* ==========================================================================

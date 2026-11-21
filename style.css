@@ -2268,87 +2268,173 @@ marquee,
   transform: scale(1.08);
 }
 
-/* ---- Responsive Mobile Gallery Grid (Mobile View: <= 860px) ---- */
-@media (max-width: 860px) {
-  .skiper30-scroll-tag {
-    display: none !important;
-  }
-
-  .skiper30-parallax-root {
-    margin: 15px 0 35px 0 !important;
-  }
-
-  .skiper30-gallery {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    height: auto !important;
-    overflow: visible !important;
-    gap: 12px !important;
-    padding: 12px !important;
-    background: #FFFFFF !important;
-    border-radius: 22px !important;
-    box-shadow:
-      0 14px 36px rgba(10, 37, 64, 0.08),
-      0 0 22px rgba(56, 189, 248, 0.25) !important;
-    border: 1.5px solid rgba(56, 189, 248, 0.40) !important;
-    margin: 10px auto 25px auto !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .skiper30-column {
-    display: contents !important;
-    top: 0 !important;
-    transform: none !important;
-    height: auto !important;
-    width: auto !important;
-    min-width: 0 !important;
-  }
-
-  .skiper30-card {
-    height: clamp(145px, 38vw, 190px) !important;
-    min-height: unset !important;
-    border-radius: 14px !important;
-    position: relative !important;
-    overflow: hidden !important;
-    border: 1.5px solid rgba(56, 189, 248, 0.40) !important;
-    box-shadow: 0 6px 18px rgba(10, 37, 64, 0.06) !important;
-    cursor: pointer !important;
-    opacity: 0;
-    transform: translateY(28px) scale(0.93);
-    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.3s ease !important;
-    will-change: transform, opacity;
-  }
-
-  .skiper30-card.card-in-view {
-    opacity: 1 !important;
-    transform: translateY(0) scale(1) !important;
-  }
-
-  .skiper30-card:nth-child(even) {
-    transition-delay: 0.10s !important;
-  }
-
-  .skiper30-card:active {
-    transform: scale(0.96) !important;
-  }
-
-  .skiper30-card img {
-    width: 100% !important;
-    height: 112% !important;
-    object-fit: cover !important;
-    display: block !important;
-    will-change: transform;
-    transition: transform 0.1s linear;
-  }
+/* ---------------- Skiper 47 Carousel_001 (Mobile Gallery View Only) ---------------- */
+.skiper47-gallery-mobile {
+  display: none !important;
 }
 
 /* Guard Desktop View: strictly unaffected (Skiper 30 Parallax) */
 @media (min-width: 861px) {
+  #skiper30-root {
+    display: block !important;
+  }
   .skiper30-gallery {
     display: flex !important;
+  }
+  .skiper47-gallery-mobile {
+    display: none !important;
+  }
+}
+
+/* ---- Responsive Mobile Gallery: Skiper 47 3D Coverflow (Carousel_001) (<= 860px) ---- */
+@media (max-width: 860px) {
+  /* Hide Desktop Parallax Gallery on Mobile */
+  #skiper30-root {
+    display: none !important;
+  }
+
+  .skiper30-scroll-tag {
+    display: none !important;
+  }
+
+  /* Show Skiper 47 Coverflow Carousel on Mobile */
+  .skiper47-gallery-mobile {
+    display: block !important;
+    width: 100% !important;
+    position: relative !important;
+    padding: 10px 0 15px 0 !important;
+    margin: 10px auto 25px auto !important;
+    overflow: hidden !important;
+  }
+
+  .Carousal_001 {
+    width: 100% !important;
+    padding: 15px 0 52px 0 !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .gallery-skiper47-slide {
+    width: clamp(230px, 68vw, 280px) !important;
+    height: 320px !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    border: 2px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 14px 34px rgba(0, 90, 156, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    background: #ffffff !important;
+    position: relative !important;
+    cursor: grab;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease !important;
+    will-change: transform;
+    flex-shrink: 0;
+  }
+
+  .gallery-skiper47-slide.swiper-slide-active {
+    box-shadow: 0 20px 45px rgba(0, 119, 182, 0.3), 0 0 25px rgba(56, 189, 248, 0.45) !important;
+    border-color: #38bdf8 !important;
+  }
+
+  .gallery-skiper47-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    pointer-events: none;
+    border-radius: 18px !important;
+  }
+
+  .gallery-skiper47-caption {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 8px 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+  }
+
+  .gallery-skiper47-caption span {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1B365D;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Swiper Pagination matching Skiper 47 */
+  .gallery-skiper47-pagination {
+    position: absolute !important;
+    bottom: 10px !important;
+    left: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    z-index: 10 !important;
+  }
+
+  .gallery-skiper47-pagination .swiper-pagination-bullet {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 4px !important;
+    background: #0077B6 !important;
+    opacity: 0.28 !important;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    margin: 0 !important;
+  }
+
+  .gallery-skiper47-pagination .swiper-pagination-bullet-active {
+    width: 24px !important;
+    opacity: 1 !important;
+    background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%) !important;
+    box-shadow: 0 2px 8px rgba(0, 180, 216, 0.4) !important;
+  }
+
+  /* Swiper Nav Chevrons */
+  .gallery-skiper47-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-70%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(0, 180, 216, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0077B6;
+    font-size: 0.9rem;
+    cursor: pointer;
+    z-index: 12;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .gallery-skiper47-nav-btn:active {
+    transform: translateY(-70%) scale(0.92);
+    background: #00B4D8;
+    color: #ffffff;
+  }
+
+  .gallery-skiper47-prev {
+    left: 8px;
+  }
+
+  .gallery-skiper47-next {
+    right: 8px;
   }
 }
 
