@@ -6372,6 +6372,19 @@ marquee,
     transition-property: transform, opacity, filter, box-shadow !important;
   }
 
+  .Carousal_001 .tier-pill {
+    position: static !important;
+    display: inline-block !important;
+    width: fit-content !important;
+    margin-bottom: 8px !important;
+  }
+
+  .Carousal_001 .fee-header h3 {
+    font-size: clamp(1.2rem, 4.5vw, 1.45rem) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 6px !important;
+  }
+
   .Carousal_001 .fee-card {
     width: 100% !important;
     height: 100% !important;
@@ -6416,33 +6429,17 @@ marquee,
     opacity: 0.88 !important;
   }
 
-  /* Skiper 47 Circular Glassmorphism Chevron Navigation Arrows */
-  .fees-button-prev,
-  .fees-button-next {
-    width: 38px !important;
-    height: 38px !important;
-    border-radius: 50% !important;
-    background: #FFFFFF !important;
-    border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
-    color: #005A9C !important;
-    box-shadow:
-      0 8px 24px rgba(10, 37, 64, 0.10),
-      0 0 20px rgba(56, 189, 248, 0.35),
-      inset 0 1px 0 #FFFFFF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 0.90rem !important;
-    cursor: pointer !important;
-    z-index: 25 !important;
-    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    top: 48% !important;
-    transform: translateY(-50%) !important;
+  /* Skiper 47 Chevron Navigation Arrows hidden on mobile to avoid covering cards */
+  .Carousal_001 .fees-button-prev,
+  .Carousal_001 .fees-button-next {
+    display: none !important;
   }
 
-  .fees-button-prev::after,
-  .fees-button-next::after {
-    display: none !important;
+  .Carousal_001 .fees-pagination {
+    position: relative !important;
+    bottom: auto !important;
+    margin-top: 20px !important;
+  }
   }
 
   .fees-button-prev:hover,

@@ -2442,6 +2442,7 @@ function initFeesSkiper47Carousel() {
       }
       const wrapper = container.querySelector('.swiper-wrapper');
       if (wrapper) {
+        wrapper.querySelectorAll('.cloned-tier-slide').forEach(c => c.remove());
         wrapper.style.transform = '';
         wrapper.style.transitionDuration = '';
       }
@@ -2449,12 +2450,25 @@ function initFeesSkiper47Carousel() {
       slides.forEach(slide => {
         slide.style.transform = '';
         slide.style.transitionDuration = '';
+        slide.style.width = '';
+        slide.style.marginRight = '';
       });
       return;
     }
 
-    // Mobile View (<= 860px): Initialize Coverflow Carousel
+    // Mobile View (<= 860px): Initialize Coverflow Carousel with Loop & Autoplay
     if (typeof Swiper === 'undefined') return;
+
+    const wrapper = container.querySelector('.swiper-wrapper');
+    if (wrapper && !wrapper.querySelector('.cloned-tier-slide')) {
+      const origSlides = Array.from(wrapper.querySelectorAll('.swiper-slide'));
+      origSlides.forEach(s => {
+        const clone = s.cloneNode(true);
+        clone.classList.add('cloned-tier-slide');
+        wrapper.appendChild(clone);
+      });
+    }
+
     if (feesSwiperInstance) {
       feesSwiperInstance.update();
       return;
@@ -2464,7 +2478,12 @@ function initFeesSkiper47Carousel() {
       effect: 'coverflow',
       grabCursor: true,
       centeredSlides: true,
-      initialSlide: 1, // Start centered on Intermediate Art Course (Most Popular)
+      loop: true,
+      autoplay: {
+        delay: 2800,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
       slideToClickedSlide: true,
       spaceBetween: 16,
       slidesPerView: 1.18,
@@ -2479,30 +2498,26 @@ function initFeesSkiper47Carousel() {
         el: '.fees-pagination',
         clickable: true,
       },
-      navigation: {
-        nextEl: '.fees-button-next',
-        prevEl: '.fees-button-prev',
-      },
       breakpoints: {
         480: {
-          slidesPerView: 1.35,
-          spaceBetween: 20,
+          slidesPerView: 1.25,
+          spaceBetween: 18,
+          coverflowEffect: {
+            rotate: 0,
+            slideShadows: false,
+            stretch: 0,
+            depth: 75,
+            modifier: 2.3,
+          }
+        },
+        640: {
+          slidesPerView: 1.4,
+          spaceBetween: 22,
           coverflowEffect: {
             rotate: 0,
             slideShadows: false,
             stretch: 0,
             depth: 80,
-            modifier: 2.3,
-          }
-        },
-        640: {
-          slidesPerView: 1.6,
-          spaceBetween: 24,
-          coverflowEffect: {
-            rotate: 0,
-            slideShadows: false,
-            stretch: 0,
-            depth: 85,
             modifier: 2.4,
           }
         }
