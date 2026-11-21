@@ -6353,37 +6353,37 @@ marquee,
   }
 }
 
-/* Mobile Responsiveness for Mascot Peek-in (Full Uncropped Video) */
-@media (max-width: 640px) {
+/* Mobile Responsiveness for Mascot Peek-in (Decreased Size in Mobile View Only <= 860px) */
+@media (max-width: 860px) {
   .mg-mascot-wrap {
-    bottom: 12px;
+    bottom: 10px;
   }
 
   .mg-mascot-left {
-    left: -20px;
+    left: -15px;
   }
 
   .mg-mascot-left .mg-speech-bubble {
-    margin-left: 45px;
+    margin-left: 32px;
   }
 
   .mg-mascot-right {
-    right: -35px;
+    right: -25px;
   }
 
   .mg-mascot-right .mg-speech-bubble {
-    margin-right: 60px;
+    margin-right: 44px;
   }
 
   .mg-mascot-img {
-    width: clamp(270px, 78vw, 340px);
+    width: clamp(175px, 48vw, 220px);
   }
 
   .mg-speech-bubble {
-    font-size: 0.72rem;
-    padding: 6px 12px;
-    border-radius: 14px;
-    margin-bottom: 5px;
+    font-size: 0.70rem;
+    padding: 5px 11px;
+    border-radius: 12px;
+    margin-bottom: 3px;
   }
 
   .mg-mascot-left.show {
