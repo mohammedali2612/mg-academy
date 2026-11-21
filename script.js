@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initGlobalSmoothScroll();
   initNavbar();
   initCourseTabs();
   initDanceScrollStack();
@@ -1231,25 +1232,7 @@ function initSkiper30Parallax() {
   }
 
   // Initialize Lenis smooth scroll if loaded
-  let lenis = null;
-  if (typeof Lenis !== 'undefined' && window.innerWidth > 860) {
-    try {
-      lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-      });
-
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-      window.__lenis = lenis;
-    } catch (e) {
-      console.warn('Lenis initialization skipped:', e);
-    }
-  }
+  const lenis = window.__lenis;
 
   let ticking = false;
 
@@ -2539,3 +2522,58 @@ function initMascotPeekScroll() {
   setTimeout(checkActiveSection, 150);
 }
 
+
+
+/* ==========================================================================
+   GLOBAL SMOOTH SCROLL ENGINE (Lenis Smooth Scroll for Mobile & Desktop)
+   - Physics-based inertial smooth scroll on mobile touch & desktop wheel
+   - Smooth anchor navigation with dynamic sticky header offset
+   - Closes mobile drawer navigation on link selection
+   ========================================================================== */
+function initGlobalSmoothScroll() {
+  if (typeof Lenis === 'undefined') return;
+
+  try {
+    const isMobile = window.innerWidth <= 860;
+    const lenis = new Lenis({
+      duration: isMobile ? 1.0 : 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      syncTouch: true,
+      touchMultiplier: 1.25,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    window.__lenis = lenis;
+
+    // Intercept all internal anchor navigation for smooth animated scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#' || href.length < 2) return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const offset = window.innerWidth <= 860 ? -60 : -72;
+          lenis.scrollTo(target, { offset, duration: 1.1 });
+
+          // Auto-close mobile menu if open
+          const navMenu = document.getElementById('nav-menu');
+          const mobileToggle = document.getElementById('mobile-toggle-btn');
+          if (navMenu && navMenu.classList.contains('open')) {
+            navMenu.classList.remove('open');
+            const icon = mobileToggle ? mobileToggle.querySelector('i') : null;
+            if (icon) icon.className = 'fa-solid fa-bars';
+          }
+        }
+      });
+    });
+  } catch (e) {
+    console.warn('Lenis smooth scroll error:', e);
+  }
+}
