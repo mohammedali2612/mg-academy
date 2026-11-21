@@ -2378,11 +2378,10 @@ function initMascotPeekScroll() {
     contact: { side: 'both', leftText: '💌 Contact Us!', rightText: '📞 Contact Us!' }
   };
 
-  // Track sections shown: each section only triggers entrance once ("only one time they should come")
+  // Track sections shown: each section triggers entrance once per section visit
   const shownSections = new Set();
   let currentActiveSection = null;
   let hideTimer = null;
-  let hasShownOnMobile = false; // Strictly appear only once in mobile view (<= 860px)
 
   function hideAllMascots() {
     if (hideTimer) {
@@ -2404,12 +2403,7 @@ function initMascotPeekScroll() {
       return;
     }
 
-    // In mobile view (<= 860px), mascot appears ONLY ONCE in total across the entire visit
     const isMobile = window.innerWidth <= 860;
-    if (isMobile && hasShownOnMobile) {
-      hideAllMascots();
-      return;
-    }
 
     // If section has already been shown, do not re-trigger repeatedly
     if (shownSections.has(sectionId)) {
@@ -2419,9 +2413,6 @@ function initMascotPeekScroll() {
 
     // Mark section as shown
     shownSections.add(sectionId);
-    if (isMobile) {
-      hasShownOnMobile = true;
-    }
 
     if (hideTimer) {
       clearTimeout(hideTimer);
