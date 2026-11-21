@@ -2379,20 +2379,15 @@ function initFeesSkiper47Carousel() {
     if (typeof Swiper === 'undefined') return;
 
     const wrapper = container.querySelector('.swiper-wrapper');
-    if (wrapper && !wrapper.querySelector('.cloned-tier-slide')) {
-      const origSlides = Array.from(wrapper.querySelectorAll('.swiper-slide'));
-      origSlides.forEach(s => {
-        const clone = s.cloneNode(true);
-        clone.classList.add('cloned-tier-slide');
-        const card = clone.querySelector('.fee-card');
-        if (card) {
-          card.classList.remove('reveal-fade-up');
-          card.classList.add('is-visible');
-          card.style.opacity = '1';
-          card.style.visibility = 'visible';
-          card.style.transform = 'none';
-        }
-        wrapper.appendChild(clone);
+    if (wrapper) {
+      // Remove any previously cloned slides so Swiper manages loop duplicates cleanly
+      wrapper.querySelectorAll('.cloned-tier-slide').forEach(c => c.remove());
+      wrapper.querySelectorAll('.fee-card').forEach(card => {
+        card.classList.remove('reveal-fade-up');
+        card.classList.add('is-visible');
+        card.style.opacity = '1';
+        card.style.visibility = 'visible';
+        card.style.transform = 'none';
       });
     }
 
@@ -2407,47 +2402,22 @@ function initFeesSkiper47Carousel() {
       centeredSlides: true,
       loop: true,
       autoplay: {
-        delay: 2800,
+        delay: 3000,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       },
       slideToClickedSlide: true,
-      spaceBetween: 16,
-      slidesPerView: 1.18,
+      slidesPerView: 'auto',
       coverflowEffect: {
         rotate: 0,
         slideShadows: false,
         stretch: 0,
-        depth: 70,
-        modifier: 2.2,
+        depth: 35,
+        modifier: 1.4,
       },
       pagination: {
         el: '.fees-pagination',
         clickable: true,
-      },
-      breakpoints: {
-        480: {
-          slidesPerView: 1.25,
-          spaceBetween: 18,
-          coverflowEffect: {
-            rotate: 0,
-            slideShadows: false,
-            stretch: 0,
-            depth: 75,
-            modifier: 2.3,
-          }
-        },
-        640: {
-          slidesPerView: 1.4,
-          spaceBetween: 22,
-          coverflowEffect: {
-            rotate: 0,
-            slideShadows: false,
-            stretch: 0,
-            depth: 80,
-            modifier: 2.4,
-          }
-        }
       }
     });
   }

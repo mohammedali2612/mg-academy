@@ -6299,6 +6299,23 @@ marquee,
 
 /* Mobile View (<= 860px): Skiper 47 Swiper Coverflow 3D Carousel Engine */
 @media (max-width: 860px) {
+  .fees-section .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .fees-section .section-header {
+    padding-left: clamp(16px, 5vw, 24px) !important;
+    padding-right: clamp(16px, 5vw, 24px) !important;
+  }
+
+  .fees-section .other-courses-fee-box {
+    margin-left: clamp(12px, 4vw, 20px) !important;
+    margin-right: clamp(12px, 4vw, 20px) !important;
+  }
+
   .fees-swiper-container.Carousal_001 {
     width: 100% !important;
     max-width: 100% !important;
@@ -6306,24 +6323,25 @@ marquee,
     padding-top: 15px !important;
     padding-bottom: 45px !important;
     position: relative !important;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
 
   .Carousal_001 .swiper-wrapper.fees-tiers-grid {
     display: flex !important;
     width: 100% !important;
     box-sizing: content-box !important;
-    perspective: 1200px !important;
-    transform-style: preserve-3d !important;
+    perspective: none !important;
+    transform-style: flat !important;
     margin-bottom: 0 !important;
   }
 
   .Carousal_001 .swiper-slide.fee-card-slide {
-    width: clamp(265px, 80vw, 320px) !important;
+    width: clamp(280px, 82vw, 320px) !important;
     height: auto !important;
     box-sizing: border-box !important;
     display: flex !important;
     background: transparent !important;
+    margin: 0 auto !important;
     transition-property: transform, opacity, filter, box-shadow !important;
   }
 
@@ -6485,7 +6503,7 @@ marquee,
 }
 
 .mg-mascot-img {
-  width: 340px;
+  width: 380px;
   height: auto;
   filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.22));
   animation: mascotBob 2.8s ease-in-out infinite;
@@ -6560,7 +6578,7 @@ marquee,
   }
 
   .mg-mascot-img {
-    width: clamp(225px, 64vw, 275px);
+    width: clamp(270px, 78vw, 340px);
   }
 
   .mg-speech-bubble {
