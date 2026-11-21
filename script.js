@@ -1008,15 +1008,20 @@ window.handleAdmissionSubmit = function (event) {
   const batch = document.getElementById('adm-batch')?.value || 'Flexible';
 
   const waLines = [
-    '🌟 *Admission & Demo Class Booking - MG Academy* 🌟',
+    '*MG ACADEMY | ADMISSION & DEMO CLASS*',
+    '------------------------------',
     '',
-    `👤 *Parent Name:* ${parentName}`,
-    `👶 *Child's Name:* ${childName}${childAge ? ` (${childAge} Years)` : ''}`,
-    `📞 *Phone / WhatsApp:* ${phone || 'Not provided'}`,
-    `🎨 *Selected Course:* ${course}`,
-    `⏰ *Preferred Timing:* ${batch}`,
+    `*Parent Name:* ${parentName}`,
+    `*Child's Name:* ${childName}${childAge ? ` (${childAge} Years)` : ''}`,
+    `*Phone / WhatsApp:* ${phone || 'Not provided'}`,
+    `*Selected Course:* ${course}`,
+    `*Preferred Timing:* ${batch}`,
     '',
-    'Hello MG Academy! Please confirm our slot for the free demo class! ✨'
+    '*Message:*',
+    'Hello MG Academy! Please confirm our slot for the free demo class.',
+    '',
+    '------------------------------',
+    '_Sent via MG Academy Official Website_'
   ];
 
   const waText = waLines.join('\n');
@@ -1044,20 +1049,20 @@ window.handleContactSubmit = function (event) {
   const message = document.getElementById('contact-message')?.value.trim() || '';
 
   const waLines = [
-    '🎨 *New Inquiry for MG Academy* 🎨',
+    '*MG ACADEMY | NEW INQUIRY*',
+    '------------------------------',
     '',
-    `👤 *Parent Name:* ${parentName}`,
-    `👶 *Child's Name:* ${childName}${childAge ? ` (Age: ${childAge} yrs)` : ''}`,
-    `📞 *Phone / WhatsApp:* ${phone || 'Not provided'}`,
-    `📚 *Interested Course:* ${course}`,
+    `*Parent Name:* ${parentName}`,
+    `*Child's Name:* ${childName}${childAge ? ` (Age: ${childAge} yrs)` : ''}`,
+    `*Phone / WhatsApp:* ${phone || 'Not provided'}`,
+    `*Interested Course:* ${course}`,
+    '',
+    '*Message / Questions:*',
+    message || 'Hello MG Academy! I would like to inquire about upcoming batch timings and arrange a free trial class.',
+    '',
+    '------------------------------',
+    '_Sent via MG Academy Official Website_'
   ];
-  if (message) {
-    waLines.push(`💬 *Message / Questions:* ${message}`);
-  } else {
-    waLines.push('💬 *Message:* Hello MG Academy! I would like to inquire about upcoming batch timings and arrange a free trial class.');
-  }
-  waLines.push('');
-  waLines.push('Thank you! ✨');
 
   const waText = waLines.join('\n');
   const waUrl = `https://wa.me/${MG_ACADEMY_WHATSAPP}?text=${encodeURIComponent(waText)}`;
