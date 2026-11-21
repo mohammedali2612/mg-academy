@@ -7003,30 +7003,44 @@ marquee,
 }
 
 /* ==========================================================================
-   DESKTOP VIEW ONLY (> 860px): SMOOTH SCROLL CARD FLOATING PARALLAX & 3D TILT
+   FULL WEBSITE CARD SMOOTH SCROLL FLOATING PARALLAX & 3D TILT ENGINE
+   Features:
+   - Staggered floating depth parallax across all cards on the full website
+   - Synchronized with Lenis inertial scrolling & window scroll
+   - Subtle 3D perspective pitch (rotateX) & yaw (rotateY) reacting to scroll
+   - Desktop & mobile adaptive depth
    ========================================================================== */
-@media (min-width: 861px) {
-  .dance-style-card,
-  .course-stack-card,
-  .fee-card,
-  .achievement-card,
-  .five-pillar-card,
-  .review-card,
-  .mission-card,
-  .vision-card {
-    will-change: transform;
-    transform: perspective(1000px) translateY(var(--card-scroll-y, 0px)) rotateX(var(--card-scroll-tilt, 0deg)) rotateY(var(--card-scroll-rot-y, 0deg)) translateZ(0);
-    transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-  }
+.dance-style-card,
+.course-stack-card,
+.fee-card,
+.achievement-card,
+.pillar-card,
+.five-pillar-card,
+.mission-card,
+.vision-card,
+.stat-box,
+.other-courses-fee-box,
+.contact-info-panel,
+.contact-form-panel,
+.stagger-testimonials-stage {
+  will-change: transform;
+  transform: perspective(1000px) translateY(var(--card-scroll-y, 0px)) rotateX(var(--card-scroll-tilt, 0deg)) rotateY(var(--card-scroll-rot-y, 0deg)) translateZ(0);
+  transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
 
+@media (min-width: 861px) {
   .dance-style-card:hover,
   .course-stack-card:hover,
   .fee-card:hover,
   .achievement-card:hover,
+  .pillar-card:hover,
   .five-pillar-card:hover,
-  .review-card:hover,
   .mission-card:hover,
-  .vision-card:hover {
+  .vision-card:hover,
+  .stat-box:hover,
+  .other-courses-fee-box:hover,
+  .contact-info-panel:hover,
+  .contact-form-panel:hover {
     transform: perspective(1000px) translateY(calc(var(--card-scroll-y, 0px) - 10px)) rotateX(0deg) rotateY(0deg) scale(1.025) translateZ(0) !important;
     border-color: rgba(56, 189, 248, 0.85) !important;
     box-shadow:
@@ -7035,5 +7049,24 @@ marquee,
       0 0 75px rgba(0, 180, 216, 0.32),
       inset 0 1px 1px #FFFFFF,
       inset 0 0 16px rgba(56, 189, 248, 0.16) !important;
+  }
+}
+
+@media (max-width: 860px) {
+  .dance-style-card,
+  .course-stack-card,
+  .fee-card,
+  .achievement-card,
+  .pillar-card,
+  .five-pillar-card,
+  .mission-card,
+  .vision-card,
+  .stat-box,
+  .other-courses-fee-box,
+  .contact-info-panel,
+  .contact-form-panel,
+  .stagger-testimonials-stage {
+    transform: perspective(800px) translateY(var(--card-scroll-y, 0px)) rotateX(var(--card-scroll-tilt, 0deg)) rotateY(var(--card-scroll-rot-y, 0deg)) translateZ(0);
+    transition: transform 0.18s cubic-bezier(0.25, 1, 0.5, 1);
   }
 }

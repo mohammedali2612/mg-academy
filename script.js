@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFeesSkiper47Carousel();
   initMascotVideoPlayers();
   initMascotPeekScroll();
-  initDesktopCardSmoothScroll();
+  initWebsiteCardSmoothScroll();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -993,6 +993,15 @@ window.closeAdmissionModal = function () {
 // Official Academy WhatsApp Contact (+91 86819 94164)
 const MG_ACADEMY_WHATSAPP = '918681994164';
 
+function formatWhatsAppName(str) {
+  if (!str) return '';
+  return str
+    .trim()
+    .split(/\s+/)
+    .map(word => (word ? word.charAt(0).toUpperCase() + word.slice(1) : ''))
+    .join(' ');
+}
+
 window.handleAdmissionSubmit = function (event) {
   if (event) {
     event.preventDefault();
@@ -1007,20 +1016,25 @@ window.handleAdmissionSubmit = function (event) {
   const course = document.getElementById('adm-course')?.value || 'Creative Course';
   const batch = document.getElementById('adm-batch')?.value || 'Flexible';
 
+  const formattedParent = formatWhatsAppName(parentName);
+  const formattedChild = formatWhatsAppName(childName);
+  const cleanPhone = phone ? phone.trim() : 'Not provided';
+
   const waLines = [
+    '----------------------------------------',
     '*MG ACADEMY | ADMISSION & DEMO CLASS*',
-    '------------------------------',
+    '----------------------------------------',
     '',
-    `*Parent Name:* ${parentName}`,
-    `*Child's Name:* ${childName}${childAge ? ` (${childAge} Years)` : ''}`,
-    `*Phone / WhatsApp:* ${phone || 'Not provided'}`,
+    `*Parent Name:* ${formattedParent}`,
+    `*Child's Name:* ${formattedChild}${childAge ? ` (Age: ${childAge} yrs)` : ''}`,
+    `*Contact Number:* ${cleanPhone}`,
     `*Selected Course:* ${course}`,
     `*Preferred Timing:* ${batch}`,
     '',
     '*Message:*',
     'Hello MG Academy! Please confirm our slot for the free demo class.',
     '',
-    '------------------------------',
+    '----------------------------------------',
     '_Sent via MG Academy Official Website_'
   ];
 
@@ -1048,19 +1062,24 @@ window.handleContactSubmit = function (event) {
   const course = document.getElementById('contact-course')?.value || 'General Inquiry';
   const message = document.getElementById('contact-message')?.value.trim() || '';
 
+  const formattedParent = formatWhatsAppName(parentName);
+  const formattedChild = formatWhatsAppName(childName);
+  const cleanPhone = phone ? phone.trim() : 'Not provided';
+
   const waLines = [
-    '*MG ACADEMY | NEW INQUIRY*',
-    '------------------------------',
+    '----------------------------------------',
+    '*MG ACADEMY | OFFICIAL INQUIRY*',
+    '----------------------------------------',
     '',
-    `*Parent Name:* ${parentName}`,
-    `*Child's Name:* ${childName}${childAge ? ` (Age: ${childAge} yrs)` : ''}`,
-    `*Phone / WhatsApp:* ${phone || 'Not provided'}`,
+    `*Parent Name:* ${formattedParent}`,
+    `*Child's Name:* ${formattedChild}${childAge ? ` (Age: ${childAge} yrs)` : ''}`,
+    `*Contact Number:* ${cleanPhone}`,
     `*Interested Course:* ${course}`,
     '',
     '*Message / Questions:*',
     message || 'Hello MG Academy! I would like to inquire about upcoming batch timings and arrange a free trial class.',
     '',
-    '------------------------------',
+    '----------------------------------------',
     '_Sent via MG Academy Official Website_'
   ];
 
@@ -3191,22 +3210,28 @@ function initGlobalSmoothScroll() {
 }
 
 /* ==========================================================================
-   DESKTOP CARD SMOOTH SCROLL FLOATING PARALLAX & 3D TILT ENGINE
+   FULL WEBSITE CARD SMOOTH SCROLL FLOATING PARALLAX & 3D TILT ENGINE
    Features:
-   - Synchronized with Lenis smooth wheel scrolling on desktop (> 860px)
-   - Staggered vertical depth parallax for Course, Fee, Achievement, Pillar & Review cards
-   - Subtle 3D perspective tilt reacting to viewport position & scroll velocity
-   - Completely disabled on mobile (<= 860px) to preserve native touch performance
+   - Smooth staggered depth parallax across all cards on the entire website
+   - Synchronized with Lenis inertial wheel scrolling on desktop & passive RAF on mobile
+   - Staggered vertical depth parallax for Course, Dance, Fee, Achievement, Pillar, Review, Stat & Contact cards
+   - Subtle 3D perspective pitch (rotateX) & yaw (rotateY) reacting to viewport position
    ========================================================================== */
-function initDesktopCardSmoothScroll() {
+function initWebsiteCardSmoothScroll() {
   const cardSelectors = [
     '.course-stack-card',
+    '.dance-style-card',
     '.fee-card',
     '.achievement-card',
+    '.pillar-card',
     '.five-pillar-card',
-    '.review-card',
     '.mission-card',
-    '.vision-card'
+    '.vision-card',
+    '.stat-box',
+    '.other-courses-fee-box',
+    '.contact-info-panel',
+    '.contact-form-panel',
+    '.stagger-testimonials-stage'
   ];
 
   const cards = Array.from(document.querySelectorAll(cardSelectors.join(', ')));
@@ -3217,15 +3242,7 @@ function initDesktopCardSmoothScroll() {
 
   function updateCards() {
     ticking = false;
-    if (window.innerWidth <= 860) {
-      cards.forEach(card => {
-        card.style.removeProperty('--card-scroll-y');
-        card.style.removeProperty('--card-scroll-tilt');
-        card.style.removeProperty('--card-scroll-rot-y');
-      });
-      return;
-    }
-
+    const isMobile = window.innerWidth <= 860;
     const vh = window.innerHeight;
 
     cards.forEach((card, idx) => {
@@ -3234,15 +3251,25 @@ function initDesktopCardSmoothScroll() {
       if (rect.bottom >= -120 && rect.top <= vh + 120) {
         const cardCenter = rect.top + rect.height / 2;
         const normY = (cardCenter - vh / 2) / (vh / 2); // -1.2 to +1.2
-
         const mult = staggerPatterns[idx % staggerPatterns.length];
-        const scrollY = normY * mult;
-        const tiltX = Math.max(-4.5, Math.min(4.5, normY * -3.5));
-        const rotY = (idx % 2 === 0 ? 1 : -1) * Math.max(-2.5, Math.min(2.5, normY * 1.8));
 
-        card.style.setProperty('--card-scroll-y', `${scrollY.toFixed(2)}px`);
-        card.style.setProperty('--card-scroll-tilt', `${tiltX.toFixed(2)}deg`);
-        card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(2)}deg`);
+        if (isMobile) {
+          // Mobile: Gentle fluid vertical parallax & subtle depth (buttery smooth touch)
+          const scrollY = normY * (mult * 0.45);
+          const tiltX = Math.max(-2, Math.min(2, normY * -1.8));
+          const rotY = (idx % 2 === 0 ? 1 : -1) * Math.max(-1.2, Math.min(1.2, normY * 1.0));
+          card.style.setProperty('--card-scroll-y', `${scrollY.toFixed(1)}px`);
+          card.style.setProperty('--card-scroll-tilt', `${tiltX.toFixed(1)}deg`);
+          card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(1)}deg`);
+        } else {
+          // Desktop: Full 3D perspective tilt & staggered floating wave parallax
+          const scrollY = normY * mult;
+          const tiltX = Math.max(-4.5, Math.min(4.5, normY * -3.5));
+          const rotY = (idx % 2 === 0 ? 1 : -1) * Math.max(-2.5, Math.min(2.5, normY * 1.8));
+          card.style.setProperty('--card-scroll-y', `${scrollY.toFixed(2)}px`);
+          card.style.setProperty('--card-scroll-tilt', `${tiltX.toFixed(2)}deg`);
+          card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(2)}deg`);
+        }
       }
     });
   }
