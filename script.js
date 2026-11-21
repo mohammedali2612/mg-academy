@@ -2554,8 +2554,8 @@ function initMascotVideoPlayers() {
     const texBuf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, texBuf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-      0, 1,   1, 1,   0, 0,
-      0, 0,   1, 1,   1, 0
+      0, 1, 1, 1, 0, 0,
+      0, 0, 1, 1, 1, 0
     ]), gl.STATIC_DRAW);
     const aTex = gl.getAttribLocation(program, 'a_texCoord');
     gl.enableVertexAttribArray(aTex);
@@ -2677,19 +2677,19 @@ function initMascotPeekScroll() {
 
     if (config.side === 'left') {
       girlText.textContent = config.text;
-      if (vGirl && vGirl.paused) vGirl.play().catch(() => {});
+      if (vGirl && vGirl.paused) vGirl.play().catch(() => { });
       girlWrap.classList.add('show');
       boyWrap.classList.remove('show');
     } else if (config.side === 'right') {
       boyText.textContent = config.text;
-      if (vBoy && vBoy.paused) vBoy.play().catch(() => {});
+      if (vBoy && vBoy.paused) vBoy.play().catch(() => { });
       boyWrap.classList.add('show');
       girlWrap.classList.remove('show');
     } else if (config.side === 'both') {
       girlText.textContent = config.leftText;
       boyText.textContent = config.rightText;
-      if (vGirl && vGirl.paused) vGirl.play().catch(() => {});
-      if (vBoy && vBoy.paused) vBoy.play().catch(() => {});
+      if (vGirl && vGirl.paused) vGirl.play().catch(() => { });
+      if (vBoy && vBoy.paused) vBoy.play().catch(() => { });
       girlWrap.classList.add('show');
       boyWrap.classList.add('show');
     }
