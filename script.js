@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
-  initMobileCoverflowGallery();
+  initSpotlightFramesGallery();
   initStaggerTestimonials();
   initCustomCursor();
   initMobileDockNav();
@@ -1541,78 +1541,106 @@ function initHeroSlideshow() {
    - Optimized for smooth 60fps across all mobile viewports (360px - 430px)
    ========================================================================== */
 /* ==========================================================================
-   MOBILE 3D COVERFLOW GALLERY CAROUSEL (Mobile View Only: <= 860px)
-   - Inspired by the Coverflow 3D Card Carousel with auto-play & swipe gestures
-   - Applies wrapped relative 3D positions, rotateY, scale, blur, and opacity
+   SPOTLIGHT FRAMES GALLERY (Originkit Slat Accordion — Mobile View Only <= 860px)
+   - Ported from Originkit Spotlight Frames (https://github.com/Animmaster/accordions-frames)
+   - Dynamic slat scale, centered viewport alignment, center-slice image cropping
+   - Synchronous hairline selector with glowing border and vertical guide lines
+   - Touch gestures, tap-to-expand, auto-play, and full-resolution lightbox viewer
    ========================================================================== */
-function initMobileCoverflowGallery() {
-  const section = document.getElementById('mobile-gallery-carousel');
-  const stage = document.getElementById('mg-carousel-stage');
-  const prevBtn = document.getElementById('mg-carousel-prev');
-  const nextBtn = document.getElementById('mg-carousel-next');
-  const paginationContainer = document.getElementById('mg-carousel-pagination');
+function initSpotlightFramesGallery() {
+  const container = document.getElementById('spotlight-frames-container');
+  const trackWrapper = document.getElementById('spotlight-track-wrapper');
+  const selector = document.getElementById('spotlight-selector');
+  const dotsContainer = document.getElementById('spotlight-dots');
 
-  if (!section || !stage) return;
+  if (!container || !trackWrapper || !selector) return;
 
-  const cards = Array.from(stage.querySelectorAll('.carousel-card'));
-  const dots = paginationContainer ? Array.from(paginationContainer.querySelectorAll('.pagination-button')) : [];
-  const total = cards.length;
+  const slats = Array.from(trackWrapper.querySelectorAll('.spotlight-slat'));
+  const dotBtns = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.spotlight-dot-btn')) : [];
+  const total = slats.length;
   if (!total) return;
 
-  let activeIndex = 2; // Default starting at slide 3 (index 2)
+  let activeIndex = 0; // default starts at first slat
   let autoPlayTimer = null;
-  let pointerStartX = null;
-  let pointerStartY = null;
+  let resumeTimer = null;
+  let touchStartX = null;
+  let touchStartY = null;
 
-  function getWrappedPosition(index, active, count) {
-    let position = (index - active + count) % count;
-    if (position > Math.floor(count / 2)) {
-      position -= count;
+  // Originkit authored baseline constants
+  const AUTHORED_COLLAPSED = 36;
+  const AUTHORED_EXPANDED = 250;
+  const AUTHORED_GAP = 4;
+  const NATURAL_WIDTH = (total - 1) * (AUTHORED_COLLAPSED + AUTHORED_GAP) + AUTHORED_EXPANDED; // 450px for 6 slats
+
+  function updateLayout() {
+    if (window.innerWidth > 860) {
+      stopAutoPlay();
+      return;
     }
-    return position;
+
+    const frameWidth = container.clientWidth || 360;
+    // Scale factor when frame is narrower than natural width
+    const targetWidth = Math.min(frameWidth - 12, NATURAL_WIDTH);
+    const scale = Math.max(0.62, targetWidth / NATURAL_WIDTH);
+
+    const collapsedWidth = Math.max(16, Math.round(AUTHORED_COLLAPSED * scale));
+    const expandedWidth = Math.round(AUTHORED_EXPANDED * scale);
+    const gap = Math.max(2, Math.round(AUTHORED_GAP * scale));
+
+    const totalTrackWidth = (total - 1) * (collapsedWidth + gap) + expandedWidth;
+    const leftStart = Math.max(0, Math.round((frameWidth - totalTrackWidth) / 2));
+
+    // Update CSS custom property for center-slice image width
+    container.style.setProperty('--spotlight-expanded-width', `${expandedWidth}px`);
+
+    slats.forEach((slat, idx) => {
+      let left = leftStart;
+      let width = collapsedWidth;
+
+      if (idx < activeIndex) {
+        left = leftStart + idx * (collapsedWidth + gap);
+        width = collapsedWidth;
+      } else if (idx === activeIndex) {
+        left = leftStart + idx * (collapsedWidth + gap);
+        width = expandedWidth;
+      } else {
+        left = leftStart + (idx - 1) * (collapsedWidth + gap) + expandedWidth + gap;
+        width = collapsedWidth;
+      }
+
+      slat.style.left = `${left}px`;
+      slat.style.width = `${width}px`;
+
+      const isOpen = idx === activeIndex;
+      slat.classList.toggle('is-open', isOpen);
+      slat.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Position the selector box exactly over the active slat
+    const selectorLeft = leftStart + activeIndex * (collapsedWidth + gap);
+    selector.style.left = `${selectorLeft}px`;
+    selector.style.width = `${expandedWidth}px`;
+    selector.style.opacity = '1';
+
+    // Update dot buttons
+    dotBtns.forEach((dot, idx) => {
+      const isCur = idx === activeIndex;
+      dot.classList.toggle('is-active', isCur);
+      dot.setAttribute('aria-selected', isCur ? 'true' : 'false');
+    });
   }
 
-  function render() {
-    cards.forEach((card, index) => {
-      const position = getWrappedPosition(index, activeIndex, total);
-      const distance = Math.abs(position);
-      const isActive = position === 0;
-
-      const scale = isActive ? 1 : (distance === 1 ? 0.86 : 0.72);
-      const rotation = position * -11;
-      const opacity = isActive ? 1 : (distance === 1 ? 0.52 : (distance === 2 ? 0.14 : 0));
-      const blur = isActive ? '0px' : (distance === 1 ? '3px' : '8px');
-      const zIndex = total - distance;
-      const visibility = distance > 2 ? 'hidden' : 'visible';
-
-      card.style.setProperty('--position', position);
-      card.style.setProperty('--absolute-position', distance);
-      card.style.setProperty('--scale', scale);
-      card.style.setProperty('--rotation', `${rotation}deg`);
-      card.style.setProperty('--opacity', opacity);
-      card.style.setProperty('--blur', blur);
-      card.style.setProperty('--z-index', zIndex);
-      card.style.visibility = visibility;
-
-      card.setAttribute('data-active', isActive ? 'true' : 'false');
-      card.setAttribute('data-distance', distance);
-    });
-
-    dots.forEach((dot, index) => {
-      const isCurrent = index === activeIndex;
-      dot.setAttribute('data-active', isCurrent ? 'true' : 'false');
-      dot.setAttribute('aria-current', isCurrent ? 'true' : 'false');
-    });
+  function setActiveIndex(newIndex) {
+    activeIndex = (newIndex + total) % total;
+    updateLayout();
   }
 
   function nextSlide() {
-    activeIndex = (activeIndex + 1) % total;
-    render();
+    setActiveIndex(activeIndex + 1);
   }
 
-  function previousSlide() {
-    activeIndex = (activeIndex - 1 + total) % total;
-    render();
+  function prevSlide() {
+    setActiveIndex(activeIndex - 1);
   }
 
   function startAutoPlay() {
@@ -1620,7 +1648,7 @@ function initMobileCoverflowGallery() {
     if (window.innerWidth > 860) return;
     autoPlayTimer = setInterval(() => {
       nextSlide();
-    }, 2500);
+    }, 3500);
   }
 
   function stopAutoPlay() {
@@ -1630,110 +1658,96 @@ function initMobileCoverflowGallery() {
     }
   }
 
-  // Pointer & Swipe events
-  function onPointerDown(e) {
-    if (e.target.closest('button') || e.target.closest('a')) return;
-    pointerStartX = e.clientX;
-    pointerStartY = e.clientY;
-    stopAutoPlay();
-    try {
-      section.setPointerCapture(e.pointerId);
-    } catch (_) {}
+  function scheduleResume() {
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      startAutoPlay();
+    }, 4000);
   }
 
-  function onPointerUp(e) {
-    if (pointerStartX === null || pointerStartY === null) return;
-    const dx = e.clientX - pointerStartX;
-    const dy = e.clientY - pointerStartY;
-    if (Math.abs(dx) > Math.abs(dy)) {
-      if (dx > 45) {
-        previousSlide();
-      } else if (dx < -45) {
-        nextSlide();
-      }
-    }
-    pointerStartX = null;
-    pointerStartY = null;
-    try {
-      section.releasePointerCapture(e.pointerId);
-    } catch (_) {}
-    startAutoPlay();
-  }
-
-  section.addEventListener('pointerdown', onPointerDown);
-  section.addEventListener('pointerup', onPointerUp);
-  section.addEventListener('pointercancel', () => {
-    pointerStartX = null;
-    pointerStartY = null;
-    startAutoPlay();
-  });
-
-  // Card click: Inactive brings to front, active opens Lightbox
-  cards.forEach((card, index) => {
-    card.addEventListener('click', (e) => {
-      const isCardActive = card.getAttribute('data-active') === 'true';
-      if (!isCardActive) {
+  // Slat click interaction:
+  // - Clicking closed slat opens/expands it
+  // - Clicking open slat opens Lightbox full-screen preview
+  slats.forEach((slat, idx) => {
+    slat.addEventListener('click', (e) => {
+      if (idx !== activeIndex) {
         e.preventDefault();
         e.stopPropagation();
-        activeIndex = index;
-        render();
-        startAutoPlay();
+        stopAutoPlay();
+        setActiveIndex(idx);
+        scheduleResume();
       } else {
-        // Open lightbox preview
-        const img = card.querySelector('.carousel-image');
-        const label = card.querySelector('.card-label')?.textContent || 'Gallery Preview';
+        const img = slat.querySelector('.spotlight-img');
+        const title = slat.querySelector('.slat-title')?.textContent || 'MG Academy Gallery';
         if (img && window.openLightbox) {
-          window.openLightbox(img.src, label);
+          window.openLightbox(img.src, title);
         }
       }
     });
+
+    // Keyboard accessibility
+    slat.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        slat.click();
+      }
+    });
   });
 
-  // Navigation buttons
-  if (prevBtn) {
-    prevBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      previousSlide();
-      startAutoPlay();
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      nextSlide();
-      startAutoPlay();
-    });
-  }
-
-  // Pagination buttons
-  dots.forEach((dot, index) => {
+  // Dot navigation buttons
+  dotBtns.forEach((dot, idx) => {
     dot.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      activeIndex = index;
-      render();
-      startAutoPlay();
+      stopAutoPlay();
+      setActiveIndex(idx);
+      scheduleResume();
     });
   });
 
-  // Pause on hover
-  section.addEventListener('mouseenter', stopAutoPlay);
-  section.addEventListener('mouseleave', startAutoPlay);
+  // Touch Swipe Handlers for mobile gestures
+  container.addEventListener('touchstart', (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    stopAutoPlay();
+  }, { passive: true });
 
-  // Resize handler
+  container.addEventListener('touchend', (e) => {
+    if (touchStartX === null || touchStartY === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const dx = touchEndX - touchStartX;
+    const dy = touchEndY - touchStartY;
+
+    if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+    touchStartX = null;
+    touchStartY = null;
+    scheduleResume();
+  }, { passive: true });
+
+  // Pause on hover
+  container.addEventListener('mouseenter', stopAutoPlay);
+  container.addEventListener('mouseleave', scheduleResume);
+
+  // Responsive window resize
   window.addEventListener('resize', () => {
+    updateLayout();
     if (window.innerWidth <= 860) {
       if (!autoPlayTimer) startAutoPlay();
-      render();
     } else {
       stopAutoPlay();
     }
   }, { passive: true });
 
-  render();
+  // Initial layout & start auto-play
+  updateLayout();
   startAutoPlay();
 }
 
