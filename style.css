@@ -6251,168 +6251,206 @@ marquee,
    - Centered slide active glow & depth recession on adjacent cards
    - Slide-to-clicked-slide + Grab cursor + Chevron buttons + Pagination
    ========================================================================== */
-.fees-swiper-container.Carousal_001 {
-  width: 100% !important;
-  max-width: 1240px !important;
-  margin: 0 auto !important;
-  padding-top: 15px !important;
-  padding-bottom: 50px !important;
-  position: relative !important;
-  overflow: visible !important;
-}
+/* ==========================================================================
+   FEE STRUCTURE SECTION (Desktop: Static 3-Column Grid | Mobile <= 860px: Skiper 47 3D Coverflow)
+   ========================================================================== */
 
-.Carousal_001 .swiper-wrapper.fees-tiers-grid {
-  display: flex !important;
-  width: 100% !important;
-  box-sizing: content-box !important;
-  perspective: 1200px !important;
-  transform-style: preserve-3d !important;
-  margin-bottom: 0 !important;
-}
+/* Desktop View (> 860px): Clean Static 3-Column Card Grid (No Swiper Animation) */
+@media (min-width: 861px) {
+  .fees-swiper-container.Carousal_001 {
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding-top: 15px !important;
+    padding-bottom: 30px !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
 
-.Carousal_001 .swiper-slide.fee-card-slide {
-  width: clamp(285px, 34vw, 385px) !important;
-  height: auto !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  background: transparent !important;
-  transition-property: transform, opacity, filter, box-shadow !important;
-}
+  .Carousal_001 .swiper-wrapper.fees-tiers-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 32px !important;
+    transform: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    perspective: none !important;
+    transform-style: flat !important;
+    margin-bottom: 35px !important;
+  }
 
-.Carousal_001 .fee-card {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: clamp(20px, 4vw, 26px) !important;
-  background: #FFFFFF !important;
-  border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
-  box-shadow:
-    0 14px 36px rgba(10, 37, 64, 0.08),
-    0 0 22px rgba(56, 189, 248, 0.32),
-    0 0 45px rgba(0, 180, 216, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.98) !important;
-  padding: 32px 26px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease !important;
-}
-
-/* Center Active Slide: High-Intensity Radiant Sapphire & Cyan Glow */
-.Carousal_001 .swiper-slide-active .fee-card {
-  border-color: #00B4D8 !important;
-  box-shadow:
-    0 22px 52px rgba(0, 90, 156, 0.18),
-    0 0 35px rgba(56, 189, 248, 0.55),
-    0 0 70px rgba(0, 180, 216, 0.32),
-    inset 0 1px 1px #FFFFFF,
-    inset 0 0 16px rgba(56, 189, 248, 0.14) !important;
-}
-
-.Carousal_001 .swiper-slide-active .fee-card.popular-tier {
-  border: 2px solid #00B4D8 !important;
-  box-shadow:
-    0 24px 56px rgba(0, 90, 156, 0.22),
-    0 0 40px rgba(56, 189, 248, 0.65),
-    0 0 80px rgba(0, 180, 216, 0.38),
-    inset 0 1px 1px #FFFFFF,
-    inset 0 0 18px rgba(56, 189, 248, 0.18) !important;
-}
-
-/* Recessed adjacent cards have smooth subtle dimming for focal depth */
-.Carousal_001 .swiper-slide:not(.swiper-slide-active) {
-  opacity: 0.88 !important;
-}
-
-/* Skiper 47 Circular Glassmorphism Chevron Navigation Arrows */
-.fees-button-prev,
-.fees-button-next {
-  width: 46px !important;
-  height: 46px !important;
-  border-radius: 50% !important;
-  background: #FFFFFF !important;
-  border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
-  color: #005A9C !important;
-  box-shadow:
-    0 8px 24px rgba(10, 37, 64, 0.10),
-    0 0 20px rgba(56, 189, 248, 0.35),
-    inset 0 1px 0 #FFFFFF !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 1.05rem !important;
-  cursor: pointer !important;
-  z-index: 25 !important;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  top: 48% !important;
-  transform: translateY(-50%) !important;
-}
-
-.fees-button-prev::after,
-.fees-button-next::after {
-  display: none !important;
-}
-
-.fees-button-prev:hover,
-.fees-button-next:hover {
-  background: #005A9C !important;
-  color: #FFFFFF !important;
-  border-color: #00B4D8 !important;
-  box-shadow:
-    0 12px 30px rgba(0, 90, 156, 0.25),
-    0 0 28px rgba(56, 189, 248, 0.65) !important;
-  transform: translateY(-50%) scale(1.12) !important;
-}
-
-.fees-button-prev {
-  left: 6px !important;
-}
-
-.fees-button-next {
-  right: 6px !important;
-}
-
-/* Skiper 47 Pagination Bullets */
-.fees-pagination {
-  position: relative !important;
-  margin-top: 32px !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 8px !important;
-  z-index: 10 !important;
-}
-
-.fees-pagination .swiper-pagination-bullet {
-  width: 10px !important;
-  height: 10px !important;
-  border-radius: 9999px !important;
-  background: rgba(0, 90, 156, 0.25) !important;
-  opacity: 1 !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  cursor: pointer !important;
-}
-
-.fees-pagination .swiper-pagination-bullet-active {
-  width: 30px !important;
-  background: linear-gradient(90deg, #005A9C 0%, #00B4D8 100%) !important;
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.65) !important;
-}
-
-/* Mobile & Tablet Optimizations */
-@media (max-width: 860px) {
   .Carousal_001 .swiper-slide.fee-card-slide {
-    width: clamp(265px, 80vw, 320px) !important;
+    width: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    transform: none !important;
+    opacity: 1 !important;
+    box-sizing: border-box !important;
+    transition: none !important;
   }
 
   .Carousal_001 .fee-card {
-    padding: clamp(20px, 5vw, 28px) clamp(14px, 4vw, 22px) !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 26px !important;
+    background: #FFFFFF !important;
+    border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
+    box-shadow:
+      0 14px 36px rgba(10, 37, 64, 0.08),
+      0 0 22px rgba(56, 189, 248, 0.32),
+      0 0 45px rgba(0, 180, 216, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.98) !important;
+    padding: 34px 28px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    transform: none !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
   }
 
+  .Carousal_001 .fee-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+  }
+
+  .Carousal_001 .fee-card.popular-tier {
+    border: 2px solid #00B4D8 !important;
+    box-shadow:
+      0 20px 48px rgba(0, 90, 156, 0.18),
+      0 0 35px rgba(56, 189, 248, 0.55),
+      0 0 70px rgba(0, 180, 216, 0.32),
+      inset 0 1px 1px #FFFFFF,
+      inset 0 0 16px rgba(56, 189, 248, 0.14) !important;
+    transform: scale(1.03) !important;
+  }
+
+  .Carousal_001 .fee-card.popular-tier:hover {
+    transform: scale(1.05) translateY(-8px) !important;
+  }
+
+  .Carousal_001 .swiper-slide:not(.swiper-slide-active) {
+    opacity: 1 !important;
+  }
+
+  /* Swiper controls completely hidden on desktop */
+  .fees-button-prev,
+  .fees-button-next,
+  .fees-pagination {
+    display: none !important;
+  }
+}
+
+/* Mobile View (<= 860px): Skiper 47 Swiper Coverflow 3D Carousel Engine */
+@media (max-width: 860px) {
+  .fees-swiper-container.Carousal_001 {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding-top: 15px !important;
+    padding-bottom: 45px !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .Carousal_001 .swiper-wrapper.fees-tiers-grid {
+    display: flex !important;
+    width: 100% !important;
+    box-sizing: content-box !important;
+    perspective: 1200px !important;
+    transform-style: preserve-3d !important;
+    margin-bottom: 0 !important;
+  }
+
+  .Carousal_001 .swiper-slide.fee-card-slide {
+    width: clamp(265px, 80vw, 320px) !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    background: transparent !important;
+    transition-property: transform, opacity, filter, box-shadow !important;
+  }
+
+  .Carousal_001 .fee-card {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: clamp(20px, 4vw, 26px) !important;
+    background: #FFFFFF !important;
+    border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
+    box-shadow:
+      0 14px 36px rgba(10, 37, 64, 0.08),
+      0 0 22px rgba(56, 189, 248, 0.32),
+      0 0 45px rgba(0, 180, 216, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.98) !important;
+    padding: clamp(20px, 5vw, 28px) clamp(14px, 4vw, 22px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease !important;
+  }
+
+  /* Center Active Slide: High-Intensity Radiant Sapphire & Cyan Glow */
+  .Carousal_001 .swiper-slide-active .fee-card {
+    border-color: #00B4D8 !important;
+    box-shadow:
+      0 22px 52px rgba(0, 90, 156, 0.18),
+      0 0 35px rgba(56, 189, 248, 0.55),
+      0 0 70px rgba(0, 180, 216, 0.32),
+      inset 0 1px 1px #FFFFFF,
+      inset 0 0 16px rgba(56, 189, 248, 0.14) !important;
+  }
+
+  .Carousal_001 .swiper-slide-active .fee-card.popular-tier {
+    border: 2px solid #00B4D8 !important;
+    box-shadow:
+      0 24px 56px rgba(0, 90, 156, 0.22),
+      0 0 40px rgba(56, 189, 248, 0.65),
+      0 0 80px rgba(0, 180, 216, 0.38),
+      inset 0 1px 1px #FFFFFF,
+      inset 0 0 18px rgba(56, 189, 248, 0.18) !important;
+  }
+
+  /* Recessed adjacent cards have smooth subtle dimming for focal depth */
+  .Carousal_001 .swiper-slide:not(.swiper-slide-active) {
+    opacity: 0.88 !important;
+  }
+
+  /* Skiper 47 Circular Glassmorphism Chevron Navigation Arrows */
   .fees-button-prev,
   .fees-button-next {
     width: 38px !important;
     height: 38px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important;
+    border: 1.8px solid rgba(56, 189, 248, 0.45) !important;
+    color: #005A9C !important;
+    box-shadow:
+      0 8px 24px rgba(10, 37, 64, 0.10),
+      0 0 20px rgba(56, 189, 248, 0.35),
+      inset 0 1px 0 #FFFFFF !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     font-size: 0.90rem !important;
+    cursor: pointer !important;
+    z-index: 25 !important;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    top: 48% !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .fees-button-prev::after,
+  .fees-button-next::after {
+    display: none !important;
+  }
+
+  .fees-button-prev:hover,
+  .fees-button-next:hover {
+    background: #005A9C !important;
+    color: #FFFFFF !important;
+    border-color: #00B4D8 !important;
+    box-shadow:
+      0 12px 30px rgba(0, 90, 156, 0.25),
+      0 0 28px rgba(56, 189, 248, 0.65) !important;
+    transform: translateY(-50%) scale(1.12) !important;
   }
 
   .fees-button-prev {
@@ -6423,7 +6461,30 @@ marquee,
     right: 2px !important;
   }
 
+  /* Skiper 47 Pagination Bullets */
   .fees-pagination {
+    position: relative !important;
     margin-top: 24px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    z-index: 10 !important;
+  }
+
+  .fees-pagination .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 9999px !important;
+    background: rgba(0, 90, 156, 0.25) !important;
+    opacity: 1 !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    cursor: pointer !important;
+  }
+
+  .fees-pagination .swiper-pagination-bullet-active {
+    width: 30px !important;
+    background: linear-gradient(90deg, #005A9C 0%, #00B4D8 100%) !important;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.65) !important;
   }
 }

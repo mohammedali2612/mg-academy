@@ -2420,12 +2420,10 @@ function initDanceScrollStack() {
 }
 
 /* ==========================================================================
-   SKIPER 47 3D COVERFLOW CAROUSEL (Carousel_001) - Fee Structure Cards
+   SKIPER 47 3D COVERFLOW CAROUSEL (Carousel_001) - Fee Structure Cards (Mobile Only <= 860px)
    Features:
-   - Swiper Coverflow with rotate: 0, slideShadows: false, depth: 100, modifier: 2.5
-   - Responsive slidesPerView: 2.43 (desktop), 1.6 (tablet), 1.18 (mobile)
-   - Centered slide active glow & depth recession on adjacent cards
-   - Slide-to-clicked-slide + Grab cursor + Chevron buttons + Pagination
+   - Mobile View (<= 860px): Swiper Coverflow with depth, centered active slide & chevrons
+   - Desktop View (> 860px): Static 3-column responsive grid (no swiper, no 3D animation)
    ========================================================================== */
 let feesSwiperInstance = null;
 
@@ -2433,12 +2431,33 @@ function initFeesSkiper47Carousel() {
   const container = document.getElementById('fees-swiper');
   if (!container) return;
 
-  function init() {
-    if (typeof Swiper === 'undefined') return;
+  function update() {
+    const isMobile = window.innerWidth <= 860;
 
+    if (!isMobile) {
+      // Desktop View (> 860px): Destroy Swiper, restore static 3-column grid
+      if (feesSwiperInstance) {
+        feesSwiperInstance.destroy(true, true);
+        feesSwiperInstance = null;
+      }
+      const wrapper = container.querySelector('.swiper-wrapper');
+      if (wrapper) {
+        wrapper.style.transform = '';
+        wrapper.style.transitionDuration = '';
+      }
+      const slides = container.querySelectorAll('.swiper-slide');
+      slides.forEach(slide => {
+        slide.style.transform = '';
+        slide.style.transitionDuration = '';
+      });
+      return;
+    }
+
+    // Mobile View (<= 860px): Initialize Coverflow Carousel
+    if (typeof Swiper === 'undefined') return;
     if (feesSwiperInstance) {
-      feesSwiperInstance.destroy(true, true);
-      feesSwiperInstance = null;
+      feesSwiperInstance.update();
+      return;
     }
 
     feesSwiperInstance = new Swiper('#fees-swiper', {
@@ -2447,14 +2466,14 @@ function initFeesSkiper47Carousel() {
       centeredSlides: true,
       initialSlide: 1, // Start centered on Intermediate Art Course (Most Popular)
       slideToClickedSlide: true,
-      spaceBetween: 40,
-      slidesPerView: 2.43,
+      spaceBetween: 16,
+      slidesPerView: 1.18,
       coverflowEffect: {
         rotate: 0,
         slideShadows: false,
         stretch: 0,
-        depth: 100,
-        modifier: 2.5,
+        depth: 70,
+        modifier: 2.2,
       },
       pagination: {
         el: '.fees-pagination',
@@ -2465,15 +2484,15 @@ function initFeesSkiper47Carousel() {
         prevEl: '.fees-button-prev',
       },
       breakpoints: {
-        320: {
-          slidesPerView: 1.18,
-          spaceBetween: 16,
+        480: {
+          slidesPerView: 1.35,
+          spaceBetween: 20,
           coverflowEffect: {
             rotate: 0,
             slideShadows: false,
             stretch: 0,
-            depth: 70,
-            modifier: 2.2,
+            depth: 80,
+            modifier: 2.3,
           }
         },
         640: {
@@ -2486,17 +2505,6 @@ function initFeesSkiper47Carousel() {
             depth: 85,
             modifier: 2.4,
           }
-        },
-        992: {
-          slidesPerView: 2.43,
-          spaceBetween: 40,
-          coverflowEffect: {
-            rotate: 0,
-            slideShadows: false,
-            stretch: 0,
-            depth: 100,
-            modifier: 2.5,
-          }
         }
       }
     });
@@ -2504,14 +2512,10 @@ function initFeesSkiper47Carousel() {
 
   // Ensure Swiper library is loaded
   if (typeof Swiper !== 'undefined') {
-    init();
+    update();
   } else {
-    window.addEventListener('load', init);
+    window.addEventListener('load', update);
   }
 
-  window.addEventListener('resize', () => {
-    if (feesSwiperInstance) {
-      feesSwiperInstance.update();
-    }
-  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
 }
