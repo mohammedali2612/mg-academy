@@ -6343,6 +6343,8 @@ marquee,
   .Carousal_001 .fee-card {
     width: 100% !important;
     height: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
     border-radius: clamp(20px, 4vw, 26px) !important;
     background: #FFFFFF !important;
     border: 1.8px solid rgba(56, 189, 248, 0.45) !important;

@@ -2384,6 +2384,14 @@ function initFeesSkiper47Carousel() {
       origSlides.forEach(s => {
         const clone = s.cloneNode(true);
         clone.classList.add('cloned-tier-slide');
+        const card = clone.querySelector('.fee-card');
+        if (card) {
+          card.classList.remove('reveal-fade-up');
+          card.classList.add('is-visible');
+          card.style.opacity = '1';
+          card.style.visibility = 'visible';
+          card.style.transform = 'none';
+        }
         wrapper.appendChild(clone);
       });
     }
