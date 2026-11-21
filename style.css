@@ -2295,8 +2295,8 @@ marquee,
   transform: scale(1.08);
 }
 
-/* ---------------- Inverted Dome 3D Interactive Curved Gallery (ReactBits Pro) - Mobile Only ---------------- */
-.inverted-dome-gallery-mobile {
+/* ---------------- ReactBits Masonry Gallery - Mobile Only (<= 860px) ---------------- */
+.masonry-gallery-mobile {
   display: none !important;
 }
 
@@ -2308,80 +2308,38 @@ marquee,
   .skiper30-gallery {
     display: flex !important;
   }
-  .inverted-dome-gallery-mobile {
+  .masonry-gallery-mobile {
     display: none !important;
   }
 }
 
-/* ---- Responsive Mobile Gallery: Inverted Dome 3D Curved WebGL Canvas (<= 860px) ---- */
+/* ---- Responsive Mobile Gallery: ReactBits Masonry (<Masonry />) (<= 860px) ---- */
 @media (max-width: 860px) {
-  /* Hide Desktop Parallax Gallery on Mobile */
-  #skiper30-root {
-    display: none !important;
-  }
-
+  #skiper30-root,
   .skiper30-scroll-tag {
     display: none !important;
   }
 
-  /* Show Inverted Dome 3D Canvas on Mobile */
-  .inverted-dome-gallery-mobile {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
+  .masonry-gallery-mobile {
+    display: block !important;
     width: 100% !important;
-    max-width: 480px !important;
-    margin: 8px auto 26px auto !important;
+    max-width: 640px !important;
+    margin: 8px auto 32px auto !important;
     position: relative !important;
     z-index: 10 !important;
-    animation: invertedDomeEntrance 0.5s ease-out 0.2s both !important;
+    padding: 0 4px !important;
   }
 
-  @keyframes invertedDomeEntrance {
-    0% {
-      opacity: 0;
-      transform: translateY(22px) scale(0.96);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .inverted-dome-canvas-wrapper {
-    width: 100% !important;
-    height: 460px !important;
-    border-radius: 28px !important;
-    overflow: hidden !important;
-    position: relative !important;
-    box-shadow: 0 18px 46px rgba(0, 119, 182, 0.28), 0 0 0 1.5px rgba(56, 189, 248, 0.4) !important;
-    background: radial-gradient(circle at center, #0f1f3a 0%, #060b17 100%) !important;
-    touch-action: none !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    cursor: grab !important;
-  }
-
-  .inverted-dome-canvas-wrapper:active {
-    cursor: grabbing !important;
-  }
-
-  .inverted-dome-canvas-wrapper canvas {
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-    outline: none !important;
-  }
-
-  .inverted-dome-hint {
-    display: inline-flex !important;
+  .masonry-hint {
+    display: flex !important;
     align-items: center !important;
+    justify-content: center !important;
     gap: 8px !important;
-    margin-top: 14px !important;
+    margin: 0 auto 16px auto !important;
     padding: 7px 18px !important;
+    width: fit-content !important;
     border-radius: 9999px !important;
-    background: rgba(15, 23, 42, 0.82) !important;
+    background: rgba(15, 23, 42, 0.85) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(56, 189, 248, 0.35) !important;
@@ -2390,22 +2348,320 @@ marquee,
     font-weight: 600 !important;
     letter-spacing: 0.02em !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22) !important;
-    animation: invertedDomePulse 2.8s ease-in-out infinite !important;
+    animation: masonryHintPulse 3s ease-in-out infinite !important;
   }
 
-  @keyframes invertedDomePulse {
+  @keyframes masonryHintPulse {
     0%, 100% {
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22), 0 0 0 rgba(56, 189, 248, 0);
     }
     50% {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 14px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.32), 0 0 14px rgba(56, 189, 248, 0.4);
     }
   }
 
-  .inverted-dome-hint i {
+  .masonry-hint i {
     color: #38bdf8 !important;
     font-size: 0.85rem !important;
   }
+}
+
+/* ReactBits Masonry Core Styles */
+.masonry {
+  position: relative;
+  width: 100%;
+  --masonry-radius: 12px;
+}
+
+.masonry__item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+}
+
+.masonry__item[data-dragging] {
+  z-index: 100;
+  touch-action: none;
+}
+
+.masonry__item[data-hidden] {
+  visibility: hidden;
+}
+
+.masonry__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--masonry-radius, 12px);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transform: perspective(900px) rotateX(var(--masonry-tilt-x, 0deg)) rotateY(var(--masonry-tilt-y, 0deg))
+    translateY(var(--masonry-lift, 0px)) scale(var(--masonry-scale, 1));
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.35s ease;
+}
+
+.masonry__card:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+.masonry[data-hover='lift'] .masonry__item:hover .masonry__card {
+  --masonry-lift: -6px;
+  --masonry-scale: 1.02;
+  box-shadow: 0 22px 40px -22px rgba(0, 0, 0, 0.55);
+}
+
+.masonry[data-hover='tilt'] .masonry__card {
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.35s ease;
+}
+
+.masonry[data-hover='tilt'] .masonry__item:hover .masonry__card {
+  --masonry-scale: 1.03;
+  box-shadow: 0 26px 44px -24px rgba(0, 0, 0, 0.55);
+}
+
+.masonry__item[data-dragging] .masonry__card {
+  --masonry-scale: 1.06;
+  box-shadow: 0 34px 60px -26px rgba(0, 0, 0, 0.75), 0 0 0 2px rgba(56, 189, 248, 0.85);
+  cursor: grabbing;
+}
+
+.masonry__item[data-dimmed] .masonry__card {
+  opacity: 0.35;
+}
+
+.masonry__media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--masonry-radius, 12px);
+  background: rgba(15, 23, 42, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  isolation: isolate;
+}
+
+.masonry__parallax {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.masonry__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.masonry__image[data-loaded] {
+  opacity: 1;
+}
+
+.masonry[data-hover='zoom'] .masonry__item:hover .masonry__image,
+.masonry[data-hover='zoom'] .masonry__item:active .masonry__image {
+  transform: scale(1.08);
+}
+
+.masonry__caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 38px 12px 10px;
+  color: #ffffff;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.08) 25%,
+    rgba(0, 0, 0, 0.38) 55%,
+    rgba(0, 0, 0, 0.82) 100%
+  );
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.masonry__caption[data-mode='hover'] {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.masonry__item:hover .masonry__caption[data-mode='hover'],
+.masonry__item:active .masonry__caption[data-mode='hover'],
+.masonry__card:focus-visible .masonry__caption[data-mode='hover'] {
+  opacity: 1;
+  transform: none;
+}
+
+.masonry__title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.masonry__text {
+  font-size: 11px;
+  line-height: 1.3;
+  opacity: 0.9;
+  color: #e2e8f0;
+}
+
+.masonry__ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* ReactBits Masonry Lightbox */
+.masonry-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.masonry-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 9, 11, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: masonryFadeIn 0.3s ease forwards;
+}
+
+@keyframes masonryFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.masonry-lightbox__image {
+  position: fixed;
+  object-fit: contain;
+  z-index: 10001;
+  cursor: zoom-out;
+  user-select: none;
+  -webkit-user-drag: none;
+  border-radius: 12px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+.masonry-lightbox__caption {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 20px;
+  z-index: 10002;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 24px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  max-width: 82%;
+  margin: 0 auto;
+}
+
+.masonry-lightbox__title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #38bdf8;
+}
+
+.masonry-lightbox__muted {
+  font-size: 12px;
+  opacity: 0.85;
+  color: #cbd5e1;
+}
+
+.masonry-lightbox__button {
+  position: absolute;
+  z-index: 10003;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.masonry-lightbox__button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+}
+
+.masonry-lightbox__button:active {
+  transform: scale(0.95);
+}
+
+.masonry-lightbox__close {
+  top: 18px;
+  right: 18px;
+}
+
+.masonry-lightbox__prev {
+  top: calc(50% - 22px);
+  left: 14px;
+}
+
+.masonry-lightbox__next {
+  top: calc(50% - 22px);
+  right: 14px;
 }
 
 /* Achievements Grid */

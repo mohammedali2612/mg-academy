@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initFormsAndConfetti();
   initSkiper30Parallax();
-  initInvertedDomeMobile();
+  initMobileMasonryGallery();
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
@@ -2185,508 +2185,694 @@ function initDanceScrollStack() {
 }
 
 /* ==========================================================================
-   INVERTED DOME 3D WEBGL CURVED GALLERY (ReactBits Pro) - Mobile Gallery (<= 860px Only)
-   Component parity: @reactbits-starter/inverted-dome-tw (<M />)
-   Features:
-   - Interactive Draggable Image Grid curved like the inside of a dome
-   - Shader lens equation mapping tiles into concave dome curvature
-   - Touch drag with inertia physics & velocity momentum decay (friction: 0.9)
-   - Click/tap hit-test opens high-resolution student artwork in modal lightbox
+   REACTBITS MASONRY GALLERY (<Masonry />) - Mobile Gallery (<= 860px Only)
+   Component parity: ReactBits Masonry (<Masonry />)
+   Props & Options:
+   - items: 12 real photography items with titles, descriptions & aspect ratios
+   - columnWidth: 240 (adaptive 2-col on mobile phones, 2-3 col on tablets)
+   - gap: 12
+   - radius: 12
+   - animateFrom: "bottom" (spring physics entrance with blur-to-focus)
+   - hoverEffect: "zoom" (smooth 1.08x scale on hover/touch)
+   - captions: "hover" (subtle dark gradient overlay with title & text)
+   - lightbox: true (full-screen modal with animated zoom, nav & gestures)
+   - draggable: true (touch & pointer drag reordering with spring displacement)
    - Desktop View (> 860px): Skiper 30 Parallax Gallery untouched
    ========================================================================== */
-let invertedDomeActiveInstance = null;
+let mobileMasonryActiveInstance = null;
 
-function initInvertedDomeMobile() {
-  const container = document.getElementById('inverted-dome-canvas-wrapper');
-  if (!container) return;
+function initMobileMasonryGallery() {
+  const root = document.getElementById('mobile-masonry-root');
+  if (!root) return;
 
-  const DOME_IMAGES = [
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg', title: 'Little Picasso Art Studio' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg', title: 'Classical Poise & Rhythms' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg', title: 'Young Masters Exhibition' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg', title: 'Hands-on Art Workshop' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg', title: 'Creative Learning & Sketching' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', title: 'Competition Laurels & Awards' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg', title: 'Student Achievements & Growth' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg', title: 'Cultural Celebrations & Events' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', title: 'Classroom Learning Workshop' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg', title: 'Creative Studio Exploration' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg', title: 'Stage Dance Salangai' },
-    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg', title: 'Joyful Creative Moments' }
+  const items = [
+    {
+      id: '1',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg',
+      width: 960,
+      height: 1280,
+      title: 'Little Picasso Art Studio',
+      description: 'Watercolor painting & brush exploration'
+    },
+    {
+      id: '2',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg',
+      width: 960,
+      height: 1280,
+      title: 'Classical Poise & Rhythms',
+      description: 'Bharatanatyam mudras & posture training'
+    },
+    {
+      id: '3',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg',
+      width: 867,
+      height: 1156,
+      title: 'Young Masters Exhibition',
+      description: 'Creative sketches & fine art displays'
+    },
+    {
+      id: '4',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg',
+      width: 1280,
+      height: 853,
+      title: 'Hands-on Art Workshop',
+      description: 'Pastel blending & canvas composition'
+    },
+    {
+      id: '5',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg',
+      width: 960,
+      height: 1280,
+      title: 'Creative Learning & Sketching',
+      description: 'Focused drawing practice & observation'
+    },
+    {
+      id: '6',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg',
+      width: 867,
+      height: 1156,
+      title: 'Competition Laurels & Awards',
+      description: 'Proud winners with medals and certificates'
+    },
+    {
+      id: '7',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg',
+      width: 1280,
+      height: 853,
+      title: 'Student Achievements & Growth',
+      description: 'Confidence-building art milestones'
+    },
+    {
+      id: '8',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg',
+      width: 960,
+      height: 1280,
+      title: 'Cultural Celebrations & Events',
+      description: 'Festive stage performances and recitals'
+    },
+    {
+      id: '9',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg',
+      width: 960,
+      height: 1280,
+      title: 'Classroom Learning Workshop',
+      description: 'Step-by-step master guidance'
+    },
+    {
+      id: '10',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg',
+      width: 1280,
+      height: 853,
+      title: 'Creative Studio Exploration',
+      description: 'Mixed media & imaginative artwork'
+    },
+    {
+      id: '11',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg',
+      width: 1280,
+      height: 720,
+      title: 'Stage Dance Salangai',
+      description: 'Traditional bells & rhythmic footwork'
+    },
+    {
+      id: '12',
+      img: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg',
+      width: 960,
+      height: 1280,
+      title: 'Joyful Creative Moments',
+      description: 'Smiles and friendship at MG Academy'
+    }
   ];
 
-  const vertexShader = `
-    attribute vec2 aCell;
-    uniform vec2 uResolution;
-    uniform vec2 uOffset;
-    uniform vec2 uTile;
-    uniform vec2 uPitch;
-    uniform vec2 uHalfCount;
-    uniform vec2 uAtlasGrid;
-    uniform vec2 uInset;
-    uniform float uRotation;
-    uniform float uCurve;
-    uniform float uCurveRadius;
-    uniform float uZoom;
-    uniform float uSeed;
-    uniform float uImageCount;
+  const columnWidth = 240;
+  const gap = 12;
+  const radius = 12;
+  const duration = 0.6;
+  const bounce = 0.15;
+  const stagger = 0.05;
 
-    varying vec2 vUv;
-    varying vec2 vLocal;
-    varying float vEdge;
+  let currentItems = [...items];
+  let nodes = new Map();
+  let springs = new Map();
+  let loaded = new Set();
+  let engine = { raf: 0, last: 0 };
+  let drag = null;
+  let suppressClick = false;
+  let openId = null;
+  let lightboxEl = null;
+  let resizeObserver = null;
+  let intersectionObserver = null;
+  let currentWidth = 0;
 
-    float hashCell(vec2 cell) {
-      vec2 c = mod(cell, 1024.0);
-      float h = mod(c.x * 7919.0 + c.y * 7307.0 + uSeed * 613.0, 1021.0);
-      return mod(h * h + c.x * 3.0 + c.y * 17.0, 1009.0);
+  const clamp = (val, min, max) => Math.min(max, Math.max(min, val));
+
+  const gridOf = (width) => {
+    let count;
+    if (width < 540) {
+      count = 2; // Optimal 2-column masonry on mobile phones
+    } else {
+      count = Math.max(2, Math.floor((width + gap) / (Math.max(40, columnWidth) + gap)));
     }
-
-    vec2 lens(vec2 screen) {
-      vec2 n = screen / uResolution - 0.5;
-      float aspect = uResolution.x / uResolution.y;
-      n.x *= aspect;
-      float t = length(n) / uCurveRadius;
-      float z = sqrt(max(0.5 - t * t, 0.0004));
-      n *= uZoom + uCurve / z;
-      n.x /= aspect;
-      return (n + 0.5) * uResolution;
-    }
-
-    void main() {
-      vec2 cell = aCell - uHalfCount + floor(uOffset / uPitch);
-      vec2 origin = cell * uPitch - uOffset + uResolution * 0.5;
-
-      vec2 local = uv * uTile;
-      vec2 centre = origin + uTile * 0.5;
-      vec2 rel = local - uTile * 0.5;
-      float c = cos(uRotation);
-      float s = sin(uRotation);
-      rel = vec2(rel.x * c - rel.y * s, rel.x * s + rel.y * c);
-      vec2 screen = lens(centre + rel);
-
-      vec2 n = screen / uResolution - 0.5;
-      n.x *= uResolution.x / uResolution.y;
-      vEdge = length(n);
-
-      float index = mod(hashCell(cell), uImageCount);
-      vec2 slot = vec2(mod(index, uAtlasGrid.x), floor(index / uAtlasGrid.x));
-
-      vec2 padded = mix(uInset, 1.0 - uInset, vec2(uv.x, 1.0 - uv.y));
-      vUv = (slot + padded) / uAtlasGrid;
-      vLocal = local;
-
-      vec2 clip = screen / uResolution * 2.0 - 1.0;
-      gl_Position = vec4(clip, 0.0, 1.0);
-    }
-  `;
-
-  const fragmentShader = `
-    precision highp float;
-    uniform sampler2D uAtlas;
-    uniform vec2 uTile;
-    uniform float uRadius;
-    uniform float uGrayscale;
-    uniform float uVignette;
-    uniform float uVignetteReach;
-
-    varying vec2 vUv;
-    varying vec2 vLocal;
-    varying float vEdge;
-
-    float roundedBox(vec2 p, vec2 extent, float r) {
-      vec2 q = abs(p) - extent + r;
-      return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
-    }
-
-    void main() {
-      vec4 tex = texture2D(uAtlas, vUv);
-      vec2 extent = uTile * 0.5;
-      float r = min(uRadius, min(extent.x, extent.y));
-      float d = roundedBox(vLocal - extent, extent, r);
-      float aa = fwidth(d);
-      float shape = 1.0 - smoothstep(-aa, aa, d);
-      if (shape < 0.003) discard;
-
-      float luma = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
-      vec3 color = mix(tex.rgb, vec3(luma), uGrayscale);
-      float fade = smoothstep(0.0, uVignetteReach, vEdge);
-      color *= 1.0 - uVignette * fade;
-      gl_FragColor = vec4(color, tex.a * shape);
-    }
-  `;
-
-  // Exact configuration matching <M /> from @reactbits-starter/inverted-dome-tw
-  const config = {
-    tileWidth: 200,
-    tileHeight: 200,
-    gap: 16,
-    borderRadius: 16,
-    curve: 0.3,
-    curveRadius: 1.5,
-    zoom: 0.1,
-    tileRotation: 0,
-    grayscale: 0,
-    vignette: 0,
-    friction: 0.9,
-    segments: 20,
-    seed: 0,
-    openOnClick: true
+    const size = Math.max(1, (width - gap * (count - 1)) / count);
+    return { count, size };
   };
 
-  function cleanup() {
-    if (invertedDomeActiveInstance) {
-      invertedDomeActiveInstance.dispose();
-      invertedDomeActiveInstance = null;
+  const aspectOf = (item) => (item.height || 800) / (item.width || 600);
+
+  const place = (heights, item, grid, commit) => {
+    const { count, size } = grid;
+    const span = Math.min(count, Math.max(1, Math.round(item.span || 1)));
+    let column = 0;
+    let top = Infinity;
+    for (let start = 0; start <= count - span; start++) {
+      let y = 0;
+      for (let k = start; k < start + span; k++) y = Math.max(y, heights[k]);
+      if (y < top - 0.5) {
+        top = y;
+        column = start;
+      }
     }
+    const w = size * span + gap * (span - 1);
+    const h = Math.max(1, w * aspectOf(item));
+    if (commit) {
+      for (let k = column; k < column + span; k++) heights[k] = top + h + gap;
+    }
+    return { x: Math.round(column * (size + gap)), y: Math.round(top), w, h };
+  };
+
+  const layoutOf = (list, width) => {
+    const grid = gridOf(width);
+    const heights = new Array(grid.count).fill(0);
+    const tiles = list.map(item => ({ item, id: String(item.id), ...place(heights, item, grid, true) }));
+    return { tiles, height: Math.max(0, Math.max(...heights) - gap) };
+  };
+
+  const slotsFor = (others, dragged, width) => {
+    const grid = gridOf(width);
+    const heights = new Array(grid.count).fill(0);
+    const slots = [];
+    for (let i = 0; i <= others.length; i++) {
+      const slot = place(heights, dragged, grid, false);
+      slots.push({ x: slot.x + slot.w / 2, y: slot.y + slot.h / 2 });
+      if (i < others.length) place(heights, others[i], grid, true);
+    }
+    return slots;
+  };
+
+  const paint = (id, spring) => {
+    const node = nodes.get(id);
+    if (!node) return;
+    node.style.transform = `translate3d(${spring.x.toFixed(2)}px, ${spring.y.toFixed(2)}px, 0) scale(${spring.s.toFixed(3)})`;
+    if (spring.reveal < 1) {
+      const eased = 1 - Math.pow(1 - Math.max(0, spring.reveal), 3);
+      node.style.opacity = String(eased);
+      node.style.filter = `blur(${((1 - eased) * 12).toFixed(2)}px)`;
+    } else {
+      if (node.style.opacity !== '') node.style.opacity = '';
+      if (node.style.filter !== '') node.style.filter = '';
+    }
+  };
+
+  const frame = (now) => {
+    engine.raf = 0;
+    const elapsed = clamp((now - engine.last) / 1000, 0, 1 / 20);
+    engine.last = now;
+    const omega = (Math.PI * 2) / duration;
+    const zeta = clamp(1 - bounce, 0.1, 1);
+    const steps = Math.max(1, Math.ceil(elapsed / (1 / 240)));
+    const dt = elapsed / steps;
+    let active = false;
+
+    springs.forEach((spring, id) => {
+      if (!spring.shown) return;
+      if (spring.dragging) {
+        paint(id, spring);
+        return;
+      }
+      if (now < spring.start) {
+        active = true;
+        return;
+      }
+      for (let i = 0; i < steps; i++) {
+        spring.vx += (-omega * omega * (spring.x - spring.tx) - 2 * zeta * omega * spring.vx) * dt;
+        spring.vy += (-omega * omega * (spring.y - spring.ty) - 2 * zeta * omega * spring.vy) * dt;
+        spring.vs += (-omega * omega * (spring.s - 1) - 2 * zeta * omega * spring.vs) * dt;
+        spring.x += spring.vx * dt;
+        spring.y += spring.vy * dt;
+        spring.s += spring.vs * dt;
+      }
+      const resting =
+        Math.abs(spring.x - spring.tx) < 0.05 &&
+        Math.abs(spring.y - spring.ty) < 0.05 &&
+        Math.abs(spring.s - 1) < 0.0005 &&
+        Math.abs(spring.vx) + Math.abs(spring.vy) < 0.05 &&
+        Math.abs(spring.vs) < 0.001;
+
+      if (resting) {
+        spring.x = spring.tx;
+        spring.y = spring.ty;
+        spring.s = 1;
+        spring.vx = spring.vy = spring.vs = 0;
+      } else {
+        active = true;
+      }
+
+      if (spring.reveal < 1) {
+        spring.reveal = clamp((now - spring.start) / (duration * 1000), 0, 1);
+        if (spring.reveal < 1) active = true;
+      }
+      paint(id, spring);
+    });
+
+    if (active) engine.raf = requestAnimationFrame(frame);
+  };
+
+  const kick = () => {
+    if (engine.raf) return;
+    engine.last = performance.now();
+    engine.raf = requestAnimationFrame(frame);
+  };
+
+  function renderLayout(instant = false) {
+    if (!currentWidth) return;
+    const layout = layoutOf(currentItems, currentWidth);
+    root.style.height = `${layout.height}px`;
+
+    layout.tiles.forEach((tile) => {
+      let node = nodes.get(tile.id);
+      let spring = springs.get(tile.id);
+
+      if (!spring) {
+        spring = {
+          x: tile.x,
+          y: tile.y,
+          s: 1,
+          vx: 0,
+          vy: 0,
+          vs: 0,
+          tx: tile.x,
+          ty: tile.y,
+          w: tile.w,
+          h: tile.h,
+          shown: false,
+          dragging: false,
+          reveal: 0,
+          start: 0
+        };
+        springs.set(tile.id, spring);
+      } else {
+        spring.tx = tile.x;
+        spring.ty = tile.y;
+        spring.w = tile.w;
+        spring.h = tile.h;
+        if (instant && !spring.dragging) {
+          spring.x = tile.x;
+          spring.y = tile.y;
+          spring.s = 1;
+          paint(tile.id, spring);
+        }
+      }
+
+      if (node) {
+        node.style.width = `${tile.w}px`;
+        node.style.height = `${tile.h}px`;
+        if (!spring.shown) {
+          node.style.transform = `translate3d(${tile.x}px, ${tile.y}px, 0)`;
+        }
+      }
+    });
+
+    kick();
+  }
+
+  function revealItem(id, rank = 0) {
+    const spring = springs.get(id);
+    if (!spring || spring.shown) return;
+    const now = performance.now();
+    spring.shown = true;
+    spring.reveal = 0;
+    spring.x = spring.tx;
+    spring.y = spring.ty + 60 + Math.min(spring.h, 280) * 0.35; // Animate from bottom
+    spring.s = 0.96;
+    spring.vx = spring.vy = spring.vs = 0;
+    spring.start = now + rank * stagger * 1000;
+    paint(id, spring);
+    kick();
+  }
+
+  function buildDOM() {
+    root.innerHTML = '';
+    nodes.clear();
+    root.setAttribute('data-hover', 'zoom');
+    root.style.setProperty('--masonry-radius', `${radius}px`);
+
+    currentItems.forEach((item) => {
+      const id = String(item.id);
+      const itemEl = document.createElement('div');
+      itemEl.className = 'masonry__item';
+      itemEl.setAttribute('data-id', id);
+      itemEl.setAttribute('role', 'listitem');
+      itemEl.style.opacity = '0';
+
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'masonry__card';
+      card.setAttribute('data-card', '');
+      card.setAttribute('aria-label', item.title);
+
+      const media = document.createElement('span');
+      media.className = 'masonry__media';
+      media.setAttribute('data-media', '');
+
+      const img = document.createElement('img');
+      img.className = 'masonry__image';
+      img.src = item.img;
+      img.alt = item.title;
+      img.loading = 'lazy';
+      img.draggable = false;
+      img.onload = () => {
+        loaded.add(id);
+        img.setAttribute('data-loaded', '');
+      };
+      if (img.complete) {
+        loaded.add(id);
+        img.setAttribute('data-loaded', '');
+      }
+
+      const caption = document.createElement('span');
+      caption.className = 'masonry__caption';
+      caption.setAttribute('data-mode', 'hover');
+
+      const title = document.createElement('span');
+      title.className = 'masonry__title';
+      title.textContent = item.title;
+
+      const desc = document.createElement('span');
+      desc.className = 'masonry__text';
+      desc.textContent = item.description;
+
+      caption.appendChild(title);
+      caption.appendChild(desc);
+      media.appendChild(img);
+      media.appendChild(caption);
+      card.appendChild(media);
+      itemEl.appendChild(card);
+      root.appendChild(itemEl);
+
+      nodes.set(id, itemEl);
+
+      // Pointer & Drag handling
+      card.addEventListener('pointerdown', (e) => onPointerDown(e, id));
+      card.addEventListener('click', (e) => onCardClick(e, item));
+    });
+
+    // Intersection observer for staggered entrance
+    if (typeof IntersectionObserver !== 'undefined') {
+      let revealedCount = 0;
+      intersectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('data-id');
+            if (id) {
+              revealItem(id, revealedCount++);
+              intersectionObserver.unobserve(entry.target);
+            }
+          }
+        });
+      }, { rootMargin: '0px 0px -5% 0px' });
+
+      nodes.forEach((node) => intersectionObserver.observe(node));
+    } else {
+      nodes.forEach((_, id) => revealItem(id));
+    }
+  }
+
+  function onPointerDown(e, id) {
+    if (e.button !== 0 && e.pointerType !== 'touch') return;
+    if (openId) return;
+
+    const spring = springs.get(id);
+    if (!spring) return;
+
+    const rootRect = root.getBoundingClientRect();
+    drag = {
+      id,
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      offsetX: e.clientX - rootRect.left - spring.x,
+      offsetY: e.clientY - rootRect.top - spring.y,
+      active: false,
+      moved: false
+    };
+
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+  }
+
+  function onPointerMove(e) {
+    if (!drag || e.pointerId !== drag.pointerId) return;
+    if (!drag.active) {
+      if (Math.hypot(e.clientX - drag.startX, e.clientY - drag.startY) < 7) return;
+      drag.active = true;
+      const spring = springs.get(drag.id);
+      if (spring) {
+        spring.dragging = true;
+        spring.vx = spring.vy = spring.vs = 0;
+      }
+      nodes.get(drag.id)?.setAttribute('data-dragging', '');
+      root.setAttribute('data-dragging', '');
+    }
+
+    const rootRect = root.getBoundingClientRect();
+    const spring = springs.get(drag.id);
+    if (!spring) return;
+
+    spring.x = e.clientX - rootRect.left - drag.offsetX;
+    spring.y = e.clientY - rootRect.top - drag.offsetY;
+    spring.s = 1.05;
+    paint(drag.id, spring);
+    kick();
+
+    // Live slot detection for real-time spring reordering
+    const draggedItem = currentItems.find(it => String(it.id) === drag.id);
+    if (!draggedItem || !currentWidth) return;
+
+    const others = currentItems.filter(it => String(it.id) !== drag.id);
+    const slots = slotsFor(others, draggedItem, currentWidth);
+    const cx = spring.x + spring.w / 2;
+    const cy = spring.y + spring.h / 2;
+    const curIdx = currentItems.indexOf(draggedItem);
+
+    let best = curIdx;
+    let nearest = Math.hypot(slots[curIdx].x - cx, slots[curIdx].y - cy);
+    const threshold = nearest * 0.8 - 6;
+
+    slots.forEach((slot, idx) => {
+      const dist = Math.hypot(slot.x - cx, slot.y - cy);
+      if (dist < nearest && dist < threshold) {
+        nearest = dist;
+        best = idx;
+      }
+    });
+
+    if (best !== curIdx) {
+      drag.moved = true;
+      others.splice(best, 0, draggedItem);
+      currentItems = others;
+      renderLayout(false);
+    }
+  }
+
+  function onPointerUp(e) {
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerup', onPointerUp);
+    window.removeEventListener('pointercancel', onPointerUp);
+
+    if (!drag) return;
+    const wasActive = drag.active;
+    const dragId = drag.id;
+    drag = null;
+
+    if (wasActive) {
+      suppressClick = true;
+      setTimeout(() => { suppressClick = false; }, 80);
+
+      const spring = springs.get(dragId);
+      if (spring) spring.dragging = false;
+
+      nodes.get(dragId)?.removeAttribute('data-dragging');
+      root.removeAttribute('data-dragging');
+      renderLayout(false);
+    }
+  }
+
+  function onCardClick(e, item) {
+    if (suppressClick) {
+      e.preventDefault();
+      return;
+    }
+    openLightboxModal(item);
+  }
+
+  /* ---- Lightbox Implementation ---- */
+  function openLightboxModal(item) {
+    openId = String(item.id);
+    if (!lightboxEl) {
+      lightboxEl = document.createElement('div');
+      lightboxEl.className = 'masonry-lightbox';
+      lightboxEl.setAttribute('role', 'dialog');
+      lightboxEl.setAttribute('aria-modal', 'true');
+      lightboxEl.innerHTML = `
+        <div class="masonry-lightbox__backdrop"></div>
+        <img class="masonry-lightbox__image" src="" alt="" draggable="false">
+        <div class="masonry-lightbox__caption">
+          <span class="masonry-lightbox__title"></span>
+          <span class="masonry-lightbox__muted"></span>
+        </div>
+        <button type="button" class="masonry-lightbox__button masonry-lightbox__close" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button type="button" class="masonry-lightbox__button masonry-lightbox__prev" aria-label="Previous">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button type="button" class="masonry-lightbox__button masonry-lightbox__next" aria-label="Next">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      `;
+      document.body.appendChild(lightboxEl);
+
+      lightboxEl.querySelector('.masonry-lightbox__backdrop').addEventListener('click', closeLightboxModal);
+      lightboxEl.querySelector('.masonry-lightbox__close').addEventListener('click', closeLightboxModal);
+      lightboxEl.querySelector('.masonry-lightbox__prev').addEventListener('click', () => stepLightbox(-1));
+      lightboxEl.querySelector('.masonry-lightbox__next').addEventListener('click', () => stepLightbox(1));
+
+      // Touch swipe gestures
+      let touchStartX = 0;
+      let touchStartY = 0;
+      lightboxEl.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      lightboxEl.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].clientX - touchStartX;
+        const diffY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX < 0) stepLightbox(1);
+          else stepLightbox(-1);
+        }
+      }, { passive: true });
+
+      window.addEventListener('keydown', (e) => {
+        if (!openId) return;
+        if (e.key === 'Escape') closeLightboxModal();
+        else if (e.key === 'ArrowRight') stepLightbox(1);
+        else if (e.key === 'ArrowLeft') stepLightbox(-1);
+      });
+    }
+
+    updateLightboxContent(item);
+    lightboxEl.style.display = 'flex';
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  function updateLightboxContent(item) {
+    if (!lightboxEl) return;
+    const imgEl = lightboxEl.querySelector('.masonry-lightbox__image');
+    const titleEl = lightboxEl.querySelector('.masonry-lightbox__title');
+    const descEl = lightboxEl.querySelector('.masonry-lightbox__muted');
+
+    const maxW = Math.min(window.innerWidth - 32, 600);
+    const maxH = window.innerHeight - 130;
+    const aspect = (item.height || 800) / (item.width || 600);
+    let w = maxW;
+    let h = w * aspect;
+    if (h > maxH) {
+      h = maxH;
+      w = h / aspect;
+    }
+
+    imgEl.src = item.img;
+    imgEl.alt = item.title;
+    imgEl.style.width = `${w}px`;
+    imgEl.style.height = `${h}px`;
+    titleEl.textContent = item.title;
+    descEl.textContent = item.description;
+  }
+
+  function stepLightbox(direction) {
+    if (!openId) return;
+    const curIdx = currentItems.findIndex(it => String(it.id) === openId);
+    if (curIdx < 0) return;
+    const nextIdx = (curIdx + direction + currentItems.length) % currentItems.length;
+    openId = String(currentItems[nextIdx].id);
+    updateLightboxContent(currentItems[nextIdx]);
+  }
+
+  function closeLightboxModal() {
+    if (!openId) return;
+    openId = null;
+    if (lightboxEl) {
+      lightboxEl.style.display = 'none';
+    }
+    document.documentElement.style.overflow = '';
   }
 
   function start() {
-    const isMobile = window.innerWidth <= 860;
-    if (!isMobile) {
-      cleanup();
-      return;
-    }
+    if (window.innerWidth > 860) return;
+    currentWidth = root.clientWidth || 360;
+    buildDOM();
+    renderLayout(true);
 
-    if (typeof THREE === 'undefined') return;
-    if (invertedDomeActiveInstance) return;
-
-    const width = container.clientWidth || 360;
-    const height = container.clientHeight || 460;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setSize(width, height);
-    container.innerHTML = '';
-    container.appendChild(renderer.domElement);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.Camera();
-
-    const pitchX = config.tileWidth + config.gap;
-    const pitchY = config.tileHeight + config.gap;
-    const cols = Math.min(Math.ceil((1.35 * width) / pitchX) + 3, 60);
-    const rows = Math.min(Math.ceil((1.35 * height) / pitchY) + 3, 60);
-    const cellCount = Math.min(cols * rows, 900);
-
-    const plane = new THREE.PlaneGeometry(1, 1, config.segments, config.segments);
-    const instancedGeom = new THREE.InstancedBufferGeometry();
-    instancedGeom.index = plane.index;
-    instancedGeom.setAttribute('position', plane.getAttribute('position'));
-    instancedGeom.setAttribute('uv', plane.getAttribute('uv'));
-
-    const aCell = new Float32Array(2 * cellCount);
-    for (let i = 0; i < cellCount; i++) {
-      aCell[2 * i] = i % cols;
-      aCell[2 * i + 1] = Math.floor(i / cols);
-    }
-    instancedGeom.setAttribute('aCell', new THREE.InstancedBufferAttribute(aCell, 2));
-    instancedGeom.instanceCount = cellCount;
-
-    const hVal = Math.max(Math.min(width, height), 1);
-    const mVal = Math.hypot(width / hVal, height / hVal);
-
-    const uniforms = {
-      uAtlas: { value: null },
-      uResolution: { value: new THREE.Vector2(width, height) },
-      uOffset: { value: new THREE.Vector2(0, 0) },
-      uTile: { value: new THREE.Vector2(config.tileWidth, config.tileHeight) },
-      uPitch: { value: new THREE.Vector2(pitchX, pitchY) },
-      uHalfCount: { value: new THREE.Vector2(Math.floor(cols / 2), Math.floor(rows / 2)) },
-      uAtlasGrid: { value: new THREE.Vector2(1, 1) },
-      uInset: { value: new THREE.Vector2(0, 0) },
-      uRotation: { value: (config.tileRotation * Math.PI) / 180 },
-      uCurve: { value: Math.max(config.curve, 0) },
-      uCurveRadius: { value: 0.72 * mVal * Math.max(config.curveRadius, 1) },
-      uZoom: { value: Math.max(config.zoom, 0.05) },
-      uSeed: { value: config.seed },
-      uImageCount: { value: DOME_IMAGES.length },
-      uRadius: { value: Math.max(config.borderRadius, 0) },
-      uGrayscale: { value: config.grayscale },
-      uVignette: { value: config.vignette },
-      uVignetteReach: { value: 0.5 * mVal }
-    };
-
-    const material = new THREE.ShaderMaterial({
-      vertexShader,
-      fragmentShader,
-      uniforms,
-      transparent: true,
-      depthTest: false,
-      depthWrite: false
-    });
-
-    const mesh = new THREE.Mesh(instancedGeom, material);
-    mesh.frustumCulled = false;
-    scene.add(mesh);
-
-    // Build Texture Atlas
-    let disposed = false;
-    const loadedImages = [];
-    let loadedCount = 0;
-
-    DOME_IMAGES.forEach((item) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        if (disposed) return;
-        loadedCount++;
-        if (loadedCount === DOME_IMAGES.length) {
-          buildAtlasTexture();
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(([entry]) => {
+        const newWidth = Math.round(entry.contentRect.width);
+        if (newWidth > 0 && Math.abs(newWidth - currentWidth) > 4) {
+          currentWidth = newWidth;
+          renderLayout(true);
         }
-      };
-      img.src = item.src;
-      loadedImages.push(img);
-    });
-
-    function buildAtlasTexture() {
-      const count = loadedImages.length;
-      if (!count) return;
-      const aCols = Math.ceil(Math.sqrt(count));
-      const aRows = Math.ceil(count / aCols);
-      const tileW = 512;
-      const tileH = 512;
-
-      const canvas = document.createElement('canvas');
-      canvas.width = tileW * aCols;
-      canvas.height = tileH * aRows;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      loadedImages.forEach((img, idx) => {
-        const x = (idx % aCols) * tileW;
-        const y = Math.floor(idx / aCols) * tileH;
-        const scale = Math.max(tileW / img.naturalWidth, tileH / img.naturalHeight);
-        const dw = img.naturalWidth * scale;
-        const dh = img.naturalHeight * scale;
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(x, y, tileW, tileH);
-        ctx.clip();
-        ctx.drawImage(img, x + (tileW - dw) / 2, y + (tileH - dh) / 2, dw, dh);
-        ctx.restore();
       });
-
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.flipY = false;
-      texture.wrapS = THREE.RepeatWrapping;
-      texture.wrapT = THREE.RepeatWrapping;
-      texture.minFilter = THREE.LinearMipmapLinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.generateMipmaps = true;
-      texture.needsUpdate = true;
-
-      uniforms.uAtlas.value = texture;
-      uniforms.uAtlasGrid.value.set(aCols, aRows);
-      uniforms.uInset.value.set(1.5 / tileW, 1.5 / tileH);
-      uniforms.uImageCount.value = count;
+      resizeObserver.observe(root);
     }
-
-    // Touch & Pointer State
-    const state = {
-      offset: { x: 0, y: 0 },
-      velocity: { x: 0, y: 0 },
-      dragging: false,
-      lastPos: { x: 0, y: 0 },
-      downPos: { x: 0, y: 0 },
-      downTime: 0
-    };
-
-    function hitTest(clientX, clientY) {
-      const rect = container.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
-      if (!w || !h) return null;
-
-      const screenX = clientX - rect.left;
-      const screenY = h - (clientY - rect.top);
-      const aspect = w / h;
-      const nx = (screenX / w - 0.5) * aspect;
-      const ny = screenY / h - 0.5;
-      const dist = Math.hypot(nx, ny);
-
-      let unprojX = screenX;
-      let unprojY = screenY;
-
-      const rReach = uniforms.uCurveRadius.value;
-      const zoom = uniforms.uZoom.value;
-      const curve = uniforms.uCurve.value;
-
-      if (dist >= 1e-6) {
-        const lensFn = (t) => {
-          const normT = t / rReach;
-          const z = Math.sqrt(Math.max(0.5 - normT * normT, 0.0004));
-          return t * (zoom + curve / z);
-        };
-
-        let low = 0;
-        let high = rReach * Math.SQRT1_2;
-        if (lensFn(high) >= dist) {
-          for (let i = 0; i < 35; i++) {
-            const mid = (low + high) / 2;
-            if (lensFn(mid) < dist) {
-              low = mid;
-            } else {
-              high = mid;
-            }
-          }
-          const scale = ((low + high) / 2) / dist;
-          unprojX = (nx * scale / aspect + 0.5) * w;
-          unprojY = (ny * scale + 0.5) * h;
-        }
-      }
-
-      const pX = config.tileWidth + config.gap;
-      const pY = config.tileHeight + config.gap;
-      const gx = unprojX - 0.5 * w + state.offset.x;
-      const gy = unprojY - 0.5 * h + state.offset.y;
-
-      const rad = (-config.tileRotation * Math.PI) / 180;
-      const cosR = Math.cos(rad);
-      const sinR = Math.sin(rad);
-
-      const baseCol = Math.floor(gx / pX);
-      const baseRow = Math.floor(gy / pY);
-
-      for (let dy = -1; dy <= 1; dy++) {
-        for (let dx = -1; dx <= 1; dx++) {
-          const col = baseCol + dx;
-          const row = baseRow + dy;
-          const relX = gx - (col * pX + 0.5 * config.tileWidth);
-          const relY = gy - (row * pY + 0.5 * config.tileHeight);
-          const rotX = relX * cosR - relY * sinR;
-          const rotY = relX * sinR + relY * cosR;
-
-          if (Math.abs(rotX) <= 0.5 * config.tileWidth && Math.abs(rotY) <= 0.5 * config.tileHeight) {
-            const cX = ((col % 1024) + 1024) % 1024;
-            const cY = ((row % 1024) + 1024) % 1024;
-            const h1 = (((7919 * cX + 7307 * cY + 613 * config.seed) % 1021) + 1021) % 1021;
-            const h2 = (((h1 * h1 + 3 * cX + 17 * cY) % 1009) + 1009) % 1009;
-            return h2 % DOME_IMAGES.length;
-          }
-        }
-      }
-      return null;
-    }
-
-    const onPointerDown = (e) => {
-      state.dragging = true;
-      state.velocity.x = 0;
-      state.velocity.y = 0;
-      state.lastPos.x = e.clientX;
-      state.lastPos.y = e.clientY;
-      state.downPos.x = e.clientX;
-      state.downPos.y = e.clientY;
-      state.downTime = performance.now();
-      container.setPointerCapture(e.pointerId);
-    };
-
-    const onPointerMove = (e) => {
-      if (!state.dragging) return;
-      const dx = e.clientX - state.lastPos.x;
-      const dy = e.clientY - state.lastPos.y;
-      state.lastPos.x = e.clientX;
-      state.lastPos.y = e.clientY;
-
-      state.offset.x -= dx;
-      state.offset.y += dy;
-
-      state.velocity.x = -(0.3 * dx) + 0.7 * state.velocity.x;
-      state.velocity.y = 0.3 * dy + 0.7 * state.velocity.y;
-    };
-
-    const onPointerUp = (e) => {
-      if (container.hasPointerCapture(e.pointerId)) {
-        container.releasePointerCapture(e.pointerId);
-      }
-      const wasDragging = state.dragging;
-      state.dragging = false;
-
-      const dist = Math.hypot(e.clientX - state.downPos.x, e.clientY - state.downPos.y);
-      if (wasDragging && dist < 7 && performance.now() - state.downTime < 500) {
-        const hitIdx = hitTest(e.clientX, e.clientY);
-        if (hitIdx !== null && DOME_IMAGES[hitIdx]) {
-          const item = DOME_IMAGES[hitIdx];
-          if (typeof window.openLightbox === 'function') {
-            window.openLightbox(item.src, item.title);
-          }
-        }
-      }
-    };
-
-    container.addEventListener('pointerdown', onPointerDown);
-    container.addEventListener('pointermove', onPointerMove);
-    container.addEventListener('pointerup', onPointerUp);
-    container.addEventListener('pointercancel', onPointerUp);
-
-    let animId;
-    let lastTime = performance.now();
-
-    function renderLoop() {
-      animId = requestAnimationFrame(renderLoop);
-      const now = performance.now();
-      const dt = Math.min((now - lastTime) / 1000, 0.05);
-      lastTime = now;
-
-      if (!state.dragging) {
-        const decay = Math.pow(config.friction, 60 * dt);
-        state.velocity.x *= decay;
-        state.velocity.y *= decay;
-        if (Math.abs(state.velocity.x) < 0.01) state.velocity.x = 0;
-        if (Math.abs(state.velocity.y) < 0.01) state.velocity.y = 0;
-
-        state.offset.x += state.velocity.x * dt * 60;
-        state.offset.y += state.velocity.y * dt * 60;
-      }
-
-      uniforms.uOffset.value.set(state.offset.x, state.offset.y);
-      renderer.render(scene, camera);
-    }
-    renderLoop();
-
-    invertedDomeActiveInstance = {
-      dispose() {
-        disposed = true;
-        cancelAnimationFrame(animId);
-        container.removeEventListener('pointerdown', onPointerDown);
-        container.removeEventListener('pointermove', onPointerMove);
-        container.removeEventListener('pointerup', onPointerUp);
-        container.removeEventListener('pointercancel', onPointerUp);
-        renderer.dispose();
-        instancedGeom.dispose();
-        plane.dispose();
-        material.dispose();
-        if (uniforms.uAtlas.value) uniforms.uAtlas.value.dispose();
-        container.innerHTML = '';
-      }
-    };
   }
 
-  if (typeof THREE !== 'undefined') {
-    start();
-  } else {
-    window.addEventListener('load', start);
+  function cleanup() {
+    if (engine.raf) cancelAnimationFrame(engine.raf);
+    if (resizeObserver) resizeObserver.disconnect();
+    if (intersectionObserver) intersectionObserver.disconnect();
+    closeLightboxModal();
+    root.innerHTML = '';
   }
+
+  start();
+
+  mobileMasonryActiveInstance = {
+    start,
+    cleanup
+  };
 
   let resizeTimer = null;
-  let lastKnownWidth = window.innerWidth;
-  function handleMobileGalleryResize() {
+  function handleResize() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
       const isMobile = window.innerWidth <= 860;
       if (!isMobile) {
         cleanup();
       } else {
-        if (Math.abs(window.innerWidth - lastKnownWidth) > 10 || !invertedDomeActiveInstance) {
-          lastKnownWidth = window.innerWidth;
-          cleanup();
+        if (!mobileMasonryActiveInstance || !root.children.length) {
           start();
+        } else {
+          currentWidth = root.clientWidth || 360;
+          renderLayout(false);
         }
       }
     }, 150);
   }
 
-  window.addEventListener('resize', handleMobileGalleryResize, { passive: true });
-  window.addEventListener('orientationchange', handleMobileGalleryResize, { passive: true });
+  window.addEventListener('resize', handleResize, { passive: true });
+  window.addEventListener('orientationchange', handleResize, { passive: true });
 }
 
 /* ==========================================================================
