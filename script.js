@@ -2397,50 +2397,15 @@ function initDanceScrollStack() {
     }
 
     // ----------------------------------------------------------------------
-    // Desktop View (> 860px): Kexsio ScrollStack Horizontal Engine
+    // Desktop View (> 860px): No animation - static responsive grid
     // ----------------------------------------------------------------------
-    const stickyTop = Math.max(82, Math.min(100, Math.round(window.innerHeight * 0.11)));
-    const slotTops = slots.map(slot => slot.getBoundingClientRect().top);
-    const travelDistance = slots.length > 1 && slots[1].offsetTop > slots[0].offsetTop
-      ? Math.max(300, (slots[1].offsetTop - slots[0].offsetTop))
-      : 480;
-
-    slots.forEach((slot, i) => {
+    slots.forEach(slot => {
       const card = slot.querySelector('.dance-style-card');
-      if (!card) return;
-
-      const top = slotTops[i];
-
-      if (top > stickyTop + 1) {
-        card.style.transformOrigin = '50% top';
-        card.style.transform = 'translate3d(0, 0, 0) scale(1)';
+      if (card) {
+        card.style.transform = '';
         card.style.filter = '';
-        card.style.setProperty('--scroll-stack-dim', '0');
-        return;
-      }
-
-      let depth = 0;
-      for (let j = i + 1; j < slots.length; j++) {
-        const nextDist = slotTops[j] - stickyTop;
-        const p = 1 - Math.min(1, Math.max(0, nextDist / travelDistance));
-        depth += p;
-      }
-
-      if (depth < 0.005) {
-        card.style.transformOrigin = '50% top';
-        card.style.transform = 'translate3d(0, 0, 0) scale(1)';
-        card.style.filter = '';
-        card.style.setProperty('--scroll-stack-dim', '0');
-      } else {
-        const scale = Math.max(0.84, 1 - depth * 0.045);
-        const yOffset = Math.min(depth * 12, 36);
-        const dim = Math.min(0.26, depth * 0.09);
-        const blur = Math.min(0.8, depth * 0.28);
-
-        card.style.transformOrigin = '50% top';
-        card.style.transform = `translate3d(0, ${yOffset.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
-        card.style.filter = blur > 0.15 ? `blur(${blur.toFixed(2)}px)` : '';
-        card.style.setProperty('--scroll-stack-dim', dim.toFixed(3));
+        card.style.transformOrigin = '';
+        card.style.removeProperty('--scroll-stack-dim');
       }
     });
   }

@@ -5651,10 +5651,7 @@ marquee,
 }
 
 .dance-scroll-hint {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin: 16px 0 28px 0 !important;
+  display: none !important;
 }
 
 .dance-hint-pill {
@@ -5680,53 +5677,61 @@ marquee,
   50% { transform: translateY(4px); }
 }
 
-/* Dance Stack Container */
+/* Dance Grid (Desktop View: > 860px) - Normal Static Responsive Grid */
 .dance-styles-grid {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: clamp(16px, 1.8vw, 24px) !important;
   position: relative !important;
   width: 100% !important;
-  max-width: 1060px !important;
-  margin: 0 auto !important;
-  padding: 0 clamp(12px, 2vw, 24px) !important;
-  perspective: 1200px !important;
+  max-width: 1240px !important;
+  margin: 16px auto 50px auto !important;
+  padding: 0 clamp(16px, 2vw, 24px) !important;
+  perspective: none !important;
   box-sizing: border-box !important;
 }
 
-/* Individual Card Slots */
+@media (min-width: 861px) and (max-width: 1100px) {
+  .dance-styles-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    max-width: 900px !important;
+    gap: 24px !important;
+  }
+}
+
+/* Individual Card Slots - Desktop: Static Normal Flow (No Stacking) */
 .dance-stack-slot {
-  position: sticky !important;
-  top: clamp(84px, 11vh, 100px) !important;
+  position: static !important;
+  display: flex !important;
+  flex-direction: column !important;
   width: 100% !important;
+  height: 100% !important;
+  margin-bottom: 0 !important;
+  top: auto !important;
+  will-change: auto !important;
+  z-index: 1 !important;
   box-sizing: border-box !important;
-  margin-bottom: clamp(340px, 46vh, 480px) !important;
-  will-change: transform !important;
 }
 
-.dance-stack-slot:nth-child(1) { z-index: 1 !important; }
-.dance-stack-slot:nth-child(2) { z-index: 2 !important; }
-.dance-stack-slot:nth-child(3) { z-index: 3 !important; }
-.dance-stack-slot:nth-child(4) {
-  z-index: 4 !important;
-  margin-bottom: clamp(35px, 5vh, 55px) !important;
-}
-
-/* The Card Frame */
+/* The Card Frame - Desktop: Clean Card Column with Standard Hover Lift */
 .dance-style-card {
   position: relative !important;
   box-sizing: border-box !important;
   width: 100% !important;
-  display: grid !important;
-  grid-template-columns: 1.18fr 0.82fr !important;
-  min-height: clamp(380px, 46vh, 440px) !important;
-  border-radius: 28px !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 22px !important;
   background: #FFFFFF !important;
   overflow: hidden !important;
-  transform-origin: 50% top !important;
-  will-change: transform, filter !important;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
-  transition-property: box-shadow, border-color !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: transform !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
+}
+
+.dance-style-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
 }
 
 /* 4 Distinct Card Themes with Vibrant Luminous Glow */
@@ -5772,10 +5777,12 @@ marquee,
 
 /* Content Area */
 .dance-style-content {
+  order: 1 !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: center !important;
-  padding: clamp(24px, 3.2vw, 38px) !important;
+  flex-grow: 1 !important;
+  justify-content: flex-start !important;
+  padding: 22px 20px !important;
   z-index: 2 !important;
 }
 
@@ -5824,16 +5831,16 @@ marquee,
 
 .dance-card-title {
   font-family: var(--font-heading) !important;
-  font-size: clamp(1.6rem, 2.3vw, 2.2rem) !important;
+  font-size: 1.38rem !important;
   font-weight: 800 !important;
   color: #1B365D !important;
-  line-height: 1.2 !important;
+  line-height: 1.25 !important;
   margin: 0 0 6px 0 !important;
 }
 
 .dance-card-quote {
   font-family: var(--font-heading) !important;
-  font-size: 0.92rem !important;
+  font-size: 0.84rem !important;
   font-weight: 600 !important;
   color: #0077B6 !important;
   line-height: 1.4 !important;
@@ -5841,10 +5848,11 @@ marquee,
 }
 
 .dance-card-desc {
-  font-size: 0.90rem !important;
-  line-height: 1.6 !important;
+  font-size: 0.85rem !important;
+  line-height: 1.55 !important;
   color: #374151 !important;
   margin: 0 0 16px 0 !important;
+  flex-grow: 1 !important;
 }
 
 .dance-specs {
@@ -5904,12 +5912,15 @@ marquee,
 
 /* Media Area */
 .dance-style-media {
+  order: -1 !important;
   position: relative !important;
-  height: calc(100% - 28px) !important;
-  margin: 14px 14px 14px 0 !important;
-  border-radius: 20px !important;
+  width: 100% !important;
+  height: 195px !important;
+  margin: 0 !important;
+  border-radius: 22px 22px 0 0 !important;
   overflow: hidden !important;
-  box-shadow: 0 8px 24px rgba(15, 30, 60, 0.08) !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 4px 14px rgba(15, 30, 60, 0.06) !important;
   background: #E2E8F0 !important;
 }
 
@@ -5922,7 +5933,7 @@ marquee,
 }
 
 .dance-style-card:hover .dance-style-img {
-  transform: scale(1.05) !important;
+  transform: scale(1.08) !important;
 }
 
 .dance-media-badge {
@@ -5943,20 +5954,36 @@ marquee,
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Depth Dim Shade Overlay */
+/* Depth Dim Shade Overlay - Disabled on Desktop */
 .scroll-stack-card__shade {
-  position: absolute !important;
-  inset: 0 !important;
-  border-radius: inherit !important;
-  background: #0B1E36 !important;
-  opacity: var(--scroll-stack-dim, 0) !important;
-  pointer-events: none !important;
-  transition: opacity 0.12s ease-out !important;
-  z-index: 10 !important;
+  display: none !important;
+}
+
+.dance-stack-end {
+  display: none !important;
 }
 
 /* Mobile Responsiveness (<= 860px) - Framer Motion StackedCards Engine */
 @media (max-width: 860px) {
+  .dance-scroll-hint {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 16px 0 28px 0 !important;
+  }
+
+  .scroll-stack-card__shade {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    border-radius: inherit !important;
+    background: #0B1E36 !important;
+    opacity: var(--scroll-stack-dim, 0) !important;
+    pointer-events: none !important;
+    transition: opacity 0.12s ease-out !important;
+    z-index: 10 !important;
+  }
+
   .dance-styles-grid {
     display: flex !important;
     flex-direction: column !important;
