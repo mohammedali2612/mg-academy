@@ -3334,6 +3334,140 @@ marquee,
   z-index: 2000;
 }
 
+/* ==========================================================================
+   DESKTOP ONLY: SMOOTH SCROLL ANIMATIONS & CONTROLS (> 860px)
+   ========================================================================== */
+
+/* 1. Desktop Scroll Progress Bar (Top of Screen) */
+.desktop-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5px;
+  background: linear-gradient(90deg, #00B4D8 0%, #0077B6 35%, #7209B7 70%, #F72585 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  z-index: 99999;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.7), 0 0 4px rgba(247, 37, 133, 0.5);
+  transition: transform 0.08s linear;
+  will-change: transform;
+}
+
+/* 2. Desktop Floating Scroll-to-Top Button */
+.desktop-scroll-top-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(0, 180, 216, 0.4);
+  color: #0077B6;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 90, 156, 0.18), 0 0 15px rgba(56, 189, 248, 0.25);
+  cursor: pointer;
+  z-index: 990;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px) scale(0.85);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.35s ease,
+              background 0.3s ease,
+              box-shadow 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.desktop-scroll-top-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.desktop-scroll-top-btn:hover {
+  background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%);
+  color: #ffffff;
+  border-color: #38bdf8;
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 14px 30px rgba(0, 119, 182, 0.35), 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
+.desktop-scroll-top-btn:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+.scroll-top-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 180, 216, 0.3) 0%, transparent 70%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.desktop-scroll-top-btn:hover .scroll-top-glow {
+  opacity: 1;
+}
+
+/* Guard: Desktop-only elements STRICTLY hidden on mobile */
+@media (max-width: 860px) {
+  .desktop-scroll-progress,
+  .desktop-scroll-top-btn {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Enhanced desktop scroll reveal smoothing */
+@media (min-width: 861px) {
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  /* Smooth scroll entrance enhancement for desktop cards */
+  .reveal-fade-up {
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .glass-panel {
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.3s ease !important;
+  }
+}
+
 /* ---------------- Scroll Animations ---------------- */
 .reveal-fade-up {
   opacity: 0;

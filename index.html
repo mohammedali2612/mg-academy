@@ -29,13 +29,16 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=10.2">
+  <link rel="stylesheet" href="style.css?v=10.3">
 
 
 
 </head>
 
 <body>
+
+  <!-- Desktop-Only Smooth Scroll Progress Bar -->
+  <div class="desktop-scroll-progress" id="desktop-scroll-progress" aria-hidden="true"></div>
 
   <!-- Top Announcement Bar (Smooth Marquee Ticker) -->
   <div class="top-announcement-bar" id="announcement-bar">
@@ -1777,6 +1780,12 @@
     </video>
   </div>
 
+  <!-- Desktop-Only Smooth Scroll-to-Top Floating Button -->
+  <button type="button" class="desktop-scroll-top-btn" id="desktop-scroll-top" aria-label="Smooth scroll to top">
+    <i class="fa-solid fa-arrow-up"></i>
+    <span class="scroll-top-glow" aria-hidden="true"></span>
+  </button>
+
   <!-- Confetti Canvas -->
   <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
@@ -1784,7 +1793,7 @@
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <!-- Swiper 11 JS (for 3D Creative Carousel in Mobile View) -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=9.3"></script>
+  <script src="script.js?v=9.4"></script>
 
 </body>
 

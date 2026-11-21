@@ -2565,55 +2565,111 @@ function initMascotPeekScroll() {
 
 
 /* ==========================================================================
-   GLOBAL SMOOTH SCROLL ENGINE (Lenis Smooth Scroll for Mobile & Desktop)
-   - Physics-based inertial smooth scroll on mobile touch & desktop wheel
-   - Smooth anchor navigation with dynamic sticky header offset
-   - Closes mobile drawer navigation on link selection
+   GLOBAL SMOOTH SCROLL ENGINE (Lenis Smooth Scroll - Desktop View Only > 860px)
+   - Desktop: Physics-based inertial smooth wheel scroll (duration: 1.25s)
+   - Desktop: Smooth scroll progress bar at top of viewport
+   - Desktop: Smooth floating Scroll-to-Top button with animated glide
+   - Mobile View (<= 860px): Strictly disabled so mobile enjoys 100% native momentum scrolling
    ========================================================================== */
+let lenisInstance = null;
+
 function initGlobalSmoothScroll() {
-  if (typeof Lenis === 'undefined') return;
+  const progressBar = document.getElementById('desktop-scroll-progress');
+  const scrollTopBtn = document.getElementById('desktop-scroll-top');
 
-  try {
-    const isMobile = window.innerWidth <= 860;
-    const lenis = new Lenis({
-      duration: isMobile ? 1.0 : 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      syncTouch: true,
-      touchMultiplier: 1.25,
-      infinite: false,
-    });
+  function updateDesktopScrollUI(scroll, limit) {
+    if (window.innerWidth <= 860) return;
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    // 1. Desktop Top Scroll Progress Bar
+    if (progressBar && limit > 0) {
+      const progress = Math.min(Math.max(scroll / limit, 0), 1);
+      progressBar.style.transform = `scaleX(${progress})`;
     }
-    requestAnimationFrame(raf);
-    window.__lenis = lenis;
 
-    // Intercept all internal anchor navigation for smooth animated scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (!href || href === '#' || href.length < 2) return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          const offset = window.innerWidth <= 860 ? -60 : -72;
-          lenis.scrollTo(target, { offset, duration: 1.1 });
-
-          // Auto-close mobile menu if open
-          const navMenu = document.getElementById('nav-menu');
-          const mobileToggle = document.getElementById('mobile-toggle-btn');
-          if (navMenu && navMenu.classList.contains('open')) {
-            navMenu.classList.remove('open');
-            const icon = mobileToggle ? mobileToggle.querySelector('i') : null;
-            if (icon) icon.className = 'fa-solid fa-bars';
-          }
-        }
-      });
-    });
-  } catch (e) {
-    console.warn('Lenis smooth scroll error:', e);
+    // 2. Desktop Floating Scroll-to-Top Button
+    if (scrollTopBtn) {
+      if (scroll > 350) {
+        scrollTopBtn.classList.add('is-visible');
+      } else {
+        scrollTopBtn.classList.remove('is-visible');
+      }
+    }
   }
+
+  function setup() {
+    const isDesktop = window.innerWidth > 860;
+
+    // If mobile: destroy Lenis if active, reset progress bar, and return
+    if (!isDesktop) {
+      if (lenisInstance) {
+        lenisInstance.destroy();
+        lenisInstance = null;
+        window.__lenis = null;
+      }
+      if (progressBar) progressBar.style.transform = 'scaleX(0)';
+      if (scrollTopBtn) scrollTopBtn.classList.remove('is-visible');
+      return;
+    }
+
+    // If already running on desktop, update and return
+    if (lenisInstance) return;
+
+    if (typeof Lenis === 'undefined') return;
+
+    try {
+      lenisInstance = new Lenis({
+        duration: 1.25,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1.08,
+        syncTouch: false,
+        infinite: false,
+      });
+
+      window.__lenis = lenisInstance;
+
+      function raf(time) {
+        if (lenisInstance) {
+          lenisInstance.raf(time);
+          requestAnimationFrame(raf);
+        }
+      }
+      requestAnimationFrame(raf);
+
+      lenisInstance.on('scroll', (e) => {
+        updateDesktopScrollUI(e.scroll, e.limit);
+      });
+
+      // Desktop anchor links smooth glide
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          if (window.innerWidth <= 860) return;
+          const href = this.getAttribute('href');
+          if (!href || href === '#' || href.length < 2) return;
+          const target = document.querySelector(href);
+          if (target && lenisInstance) {
+            e.preventDefault();
+            lenisInstance.scrollTo(target, { offset: -72, duration: 1.2 });
+          }
+        });
+      });
+
+      // Scroll-to-top button click
+      if (scrollTopBtn) {
+        scrollTopBtn.onclick = function(e) {
+          e.preventDefault();
+          if (lenisInstance) {
+            lenisInstance.scrollTo(0, { duration: 1.3 });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        };
+      }
+    } catch (err) {
+      console.warn('Desktop smooth scroll error:', err);
+    }
+  }
+
+  setup();
+  window.addEventListener('resize', setup, { passive: true });
 }
