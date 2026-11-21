@@ -6578,3 +6578,18 @@ marquee,
     transform: translateX(0) rotate(0deg);
   }
 }
+
+/* ==========================================================================
+   GLOBAL REMOVAL OF CARD BADGES / PILLS (MOBILE & DESKTOP)
+   ========================================================================== */
+.course-badge,
+.dance-media-badge,
+.dance-badge,
+.tier-pill,
+.badge-discount,
+.slat-pill-tag {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
