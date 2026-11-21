@@ -3800,7 +3800,7 @@ marquee,
     align-items: center !important;
     justify-content: center !important;
     background-color: #5DB5EE !important;
-    background-image: url('assets/mobile_hero_kids.jpg') !important;
+    background-image: url('assets/mobile_hero_kids.jpg?v=2') !important;
     background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
