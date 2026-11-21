@@ -2648,14 +2648,26 @@ function initInvertedDomeMobile() {
     window.addEventListener('load', start);
   }
 
-  window.addEventListener('resize', () => {
-    const isMobile = window.innerWidth <= 860;
-    if (!isMobile) {
-      cleanup();
-    } else {
-      if (!invertedDomeActiveInstance) start();
-    }
-  }, { passive: true });
+  let resizeTimer = null;
+  let lastKnownWidth = window.innerWidth;
+  function handleMobileGalleryResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const isMobile = window.innerWidth <= 860;
+      if (!isMobile) {
+        cleanup();
+      } else {
+        if (Math.abs(window.innerWidth - lastKnownWidth) > 10 || !invertedDomeActiveInstance) {
+          lastKnownWidth = window.innerWidth;
+          cleanup();
+          start();
+        }
+      }
+    }, 150);
+  }
+
+  window.addEventListener('resize', handleMobileGalleryResize, { passive: true });
+  window.addEventListener('orientationchange', handleMobileGalleryResize, { passive: true });
 }
 
 /* ==========================================================================
