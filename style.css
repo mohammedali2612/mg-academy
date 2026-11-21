@@ -3747,14 +3747,14 @@ marquee,
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     background-color: #5DB5EE !important;
     background-image: url('assets/mobile_hero_kids.jpg') !important;
     background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
-    min-height: clamp(700px, 100svh, 860px) !important;
-    padding: clamp(75px, 12vh, 86px) 14px 30px !important;
+    min-height: clamp(720px, 100svh, 920px) !important;
+    padding: clamp(72px, 10vh, 85px) 14px clamp(25px, 4vh, 35px) !important;
     overflow: hidden !important;
     isolation: isolate !important;
   }
@@ -3778,7 +3778,7 @@ marquee,
     margin: 0 auto !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: flex-start !important;
+    align-items: center !important;
   }
 
   .hero-content {
@@ -4185,8 +4185,10 @@ marquee,
   }
 
   .hero-section {
-    min-height: clamp(660px, 94vh, 840px) !important;
-    padding: clamp(68px, 10vh, 78px) 10px 45px !important;
+    min-height: clamp(680px, 100svh, 860px) !important;
+    padding: clamp(70px, 9vh, 80px) 10px clamp(20px, 4vh, 30px) !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
   .hero-title {
