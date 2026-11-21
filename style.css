@@ -6442,50 +6442,48 @@ marquee,
   background: linear-gradient(90deg, #005A9C 0%, #00B4D8 100%) !important;
   box-shadow: 0 0 14px rgba(56, 189, 248, 0.65) !important;
 }
-}
 
 /* ==========================================================================
    MASCOT PEEK-IN SCROLL ANIMATION (MG Academy Girl & Boy Scholars)
    ========================================================================== */
 .mg-mascot-wrap {
   position: fixed;
-  bottom: 22px;
+  bottom: 20px;
   z-index: 998;
   display: flex;
   flex-direction: column;
-  align-items: center;
   pointer-events: none;
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
   opacity: 0;
   will-change: transform, opacity;
 }
 
-/* Left Mascot (Girl Artist) */
+/* Left Mascot (Girl Artist - Full 848x480 Video) */
 .mg-mascot-left {
-  left: 0;
+  left: -25px;
   align-items: flex-start;
-  transform: translateX(-125%) rotate(-8deg);
+  transform: translateX(-125%) rotate(-6deg);
 }
 
 .mg-mascot-left.show {
-  transform: translateX(-4px) rotate(0deg);
+  transform: translateX(0) rotate(0deg);
   opacity: 1;
 }
 
-/* Right Mascot (Boy Scholar) */
+/* Right Mascot (Boy Scholar - Full 848x480 Video) */
 .mg-mascot-right {
-  right: 0;
+  right: -45px;
   align-items: flex-end;
-  transform: translateX(125%) rotate(8deg);
+  transform: translateX(125%) rotate(6deg);
 }
 
 .mg-mascot-right.show {
-  transform: translateX(4px) rotate(0deg);
+  transform: translateX(0) rotate(0deg);
   opacity: 1;
 }
 
 .mg-mascot-img {
-  width: 175px;
+  width: 340px;
   height: auto;
   filter: drop-shadow(0 10px 22px rgba(15, 23, 42, 0.22));
   animation: mascotBob 2.8s ease-in-out infinite;
@@ -6498,26 +6496,29 @@ marquee,
 .mg-speech-bubble {
   background: #ffffff;
   color: #0f172a;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   padding: 8px 16px;
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(2, 132, 199, 0.22);
   border: 2px solid #38bdf8;
   white-space: nowrap;
+  width: fit-content;
+  max-width: max-content;
   margin-bottom: 8px;
   position: relative;
   transition: all 0.3s ease;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .mg-mascot-left .mg-speech-bubble {
-  margin-left: 18px;
+  margin-left: 65px;
   border-bottom-left-radius: 4px;
 }
 
 .mg-mascot-right .mg-speech-bubble {
-  margin-right: 18px;
+  margin-right: 85px;
   border-bottom-right-radius: 4px;
   border-color: #f59e0b;
 }
@@ -6534,28 +6535,44 @@ marquee,
   }
 }
 
-/* Mobile Responsiveness for Mascot Peek-in */
+/* Mobile Responsiveness for Mascot Peek-in (Full Uncropped Video) */
 @media (max-width: 640px) {
   .mg-mascot-wrap {
-    bottom: 14px;
+    bottom: 12px;
+  }
+
+  .mg-mascot-left {
+    left: -20px;
+  }
+
+  .mg-mascot-left .mg-speech-bubble {
+    margin-left: 45px;
+  }
+
+  .mg-mascot-right {
+    right: -35px;
+  }
+
+  .mg-mascot-right .mg-speech-bubble {
+    margin-right: 60px;
   }
 
   .mg-mascot-img {
-    width: clamp(110px, 30vw, 138px);
+    width: clamp(225px, 64vw, 275px);
   }
 
   .mg-speech-bubble {
     font-size: 0.72rem;
-    padding: 6px 11px;
+    padding: 6px 12px;
     border-radius: 14px;
     margin-bottom: 5px;
   }
 
   .mg-mascot-left.show {
-    transform: translateX(-4px) rotate(0deg);
+    transform: translateX(0) rotate(0deg);
   }
 
   .mg-mascot-right.show {
-    transform: translateX(4px) rotate(0deg);
+    transform: translateX(0) rotate(0deg);
   }
 }

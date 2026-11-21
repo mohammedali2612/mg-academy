@@ -2465,7 +2465,7 @@ function initMascotVideoPlayers() {
   const girlWrap = document.getElementById('mgGirlMascot');
   const boyWrap = document.getElementById('mgBoyMascot');
 
-  function setupWebGLPlayer(video, canvas, wrapper, cropU1, cropU2, cropV1, cropV2, fallbackSrc) {
+  function setupWebGLPlayer(video, canvas, wrapper, fallbackSrc) {
     if (!video || !canvas) return;
 
     let gl = null;
@@ -2542,11 +2542,12 @@ function initMascotVideoPlayers() {
     gl.enableVertexAttribArray(aPos);
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
+    // FULL SIZE VIDEO (NO CROP: 0.0 to 1.0 across full frame)
     const texBuf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, texBuf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-      cropU1, cropV2,   cropU2, cropV2,   cropU1, cropV1,
-      cropU1, cropV1,   cropU2, cropV2,   cropU2, cropV1
+      0, 1,   1, 1,   0, 0,
+      0, 0,   1, 1,   1, 0
     ]), gl.STATIC_DRAW);
     const aTex = gl.getAttribLocation(program, 'a_texCoord');
     gl.enableVertexAttribArray(aTex);
@@ -2578,13 +2579,9 @@ function initMascotVideoPlayers() {
         if (video.readyState >= 2) {
           if (!isConfigured && video.videoWidth > 0) {
             isConfigured = true;
-            const vw = video.videoWidth;
-            const vh = video.videoHeight;
-            const cropW = Math.round(vw * (cropU2 - cropU1));
-            const cropH = Math.round(vh * (cropV2 - cropV1));
-            canvas.width = cropW;
-            canvas.height = cropH;
-            gl.viewport(0, 0, cropW, cropH);
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            gl.viewport(0, 0, video.videoWidth, video.videoHeight);
           }
 
           gl.clear(gl.COLOR_BUFFER_BIT);
@@ -2599,11 +2596,11 @@ function initMascotVideoPlayers() {
     requestAnimationFrame(renderLoop);
   }
 
-  // Setup Girl video player (crop region around girl)
-  setupWebGLPlayer(vGirl, cGirl, girlWrap, 0.04, 0.65, 0.02, 0.99, 'assets/girl-mascot.png');
+  // Setup Girl video player (Full uncropped 848x480 frame)
+  setupWebGLPlayer(vGirl, cGirl, girlWrap, 'assets/girl-mascot.png');
 
-  // Setup Boy video player (crop region around boy)
-  setupWebGLPlayer(vBoy, cBoy, boyWrap, 0.35, 0.94, 0.02, 0.99, 'assets/boy-mascot.png');
+  // Setup Boy video player (Full uncropped 848x480 frame)
+  setupWebGLPlayer(vBoy, cBoy, boyWrap, 'assets/boy-mascot.png');
 }
 
 /* ==========================================================================
