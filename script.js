@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initFormsAndConfetti();
   initSkiper30Parallax();
-  initGallerySkiper48Mobile();
+  initInvertedDomeMobile();
   initStatsCounter();
   initPeekAdmissionButton();
   initHeroSlideshow();
@@ -2127,72 +2127,496 @@ function initDanceScrollStack() {
 }
 
 /* ==========================================================================
-   SKIPER 48 STACKED CARDS CAROUSEL (Carousel_002) - Mobile Gallery (<= 860px Only)
+   INVERTED DOME 3D WEBGL CURVED GALLERY (ReactBits Pro) - Mobile Gallery (<= 860px Only)
+   Component parity: @reactbits-starter/inverted-dome-tw (<M />)
    Features:
-   - Mobile View (<= 860px): Swiper Effect "cards" (3D card stacking with rotation & depth)
-   - Loop & Autoplay
-   - Pagination & Chevrons
-   - Desktop View (> 860px): Static Skiper 30 Parallax Gallery (no Swiper)
+   - Interactive Draggable Image Grid curved like the inside of a dome
+   - Shader lens equation mapping tiles into concave dome curvature
+   - Touch drag with inertia physics & velocity momentum decay (friction: 0.9)
+   - Click/tap hit-test opens high-resolution student artwork in modal lightbox
+   - Desktop View (> 860px): Skiper 30 Parallax Gallery untouched
    ========================================================================== */
-let gallerySkiper48Instance = null;
+let invertedDomeActiveInstance = null;
 
-function initGallerySkiper48Mobile() {
-  const container = document.getElementById('gallery-skiper48-swiper');
+function initInvertedDomeMobile() {
+  const container = document.getElementById('inverted-dome-canvas-wrapper');
   if (!container) return;
 
-  function update() {
+  const DOME_IMAGES = [
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg', title: 'Little Picasso Art Studio' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg', title: 'Classical Poise & Rhythms' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg', title: 'Young Masters Exhibition' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg', title: 'Hands-on Art Workshop' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg', title: 'Creative Learning & Sketching' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', title: 'Competition Laurels & Awards' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg', title: 'Student Achievements & Growth' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg', title: 'Cultural Celebrations & Events' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', title: 'Classroom Learning Workshop' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg', title: 'Creative Studio Exploration' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg', title: 'Stage Dance Salangai' },
+    { src: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg', title: 'Joyful Creative Moments' }
+  ];
+
+  const vertexShader = `
+    attribute vec2 aCell;
+    uniform vec2 uResolution;
+    uniform vec2 uOffset;
+    uniform vec2 uTile;
+    uniform vec2 uPitch;
+    uniform vec2 uHalfCount;
+    uniform vec2 uAtlasGrid;
+    uniform vec2 uInset;
+    uniform float uRotation;
+    uniform float uCurve;
+    uniform float uCurveRadius;
+    uniform float uZoom;
+    uniform float uSeed;
+    uniform float uImageCount;
+
+    varying vec2 vUv;
+    varying vec2 vLocal;
+    varying float vEdge;
+
+    float hashCell(vec2 cell) {
+      vec2 c = mod(cell, 1024.0);
+      float h = mod(c.x * 7919.0 + c.y * 7307.0 + uSeed * 613.0, 1021.0);
+      return mod(h * h + c.x * 3.0 + c.y * 17.0, 1009.0);
+    }
+
+    vec2 lens(vec2 screen) {
+      vec2 n = screen / uResolution - 0.5;
+      float aspect = uResolution.x / uResolution.y;
+      n.x *= aspect;
+      float t = length(n) / uCurveRadius;
+      float z = sqrt(max(0.5 - t * t, 0.0004));
+      n *= uZoom + uCurve / z;
+      n.x /= aspect;
+      return (n + 0.5) * uResolution;
+    }
+
+    void main() {
+      vec2 cell = aCell - uHalfCount + floor(uOffset / uPitch);
+      vec2 origin = cell * uPitch - uOffset + uResolution * 0.5;
+
+      vec2 local = uv * uTile;
+      vec2 centre = origin + uTile * 0.5;
+      vec2 rel = local - uTile * 0.5;
+      float c = cos(uRotation);
+      float s = sin(uRotation);
+      rel = vec2(rel.x * c - rel.y * s, rel.x * s + rel.y * c);
+      vec2 screen = lens(centre + rel);
+
+      vec2 n = screen / uResolution - 0.5;
+      n.x *= uResolution.x / uResolution.y;
+      vEdge = length(n);
+
+      float index = mod(hashCell(cell), uImageCount);
+      vec2 slot = vec2(mod(index, uAtlasGrid.x), floor(index / uAtlasGrid.x));
+
+      vec2 padded = mix(uInset, 1.0 - uInset, vec2(uv.x, 1.0 - uv.y));
+      vUv = (slot + padded) / uAtlasGrid;
+      vLocal = local;
+
+      vec2 clip = screen / uResolution * 2.0 - 1.0;
+      gl_Position = vec4(clip, 0.0, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    precision highp float;
+    uniform sampler2D uAtlas;
+    uniform vec2 uTile;
+    uniform float uRadius;
+    uniform float uGrayscale;
+    uniform float uVignette;
+    uniform float uVignetteReach;
+
+    varying vec2 vUv;
+    varying vec2 vLocal;
+    varying float vEdge;
+
+    float roundedBox(vec2 p, vec2 extent, float r) {
+      vec2 q = abs(p) - extent + r;
+      return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+    }
+
+    void main() {
+      vec4 tex = texture2D(uAtlas, vUv);
+      vec2 extent = uTile * 0.5;
+      float r = min(uRadius, min(extent.x, extent.y));
+      float d = roundedBox(vLocal - extent, extent, r);
+      float aa = fwidth(d);
+      float shape = 1.0 - smoothstep(-aa, aa, d);
+      if (shape < 0.003) discard;
+
+      float luma = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
+      vec3 color = mix(tex.rgb, vec3(luma), uGrayscale);
+      float fade = smoothstep(0.0, uVignetteReach, vEdge);
+      color *= 1.0 - uVignette * fade;
+      gl_FragColor = vec4(color, tex.a * shape);
+    }
+  `;
+
+  // Exact configuration matching <M /> from @reactbits-starter/inverted-dome-tw
+  const config = {
+    tileWidth: 200,
+    tileHeight: 200,
+    gap: 16,
+    borderRadius: 16,
+    curve: 0.3,
+    curveRadius: 1.5,
+    zoom: 0.1,
+    tileRotation: 0,
+    grayscale: 0,
+    vignette: 0,
+    friction: 0.9,
+    segments: 20,
+    seed: 0,
+    openOnClick: true
+  };
+
+  function cleanup() {
+    if (invertedDomeActiveInstance) {
+      invertedDomeActiveInstance.dispose();
+      invertedDomeActiveInstance = null;
+    }
+  }
+
+  function start() {
     const isMobile = window.innerWidth <= 860;
-
     if (!isMobile) {
-      // Desktop View (> 860px): Destroy Swiper to save memory
-      if (gallerySkiper48Instance) {
-        gallerySkiper48Instance.destroy(true, true);
-        gallerySkiper48Instance = null;
-      }
+      cleanup();
       return;
     }
 
-    // Mobile View (<= 860px): Initialize Swiper Effect Cards matching Skiper 48 Carousel_002
-    if (typeof Swiper === 'undefined') return;
+    if (typeof THREE === 'undefined') return;
+    if (invertedDomeActiveInstance) return;
 
-    if (gallerySkiper48Instance) {
-      gallerySkiper48Instance.update();
-      return;
+    const width = container.clientWidth || 360;
+    const height = container.clientHeight || 460;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(width, height);
+    container.innerHTML = '';
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.Camera();
+
+    const pitchX = config.tileWidth + config.gap;
+    const pitchY = config.tileHeight + config.gap;
+    const cols = Math.min(Math.ceil((1.35 * width) / pitchX) + 3, 60);
+    const rows = Math.min(Math.ceil((1.35 * height) / pitchY) + 3, 60);
+    const cellCount = Math.min(cols * rows, 900);
+
+    const plane = new THREE.PlaneGeometry(1, 1, config.segments, config.segments);
+    const instancedGeom = new THREE.InstancedBufferGeometry();
+    instancedGeom.index = plane.index;
+    instancedGeom.setAttribute('position', plane.getAttribute('position'));
+    instancedGeom.setAttribute('uv', plane.getAttribute('uv'));
+
+    const aCell = new Float32Array(2 * cellCount);
+    for (let i = 0; i < cellCount; i++) {
+      aCell[2 * i] = i % cols;
+      aCell[2 * i + 1] = Math.floor(i / cols);
     }
+    instancedGeom.setAttribute('aCell', new THREE.InstancedBufferAttribute(aCell, 2));
+    instancedGeom.instanceCount = cellCount;
 
-    gallerySkiper48Instance = new Swiper('#gallery-skiper48-swiper', {
-      effect: 'cards',
-      grabCursor: true,
-      loop: true,
-      cardsEffect: {
-        perSlideOffset: 8,
-        perSlideRotate: 2,
-        rotate: true,
-        slideShadows: true,
-      },
-      autoplay: {
-        delay: 2000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      pagination: {
-        el: '.gallery-skiper48-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.gallery-skiper48-next',
-        prevEl: '.gallery-skiper48-prev',
-      },
+    const hVal = Math.max(Math.min(width, height), 1);
+    const mVal = Math.hypot(width / hVal, height / hVal);
+
+    const uniforms = {
+      uAtlas: { value: null },
+      uResolution: { value: new THREE.Vector2(width, height) },
+      uOffset: { value: new THREE.Vector2(0, 0) },
+      uTile: { value: new THREE.Vector2(config.tileWidth, config.tileHeight) },
+      uPitch: { value: new THREE.Vector2(pitchX, pitchY) },
+      uHalfCount: { value: new THREE.Vector2(Math.floor(cols / 2), Math.floor(rows / 2)) },
+      uAtlasGrid: { value: new THREE.Vector2(1, 1) },
+      uInset: { value: new THREE.Vector2(0, 0) },
+      uRotation: { value: (config.tileRotation * Math.PI) / 180 },
+      uCurve: { value: Math.max(config.curve, 0) },
+      uCurveRadius: { value: 0.72 * mVal * Math.max(config.curveRadius, 1) },
+      uZoom: { value: Math.max(config.zoom, 0.05) },
+      uSeed: { value: config.seed },
+      uImageCount: { value: DOME_IMAGES.length },
+      uRadius: { value: Math.max(config.borderRadius, 0) },
+      uGrayscale: { value: config.grayscale },
+      uVignette: { value: config.vignette },
+      uVignetteReach: { value: 0.5 * mVal }
+    };
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      uniforms,
+      transparent: true,
+      depthTest: false,
+      depthWrite: false
     });
+
+    const mesh = new THREE.Mesh(instancedGeom, material);
+    mesh.frustumCulled = false;
+    scene.add(mesh);
+
+    // Build Texture Atlas
+    let disposed = false;
+    const loadedImages = [];
+    let loadedCount = 0;
+
+    DOME_IMAGES.forEach((item) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        if (disposed) return;
+        loadedCount++;
+        if (loadedCount === DOME_IMAGES.length) {
+          buildAtlasTexture();
+        }
+      };
+      img.src = item.src;
+      loadedImages.push(img);
+    });
+
+    function buildAtlasTexture() {
+      const count = loadedImages.length;
+      if (!count) return;
+      const aCols = Math.ceil(Math.sqrt(count));
+      const aRows = Math.ceil(count / aCols);
+      const tileW = 512;
+      const tileH = 512;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = tileW * aCols;
+      canvas.height = tileH * aRows;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      loadedImages.forEach((img, idx) => {
+        const x = (idx % aCols) * tileW;
+        const y = Math.floor(idx / aCols) * tileH;
+        const scale = Math.max(tileW / img.naturalWidth, tileH / img.naturalHeight);
+        const dw = img.naturalWidth * scale;
+        const dh = img.naturalHeight * scale;
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(x, y, tileW, tileH);
+        ctx.clip();
+        ctx.drawImage(img, x + (tileW - dw) / 2, y + (tileH - dh) / 2, dw, dh);
+        ctx.restore();
+      });
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.flipY = false;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.generateMipmaps = true;
+      texture.needsUpdate = true;
+
+      uniforms.uAtlas.value = texture;
+      uniforms.uAtlasGrid.value.set(aCols, aRows);
+      uniforms.uInset.value.set(1.5 / tileW, 1.5 / tileH);
+      uniforms.uImageCount.value = count;
+    }
+
+    // Touch & Pointer State
+    const state = {
+      offset: { x: 0, y: 0 },
+      velocity: { x: 0, y: 0 },
+      dragging: false,
+      lastPos: { x: 0, y: 0 },
+      downPos: { x: 0, y: 0 },
+      downTime: 0
+    };
+
+    function hitTest(clientX, clientY) {
+      const rect = container.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      if (!w || !h) return null;
+
+      const screenX = clientX - rect.left;
+      const screenY = h - (clientY - rect.top);
+      const aspect = w / h;
+      const nx = (screenX / w - 0.5) * aspect;
+      const ny = screenY / h - 0.5;
+      const dist = Math.hypot(nx, ny);
+
+      let unprojX = screenX;
+      let unprojY = screenY;
+
+      const rReach = uniforms.uCurveRadius.value;
+      const zoom = uniforms.uZoom.value;
+      const curve = uniforms.uCurve.value;
+
+      if (dist >= 1e-6) {
+        const lensFn = (t) => {
+          const normT = t / rReach;
+          const z = Math.sqrt(Math.max(0.5 - normT * normT, 0.0004));
+          return t * (zoom + curve / z);
+        };
+
+        let low = 0;
+        let high = rReach * Math.SQRT1_2;
+        if (lensFn(high) >= dist) {
+          for (let i = 0; i < 35; i++) {
+            const mid = (low + high) / 2;
+            if (lensFn(mid) < dist) {
+              low = mid;
+            } else {
+              high = mid;
+            }
+          }
+          const scale = ((low + high) / 2) / dist;
+          unprojX = (nx * scale / aspect + 0.5) * w;
+          unprojY = (ny * scale + 0.5) * h;
+        }
+      }
+
+      const pX = config.tileWidth + config.gap;
+      const pY = config.tileHeight + config.gap;
+      const gx = unprojX - 0.5 * w + state.offset.x;
+      const gy = unprojY - 0.5 * h + state.offset.y;
+
+      const rad = (-config.tileRotation * Math.PI) / 180;
+      const cosR = Math.cos(rad);
+      const sinR = Math.sin(rad);
+
+      const baseCol = Math.floor(gx / pX);
+      const baseRow = Math.floor(gy / pY);
+
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          const col = baseCol + dx;
+          const row = baseRow + dy;
+          const relX = gx - (col * pX + 0.5 * config.tileWidth);
+          const relY = gy - (row * pY + 0.5 * config.tileHeight);
+          const rotX = relX * cosR - relY * sinR;
+          const rotY = relX * sinR + relY * cosR;
+
+          if (Math.abs(rotX) <= 0.5 * config.tileWidth && Math.abs(rotY) <= 0.5 * config.tileHeight) {
+            const cX = ((col % 1024) + 1024) % 1024;
+            const cY = ((row % 1024) + 1024) % 1024;
+            const h1 = (((7919 * cX + 7307 * cY + 613 * config.seed) % 1021) + 1021) % 1021;
+            const h2 = (((h1 * h1 + 3 * cX + 17 * cY) % 1009) + 1009) % 1009;
+            return h2 % DOME_IMAGES.length;
+          }
+        }
+      }
+      return null;
+    }
+
+    const onPointerDown = (e) => {
+      state.dragging = true;
+      state.velocity.x = 0;
+      state.velocity.y = 0;
+      state.lastPos.x = e.clientX;
+      state.lastPos.y = e.clientY;
+      state.downPos.x = e.clientX;
+      state.downPos.y = e.clientY;
+      state.downTime = performance.now();
+      container.setPointerCapture(e.pointerId);
+    };
+
+    const onPointerMove = (e) => {
+      if (!state.dragging) return;
+      const dx = e.clientX - state.lastPos.x;
+      const dy = e.clientY - state.lastPos.y;
+      state.lastPos.x = e.clientX;
+      state.lastPos.y = e.clientY;
+
+      state.offset.x -= dx;
+      state.offset.y += dy;
+
+      state.velocity.x = -(0.3 * dx) + 0.7 * state.velocity.x;
+      state.velocity.y = 0.3 * dy + 0.7 * state.velocity.y;
+    };
+
+    const onPointerUp = (e) => {
+      if (container.hasPointerCapture(e.pointerId)) {
+        container.releasePointerCapture(e.pointerId);
+      }
+      const wasDragging = state.dragging;
+      state.dragging = false;
+
+      const dist = Math.hypot(e.clientX - state.downPos.x, e.clientY - state.downPos.y);
+      if (wasDragging && dist < 7 && performance.now() - state.downTime < 500) {
+        const hitIdx = hitTest(e.clientX, e.clientY);
+        if (hitIdx !== null && DOME_IMAGES[hitIdx]) {
+          const item = DOME_IMAGES[hitIdx];
+          if (typeof window.openLightbox === 'function') {
+            window.openLightbox(item.src, item.title);
+          }
+        }
+      }
+    };
+
+    container.addEventListener('pointerdown', onPointerDown);
+    container.addEventListener('pointermove', onPointerMove);
+    container.addEventListener('pointerup', onPointerUp);
+    container.addEventListener('pointercancel', onPointerUp);
+
+    let animId;
+    let lastTime = performance.now();
+
+    function renderLoop() {
+      animId = requestAnimationFrame(renderLoop);
+      const now = performance.now();
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+
+      if (!state.dragging) {
+        const decay = Math.pow(config.friction, 60 * dt);
+        state.velocity.x *= decay;
+        state.velocity.y *= decay;
+        if (Math.abs(state.velocity.x) < 0.01) state.velocity.x = 0;
+        if (Math.abs(state.velocity.y) < 0.01) state.velocity.y = 0;
+
+        state.offset.x += state.velocity.x * dt * 60;
+        state.offset.y += state.velocity.y * dt * 60;
+      }
+
+      uniforms.uOffset.value.set(state.offset.x, state.offset.y);
+      renderer.render(scene, camera);
+    }
+    renderLoop();
+
+    invertedDomeActiveInstance = {
+      dispose() {
+        disposed = true;
+        cancelAnimationFrame(animId);
+        container.removeEventListener('pointerdown', onPointerDown);
+        container.removeEventListener('pointermove', onPointerMove);
+        container.removeEventListener('pointerup', onPointerUp);
+        container.removeEventListener('pointercancel', onPointerUp);
+        renderer.dispose();
+        instancedGeom.dispose();
+        plane.dispose();
+        material.dispose();
+        if (uniforms.uAtlas.value) uniforms.uAtlas.value.dispose();
+        container.innerHTML = '';
+      }
+    };
   }
 
-  if (typeof Swiper !== 'undefined') {
-    update();
+  if (typeof THREE !== 'undefined') {
+    start();
   } else {
-    window.addEventListener('load', update);
+    window.addEventListener('load', start);
   }
 
-  window.addEventListener('resize', update, { passive: true });
+  window.addEventListener('resize', () => {
+    const isMobile = window.innerWidth <= 860;
+    if (!isMobile) {
+      cleanup();
+    } else {
+      if (!invertedDomeActiveInstance) start();
+    }
+  }, { passive: true });
 }
 
 /* ==========================================================================

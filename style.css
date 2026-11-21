@@ -2273,8 +2273,8 @@ marquee,
   transform: scale(1.08);
 }
 
-/* ---------------- Skiper 48 Stacked Cards (Carousel_002) - Mobile Gallery View Only ---------------- */
-.skiper48-gallery-mobile {
+/* ---------------- Inverted Dome 3D Interactive Curved Gallery (ReactBits Pro) - Mobile Only ---------------- */
+.inverted-dome-gallery-mobile {
   display: none !important;
 }
 
@@ -2286,12 +2286,12 @@ marquee,
   .skiper30-gallery {
     display: flex !important;
   }
-  .skiper48-gallery-mobile {
+  .inverted-dome-gallery-mobile {
     display: none !important;
   }
 }
 
-/* ---- Responsive Mobile Gallery: Skiper 48 Stacked Cards (Carousel_002) (<= 860px) ---- */
+/* ---- Responsive Mobile Gallery: Inverted Dome 3D Curved WebGL Canvas (<= 860px) ---- */
 @media (max-width: 860px) {
   /* Hide Desktop Parallax Gallery on Mobile */
   #skiper30-root {
@@ -2302,158 +2302,87 @@ marquee,
     display: none !important;
   }
 
-  /* Show Skiper 48 Cards Carousel on Mobile */
-  .skiper48-gallery-mobile {
+  /* Show Inverted Dome 3D Canvas on Mobile */
+  .inverted-dome-gallery-mobile {
     display: flex !important;
+    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
+    max-width: 480px !important;
+    margin: 8px auto 26px auto !important;
     position: relative !important;
-    padding: 15px 0 25px 0 !important;
-    margin: 10px auto 25px auto !important;
-    overflow: hidden !important;
-    animation: skiper48Entrance 0.5s ease-out 0.2s both !important;
+    z-index: 10 !important;
+    animation: invertedDomeEntrance 0.5s ease-out 0.2s both !important;
   }
 
-  @keyframes skiper48Entrance {
+  @keyframes invertedDomeEntrance {
     0% {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(22px) scale(0.96);
     }
     100% {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
   }
 
-  .Carousal_002 {
-    width: 270px !important;
-    height: 380px !important;
-    padding-bottom: 50px !important;
-    position: relative !important;
-    margin: 0 auto !important;
-    overflow: visible !important;
-  }
-
-  .gallery-skiper48-slide {
+  .inverted-dome-canvas-wrapper {
     width: 100% !important;
-    height: 330px !important;
-    border-radius: 24px !important;
+    height: 460px !important;
+    border-radius: 28px !important;
     overflow: hidden !important;
-    border: 3px solid rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 16px 36px rgba(0, 90, 156, 0.18), 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    background: #ffffff !important;
     position: relative !important;
-    cursor: grab;
-    will-change: transform;
+    box-shadow: 0 18px 46px rgba(0, 119, 182, 0.28), 0 0 0 1.5px rgba(56, 189, 248, 0.4) !important;
+    background: radial-gradient(circle at center, #0f1f3a 0%, #060b17 100%) !important;
+    touch-action: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    cursor: grab !important;
   }
 
-  .gallery-skiper48-slide.swiper-slide-active {
-    box-shadow: 0 22px 46px rgba(0, 119, 182, 0.32), 0 0 25px rgba(56, 189, 248, 0.45) !important;
-    border-color: #38bdf8 !important;
+  .inverted-dome-canvas-wrapper:active {
+    cursor: grabbing !important;
   }
 
-  .gallery-skiper48-img {
+  .inverted-dome-canvas-wrapper canvas {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
     display: block !important;
-    pointer-events: none;
-    border-radius: 21px !important;
+    outline: none !important;
   }
 
-  .gallery-skiper48-caption {
-    position: absolute;
-    bottom: 14px;
-    left: 12px;
-    right: 12px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 8px 12px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    pointer-events: none;
-  }
-
-  .gallery-skiper48-caption span {
-    font-family: var(--font-heading);
-    font-size: 0.86rem;
-    font-weight: 700;
-    color: #1B365D;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Swiper Pagination matching Skiper 48 */
-  .gallery-skiper48-pagination {
-    position: absolute !important;
-    bottom: 6px !important;
-    left: 0 !important;
-    width: 100% !important;
-    display: flex !important;
+  .inverted-dome-hint {
+    display: inline-flex !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    z-index: 10 !important;
+    gap: 8px !important;
+    margin-top: 14px !important;
+    padding: 7px 18px !important;
+    border-radius: 9999px !important;
+    background: rgba(15, 23, 42, 0.82) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    color: #e0f2fe !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22) !important;
+    animation: invertedDomePulse 2.8s ease-in-out infinite !important;
   }
 
-  .gallery-skiper48-pagination .swiper-pagination-bullet {
-    width: 8px !important;
-    height: 8px !important;
-    border-radius: 4px !important;
-    background: #0077B6 !important;
-    opacity: 0.28 !important;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-    margin: 0 !important;
+  @keyframes invertedDomePulse {
+    0%, 100% {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22), 0 0 0 rgba(56, 189, 248, 0);
+    }
+    50% {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 14px rgba(56, 189, 248, 0.4);
+    }
   }
 
-  .gallery-skiper48-pagination .swiper-pagination-bullet-active {
-    width: 24px !important;
-    opacity: 1 !important;
-    background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%) !important;
-    box-shadow: 0 2px 8px rgba(0, 180, 216, 0.4) !important;
-  }
-
-  /* Swiper Nav Chevrons */
-  .gallery-skiper48-nav-btn {
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1.5px solid rgba(0, 180, 216, 0.35);
-    box-shadow: 0 6px 18px rgba(0, 90, 156, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #0077B6;
-    font-size: 0.95rem;
-    cursor: pointer;
-    z-index: 20;
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
-
-  .gallery-skiper48-nav-btn:active {
-    transform: translateY(-50%) scale(0.92);
-    background: #00B4D8;
-    color: #ffffff;
-  }
-
-  .gallery-skiper48-prev {
-    left: -48px;
-  }
-
-  .gallery-skiper48-next {
-    right: -48px;
+  .inverted-dome-hint i {
+    color: #38bdf8 !important;
+    font-size: 0.85rem !important;
   }
 }
 
