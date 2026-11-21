@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFeesSkiper47Carousel();
   initMascotVideoPlayers();
   initMascotPeekScroll();
+  initDesktopCardSmoothScroll();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -2104,17 +2105,43 @@ function initDanceScrollStack() {
     }
 
     // ----------------------------------------------------------------------
-    // Desktop View (> 860px): No animation - static responsive grid
+    // Desktop View (> 860px): Smooth Scroll-Linked 3D Wave Parallax
     // ----------------------------------------------------------------------
-    slots.forEach(slot => {
-      const card = slot.querySelector('.dance-style-card');
-      if (card) {
-        card.style.transform = '';
-        card.style.filter = '';
-        card.style.transformOrigin = '';
+    const containerRect = container.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const progress = (vh - containerRect.top) / (vh + containerRect.height);
+
+    if (progress >= -0.2 && progress <= 1.2) {
+      slots.forEach((slot, index) => {
+        const card = slot.querySelector('.dance-style-card');
+        if (!card) return;
+
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.top + cardRect.height / 2;
+        const normalizedY = (cardCenter - vh / 2) / (vh / 2);
+
+        const staggerMultipliers = [-24, 18, -16, 22];
+        const mult = staggerMultipliers[index % 4];
+        const floatY = normalizedY * mult;
+        const rotX = Math.max(-5, Math.min(5, normalizedY * -4));
+        const rotY = (index % 2 === 0 ? 1 : -1) * Math.max(-3, Math.min(3, normalizedY * 2.5));
+
+        card.style.setProperty('--card-scroll-y', `${floatY.toFixed(2)}px`);
+        card.style.setProperty('--card-scroll-tilt', `${rotX.toFixed(2)}deg`);
+        card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(2)}deg`);
         card.style.removeProperty('--scroll-stack-dim');
-      }
-    });
+      });
+    } else {
+      slots.forEach(slot => {
+        const card = slot.querySelector('.dance-style-card');
+        if (card) {
+          card.style.setProperty('--card-scroll-y', '0px');
+          card.style.setProperty('--card-scroll-tilt', '0deg');
+          card.style.setProperty('--card-scroll-rot-y', '0deg');
+          card.style.removeProperty('--scroll-stack-dim');
+        }
+      });
+    }
   }
 
   function schedule() {
@@ -2123,6 +2150,13 @@ function initDanceScrollStack() {
 
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule, { passive: true });
+  if (window.__lenis) {
+    window.__lenis.on('scroll', schedule);
+  } else {
+    window.addEventListener('load', () => {
+      if (window.__lenis) window.__lenis.on('scroll', schedule);
+    });
+  }
   schedule();
 }
 
@@ -3100,6 +3134,9 @@ function initGlobalSmoothScroll() {
 
       lenisInstance.on('scroll', (e) => {
         updateDesktopScrollUI(e.scroll, e.limit);
+        if (typeof window.__updateDesktopCards === 'function') {
+          window.__updateDesktopCards();
+        }
       });
 
       // Desktop anchor links smooth glide
@@ -3134,4 +3171,84 @@ function initGlobalSmoothScroll() {
 
   setup();
   window.addEventListener('resize', setup, { passive: true });
+}
+
+/* ==========================================================================
+   DESKTOP CARD SMOOTH SCROLL FLOATING PARALLAX & 3D TILT ENGINE
+   Features:
+   - Synchronized with Lenis smooth wheel scrolling on desktop (> 860px)
+   - Staggered vertical depth parallax for Course, Fee, Achievement, Pillar & Review cards
+   - Subtle 3D perspective tilt reacting to viewport position & scroll velocity
+   - Completely disabled on mobile (<= 860px) to preserve native touch performance
+   ========================================================================== */
+function initDesktopCardSmoothScroll() {
+  const cardSelectors = [
+    '.course-stack-card',
+    '.fee-card',
+    '.achievement-card',
+    '.five-pillar-card',
+    '.review-card',
+    '.mission-card',
+    '.vision-card'
+  ];
+
+  const cards = Array.from(document.querySelectorAll(cardSelectors.join(', ')));
+  if (!cards.length) return;
+
+  let ticking = false;
+  const staggerPatterns = [-18, 14, -12, 16, -10, 12, -15, 13];
+
+  function updateCards() {
+    ticking = false;
+    if (window.innerWidth <= 860) {
+      cards.forEach(card => {
+        card.style.removeProperty('--card-scroll-y');
+        card.style.removeProperty('--card-scroll-tilt');
+        card.style.removeProperty('--card-scroll-rot-y');
+      });
+      return;
+    }
+
+    const vh = window.innerHeight;
+
+    cards.forEach((card, idx) => {
+      const rect = card.getBoundingClientRect();
+      // Only calculate for cards in or near the viewport (-120px to vh + 120px)
+      if (rect.bottom >= -120 && rect.top <= vh + 120) {
+        const cardCenter = rect.top + rect.height / 2;
+        const normY = (cardCenter - vh / 2) / (vh / 2); // -1.2 to +1.2
+
+        const mult = staggerPatterns[idx % staggerPatterns.length];
+        const scrollY = normY * mult;
+        const tiltX = Math.max(-4.5, Math.min(4.5, normY * -3.5));
+        const rotY = (idx % 2 === 0 ? 1 : -1) * Math.max(-2.5, Math.min(2.5, normY * 1.8));
+
+        card.style.setProperty('--card-scroll-y', `${scrollY.toFixed(2)}px`);
+        card.style.setProperty('--card-scroll-tilt', `${tiltX.toFixed(2)}deg`);
+        card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(2)}deg`);
+      }
+    });
+  }
+
+  function schedule() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateCards);
+    }
+  }
+
+  window.__updateDesktopCards = schedule;
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+
+  if (window.__lenis) {
+    window.__lenis.on('scroll', schedule);
+  } else {
+    window.addEventListener('load', () => {
+      if (window.__lenis) window.__lenis.on('scroll', schedule);
+    });
+  }
+
+  schedule();
 }
