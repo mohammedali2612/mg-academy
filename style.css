@@ -2255,271 +2255,69 @@ marquee,
   transform: scale(1.08);
 }
 
-/* ---- Spotlight Frames Gallery (Mobile View Only: <= 860px) ---- */
-.mobile-spotlight-gallery-section {
-  display: none;
-}
-
+/* ---- Responsive Mobile Gallery Grid (Mobile View: <= 860px) ---- */
 @media (max-width: 860px) {
   .skiper30-scroll-tag {
     display: none !important;
   }
 
-  .skiper30-gallery {
-    display: none !important;
+  .skiper30-parallax-root {
+    margin: 15px 0 35px 0 !important;
   }
 
-  .mobile-spotlight-gallery-section {
-    display: block !important;
-    position: relative !important;
-    width: 100% !important;
-    max-width: clamp(300px, 94vw, 440px) !important;
-    margin: 10px auto 30px auto !important;
-    padding: 0 4px !important;
+  .skiper30-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    height: auto !important;
+    overflow: visible !important;
+    gap: 12px !important;
+    padding: 12px !important;
+    background: #FFFFFF !important;
+    border-radius: 22px !important;
+    box-shadow:
+      0 14px 36px rgba(10, 37, 64, 0.08),
+      0 0 22px rgba(56, 189, 248, 0.25) !important;
+    border: 1.5px solid rgba(56, 189, 248, 0.40) !important;
+    margin: 10px auto 25px auto !important;
+    max-width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  .spotlight-header-hint {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-bottom: 14px !important;
+  .skiper30-column {
+    display: contents !important;
+    top: 0 !important;
+    transform: none !important;
+    height: auto !important;
+    width: auto !important;
+    min-width: 0 !important;
   }
 
-  .spotlight-hint-pill {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    font-family: var(--font-heading) !important;
-    font-size: 0.78rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
-    color: #0077B6 !important;
-    background: rgba(0, 119, 182, 0.08) !important;
-    border: 1px solid rgba(0, 119, 182, 0.22) !important;
-    padding: 6px 16px !important;
-    border-radius: 999px !important;
-    box-shadow: 0 2px 10px rgba(0, 119, 182, 0.08) !important;
-  }
-
-  /* Spotlight Frames Container */
-  .spotlight-frames-container {
+  .skiper30-card {
+    height: clamp(140px, 38vw, 185px) !important;
+    min-height: unset !important;
+    border-radius: 14px !important;
     position: relative !important;
-    width: 100% !important;
-    height: clamp(390px, 56vh, 440px) !important;
-    border-radius: 24px !important;
-    background: #090D16 !important;
-    box-shadow:
-      0 18px 48px rgba(10, 37, 64, 0.22),
-      0 0 28px rgba(0, 180, 216, 0.20),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
-    border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
     overflow: hidden !important;
-    touch-action: pan-y !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-  }
-
-  .spotlight-track-wrapper {
-    position: absolute !important;
-    top: 50% !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: clamp(330px, 48vh, 375px) !important;
-    transform: translateY(-50%) !important;
-  }
-
-  /* Slat item: thin vertical slat that expands on selection */
-  .spotlight-slat {
-    position: absolute !important;
-    top: 0 !important;
-    height: 100% !important;
-    overflow: hidden !important;
-    border-radius: 16px !important;
+    border: 1.5px solid rgba(56, 189, 248, 0.40) !important;
+    box-shadow: 0 6px 18px rgba(10, 37, 64, 0.06) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
     cursor: pointer !important;
-    will-change: left, width !important;
-    transition:
-      left 650ms cubic-bezier(0.075, 0.82, 0.165, 1),
-      width 650ms cubic-bezier(0.075, 0.82, 0.165, 1) !important;
-    z-index: 5 !important;
   }
 
-  .spotlight-slat.is-open {
-    z-index: 10 !important;
+  .skiper30-card:active {
+    transform: scale(0.97) !important;
   }
 
-  .spotlight-slat-inner {
-    position: absolute !important;
-    inset: 0 !important;
+  .skiper30-card img {
     width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
-    filter: brightness(0.68) saturate(0.85) !important;
-    transition: filter 600ms cubic-bezier(0.075, 0.82, 0.165, 1) !important;
-  }
-
-  .spotlight-slat.is-open .spotlight-slat-inner {
-    filter: brightness(1) saturate(1) !important;
-  }
-
-  /* Fixed width image centered inside slat */
-  .spotlight-img {
-    position: absolute !important;
-    top: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: var(--spotlight-expanded-width, 240px) !important;
     height: 100% !important;
     object-fit: cover !important;
-    max-width: none !important;
     display: block !important;
-    pointer-events: none !important;
-  }
-
-  .spotlight-slat-overlay {
-    position: absolute !important;
-    inset: 0 !important;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(9, 13, 22, 0.78) 100%) !important;
-    pointer-events: none !important;
-  }
-
-  .spotlight-slat-caption {
-    position: absolute !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    padding: 14px 14px !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    opacity: 0 !important;
-    transform: translateY(8px) !important;
-    transition: opacity 350ms ease 180ms, transform 350ms ease 180ms !important;
-    pointer-events: none !important;
-    z-index: 5 !important;
-  }
-
-  .spotlight-slat.is-open .spotlight-slat-caption {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-
-  .slat-pill-tag {
-    font-family: var(--font-heading) !important;
-    font-size: 0.72rem !important;
-    font-weight: 800 !important;
-    padding: 3px 9px !important;
-    border-radius: 999px !important;
-    color: #FFFFFF !important;
-    flex-shrink: 0 !important;
-  }
-
-  .slat-title {
-    font-family: var(--font-heading) !important;
-    font-size: 0.88rem !important;
-    font-weight: 700 !important;
-    color: #FFFFFF !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    margin: 0 !important;
-  }
-
-  /* Selector: Hairline Box & Guide Lines */
-  .spotlight-selector {
-    position: absolute !important;
-    top: 0 !important;
-    height: 100% !important;
-    pointer-events: none !important;
-    z-index: 15 !important;
-    will-change: left, width !important;
-    transition:
-      left 650ms cubic-bezier(0.075, 0.82, 0.165, 1),
-      width 650ms cubic-bezier(0.075, 0.82, 0.165, 1) !important;
-  }
-
-  .spotlight-selector-box {
-    position: absolute !important;
-    inset: 0 !important;
-    border: 2.5px solid #00B4D8 !important;
-    border-radius: 16px !important;
-    box-shadow:
-      0 0 22px rgba(0, 180, 216, 0.65),
-      inset 0 0 10px rgba(0, 180, 216, 0.20) !important;
-  }
-
-  .spotlight-line-top {
-    position: absolute !important;
-    left: 50% !important;
-    bottom: calc(100% + 2px) !important;
-    transform: translateX(-50%) !important;
-    width: 2.5px !important;
-    height: 40px !important;
-    background: linear-gradient(to top, #00B4D8, rgba(0, 180, 216, 0)) !important;
-    border-radius: 2px !important;
-  }
-
-  .spotlight-line-bottom {
-    position: absolute !important;
-    left: 50% !important;
-    top: calc(100% + 2px) !important;
-    transform: translateX(-50%) !important;
-    width: 2.5px !important;
-    height: 40px !important;
-    background: linear-gradient(to bottom, #00B4D8, rgba(0, 180, 216, 0)) !important;
-    border-radius: 2px !important;
-  }
-
-  /* Footer Controls & Dot Indicator */
-  .spotlight-footer-controller {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 8px !important;
-    margin-top: 14px !important;
-  }
-
-  .spotlight-dots {
-    display: flex !important;
-    align-items: center !important;
-    gap: 7px !important;
-    padding: 6px 14px !important;
-    background: #FFFFFF !important;
-    border: 1px solid rgba(0, 119, 182, 0.22) !important;
-    border-radius: 999px !important;
-    box-shadow: 0 4px 14px rgba(10, 37, 64, 0.08) !important;
-  }
-
-  .spotlight-dot-btn {
-    width: 10px !important;
-    height: 10px !important;
-    border-radius: 999px !important;
-    background: rgba(0, 119, 182, 0.25) !important;
-    border: none !important;
-    padding: 0 !important;
-    cursor: pointer !important;
-    transition: width 350ms ease, background 350ms ease !important;
-  }
-
-  .spotlight-dot-btn.is-active {
-    width: 24px !important;
-    background: #0077B6 !important;
-  }
-
-  .spotlight-active-indicator {
-    font-size: 0.78rem !important;
-    font-weight: 600 !important;
-    color: #64748B !important;
   }
 }
 
-/* Guard Desktop View: strictly unaffected */
+/* Guard Desktop View: strictly unaffected (Skiper 30 Parallax) */
 @media (min-width: 861px) {
-  .mobile-spotlight-gallery-section {
-    display: none !important;
-  }
-
   .skiper30-gallery {
     display: flex !important;
   }
