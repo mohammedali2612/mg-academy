@@ -3585,22 +3585,59 @@ marquee,
    ========================================================================== */
 @media (max-width: 768px) {
 
-  /* ---------------- 1. Mobile Top Announcement Bar (Hidden on Mobile) ---------------- */
+  /* ---------------- 1. Mobile Top Announcement Bar (Visible Marquee at Top) ---------------- */
   .top-announcement-bar {
+    display: block !important;
+    background: #1B365D !important;
+    min-height: 30px !important;
+    padding: 4px 0 !important;
+    position: relative !important;
+    z-index: 1000 !important;
+  }
+
+  .announcement-marquee-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 10px !important;
+    gap: 8px !important;
+  }
+
+  .top-marquee {
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
+    flex: 1 !important;
+  }
+
+  .announcement-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .announcement-contact,
+  .announcement-btn {
     display: none !important;
   }
 
-  /* ---------------- 2. Mobile Navigation Header (Pure White Fixed Pinned Bar) ---------------- */
+  .announcement-social-icon {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 0.80rem !important;
+  }
+
+  /* ---------------- 2. Mobile Navigation Header (Pure White Sticky Bar) ---------------- */
   html {
     scroll-padding-top: 60px !important;
   }
 
   body {
-    padding-top: 58px !important;
+    padding-top: 0 !important;
   }
 
   .site-header {
-    position: fixed !important;
+    position: sticky !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
@@ -3659,7 +3696,14 @@ marquee,
   }
 
   .brand-tagline {
-    display: none !important;
+    display: block !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.58rem !important;
+    font-weight: 600 !important;
+    color: #005A9C !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0.01em !important;
+    white-space: nowrap !important;
   }
 
   /* Admission Button & Hamburger on Right */
@@ -5110,11 +5154,8 @@ marquee,
 }
 
 @media (max-width: 860px) {
-
-  /* Hide only the top ticker announcement bar on small screens to save vertical space;
-     Header (logo, admission CTA, hamburger menu) remains visible and sticky */
   .top-announcement-bar {
-    display: none !important;
+    display: block !important;
   }
 }
 
