@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCourseCardStack();
   initMobileFooterAutoFlip();
   initFeesSkiper47Carousel();
+  initMascotVideoPlayers();
   initMascotPeekScroll();
 
   // Handle ?scrollTo= param if present
@@ -2451,6 +2452,158 @@ function initFeesSkiper47Carousel() {
   }
 
   window.addEventListener('resize', update, { passive: true });
+}
+
+/* ==========================================================================
+   MASCOT LIVE VIDEO CHROMA-KEY PLAYER (GPU WebGL Real-Time Playback)
+   ========================================================================== */
+function initMascotVideoPlayers() {
+  const vGirl = document.getElementById('mgGirlVideo');
+  const cGirl = document.getElementById('mgGirlCanvas');
+  const vBoy = document.getElementById('mgBoyVideo');
+  const cBoy = document.getElementById('mgBoyCanvas');
+  const girlWrap = document.getElementById('mgGirlMascot');
+  const boyWrap = document.getElementById('mgBoyMascot');
+
+  function setupWebGLPlayer(video, canvas, wrapper, cropU1, cropU2, cropV1, cropV2, fallbackSrc) {
+    if (!video || !canvas) return;
+
+    let gl = null;
+    try {
+      gl = canvas.getContext('webgl', { premultipliedAlpha: false, alpha: true })
+        || canvas.getContext('experimental-webgl', { premultipliedAlpha: false, alpha: true });
+    } catch (e) {}
+
+    // Fallback if WebGL unavailable: draw static fallback image
+    if (!gl) {
+      if (fallbackSrc) {
+        const fallbackImg = new Image();
+        fallbackImg.onload = () => {
+          const ctx2d = canvas.getContext('2d');
+          if (ctx2d) {
+            canvas.width = fallbackImg.width;
+            canvas.height = fallbackImg.height;
+            ctx2d.drawImage(fallbackImg, 0, 0);
+          }
+        };
+        fallbackImg.src = fallbackSrc;
+      }
+      return;
+    }
+
+    const vsSource = `
+      attribute vec2 a_pos;
+      attribute vec2 a_texCoord;
+      varying vec2 v_texCoord;
+      void main() {
+        gl_Position = vec4(a_pos, 0.0, 1.0);
+        v_texCoord = a_texCoord;
+      }
+    `;
+
+    const fsSource = `
+      precision mediump float;
+      uniform sampler2D u_texture;
+      varying vec2 v_texCoord;
+      void main() {
+        vec4 color = texture2D(u_texture, v_texCoord);
+        // Key out vibrant green background
+        if (color.g > 0.30 && color.g > color.r * 1.32 && color.g > color.b * 1.32) {
+          discard;
+        }
+        // Smooth edge despill & anti-aliasing
+        if (color.g > 0.35 && color.g > color.r * 1.15 && color.g > color.b * 1.15 && color.r < 0.35 && color.b < 0.35) {
+          color.a = clamp(1.0 - (color.g - max(color.r, color.b)) * 4.0, 0.0, 1.0);
+        }
+        gl_FragColor = color;
+      }
+    `;
+
+    function createShader(gl, type, source) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, source);
+      gl.compileShader(s);
+      return s;
+    }
+
+    const program = gl.createProgram();
+    gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, vsSource));
+    gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, fsSource));
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    const posBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1, -1,   1, -1,  -1,  1,
+      -1,  1,   1, -1,   1,  1
+    ]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'a_pos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    const texBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, texBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      cropU1, cropV2,   cropU2, cropV2,   cropU1, cropV1,
+      cropU1, cropV1,   cropU2, cropV2,   cropU2, cropV1
+    ]), gl.STATIC_DRAW);
+    const aTex = gl.getAttribLocation(program, 'a_texCoord');
+    gl.enableVertexAttribArray(aTex);
+    gl.vertexAttribPointer(aTex, 2, gl.FLOAT, false, 0, 0);
+
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+    gl.clearColor(0, 0, 0, 0);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+
+    function startPlayback() {
+      video.play().catch(() => {});
+    }
+
+    startPlayback();
+    ['click', 'touchstart', 'scroll'].forEach(evt => {
+      document.addEventListener(evt, startPlayback, { once: true, passive: true });
+    });
+
+    let isConfigured = false;
+    function renderLoop() {
+      // Conserve GPU cycles when mascot is not visible
+      if (!wrapper || wrapper.classList.contains('show')) {
+        if (video.readyState >= 2) {
+          if (!isConfigured && video.videoWidth > 0) {
+            isConfigured = true;
+            const vw = video.videoWidth;
+            const vh = video.videoHeight;
+            const cropW = Math.round(vw * (cropU2 - cropU1));
+            const cropH = Math.round(vh * (cropV2 - cropV1));
+            canvas.width = cropW;
+            canvas.height = cropH;
+            gl.viewport(0, 0, cropW, cropH);
+          }
+
+          gl.clear(gl.COLOR_BUFFER_BIT);
+          gl.bindTexture(gl.TEXTURE_2D, texture);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+          gl.drawArrays(gl.TRIANGLES, 0, 6);
+        }
+      }
+      requestAnimationFrame(renderLoop);
+    }
+
+    requestAnimationFrame(renderLoop);
+  }
+
+  // Setup Girl video player (crop region around girl)
+  setupWebGLPlayer(vGirl, cGirl, girlWrap, 0.04, 0.65, 0.02, 0.99, 'assets/girl-mascot.png');
+
+  // Setup Boy video player (crop region around boy)
+  setupWebGLPlayer(vBoy, cBoy, boyWrap, 0.35, 0.94, 0.02, 0.99, 'assets/boy-mascot.png');
 }
 
 /* ==========================================================================
