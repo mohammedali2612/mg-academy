@@ -6593,3 +6593,24 @@ marquee,
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* ==========================================================================
+   REMOVE SECTION TAG PILLS & HINT PILLS IN MOBILE VIEW (<= 860px)
+   ========================================================================== */
+@media (max-width: 860px) {
+  .section-tag,
+  .dance-hint-pill,
+  .dance-scroll-hint,
+  .spotlight-hint-pill,
+  .spotlight-header-hint,
+  .course-stack-hint {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
