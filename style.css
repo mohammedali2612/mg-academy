@@ -3735,8 +3735,8 @@ marquee,
     background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
-    min-height: clamp(660px, 94vh, 840px) !important;
-    padding: 30px 14px 40px !important;
+    min-height: clamp(700px, 100svh, 860px) !important;
+    padding: clamp(75px, 12vh, 86px) 14px 30px !important;
     overflow: hidden !important;
     isolation: isolate !important;
   }
@@ -4168,7 +4168,7 @@ marquee,
 
   .hero-section {
     min-height: clamp(660px, 94vh, 840px) !important;
-    padding: 0 0 55px !important;
+    padding: clamp(68px, 10vh, 78px) 10px 45px !important;
   }
 
   .hero-title {
