@@ -8,11 +8,31 @@
      #F4F9FC — Soft Cloud Breeze (Clean Background)
      #FFFFFF — Pure Crisp White (Elevated Surfaces)
    Typography:
-     Headings: 'Peace Sans', sans-serif
-     Body & UI: 'Open Sauce Sans', sans-serif
+     Primary Typeface: 'Amaranth', sans-serif
+     Headings Fallback: 'Peace Sans', sans-serif
+     Body & UI Fallback: 'Open Sauce Sans', sans-serif
    ========================================================================== */
 
-/* ---------------- Peace Sans & Open Sauce Sans Font Definitions ---------------- */
+/* ---------------- Amaranth Typeface Definitions (Primary Font) ---------------- */
+@font-face {
+  font-family: 'Amaranth';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/amaranth-400.woff2') format('woff2'),
+       url('https://fonts.gstatic.com/s/amaranth/v19/KtkuALODe433f0j1zMnFHdA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Amaranth';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/amaranth-700.woff2') format('woff2'),
+       url('https://fonts.gstatic.com/s/amaranth/v19/KtkpALODe433f0j1zMF-OMWl42E.woff2') format('woff2');
+}
+
+/* ---------------- Fallback Font Definitions: Peace Sans & Open Sauce Sans ---------------- */
 @font-face {
   font-family: 'Peace Sans';
   font-style: normal;
@@ -125,8 +145,8 @@
   --shadow-glow-tangerine: 0 0 25px rgba(255, 107, 53, 0.35);
   --shadow-glow-purple: 0 0 25px rgba(123, 44, 191, 0.35);
 
-  --font-heading: 'Peace Sans', 'Open Sauce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Open Sauce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Amaranth', 'Peace Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Amaranth', 'Open Sauce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --radius-sm: 12px;
   --radius-md: 18px;

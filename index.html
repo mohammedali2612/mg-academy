@@ -27,7 +27,14 @@
     content="Where Little Hands Create Big Dreams! A joyful space for children to explore creative arts, dance, and mind skills.">
   <meta property="og:type" content="website">
 
-  <!-- Font Combination: Peace Sans (Headings) + Open Sauce Sans (Body & UI) -->
+  <!-- Primary Font: Amaranth (Google Fonts + Local Fallback) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="./fonts/amaranth-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/amaranth-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- Fallback Fonts: Peace Sans + Open Sauce Sans -->
   <link rel="preload" href="./fonts/peace-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/open-sauce-sans-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/open-sauce-sans-600.woff2" as="font" type="font/woff2" crossorigin>
@@ -45,7 +52,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=11.2">
+  <link rel="stylesheet" href="style.css?v=11.3">
 
 
 
@@ -1696,7 +1703,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Swiper 11 JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=11.2"></script>
+  <script src="script.js?v=11.3"></script>
 
 </body>
 
