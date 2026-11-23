@@ -2337,9 +2337,6 @@ function initSmoothScrollSliderMobile() {
 
     card.innerHTML = `
       <img src="${slide.img}" alt="${slide.title}" draggable="false" loading="lazy">
-      <div class="smooth-slider-card-zoom-badge" title="Tap to zoom">
-        <i class="fa-solid fa-expand"></i>
-      </div>
       <div class="smooth-slider-card-overlay">
         <h4 class="smooth-slider-card-title">${slide.title}</h4>
         <span class="smooth-slider-card-subtitle">${slide.subtitle}</span>
@@ -2454,8 +2451,7 @@ function initSmoothScrollSliderMobile() {
       lastReportedIndex = activeIndex;
       indicatorEl.innerHTML = `
         <span class="slider-status-pill">
-          <i class="fa-solid fa-camera"></i>
-          <span>${activeIndex + 1} of ${items.length} &bull; ${items[activeIndex].title}</span>
+          <span>${activeIndex + 1} / ${items.length} &mdash; ${items[activeIndex].title}</span>
         </span>
       `;
     }
@@ -2912,14 +2908,14 @@ function initMascotPeekScroll() {
   // Section configuration matching 8 navigation links (+ dance studio)
   const sectionConfig = {
     home: { side: 'none' },
-    about: { side: 'left', text: '🎨 About Us!' },
-    courses: { side: 'right', text: '📚 Our Courses!' },
-    dance: { side: 'right', text: '💃 Dance Classes!' },
-    gallery: { side: 'left', text: '🎨 Art Gallery!' },
-    achievements: { side: 'right', text: '🏆 Achievements!' },
-    reviews: { side: 'left', text: '⭐ Parent Reviews!' },
-    fees: { side: 'right', text: '💡 Course Fees!' },
-    contact: { side: 'both', leftText: '💌 Contact Us!', rightText: '📞 Contact Us!' }
+    about: { side: 'left', text: 'About Us!' },
+    courses: { side: 'right', text: 'Our Courses!' },
+    dance: { side: 'right', text: 'Dance Classes!' },
+    gallery: { side: 'left', text: 'Art Gallery!' },
+    achievements: { side: 'right', text: 'Achievements!' },
+    reviews: { side: 'left', text: 'Parent Reviews!' },
+    fees: { side: 'right', text: 'Course Fees!' },
+    contact: { side: 'both', leftText: 'Contact Us!', rightText: 'Contact Us!' }
   };
 
   // Track sections shown: each section triggers entrance once per section visit
