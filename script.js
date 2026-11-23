@@ -2345,7 +2345,7 @@ function initSmoothScrollSliderMobile() {
   let width = track.clientWidth || window.innerWidth || 390;
   let slideWidth = Math.min(255, Math.max(220, Math.round(width * 0.68)));
   let slideHeight = Math.round(slideWidth * 1.35);
-  let step = slideWidth + 16;
+  let step = slideWidth + 24;
 
   /* Seamless repeats calculation */
   const repeats = Math.max(1, Math.ceil((width + step * 3) / (items.length * step)));
@@ -2750,7 +2750,7 @@ function initFeesSkiper47Carousel() {
       effect: 'coverflow',
       grabCursor: true,
       centeredSlides: true,
-      spaceBetween: 0,
+      spaceBetween: 16,
       loop: true,
       autoplay: {
         delay: 3000,
@@ -2762,9 +2762,9 @@ function initFeesSkiper47Carousel() {
       coverflowEffect: {
         rotate: 0,
         slideShadows: false,
-        stretch: 0,
-        depth: 35,
-        modifier: 1.4,
+        stretch: -8,
+        depth: 42,
+        modifier: 1.2,
       },
       pagination: {
         el: '.fees-pagination',

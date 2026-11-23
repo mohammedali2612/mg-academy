@@ -7385,11 +7385,12 @@ marquee,
   }
 
   .Carousal_001 .swiper-slide.fee-card-slide {
-    width: clamp(280px, 82vw, 320px) !important;
+    width: clamp(260px, 78vw, 305px) !important;
     height: auto !important;
     box-sizing: border-box !important;
     display: flex !important;
     background: transparent !important;
+    padding: 0 12px !important;
     margin: 0 !important;
     transition-property: transform, opacity, filter, box-shadow !important;
   }
