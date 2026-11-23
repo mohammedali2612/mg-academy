@@ -917,8 +917,8 @@ function initScrollReveal() {
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px -25px 0px'
   });
 
   revealElements.forEach(el => observer.observe(el));
@@ -2115,9 +2115,19 @@ function initDanceScrollStack() {
           scale = 1 - p * (1 - targetScale);
         }
 
+        // Only apply stacked card physics once the card has been revealed by scroll
+        if (!card.classList.contains('is-visible')) {
+          card.style.removeProperty('transform');
+          return;
+        }
+
         // Framer Motion: scale with transformOrigin: top center
-        card.style.transformOrigin = 'top center';
-        card.style.transform = `scale(${scale.toFixed(4)})`;
+        if (scale >= 0.999) {
+          card.style.removeProperty('transform');
+        } else {
+          card.style.transformOrigin = 'top center';
+          card.style.transform = `scale(${scale.toFixed(4)})`;
+        }
         card.style.filter = '';
 
         // Depth dimming on mobile cards for physical depth
