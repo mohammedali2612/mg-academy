@@ -1126,7 +1126,7 @@ marquee,
   display: flex;
   align-items: center;
   background-color: #5DB5EE;
-  background-image: url('assets/hero_bg_kids.jpg');
+  background-image: url('assets/upsacled home background img .png');
   background-size: cover;
   background-position: right center;
   background-repeat: no-repeat;
@@ -4733,7 +4733,7 @@ marquee,
     align-items: center !important;
     justify-content: center !important;
     background-color: #5DB5EE !important;
-    background-image: url('assets/mobile_hero_kids.jpg?v=2') !important;
+    background-image: url('assets/mobile upscale bg .png') !important;
     background-position: center top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
