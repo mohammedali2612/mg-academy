@@ -8,9 +8,65 @@
      #F4F9FC — Soft Cloud Breeze (Clean Background)
      #FFFFFF — Pure Crisp White (Elevated Surfaces)
    Typography:
-     Headings: 'Fredoka', cursive, sans-serif
-     Body: 'Quicksand', sans-serif
+     Headings: 'Peace Sans', sans-serif
+     Body & UI: 'Open Sauce Sans', sans-serif
    ========================================================================== */
+
+/* ---------------- Peace Sans & Open Sauce Sans Font Definitions ---------------- */
+@font-face {
+  font-family: 'Peace Sans';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('./fonts/peace-sans.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/peace-sans@latest/files/peace-sans-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/open-sauce-sans-400.woff2') format('woff2'),
+       url('./fonts/open-sauce-sans-400.woff') format('woff'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-sans@latest/files/open-sauce-sans-latin-400-normal.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fonts/open-sauce-sans-500.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-sans@latest/files/open-sauce-sans-latin-500-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./fonts/open-sauce-sans-600.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-sans@latest/files/open-sauce-sans-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/open-sauce-sans-700.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-sans@latest/files/open-sauce-sans-latin-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sauce Sans';
+  font-style: normal;
+  font-weight: 800 900;
+  font-display: swap;
+  src: url('./fonts/open-sauce-sans-800.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-sans@latest/files/open-sauce-sans-latin-800-normal.woff2') format('woff2');
+}
 
 :root {
   --navy-deep: #0A2540;
@@ -69,8 +125,8 @@
   --shadow-glow-tangerine: 0 0 25px rgba(255, 107, 53, 0.35);
   --shadow-glow-purple: 0 0 25px rgba(123, 44, 191, 0.35);
 
-  --font-heading: 'Fredoka', cursive, sans-serif;
-  --font-body: 'Quicksand', sans-serif;
+  --font-heading: 'Peace Sans', 'Open Sauce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Open Sauce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --radius-sm: 12px;
   --radius-md: 18px;
@@ -209,8 +265,9 @@ h5,
 h6 {
   font-family: var(--font-heading);
   color: var(--text-charcoal);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.25;
+  font-synthesis: none;
 }
 
 .section-header {
