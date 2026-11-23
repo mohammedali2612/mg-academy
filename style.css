@@ -4053,14 +4053,20 @@ marquee,
   opacity: 1;
 }
 
-/* Guard: Desktop-only elements STRICTLY hidden on mobile */
+/* Mobile Smooth Scroll Controls (Both Views Enabled) */
 @media (max-width: 860px) {
-  .desktop-scroll-progress,
+  .desktop-scroll-progress {
+    height: 3px;
+    z-index: 99999;
+  }
+
   .desktop-scroll-top-btn {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
+    bottom: 22px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    font-size: 0.95rem;
+    z-index: 990;
   }
 }
 

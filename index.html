@@ -53,7 +53,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=12.6">
+  <link rel="stylesheet" href="style.css?v=12.7">
 
 
 
@@ -103,7 +103,7 @@
       </a>
 
       <!-- Desktop Navigation Menu Pill with Spotlight Effect -->
-      <nav class="nav-menu" id="nav-menu">
+      <nav class="nav-menu" id="nav-menu" data-lenis-prevent>
         <ul class="nav-list spotlight-nav" id="nav-list">
           <!-- Spotlight Cursor Glow & Sliding Pill -->
           <div class="nav-spotlight-glow" id="nav-spotlight-glow" aria-hidden="true"></div>
@@ -659,7 +659,7 @@
         <div class="dance-styles-grid" id="dance-styles-grid">
           <!-- Style 1: Bharatanatyam (Even) -->
           <div class="dance-stack-slot" data-stack-slot="1">
-            <div class="dance-style-card theme-bharatanatyam card-is-even">
+            <div class="dance-style-card theme-bharatanatyam card-is-even reveal-fade-up" data-delay="1">
               <div class="dance-style-content">
                 <h3 class="dance-card-title">Bharatanatyam</h3>
                 <p class="dance-card-quote">"Sacred grace, rhythmic footwork, and timeless cultural poise."</p>
@@ -693,7 +693,7 @@
 
           <!-- Style 2: Western Dance (Odd) -->
           <div class="dance-stack-slot" data-stack-slot="2">
-            <div class="dance-style-card theme-western card-is-even">
+            <div class="dance-style-card theme-western card-is-even reveal-fade-up" data-delay="2">
               <div class="dance-style-content">
                 <h3 class="dance-card-title">Western Dance</h3>
                 <p class="dance-card-quote">"Dynamic beats, modern footwork, and high-energy stage performance."</p>
@@ -728,7 +728,7 @@
 
           <!-- Style 3: Free Style (Even) -->
           <div class="dance-stack-slot" data-stack-slot="3">
-            <div class="dance-style-card theme-freestyle card-is-even">
+            <div class="dance-style-card theme-freestyle card-is-even reveal-fade-up" data-delay="3">
               <div class="dance-style-content">
                 <h3 class="dance-card-title">Free Style</h3>
                 <p class="dance-card-quote">"Creative movement, joyful freedom, and individual rhythm expression."</p>
@@ -762,7 +762,7 @@
 
           <!-- Style 4: Tamil Folk Dance (Odd) -->
           <div class="dance-stack-slot" data-stack-slot="4">
-            <div class="dance-style-card theme-tamilfolk card-is-even">
+            <div class="dance-style-card theme-tamilfolk card-is-even reveal-fade-up" data-delay="4">
               <div class="dance-style-content">
                 <h3 class="dance-card-title">Tamil Folk Dance</h3>
                 <p class="dance-card-quote">"Pulsating drums, authentic folk traditions, and festive joy."</p>
@@ -921,7 +921,7 @@
         </div>
 
         <!-- Smooth Scroll Slider (Originkit) - Mobile View Only (<= 860px) -->
-        <div class="smooth-slider-gallery-mobile" id="smooth-slider-mobile-root">
+        <div class="smooth-slider-gallery-mobile" id="smooth-slider-mobile-root" data-lenis-prevent>
           <div class="smooth-scroll-slider-viewport" id="smooth-scroll-slider-track" aria-label="Student Photography Gallery Slider">
             <!-- Smooth scroll slider cards injected dynamically by initSmoothScrollSliderMobile() -->
           </div>
@@ -1181,7 +1181,7 @@
           <div class="swiper-wrapper fees-tiers-grid">
             <!-- Level 1: Beginner Art Course -->
             <div class="swiper-slide fee-card-slide">
-              <div class="fee-card glass-panel">
+              <div class="fee-card glass-panel reveal-fade-up" data-delay="1">
                 <div class="fee-header">
                   <h3>Beginner Art Course</h3>
                   <div class="age-badge"><i class="fa-solid fa-child"></i> Age: <strong>4 to 8 Years</strong></div>
@@ -1222,7 +1222,7 @@
 
             <!-- Level 2: Intermediate Art Course -->
             <div class="swiper-slide fee-card-slide">
-              <div class="fee-card glass-panel popular-tier">
+              <div class="fee-card glass-panel popular-tier reveal-fade-up" data-delay="2">
                 <div class="fee-header">
                   <h3>Intermediate Art Course</h3>
                   <div class="age-badge"><i class="fa-solid fa-child-reaching"></i> Age: <strong>8 to 12
@@ -1269,7 +1269,7 @@
 
             <!-- Level 3: Advanced Art Course -->
             <div class="swiper-slide fee-card-slide">
-              <div class="fee-card glass-panel">
+              <div class="fee-card glass-panel reveal-fade-up" data-delay="3">
                 <div class="fee-header">
                   <h3>Advanced Art Course</h3>
                   <div class="age-badge"><i class="fa-solid fa-user-graduate"></i> Age: <strong>10 Years &amp;
@@ -1632,7 +1632,7 @@
   </footer>
 
   <!-- Lightbox Modal for Gallery -->
-  <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true" onclick="closeLightbox()">
+  <div class="lightbox-modal" id="lightbox-modal" data-lenis-prevent aria-hidden="true" onclick="closeLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close modal">&times;</button>
       <img id="lightbox-img"
@@ -1644,7 +1644,7 @@
 
   <!-- Interactive Admission Popup Modal -->
   <div class="modal-overlay" id="admission-modal" aria-hidden="true">
-    <div class="modal-container glass-panel">
+    <div class="modal-container glass-panel" data-lenis-prevent>
       <button class="modal-close-btn" onclick="closeAdmissionModal()" aria-label="Close Modal">&times;</button>
       <div class="modal-header text-center">
         <div class="modal-crown"><i class="fa-solid fa-crown text-gold"></i></div>
@@ -1759,7 +1759,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Swiper 11 JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=12.6"></script>
+  <script src="script.js?v=12.7"></script>
 
 </body>
 

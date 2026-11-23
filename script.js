@@ -3057,11 +3057,11 @@ function initMascotPeekScroll() {
 
 
 /* ==========================================================================
-   GLOBAL SMOOTH SCROLL ENGINE (Lenis Smooth Scroll - Desktop View Only > 860px)
-   - Desktop: Physics-based inertial smooth wheel scroll (duration: 1.25s)
-   - Desktop: Smooth scroll progress bar at top of viewport
-   - Desktop: Smooth floating Scroll-to-Top button with animated glide
-   - Mobile View (<= 860px): Strictly disabled so mobile enjoys 100% native momentum scrolling
+   GLOBAL SMOOTH SCROLL ENGINE (Lenis Smooth Scroll - Both Views: Desktop & Mobile)
+   - Desktop & Mobile: Physics-based inertial smooth scroll
+   - Both: Smooth scroll progress bar at top of viewport
+   - Both: Smooth floating Scroll-to-Top button with animated glide
+   - Both: Smooth anchor glide for all in-page links
    ========================================================================== */
 let lenisInstance = null;
 
@@ -3069,16 +3069,14 @@ function initGlobalSmoothScroll() {
   const progressBar = document.getElementById('desktop-scroll-progress');
   const scrollTopBtn = document.getElementById('desktop-scroll-top');
 
-  function updateDesktopScrollUI(scroll, limit) {
-    if (window.innerWidth <= 860) return;
-
-    // 1. Desktop Top Scroll Progress Bar
+  function updateScrollUI(scroll, limit) {
+    // 1. Top Scroll Progress Bar
     if (progressBar && limit > 0) {
       const progress = Math.min(Math.max(scroll / limit, 0), 1);
       progressBar.style.transform = `scaleX(${progress})`;
     }
 
-    // 2. Desktop Floating Scroll-to-Top Button
+    // 2. Floating Scroll-to-Top Button
     if (scrollTopBtn) {
       if (scroll > 350) {
         scrollTopBtn.classList.add('is-visible');
@@ -3089,31 +3087,18 @@ function initGlobalSmoothScroll() {
   }
 
   function setup() {
-    const isDesktop = window.innerWidth > 860;
-
-    // If mobile: destroy Lenis if active, reset progress bar, and return
-    if (!isDesktop) {
-      if (lenisInstance) {
-        lenisInstance.destroy();
-        lenisInstance = null;
-        window.__lenis = null;
-      }
-      if (progressBar) progressBar.style.transform = 'scaleX(0)';
-      if (scrollTopBtn) scrollTopBtn.classList.remove('is-visible');
-      return;
-    }
-
-    // If already running on desktop, update and return
     if (lenisInstance) return;
-
     if (typeof Lenis === 'undefined') return;
 
     try {
       lenisInstance = new Lenis({
         duration: 1.25,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 1.08,
+        wheelMultiplier: 1.05,
+        touchMultiplier: 1.5,
         syncTouch: false,
         infinite: false,
       });
@@ -3129,22 +3114,21 @@ function initGlobalSmoothScroll() {
       requestAnimationFrame(raf);
 
       lenisInstance.on('scroll', (e) => {
-        updateDesktopScrollUI(e.scroll, e.limit);
+        updateScrollUI(e.scroll, e.limit);
         if (typeof window.__updateDesktopCards === 'function') {
           window.__updateDesktopCards();
         }
       });
 
-      // Desktop anchor links smooth glide
+      // Anchor links smooth glide for BOTH desktop & mobile
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-          if (window.innerWidth <= 860) return;
           const href = this.getAttribute('href');
           if (!href || href === '#' || href.length < 2) return;
           const target = document.querySelector(href);
           if (target && lenisInstance) {
             e.preventDefault();
-            lenisInstance.scrollTo(target, { offset: -72, duration: 1.2 });
+            lenisInstance.scrollTo(target, { offset: -68, duration: 1.2 });
           }
         });
       });
@@ -3161,12 +3145,11 @@ function initGlobalSmoothScroll() {
         };
       }
     } catch (err) {
-      console.warn('Desktop smooth scroll error:', err);
+      console.warn('Smooth scroll error:', err);
     }
   }
 
   setup();
-  window.addEventListener('resize', setup, { passive: true });
 }
 
 /* ==========================================================================
