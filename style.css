@@ -6520,7 +6520,6 @@ marquee,
    ========================================================================== */
 .course-card,
 .course-stack-card,
-.dance-style-card,
 .fee-card,
 .skiper30-card,
 .gallery-card,
@@ -6773,7 +6772,8 @@ marquee,
   display: flex !important;
   flex-direction: column !important;
   border-radius: 22px !important;
-  background: #FFFFFF !important;
+  background: #090D16 !important;
+  color: #FFFFFF !important;
   overflow: hidden !important;
   transform: none !important;
   filter: none !important;
@@ -6787,43 +6787,43 @@ marquee,
 
 /* 4 Distinct Card Themes with Vibrant Luminous Glow */
 .dance-style-card.theme-bharatanatyam {
-  background: linear-gradient(135deg, #FFFFFF 62%, #FAF5FF 100%) !important;
-  border: 2px solid rgba(168, 85, 247, 0.42) !important;
+  background: #090D16 !important;
+  border: 2px solid rgba(168, 85, 247, 0.45) !important;
   box-shadow:
-    0 20px 48px rgba(126, 34, 206, 0.11),
-    0 0 28px rgba(168, 85, 247, 0.22),
-    0 0 54px rgba(168, 85, 247, 0.12),
-    inset 0 1px 0 #FFFFFF !important;
+    0 20px 48px rgba(0, 0, 0, 0.40),
+    0 0 28px rgba(168, 85, 247, 0.25),
+    0 0 54px rgba(168, 85, 247, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
 
 .dance-style-card.theme-western {
-  background: linear-gradient(135deg, #FFFFFF 62%, #F0F9FF 100%) !important;
-  border: 2px solid rgba(0, 180, 216, 0.45) !important;
+  background: #090D16 !important;
+  border: 2px solid rgba(56, 189, 248, 0.45) !important;
   box-shadow:
-    0 20px 48px rgba(0, 119, 182, 0.11),
-    0 0 28px rgba(0, 180, 216, 0.24),
-    0 0 54px rgba(0, 180, 216, 0.14),
-    inset 0 1px 0 #FFFFFF !important;
+    0 20px 48px rgba(0, 0, 0, 0.40),
+    0 0 28px rgba(56, 189, 248, 0.25),
+    0 0 54px rgba(56, 189, 248, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
 
 .dance-style-card.theme-freestyle {
-  background: linear-gradient(135deg, #FFFFFF 62%, #FFFBEB 100%) !important;
+  background: #090D16 !important;
   border: 2px solid rgba(245, 158, 11, 0.45) !important;
   box-shadow:
-    0 20px 48px rgba(217, 119, 6, 0.11),
-    0 0 28px rgba(245, 158, 11, 0.22),
-    0 0 54px rgba(245, 158, 11, 0.12),
-    inset 0 1px 0 #FFFFFF !important;
+    0 20px 48px rgba(0, 0, 0, 0.40),
+    0 0 28px rgba(245, 158, 11, 0.25),
+    0 0 54px rgba(245, 158, 11, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
 
 .dance-style-card.theme-tamilfolk {
-  background: linear-gradient(135deg, #FFFFFF 62%, #ECFDF5 100%) !important;
+  background: #090D16 !important;
   border: 2px solid rgba(16, 185, 129, 0.45) !important;
   box-shadow:
-    0 20px 48px rgba(5, 150, 105, 0.11),
-    0 0 28px rgba(16, 185, 129, 0.22),
-    0 0 54px rgba(16, 185, 129, 0.12),
-    inset 0 1px 0 #FFFFFF !important;
+    0 20px 48px rgba(0, 0, 0, 0.40),
+    0 0 28px rgba(16, 185, 129, 0.25),
+    0 0 54px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Content Area */
@@ -6889,7 +6889,7 @@ marquee,
   font-family: var(--font-heading) !important;
   font-size: 1.38rem !important;
   font-weight: 800 !important;
-  color: #1B365D !important;
+  color: #FFFFFF !important;
   line-height: 1.25 !important;
   margin: 0 0 6px 0 !important;
 }
@@ -6898,15 +6898,30 @@ marquee,
   font-family: var(--font-heading) !important;
   font-size: 0.84rem !important;
   font-weight: 600 !important;
-  color: #0077B6 !important;
   line-height: 1.4 !important;
   margin: 0 0 10px 0 !important;
+}
+
+.theme-bharatanatyam .dance-card-quote {
+  color: #A78BFA !important;
+}
+
+.theme-western .dance-card-quote {
+  color: #38BDF8 !important;
+}
+
+.theme-freestyle .dance-card-quote {
+  color: #FBBF24 !important;
+}
+
+.theme-tamilfolk .dance-card-quote {
+  color: #34D399 !important;
 }
 
 .dance-card-desc {
   font-size: 0.85rem !important;
   line-height: 1.55 !important;
-  color: #374151 !important;
+  color: #D1D5DB !important;
   margin: 0 0 16px 0 !important;
   flex-grow: 1 !important;
 }
@@ -6924,17 +6939,29 @@ marquee,
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  background: #F1F5F9 !important;
-  border: 1px solid #E2E8F0 !important;
-  color: #1E293B !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #F3F4F6 !important;
   font-size: 0.78rem !important;
   font-weight: 600 !important;
   padding: 5px 12px !important;
   border-radius: 999px !important;
 }
 
-.dance-spec-chip i {
-  color: #0077B6 !important;
+.theme-bharatanatyam .dance-spec-chip i {
+  color: #A78BFA !important;
+}
+
+.theme-western .dance-spec-chip i {
+  color: #38BDF8 !important;
+}
+
+.theme-freestyle .dance-spec-chip i {
+  color: #FBBF24 !important;
+}
+
+.theme-tamilfolk .dance-spec-chip i {
+  color: #34D399 !important;
 }
 
 .dance-card-action {
@@ -6947,8 +6974,8 @@ marquee,
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
-  background: linear-gradient(135deg, #0077B6 0%, #00B4D8 100%) !important;
-  color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #090D16 !important;
   font-family: var(--font-heading) !important;
   font-size: 0.85rem !important;
   font-weight: 700 !important;
@@ -6956,14 +6983,17 @@ marquee,
   padding: 9px 20px !important;
   border-radius: 999px !important;
   border: none !important;
-  box-shadow: 0 4px 14px rgba(0, 119, 182, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25) !important;
   cursor: pointer !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
 }
 
 .btn-dance-cta:hover {
+  background: #E5E7EB !important;
+  color: #090D16 !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 22px rgba(0, 119, 182, 0.35) !important;
+  box-shadow: 0 8px 22px rgba(255, 255, 255, 0.35) !important;
+}
 }
 
 /* Media Area */
@@ -7097,8 +7127,10 @@ marquee,
     transition-property: box-shadow, border-color !important;
   }
 
-  /* Alternating Card Styles from user's isEven ? 'bg-zinc-950 text-white' : 'bg-white text-zinc-950' */
-  .dance-style-card.card-is-even {
+  /* All Dance Cards on Mobile: Unified Dark Luxury Card Frame matching Bharatanatyam */
+  .dance-style-card,
+  .dance-style-card.card-is-even,
+  .dance-style-card.card-is-odd {
     background: #090D16 !important;
     color: #FFFFFF !important;
     border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
@@ -7108,114 +7140,88 @@ marquee,
       inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
   }
 
-  .dance-style-card.card-is-even .dance-card-title {
+  .dance-style-card .dance-card-title,
+  .dance-style-card.card-is-even .dance-card-title,
+  .dance-style-card.card-is-odd .dance-card-title {
     color: #FFFFFF !important;
   }
 
-  .dance-style-card.card-is-even .dance-card-quote {
-    color: #A78BFA !important;
-  }
-
-  .dance-style-card.card-is-even .dance-card-desc {
+  .dance-style-card .dance-card-desc,
+  .dance-style-card.card-is-even .dance-card-desc,
+  .dance-style-card.card-is-odd .dance-card-desc {
     color: #D1D5DB !important;
   }
 
-  .dance-style-card.card-is-even .dance-spec-chip {
+  .dance-style-card .dance-spec-chip,
+  .dance-style-card.card-is-even .dance-spec-chip,
+  .dance-style-card.card-is-odd .dance-spec-chip {
     background: rgba(255, 255, 255, 0.08) !important;
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     color: #F3F4F6 !important;
   }
 
-  .dance-style-card.card-is-even .dance-spec-chip i {
-    color: #A78BFA !important;
-  }
-
-  .dance-style-card.card-is-even .btn-dance-cta {
+  .dance-style-card .btn-dance-cta,
+  .dance-style-card.card-is-even .btn-dance-cta,
+  .dance-style-card.card-is-odd .btn-dance-cta {
     background: #FFFFFF !important;
     color: #090D16 !important;
     box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25) !important;
   }
 
-  .dance-style-card.card-is-even .btn-dance-cta:hover {
+  .dance-style-card .btn-dance-cta:hover,
+  .dance-style-card.card-is-even .btn-dance-cta:hover,
+  .dance-style-card.card-is-odd .btn-dance-cta:hover {
     background: #E5E7EB !important;
     color: #090D16 !important;
   }
 
-  /* Odd Cards: Clean luminous white */
-  .dance-style-card.card-is-odd {
-    background: #FFFFFF !important;
-    color: #090D16 !important;
-    border: 1.5px solid rgba(0, 180, 216, 0.45) !important;
+  /* Specific Themed Accents for all 4 styles on Mobile */
+  .dance-style-card.theme-bharatanatyam {
+    border-color: rgba(168, 85, 247, 0.45) !important;
     box-shadow:
-      0 16px 40px rgba(10, 37, 64, 0.10),
-      0 0 25px rgba(0, 180, 216, 0.22),
-      inset 0 1px 0 #FFFFFF !important;
+      0 16px 40px rgba(0, 0, 0, 0.40),
+      0 0 25px rgba(168, 85, 247, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  }
+  .dance-style-card.theme-bharatanatyam .dance-card-quote,
+  .dance-style-card.theme-bharatanatyam .dance-spec-chip i {
+    color: #A78BFA !important;
   }
 
-  .dance-style-card.card-is-odd .dance-card-title {
-    color: #090D16 !important;
+  .dance-style-card.theme-western {
+    border-color: rgba(56, 189, 248, 0.45) !important;
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.40),
+      0 0 25px rgba(56, 189, 248, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  }
+  .dance-style-card.theme-western .dance-card-quote,
+  .dance-style-card.theme-western .dance-spec-chip i {
+    color: #38BDF8 !important;
   }
 
-  .dance-style-card.card-is-odd .dance-card-quote {
-    color: #0077B6 !important;
-  }
-
-  .dance-style-card.card-is-odd .dance-card-desc {
-    color: #4B5563 !important;
-  }
-
-  .dance-style-card.card-is-odd .dance-spec-chip {
-    background: #F1F5F9 !important;
-    border: 1px solid #E2E8F0 !important;
-    color: #1E293B !important;
-  }
-
-  .dance-style-card.card-is-odd .dance-spec-chip i {
-    color: #0077B6 !important;
-  }
-
-  .dance-style-card.card-is-odd .btn-dance-cta {
-    background: #090D16 !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 4px 14px rgba(9, 13, 22, 0.25) !important;
-  }
-
-  .dance-style-card.card-is-odd .btn-dance-cta:hover {
-    background: #1F2937 !important;
-    color: #FFFFFF !important;
-  }
-
-  /* Specific Glowing Accent borders */
-  .dance-style-card.theme-freestyle.card-is-even {
+  .dance-style-card.theme-freestyle {
+    border-color: rgba(245, 158, 11, 0.45) !important;
     box-shadow:
       0 16px 40px rgba(0, 0, 0, 0.40),
       0 0 25px rgba(245, 158, 11, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(245, 158, 11, 0.45) !important;
   }
-
-  .dance-style-card.theme-freestyle.card-is-even .dance-card-quote {
+  .dance-style-card.theme-freestyle .dance-card-quote,
+  .dance-style-card.theme-freestyle .dance-spec-chip i {
     color: #FBBF24 !important;
   }
 
-  .dance-style-card.theme-freestyle.card-is-even .dance-spec-chip i {
-    color: #FBBF24 !important;
-  }
-
-  .dance-style-card.theme-tamilfolk.card-is-odd {
+  .dance-style-card.theme-tamilfolk {
     border-color: rgba(16, 185, 129, 0.45) !important;
     box-shadow:
-      0 16px 40px rgba(10, 37, 64, 0.10),
-      0 0 25px rgba(16, 185, 129, 0.22),
-      inset 0 1px 0 #FFFFFF !important;
+      0 16px 40px rgba(0, 0, 0, 0.40),
+      0 0 25px rgba(16, 185, 129, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
   }
-
-  .dance-style-card.theme-tamilfolk.card-is-odd .dance-card-quote {
-    color: #059669 !important;
-  }
-
-  .dance-style-card.theme-tamilfolk.card-is-odd .dance-spec-chip i {
-    color: #059669 !important;
+  .dance-style-card.theme-tamilfolk .dance-card-quote,
+  .dance-style-card.theme-tamilfolk .dance-spec-chip i {
+    color: #34D399 !important;
   }
 
   /* Image Column: h-[220px] min-h-[220px], subtle scrim on mobile */
