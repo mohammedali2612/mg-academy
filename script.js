@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDanceScrollStack();
   initScrollReveal();
   initHeroAnimation();
+  initMobileHeroBgVideo();
   initModals();
   initFormsAndConfetti();
   initSkiper30Parallax();
@@ -939,6 +940,40 @@ function initHeroAnimation() {
       line.style.transform = 'translateY(0)';
     }, 150);
   });
+}
+
+/* ==========================================================================
+   MOBILE HERO VIDEO BACKGROUND (assets/video.mp4 <= 860px)
+   ========================================================================== */
+function initMobileHeroBgVideo() {
+  const video = document.querySelector('.hero-bg-video-mobile');
+  if (!video) return;
+
+  video.muted = true;
+  video.defaultMuted = true;
+
+  function attemptPlay() {
+    if (window.innerWidth <= 860) {
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          const onUserTouch = () => {
+            video.play();
+            window.removeEventListener('touchstart', onUserTouch);
+            window.removeEventListener('click', onUserTouch);
+          };
+          window.addEventListener('touchstart', onUserTouch, { once: true, passive: true });
+          window.addEventListener('click', onUserTouch, { once: true, passive: true });
+        });
+      }
+    } else {
+      video.pause();
+    }
+  }
+
+  attemptPlay();
+  window.addEventListener('resize', attemptPlay, { passive: true });
+  window.addEventListener('orientationchange', attemptPlay, { passive: true });
 }
 
 /* ==========================================================================
