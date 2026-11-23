@@ -2223,11 +2223,9 @@ function initDanceScrollStack() {
    SMOOTH SCROLL SLIDER (Originkit) - Mobile Gallery (<= 860px Only)
    Ported directly from Originkit Smooth Scroll Slider component:
    - Horizontal image rail with frame-rate independent lerp gliding
-   - Distance-from-center non-linear scaling and pushing:
-     * Approaching from right: scaled up and pushed right to clear neighbor
-     * Passing center: smooth shrink and dimming via brightness decay
-     * Seamless infinite wrap with positive modulo
-   - Touch pointer drag with pointer capture, velocity inertia flick, and tap to zoom lightbox
+   - Distance-from-center non-linear scaling and pushing calibrated for mobile
+   - Peek cards on left & right so the rail is always rich and active
+   - Touch drag with pointer capture, velocity inertia flick, and tap to zoom lightbox
    - Desktop View (> 860px): Skiper 30 Parallax Gallery strictly untouched
    ========================================================================== */
 let smoothScrollSliderInstance = null;
@@ -2235,7 +2233,10 @@ let smoothScrollSliderInstance = null;
 function initSmoothScrollSliderMobile() {
   const container = document.getElementById('smooth-slider-mobile-root');
   const track = document.getElementById('smooth-scroll-slider-track');
+  const indicatorEl = document.getElementById('slider-dots-wrapper');
   if (!container || !track) return;
+
+  let lastReportedIndex = -1;
 
   const items = [
     {
@@ -2334,26 +2335,17 @@ function initSmoothScrollSliderMobile() {
   }
 
   /* Core motion configuration */
-  const spacing = 1.5;
-  const smoothness = 7;
-  const dim = 8;
-  const sensitivity = 5;
-  const loop = true;
+  const ease = 0.085;
+  const wheelMultiplier = 1.0;
+  const dragMultiplier = 1.35;
   const flip = false; // direction === "right"
-
-  const ease = 0.15 - (clamp(smoothness, 0, 10) / 10) * 0.13;
-  const dimAmount = (clamp(dim, 0, 10) / 10) * 0.85;
-  const wheelMultiplier = 0.4 + (clamp(sensitivity, 0, 10) / 10) * 1.2;
-  const dragMultiplier = 0.6 + (clamp(sensitivity, 0, 10) / 10) * 1.8;
 
   let targetOffset = 0;
   let currentOffset = 0;
-  let width = track.clientWidth || window.innerWidth;
-  let slideWidth = Math.min(235, Math.max(195, Math.round(width * 0.58)));
-  let slideHeight = Math.round(slideWidth * 1.4);
-  let step = slideWidth + clamp(spacing, 0, 10) * 20;
-  let maxScale = Math.min(1.65, 1 + (width * 0.45) / width);
-  let minScale = 0.15;
+  let width = track.clientWidth || window.innerWidth || 390;
+  let slideWidth = Math.min(255, Math.max(220, Math.round(width * 0.68)));
+  let slideHeight = Math.round(slideWidth * 1.35);
+  let step = slideWidth + 16;
 
   /* Seamless repeats calculation */
   const repeats = Math.max(1, Math.ceil((width + step * 3) / (items.length * step)));
@@ -2389,7 +2381,9 @@ function initSmoothScrollSliderMobile() {
       </div>
     `;
 
-    card.addEventListener('click', () => {
+    // Click on card opens lightbox
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
       const idx = parseInt(card.dataset.index, 10);
       if (!isNaN(idx) && items[idx] && typeof window.openLightbox === 'function') {
         window.openLightbox(items[idx].img, items[idx].title);
@@ -2400,7 +2394,58 @@ function initSmoothScrollSliderMobile() {
     slideNodes.push(card);
   });
 
-  /* Animation Frame variables */
+  /* Synchronous frame layout calculation */
+  function renderFrame() {
+    const count = allSlides.length;
+    if (!count || step <= 0 || width <= 0) return;
+
+    const span = count * step;
+
+    if (currentOffset > span || currentOffset < -span) {
+      const shift = Math.trunc(currentOffset / span) * span;
+      currentOffset -= shift;
+      targetOffset -= shift;
+    }
+
+    const pad = (width - slideWidth) / 2;
+    const half = width / 2;
+
+    for (let i = 0; i < count; i++) {
+      const node = slideNodes[i];
+      if (!node) continue;
+
+      const raw = i * step - currentOffset + pad;
+      const x = wrap(raw + step, span) - step;
+
+      const distance = x + slideWidth / 2 - half;
+      let scale;
+      let push;
+
+      if (distance > 0) {
+        /* Incoming card from the right: gentle pop up to 1.06 and subtle push */
+        scale = Math.min(1.06, 1 + (distance / width) * 0.22);
+        push = (scale - 1) * slideWidth * 0.25;
+      } else {
+        /* Card passing center: gentle shrink to 0.88 */
+        scale = Math.max(0.86, 1 + (distance / width) * 0.22);
+        push = 0;
+      }
+
+      const left = flip ? width - slideWidth - (x + push) : x + push;
+      node.style.transform = `translate3d(${left}px, -50%, 0) scale(${scale})`;
+
+      /* Mild brightness decay so cards stay vibrant and recognizable */
+      const brightness = clamp(1 - Math.abs(distance / width) * 0.38, 0.62, 1.0);
+      node.style.filter = `brightness(${brightness})`;
+    }
+
+    updateActiveIndicator();
+  }
+
+  // Render immediately on initialization so rail is never empty!
+  renderFrame();
+
+  /* Animation Frame loop */
   let rafId = 0;
   let lastTime = 0;
   let isRunning = false;
@@ -2412,61 +2457,11 @@ function initSmoothScrollSliderMobile() {
     const delta = lastTime ? Math.min((now - lastTime) / 1000, 0.1) : 1 / 60;
     lastTime = now;
 
-    const count = allSlides.length;
-    if (!count || step <= 0 || width <= 0) return;
-
-    const span = count * step;
-
-    if (loop) {
-      if (currentOffset > span || currentOffset < -span) {
-        const shift = Math.trunc(currentOffset / span) * span;
-        currentOffset -= shift;
-        targetOffset -= shift;
-      }
-    } else {
-      targetOffset = clamp(targetOffset, 0, (count - 1) * step);
-    }
-
     /* Frame-rate independent lerp */
     const k = 1 - Math.pow(1 - ease, delta * 60);
     currentOffset += (targetOffset - currentOffset) * k;
 
-    const pad = (width - slideWidth) / 2;
-    const half = width / 2;
-
-    for (let i = 0; i < count; i++) {
-      const node = slideNodes[i];
-      if (!node) continue;
-
-      const raw = i * step - currentOffset + pad;
-      const x = loop ? wrap(raw + step, span) - step : raw;
-
-      const distance = x + slideWidth / 2 - half;
-      let scale;
-      let push;
-
-      if (distance > 0) {
-        /* Incoming card from the right: grows up to maxScale and pushes right */
-        scale = Math.min(maxScale, 1 + distance / width);
-        push = (scale - 1) * slideWidth * 0.75;
-      } else {
-        /* Card passed center: shrinks away to minScale and dims */
-        scale = Math.max(minScale, 1 + distance / width);
-        push = 0;
-      }
-
-      const left = flip ? width - slideWidth - (x + push) : x + push;
-      node.style.transform = `translate3d(${left}px, -50%, 0) scale(${scale})`;
-
-      if (dimAmount > 0 && scale < 1) {
-        const t = (1 - scale) / Math.max(0.001, 1 - minScale);
-        node.style.filter = `brightness(${1 - t * dimAmount})`;
-      } else {
-        node.style.filter = 'none';
-      }
-    }
-
-    updateActiveIndicator();
+    renderFrame();
   }
 
   function startLoop() {
@@ -2485,9 +2480,6 @@ function initSmoothScrollSliderMobile() {
   }
 
   /* Active Slide Indicator */
-  const indicatorEl = document.getElementById('slider-dots-wrapper');
-  let lastReportedIndex = -1;
-
   function updateActiveIndicator() {
     if (!indicatorEl) return;
     const activeRaw = Math.round(currentOffset / step);
@@ -2512,6 +2504,7 @@ function initSmoothScrollSliderMobile() {
   let startTime = 0;
   let velocity = 0;
   let lastMoveTime = 0;
+  let isDragging = false;
   let targetCardUnderTouch = null;
 
   function onPointerDown(e) {
@@ -2523,13 +2516,8 @@ function initSmoothScrollSliderMobile() {
     startTime = Date.now();
     lastMoveTime = performance.now();
     velocity = 0;
-
+    isDragging = false;
     targetCardUnderTouch = e.target.closest('.smooth-slider-card');
-    track.classList.add('is-dragging');
-
-    try {
-      track.setPointerCapture(e.pointerId);
-    } catch (_) {}
   }
 
   function onPointerMove(e) {
@@ -2545,12 +2533,24 @@ function initSmoothScrollSliderMobile() {
     lastX = e.clientX;
     lastMoveTime = now;
 
-    targetOffset += (flip ? dx : -dx) * dragMultiplier;
+    if (!isDragging && Math.hypot(e.clientX - startX, e.clientY - startY) > 6) {
+      isDragging = true;
+      track.classList.add('is-dragging');
+      try {
+        track.setPointerCapture(e.pointerId);
+      } catch (_) {}
+    }
+
+    if (isDragging) {
+      targetOffset += (flip ? dx : -dx) * dragMultiplier;
+    }
   }
 
   function onPointerUp(e) {
     if (activePointer !== e.pointerId) return;
     activePointer = null;
+    const wasDragging = isDragging;
+    isDragging = false;
     track.classList.remove('is-dragging');
 
     try {
@@ -2562,8 +2562,8 @@ function initSmoothScrollSliderMobile() {
     const totalDist = Math.hypot(e.clientX - startX, e.clientY - startY);
     const totalTime = Date.now() - startTime;
 
-    /* Check if action was a clean tap (distance < 10px within 350ms) */
-    if (totalDist < 10 && totalTime < 350 && targetCardUnderTouch) {
+    /* Tap detection */
+    if (!wasDragging && totalDist < 8 && totalTime < 350 && targetCardUnderTouch) {
       const idx = parseInt(targetCardUnderTouch.dataset.index, 10);
       if (!isNaN(idx) && items[idx]) {
         if (typeof window.openLightbox === 'function') {
@@ -2573,11 +2573,14 @@ function initSmoothScrollSliderMobile() {
       return;
     }
 
-    /* Add flick momentum for responsive swiping */
-    if (Math.abs(velocity) > 0.2) {
-      const flickDistance = clamp(velocity * 240 * dragMultiplier, -step * 2.5, step * 2.5);
+    /* Flick inertia & magnetic snap */
+    if (wasDragging && Math.abs(velocity) > 0.15) {
+      const flickDistance = clamp(velocity * 180 * dragMultiplier, -step * 2, step * 2);
       targetOffset += (flip ? flickDistance : -flickDistance);
     }
+
+    /* Snap to nearest card */
+    targetOffset = Math.round(targetOffset / step) * step;
   }
 
   track.addEventListener('pointerdown', onPointerDown, { passive: true });
@@ -2604,6 +2607,7 @@ function initSmoothScrollSliderMobile() {
     prevBtn.addEventListener('click', (e) => {
       e.preventDefault();
       targetOffset -= step;
+      targetOffset = Math.round(targetOffset / step) * step;
     });
   }
 
@@ -2611,6 +2615,7 @@ function initSmoothScrollSliderMobile() {
     nextBtn.addEventListener('click', (e) => {
       e.preventDefault();
       targetOffset += step;
+      targetOffset = Math.round(targetOffset / step) * step;
     });
   }
 
@@ -2622,17 +2627,17 @@ function initSmoothScrollSliderMobile() {
       return;
     }
 
-    width = track.clientWidth || window.innerWidth;
-    slideWidth = Math.min(235, Math.max(195, Math.round(width * 0.58)));
-    slideHeight = Math.round(slideWidth * 1.4);
-    step = slideWidth + clamp(spacing, 0, 10) * 20;
-    maxScale = Math.min(1.65, 1 + (width * 0.45) / width);
+    width = track.clientWidth || window.innerWidth || 390;
+    slideWidth = Math.min(255, Math.max(220, Math.round(width * 0.68)));
+    slideHeight = Math.round(slideWidth * 1.35);
+    step = slideWidth + 16;
 
     slideNodes.forEach((node) => {
       node.style.width = `${slideWidth}px`;
       node.style.height = `${slideHeight}px`;
     });
 
+    renderFrame();
     startLoop();
   }
 
@@ -2645,6 +2650,18 @@ function initSmoothScrollSliderMobile() {
   window.addEventListener('resize', handleResize, { passive: true });
   window.addEventListener('orientationchange', handleResize, { passive: true });
 
+  /* Subtle auto-advance when idle (every 5 seconds) */
+  let idleTimer = null;
+  function resetIdleAdvance() {
+    clearInterval(idleTimer);
+    idleTimer = setInterval(() => {
+      if (isRunning && !activePointer && Date.now() - startTime > 4500) {
+        targetOffset += step;
+      }
+    }, 4500);
+  }
+  resetIdleAdvance();
+
   /* Intersection Observer to pause rendering when gallery is not visible on screen */
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -2655,7 +2672,7 @@ function initSmoothScrollSliderMobile() {
           stopLoop();
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
     observer.observe(container);
   }
 
