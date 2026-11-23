@@ -2607,46 +2607,46 @@ marquee,
     gap: 8px !important;
     padding: 7px 18px !important;
     border-radius: 9999px !important;
-    background: rgba(15, 23, 42, 0.88) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
     backdrop-filter: blur(14px) !important;
     -webkit-backdrop-filter: blur(14px) !important;
     border: 1px solid rgba(56, 189, 248, 0.35) !important;
-    color: #e0f2fe !important;
+    color: #0077B6 !important;
     font-size: 0.78rem !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     letter-spacing: 0.02em !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.12) !important;
     animation: smoothSliderHintPulse 3s ease-in-out infinite !important;
   }
 
   @keyframes smoothSliderHintPulse {
     0%, 100% {
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), 0 0 0 rgba(56, 189, 248, 0);
+      box-shadow: 0 4px 16px rgba(0, 119, 182, 0.12), 0 0 0 rgba(56, 189, 248, 0);
     }
     50% {
-      box-shadow: 0 4px 22px rgba(2, 132, 199, 0.45), 0 0 12px rgba(56, 189, 248, 0.3);
+      box-shadow: 0 4px 22px rgba(2, 132, 199, 0.25), 0 0 12px rgba(56, 189, 248, 0.3);
     }
   }
 
   .smooth-slider-hint i {
-    color: #38bdf8 !important;
+    color: #0077B6 !important;
     font-size: 0.85rem !important;
   }
 
-  /* Slider Viewport Container (Black Rail matching Originkit) */
+  /* Slider Viewport Container - Seamless Open Rail (No Dark Outlayer) */
   .smooth-scroll-slider-viewport {
     position: relative !important;
     width: 100% !important;
-    height: 400px !important;
-    background: #000000 !important;
-    border-radius: 20px !important;
+    height: 380px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
     overflow: hidden !important;
     cursor: grab !important;
     touch-action: pan-y !important;
     user-select: none !important;
     -webkit-user-select: none !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
+    box-shadow: none !important;
     opacity: 1 !important;
     transition: opacity 0.35s ease !important;
   }
@@ -2655,26 +2655,10 @@ marquee,
     cursor: grabbing !important;
   }
 
-  /* Dark Vignette Edges for Seamless Appearance */
+  /* Remove Dark Vignette Outlayer */
   .smooth-scroll-slider-viewport::before,
   .smooth-scroll-slider-viewport::after {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 36px !important;
-    pointer-events: none !important;
-    z-index: 6 !important;
-  }
-
-  .smooth-scroll-slider-viewport::before {
-    left: 0 !important;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.95), transparent) !important;
-  }
-
-  .smooth-scroll-slider-viewport::after {
-    right: 0 !important;
-    background: linear-gradient(-90deg, rgba(0, 0, 0, 0.95), transparent) !important;
+    display: none !important;
   }
 
   /* Single Slide Node */
@@ -2682,13 +2666,13 @@ marquee,
     position: absolute !important;
     top: 50% !important;
     left: 0 !important;
-    border-radius: 16px !important;
+    border-radius: 20px !important;
     overflow: hidden !important;
-    background: #111111 !important;
+    background: transparent !important;
     will-change: transform, filter !important;
     transform-origin: center center !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+    border: 2px solid rgba(56, 189, 248, 0.45) !important;
+    box-shadow: 0 14px 34px rgba(10, 37, 64, 0.14), 0 0 22px rgba(56, 189, 248, 0.25) !important;
     cursor: pointer !important;
     -webkit-tap-highlight-color: transparent !important;
   }
@@ -2784,18 +2768,18 @@ marquee,
     width: 40px !important;
     height: 40px !important;
     border-radius: 50% !important;
-    background: rgba(15, 23, 42, 0.88) !important;
+    background: #FFFFFF !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
-    color: #e2e8f0 !important;
+    border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+    color: #0077B6 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
     font-size: 0.88rem !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 4px 14px rgba(10, 37, 64, 0.10) !important;
   }
 
   .slider-arrow-btn:active {
@@ -2813,23 +2797,23 @@ marquee,
 
   .slider-status-pill {
     font-size: 0.76rem !important;
-    font-weight: 600 !important;
-    color: #cbd5e1 !important;
-    background: rgba(15, 23, 42, 0.75) !important;
+    font-weight: 700 !important;
+    color: #0077B6 !important;
+    background: rgba(255, 255, 255, 0.92) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     padding: 6px 14px !important;
     border-radius: 999px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 6px !important;
     letter-spacing: 0.01em !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+    box-shadow: 0 2px 10px rgba(10, 37, 64, 0.08) !important;
   }
 
   .slider-status-pill i {
-    color: #fbbf24 !important;
+    color: #D97706 !important;
   }
 }
 
