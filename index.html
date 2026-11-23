@@ -32,7 +32,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="./fonts/amaranth-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/amaranth-700.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
 
   <!-- Fallback Fonts: Peace Sans + Open Sauce Sans -->
   <link rel="preload" href="./fonts/peace-sans.woff2" as="font" type="font/woff2" crossorigin>
@@ -52,7 +53,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=11.5">
+  <link rel="stylesheet" href="style.css?v=11.6">
 
 
 
@@ -936,13 +937,28 @@
           </div>
         </div>
 
-        <!-- ReactBits Masonry Gallery - Mobile View Only (<= 860px) -->
-        <div class="masonry-gallery-mobile" id="masonry-gallery-mobile">
-          <div class="masonry-hint">
-            <i class="fa-solid fa-wand-magic-sparkles fa-bounce"></i>
-            <span>Tap to view in lightbox • Drag to reorder</span>
+        <!-- Smooth Scroll Slider (Originkit) - Mobile View Only (<= 860px) -->
+        <div class="smooth-slider-gallery-mobile" id="smooth-slider-mobile-root">
+          <div class="smooth-slider-hint">
+            <span class="hint-pill">
+              <i class="fa-solid fa-hand-pointer fa-bounce"></i>
+              <span>Drag to glide rail &bull; Tap to zoom photo</span>
+            </span>
           </div>
-          <div class="masonry" id="mobile-masonry-root" role="list"></div>
+          <div class="smooth-scroll-slider-viewport" id="smooth-scroll-slider-track" aria-label="Student Photography Gallery Slider">
+            <!-- Smooth scroll slider cards injected dynamically by initSmoothScrollSliderMobile() -->
+          </div>
+          <div class="smooth-slider-nav-bar">
+            <button type="button" class="slider-arrow-btn prev" id="slider-arrow-prev" aria-label="Previous slide">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="slider-dots-wrapper" id="slider-dots-wrapper">
+              <span class="slider-status-pill"><i class="fa-solid fa-bolt"></i> Inertial Glide Active</span>
+            </div>
+            <button type="button" class="slider-arrow-btn next" id="slider-arrow-next" aria-label="Next slide">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
 
         <!-- Achievements Subsection: Celebrating Our Little Stars -->
@@ -1767,7 +1783,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Swiper 11 JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=11.5"></script>
+  <script src="script.js?v=11.6"></script>
 
 </body>
 
