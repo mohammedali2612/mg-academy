@@ -52,7 +52,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=11.3">
+  <link rel="stylesheet" href="style.css?v=11.4">
 
 
 
@@ -68,7 +68,8 @@
     <div class="announcement-marquee-wrapper">
       <marquee behavior="scroll" direction="left" scrollamount="6" class="top-marquee" onmouseover="this.stop();"
         onmouseout="this.start();">
-        <span class="marquee-item">🎨 <strong>Every child is an artist!</strong> • <strong>Admissions Open 2026 - 2027!</strong> A Little Place for Big Dreams. Enroll
+        <span class="marquee-item">🎨 <strong>Every child is an artist!</strong> • <strong>Admissions Open 2026 -
+            2027!</strong> A Little Place for Big Dreams. Enroll
           your child today for a bright creative future.</span>
         <span class="marquee-item">• Drawing &amp; Painting • Bharatanatyam, Folk &amp; Western Dance • Handwriting
           &amp; Calligraphy • Abacus &amp; Mental Math.</span>
@@ -76,9 +77,14 @@
           Free Demo Class Available!</span>
       </marquee>
       <div class="announcement-actions">
-        <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer" class="announcement-social-icon" title="Instagram @mg_art_academy_" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer" class="announcement-social-icon" title="YouTube @mg_academy_" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://wa.me/918681994164" target="_blank" rel="noopener noreferrer" class="announcement-contact"><i class="fa-brands fa-whatsapp"></i> +91 86819 94164</a>
+        <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer"
+          class="announcement-social-icon" title="Instagram @mg_art_academy_" aria-label="Instagram"><i
+            class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer"
+          class="announcement-social-icon" title="YouTube @mg_academy_" aria-label="YouTube"><i
+            class="fa-brands fa-youtube"></i></a>
+        <a href="https://wa.me/918681994164" target="_blank" rel="noopener noreferrer" class="announcement-contact"><i
+            class="fa-brands fa-whatsapp"></i> +91 86819 94164</a>
         <button class="announcement-btn" onclick="openAdmissionModal()">Free Demo</button>
       </div>
     </div>
@@ -157,23 +163,42 @@
       <div class="mobile-sky-doodle doodle-2" aria-hidden="true">✧</div>
 
       <div class="container hero-container">
-        <div class="hero-content">
+        <div class="hero-content hero-card-premium">
+          <!-- Floating Decorative Top-Right Corner Tag -->
+          <div class="hero-corner-tag" aria-hidden="true">
+            <span class="corner-tag-sparkle">✨</span>
+            <span class="corner-tag-text">Admissions 2026-27</span>
+          </div>
+
           <!-- Pill Badge -->
           <div class="hero-badge-wrapper">
             <div class="hero-pill-badge">
-              <span class="pill-dot"></span> Welcome to MG Academy
+              <span class="pill-sparkle">🎨</span>
+              <span class="pill-dot"></span>
+              <span class="pill-text">Welcome to MG Academy</span>
             </div>
           </div>
 
           <!-- Main Hero Headline -->
           <h1 class="hero-title" id="hero-title">
             <span class="hero-line-hands">Where Little Hands</span>
-            <span class="hero-line-dreams">Create Big Dreams!</span>
+            <span class="hero-line-dreams">
+              Create Big Dreams!
+              <svg class="hero-brush-swoosh" viewBox="0 0 260 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 12C50 4 150 2 256 10C210 14 120 15 4 12Z" fill="url(#swooshGradient)"/>
+                <defs>
+                  <linearGradient id="swooshGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#FF9F1C" stop-opacity="0.95"/>
+                    <stop offset="50%" stop-color="#FFD166" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.8"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </span>
           </h1>
 
           <p class="hero-subtitle">
-            Every child is an artist. A joyful space where children discover their talents, develop new skills, and
-            express their creativity with confidence and happiness.
+            <strong>Every child is an artist.</strong> A joyful space where children discover talents, develop new skills, and express creativity with boundless confidence and happiness.
           </p>
 
           <div class="hero-cta-group">
@@ -189,6 +214,18 @@
               <i class="fa-solid fa-compass"></i>
               <span>Explore Courses</span>
             </a>
+          </div>
+
+          <!-- Social Proof / Trust Highlights inside the card -->
+          <div class="hero-trust-bar">
+            <div class="hero-rating-stars">
+              <span class="stars-icon">★★★★★</span>
+              <span class="rating-score">4.9/5</span>
+            </div>
+            <span class="trust-bullet">•</span>
+            <span class="trust-caption">500+ Happy Artists</span>
+            <span class="trust-bullet">•</span>
+            <span class="trust-badge-pill">Free Demo Available</span>
           </div>
         </div>
       </div>
@@ -397,8 +434,8 @@
               <!-- Course 1: Drawing & Painting -->
               <div class="course-stack-card course-card glass-panel" data-slot="0" data-card-id="1" data-category="art">
                 <div class="course-media">
-                  <img src="./assets/drawing_kids.jpg"
-                    alt="Drawing and Painting classes at MG Academy" class="course-cover-img" loading="lazy">
+                  <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy"
+                    class="course-cover-img" loading="lazy">
                   <div class="course-icon-floating text-gold bg-gold-light"><i class="fa-solid fa-palette"></i></div>
                 </div>
                 <div class="course-body">
@@ -463,7 +500,8 @@
                 <div class="course-media">
                   <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy"
                     class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-feather-pointed"></i></div>
+                  <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-feather-pointed"></i>
+                  </div>
                 </div>
                 <div class="course-body">
                   <h3 class="course-title">Calligraphy</h3>
@@ -495,7 +533,8 @@
                 <div class="course-media">
                   <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy"
                     class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i></div>
+                  <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i>
+                  </div>
                 </div>
                 <div class="course-body">
                   <h3 class="course-title">Abacus</h3>
@@ -527,7 +566,8 @@
                 <div class="course-media">
                   <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy"
                     class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-scissors"></i></div>
+                  <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-scissors"></i>
+                  </div>
                 </div>
                 <div class="course-body">
                   <h3 class="course-title">Creative Art &amp; Craft</h3>
@@ -557,8 +597,8 @@
               <div class="course-stack-card course-card glass-panel highlight-dance-card" data-slot="hidden"
                 data-card-id="6" data-category="dance">
                 <div class="course-media">
-                  <img src="./assets/dance_kids.jpg"
-                    alt="Dance performance and training at MG Academy" class="course-cover-img" loading="lazy">
+                  <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy"
+                    class="course-cover-img" loading="lazy">
                   <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-music"></i></div>
                 </div>
                 <div class="course-body">
@@ -648,8 +688,8 @@
                 </div>
               </div>
               <div class="dance-style-media">
-                <img src="./assets/dance_bharatanatyam.jpg"
-                  alt="Bharatanatyam classical dance training at MG Academy" class="dance-style-img" loading="lazy">
+                <img src="./assets/dance_bharatanatyam.jpg" alt="Bharatanatyam classical dance training at MG Academy"
+                  class="dance-style-img" loading="lazy">
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
@@ -683,8 +723,8 @@
                 </div>
               </div>
               <div class="dance-style-media">
-                <img src="./assets/dance_western.jpg"
-                  alt="Western modern dance routines at MG Academy" class="dance-style-img" loading="lazy">
+                <img src="./assets/dance_western.jpg" alt="Western modern dance routines at MG Academy"
+                  class="dance-style-img" loading="lazy">
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
@@ -717,8 +757,8 @@
                 </div>
               </div>
               <div class="dance-style-media">
-                <img src="./assets/dance_freestyle.jpg"
-                  alt="Freestyle creative dance movement at MG Academy" class="dance-style-img" loading="lazy">
+                <img src="./assets/dance_freestyle.jpg" alt="Freestyle creative dance movement at MG Academy"
+                  class="dance-style-img" loading="lazy">
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
@@ -751,8 +791,8 @@
                 </div>
               </div>
               <div class="dance-style-media">
-                <img src="./assets/dance_tamilfolk.jpg"
-                  alt="Tamil Folk traditional dance training at MG Academy" class="dance-style-img" loading="lazy">
+                <img src="./assets/dance_tamilfolk.jpg" alt="Tamil Folk traditional dance training at MG Academy"
+                  class="dance-style-img" loading="lazy">
               </div>
               <span class="scroll-stack-card__shade" aria-hidden="true"></span>
             </div>
@@ -829,11 +869,13 @@
             <div class="skiper30-column col-2" id="skiper-col-2">
               <div class="skiper30-card"
                 onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg', 'Hands-on Art Workshop')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg" alt="Hands-on Art Workshop" loading="lazy">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg" alt="Hands-on Art Workshop"
+                  loading="lazy">
               </div>
               <div class="skiper30-card"
                 onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg', 'Creative Learning & Sketching')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg" alt="Creative Learning & Sketching" loading="lazy">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg" alt="Creative Learning & Sketching"
+                  loading="lazy">
               </div>
               <div class="skiper30-card"
                 onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', 'Competition Laurels & Awards')">
@@ -844,12 +886,15 @@
 
             <!-- Column 3: top -45%, y3 = scrollProgress * (height * 1.25) -->
             <div class="skiper30-column col-3" id="skiper-col-3">
-              <div class="skiper30-card" onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg', 'Student Achievements & Growth')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg" alt="Student Achievements & Growth" loading="lazy">
+              <div class="skiper30-card"
+                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg', 'Student Achievements & Growth')">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg" alt="Student Achievements & Growth"
+                  loading="lazy">
               </div>
               <div class="skiper30-card"
                 onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg', 'Cultural Celebrations & Events')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg" alt="Cultural Celebrations & Events" loading="lazy">
+                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg" alt="Cultural Celebrations & Events"
+                  loading="lazy">
               </div>
               <div class="skiper30-card"
                 onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', 'Classroom Learning Workshop')">
@@ -1344,7 +1389,8 @@
               <div class="info-icon text-gold bg-gold-light"><i class="fa-brands fa-whatsapp text-green"></i></div>
               <div>
                 <strong>Phone &amp; WhatsApp</strong>
-                <p><a href="https://wa.me/918681994164" target="_blank" rel="noopener noreferrer">+91 86819 94164</a></p>
+                <p><a href="https://wa.me/918681994164" target="_blank" rel="noopener noreferrer">+91 86819 94164</a>
+                </p>
               </div>
             </div>
 
@@ -1366,11 +1412,13 @@
 
             <div class="contact-social-row">
               <span class="contact-social-title">Follow Us:</span>
-              <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer" class="contact-social-btn btn-ig" aria-label="Instagram @mg_art_academy_">
+              <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer"
+                class="contact-social-btn btn-ig" aria-label="Instagram @mg_art_academy_">
                 <i class="fa-brands fa-instagram"></i>
                 <span>Instagram</span>
               </a>
-              <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer" class="contact-social-btn btn-yt" aria-label="YouTube @mg_academy_">
+              <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer"
+                class="contact-social-btn btn-yt" aria-label="YouTube @mg_academy_">
                 <i class="fa-brands fa-youtube"></i>
                 <span>YouTube</span>
               </a>
@@ -1422,8 +1470,10 @@
                   placeholder="Tell us about your child's interests or preferred timings..."></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block btn-animated-shine" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); border-color: #25D366; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);">
-                <span class="btn-shine-text" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <button type="submit" class="btn btn-primary btn-block btn-animated-shine"
+                style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); border-color: #25D366; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);">
+                <span class="btn-shine-text"
+                  style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                   <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem;"></i>
                   <span>Send Message via WhatsApp</span>
                 </span>
@@ -1453,11 +1503,13 @@
           <span>Learn</span> • <span>Create</span> • <span>Grow</span>
         </div>
         <div class="footer-social-bar">
-          <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer" class="footer-social-badge badge-ig" aria-label="Follow MG Academy on Instagram">
+          <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer"
+            class="footer-social-badge badge-ig" aria-label="Follow MG Academy on Instagram">
             <i class="fa-brands fa-instagram"></i>
             <span>Instagram</span>
           </a>
-          <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer" class="footer-social-badge badge-yt" aria-label="Subscribe to MG Academy on YouTube">
+          <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer"
+            class="footer-social-badge badge-yt" aria-label="Subscribe to MG Academy on YouTube">
             <i class="fa-brands fa-youtube"></i>
             <span>YouTube</span>
           </a>
@@ -1488,7 +1540,8 @@
 
       <div class="footer-contact-col">
         <h4>Quick Contact</h4>
-        <p><i class="fa-brands fa-whatsapp text-green"></i> <a href="https://wa.me/918681994164" target="_blank" rel="noopener noreferrer">+91 86819 94164</a></p>
+        <p><i class="fa-brands fa-whatsapp text-green"></i> <a href="https://wa.me/918681994164" target="_blank"
+            rel="noopener noreferrer">+91 86819 94164</a></p>
         <p><i class="fa-solid fa-envelope text-pink"></i> <a href="mailto:info@mgacademy.in">info@mgacademy.in</a></p>
         <p><i class="fa-solid fa-location-dot text-pink"></i> MG Academy Center, Main Road, City</p>
         <!-- SocialFlipButton: Interactive 3D C-O-N-T-A-C-T Flip Nodes -->
@@ -1511,8 +1564,8 @@
             </a>
 
             <!-- Node 1: O -> Instagram -->
-            <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer" class="social-flip-node"
-              data-index="1" aria-label="Instagram">
+            <a href="https://www.instagram.com/mg_art_academy_/?hl=en" target="_blank" rel="noopener noreferrer"
+              class="social-flip-node" data-index="1" aria-label="Instagram">
               <span class="flip-tooltip">Instagram<span class="flip-tooltip-arrow"></span></span>
               <div class="flip-inner">
                 <div class="flip-front">O</div>
@@ -1531,8 +1584,8 @@
             </a>
 
             <!-- Node 3: T -> YouTube -->
-            <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer" class="social-flip-node"
-              data-index="3" aria-label="YouTube">
+            <a href="https://www.youtube.com/@mg_academy_" target="_blank" rel="noopener noreferrer"
+              class="social-flip-node" data-index="3" aria-label="YouTube">
               <span class="flip-tooltip">YouTube<span class="flip-tooltip-arrow"></span></span>
               <div class="flip-inner">
                 <div class="flip-front">T</div>
@@ -1583,7 +1636,9 @@
   <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true" onclick="closeLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close modal">&times;</button>
-      <img id="lightbox-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" alt="MG Academy Gallery Preview">
+      <img id="lightbox-img"
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+        alt="MG Academy Gallery Preview">
       <p id="lightbox-caption" class="lightbox-caption"></p>
     </div>
   </div>
@@ -1599,11 +1654,14 @@
       </div>
 
       <div style="margin-bottom: 18px; text-align: center;">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeO3i9Zs6bc7cFcwR72ii8JfPZumFF3y4ttTjq1Y5IOtiKj4g/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block btn-animated-shine" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; padding: 14px 20px; font-size: 1rem; border-radius: var(--radius-full); box-shadow: 0 8px 24px rgba(23, 162, 184, 0.4);">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeO3i9Zs6bc7cFcwR72ii8JfPZumFF3y4ttTjq1Y5IOtiKj4g/viewform?usp=dialog"
+          target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block btn-animated-shine"
+          style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; padding: 14px 20px; font-size: 1rem; border-radius: var(--radius-full); box-shadow: 0 8px 24px rgba(23, 162, 184, 0.4);">
           <span class="btn-shine-text">Open Official Google Admission Form</span>
           <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem;"></i>
         </a>
-        <div style="margin: 12px 0 6px; font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <div
+          style="margin: 12px 0 6px; font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
           <span style="flex: 1; height: 1px; background: rgba(0,0,0,0.1);"></span>
           <span>Or Quick Inquiry Below</span>
           <span style="flex: 1; height: 1px; background: rgba(0,0,0,0.1);"></span>
@@ -1703,7 +1761,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Swiper 11 JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=11.3"></script>
+  <script src="script.js?v=11.4"></script>
 
 </body>
 
