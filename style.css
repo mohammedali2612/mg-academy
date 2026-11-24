@@ -7434,10 +7434,35 @@ marquee,
 }
 
 .courses-section {
-  background:
-    radial-gradient(circle at 85% 15%, rgba(0, 210, 255, 0.30) 0%, transparent 55%),
-    radial-gradient(circle at 15% 85%, rgba(56, 189, 248, 0.25) 0%, transparent 55%),
-    linear-gradient(180deg, #F0F9FF 0%, #E6F5FE 50%, #F8FBFF 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background-color: #FAF6EE !important;
+}
+
+.courses-section > .courses-mascot-bg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-image: url('./assets/courses_mascot_bg.jpg') !important;
+  background-position: center top !important;
+  background-size: 100% auto !important;
+  background-repeat: repeat-y !important;
+  opacity: 0.28 !important;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+@media (max-width: 860px) {
+  .courses-section > .courses-mascot-bg {
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    opacity: 0.22 !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%) !important;
+  }
 }
 
 .dance-spotlight-section {
