@@ -53,7 +53,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=13.2">
+  <link rel="stylesheet" href="style.css?v=13.3">
 
 
 
@@ -1276,97 +1276,33 @@
           </p>
         </div>
 
-        <!-- Skiper 30 Parallax Gallery (Parallax_002) -->
-        <div class="skiper30-parallax-root reveal-fade-up" id="skiper30-root">
-          <!-- Scroll Down Tag matching Skiper 30 -->
-          <div class="skiper30-scroll-tag">
-            <span class="scroll-tag-label">scroll down to see</span>
-            <div class="scroll-tag-line"></div>
-          </div>
-
-          <!-- Parallax Viewport: flex h-[175vh] gap-[2vw] overflow-hidden bg-white p-[2vw] -->
-          <div class="skiper30-gallery" id="skiper30-gallery">
-            <!-- Column 1: top -45%, y = scrollProgress * (height * 2) -->
-            <div class="skiper30-column col-1" id="skiper-col-1">
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg', 'Little Picasso Art Studio')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg" alt="Little Picasso Art Studio"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg', 'Classical Poise & Rhythms')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg" alt="Classical Poise & Rhythms"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg', 'Young Masters Exhibition')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg" alt="Young Masters Exhibition"
-                  loading="lazy">
-              </div>
+        <!-- Smooth Scroll Slider (Originkit) - Desktop View Only (> 860px) -->
+        <div class="smooth-slider-gallery-desktop reveal-fade-up" id="smooth-slider-desktop-root" data-lenis-prevent>
+          <div class="smooth-slider-desktop-topbar">
+            <div class="smooth-slider-desktop-pill">
+              <i class="fa-solid fa-camera-retro"></i>
+              <span id="desktop-slider-status">1 / 12 &mdash; Little Picasso Art Studio</span>
             </div>
-
-            <!-- Column 2: top -95%, y2 = scrollProgress * (height * 3.3) -->
-            <div class="skiper30-column col-2" id="skiper-col-2">
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg', 'Hands-on Art Workshop')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg" alt="Hands-on Art Workshop"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg', 'Creative Learning & Sketching')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg" alt="Creative Learning & Sketching"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg', 'Competition Laurels & Awards')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg" alt="Competition Laurels & Awards"
-                  loading="lazy">
-              </div>
-            </div>
-
-            <!-- Column 3: top -45%, y3 = scrollProgress * (height * 1.25) -->
-            <div class="skiper30-column col-3" id="skiper-col-3">
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg', 'Student Achievements & Growth')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg" alt="Student Achievements & Growth"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg', 'Cultural Celebrations & Events')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg" alt="Cultural Celebrations & Events"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg', 'Classroom Learning Workshop')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg" alt="Classroom Learning Workshop"
-                  loading="lazy">
-              </div>
-            </div>
-
-            <!-- Column 4: top -75%, y4 = scrollProgress * (height * 3) -->
-            <div class="skiper30-column col-4" id="skiper-col-4">
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg', 'Creative Studio Exploration')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg" alt="Creative Studio Exploration"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg', 'Stage Dance Salangai')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg" alt="Stage Dance Salangai"
-                  loading="lazy">
-              </div>
-              <div class="skiper30-card"
-                onclick="openLightbox('./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg', 'Joyful Creative Moments')">
-                <img src="./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg" alt="Joyful Creative Moments"
-                  loading="lazy">
-              </div>
+            <div class="smooth-slider-desktop-instruction">
+              <i class="fa-solid fa-arrows-left-right"></i>
+              <span>Wheel &bull; Drag &bull; Click to Expand</span>
             </div>
           </div>
 
-          <!-- Scroll Up Tag matching Skiper 30 bottom -->
-          <div class="skiper30-scroll-tag bottom-tag">
-            <div class="scroll-tag-line"></div>
-            <span class="scroll-tag-label">scroll up to see</span>
+          <div class="smooth-slider-desktop-viewport" id="smooth-slider-desktop-track" aria-label="Student Photography Gallery Desktop Slider">
+            <!-- Dynamically populated and driven by initSmoothScrollSliderDesktop() -->
+          </div>
+
+          <div class="smooth-slider-desktop-footer">
+            <button type="button" class="desktop-slider-arrow prev" id="desktop-slider-arrow-prev" aria-label="Previous slide" title="Previous slide">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="desktop-slider-progress-bar">
+              <div class="desktop-slider-progress-fill" id="desktop-slider-progress-fill"></div>
+            </div>
+            <button type="button" class="desktop-slider-arrow next" id="desktop-slider-arrow-next" aria-label="Next slide" title="Next slide">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
         </div>
 
@@ -2209,7 +2145,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Swiper 11 JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=13.2"></script>
+  <script src="script.js?v=13.3"></script>
 
 </body>
 

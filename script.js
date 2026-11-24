@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroAnimation();
   initModals();
   initFormsAndConfetti();
-  initSkiper30Parallax();
+  initSmoothScrollSliderDesktop();
   initSmoothScrollSliderMobile();
   initStatsCounter();
   initPeekAdmissionButton();
@@ -1233,109 +1233,377 @@ function launchConfetti() {
 }
 
 /* ==========================================================================
-   7. SKIPER 30 PARALLAX GALLERY (Parallax_002 with Lenis Smooth Scroll)
+   7. SMOOTH SCROLL SLIDER (Originkit) - DESKTOP VIEW ONLY (> 860px)
+   Horizontal image rail on black with lerp physics and center-distance scaling
    ========================================================================== */
-function initSkiper30Parallax() {
-  const gallery = document.getElementById('skiper30-gallery');
-  if (!gallery) return;
+function initSmoothScrollSliderDesktop() {
+  const container = document.getElementById('smooth-slider-desktop-root');
+  const track = document.getElementById('smooth-slider-desktop-track');
+  const statusEl = document.getElementById('desktop-slider-status');
+  const progressFill = document.getElementById('desktop-slider-progress-fill');
+  const prevBtn = document.getElementById('desktop-slider-arrow-prev');
+  const nextBtn = document.getElementById('desktop-slider-arrow-next');
+  if (!container || !track) return;
 
-  const col1 = document.getElementById('skiper-col-1');
-  const col2 = document.getElementById('skiper-col-2');
-  const col3 = document.getElementById('skiper-col-3');
-  const col4 = document.getElementById('skiper-col-4');
-  const cards = gallery.querySelectorAll('.skiper30-card');
+  const items = [
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg',
+      title: 'Little Picasso Art Studio',
+      subtitle: 'Watercolor & Painting',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg',
+      title: 'Classical Poise & Rhythms',
+      subtitle: 'Bharatanatyam Dance',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg',
+      title: 'Young Masters Exhibition',
+      subtitle: 'Fine Art & Creative Displays',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg',
+      title: 'Hands-on Art Workshop',
+      subtitle: 'Pastel Blending & Canvas',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg',
+      title: 'Creative Learning & Sketching',
+      subtitle: 'Focused Pencil Observation',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg',
+      title: 'Competition Laurels & Awards',
+      subtitle: 'Pride with Medals & Trophies',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg',
+      title: 'Student Achievements & Growth',
+      subtitle: 'Confidence Building Milestones',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg',
+      title: 'Cultural Celebrations & Events',
+      subtitle: 'Festive Stage Performances',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg',
+      title: 'Classroom Learning Workshop',
+      subtitle: 'Step-by-Step Guidance',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg',
+      title: 'Creative Studio Exploration',
+      subtitle: 'Imaginative Mixed Media',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg',
+      title: 'Stage Dance Salangai',
+      subtitle: 'Traditional Bells & Mudras',
+      offsetY: 0
+    },
+    {
+      src: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg',
+      title: 'Joyful Creative Moments',
+      subtitle: 'Friendship & Smiles',
+      offsetY: 0
+    }
+  ];
 
-  // Mobile Gallery Scroll Reveal (<= 860px)
+  /* Helper functions */
+  function wrap(value, span) {
+    return ((value % span) + span) % span;
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  /* Configuration mapped directly from Originkit defaults */
+  const slideWidth = 380;
+  const slideHeight = 380;
+  const spacing = 2;
+  const direction = 'right';
+  const smoothness = 10;
+  const dim = 10;
+  const sensitivity = 5;
+  const loop = true;
+
+  const MAX_SCALE = 2.5;
+  const MIN_SCALE = 0.1;
+
+  const step = slideWidth + clamp(spacing, 0, 10) * 20; // 380 + 40 = 420
+  const ease = 0.15 - (clamp(smoothness, 0, 10) / 10) * 0.13; // 0.02
+  const dimAmount = (clamp(dim, 0, 10) / 10) * 0.85; // 0.85
+  const wheelMultiplier = 0.4 + (clamp(sensitivity, 0, 10) / 10) * 1.2; // 1.0
+  const dragMultiplier = 0.6 + (clamp(sensitivity, 0, 10) / 10) * 1.8; // 1.5
+  const flip = direction === 'left';
+
+  let target = 0;
+  let current = 0;
+  let width = track.clientWidth || 1200;
+  let lastReportedIndex = -1;
+
+  /* Repeat until outrunning viewport */
+  const repeats = Math.max(1, Math.ceil((width + step * 2) / (items.length * step)));
+  const slides = [];
+  for (let r = 0; r < repeats; r++) {
+    for (let i = 0; i < items.length; i++) {
+      slides.push(items[i]);
+    }
+  }
+
+  /* Populate DOM */
+  track.innerHTML = '';
+  const nodes = [];
+
+  slides.forEach((slide, i) => {
+    const card = document.createElement('div');
+    card.className = 'smooth-slider-desktop-card';
+    card.dataset.index = i % items.length;
+    card.setAttribute('role', 'group');
+    card.setAttribute('aria-label', slide.title);
+
+    card.innerHTML = `
+      <img src="${slide.src}" alt="${slide.title}" draggable="false" loading="lazy">
+      <div class="smooth-desktop-card-caption">
+        <span class="caption-title">${slide.title}</span>
+        <span class="caption-sub">${slide.subtitle}</span>
+      </div>
+    `;
+
+    track.appendChild(card);
+    nodes.push(card);
+  });
+
+  /* Frame loop: lerp target, then position and scale each slide */
+  let rafId = 0;
+  let lastTime = 0;
+  let isRunning = false;
+
+  function renderFrame(delta) {
+    const count = slides.length;
+    if (!count || step <= 0 || width <= 0) return;
+
+    const span = count * step;
+
+    if (loop) {
+      if (current > span || current < -span) {
+        const shift = Math.trunc(current / span) * span;
+        current -= shift;
+        target -= shift;
+      }
+    } else {
+      target = clamp(target, 0, (count - 1) * step);
+    }
+
+    // Frame-rate independent lerp — ease is calibrated at 60fps
+    const k = 1 - Math.pow(1 - ease, delta * 60);
+    current += (target - current) * k;
+
+    const pad = (width - slideWidth) / 2;
+    const half = width / 2;
+
+    for (let i = 0; i < count; i++) {
+      const node = nodes[i];
+      if (!node) continue;
+
+      const raw = i * step - current + pad;
+      const x = loop ? wrap(raw + step, span) - step : raw;
+
+      const distance = x + slideWidth / 2 - half;
+      let scale;
+      let push;
+      if (distance > 0) {
+        scale = Math.min(MAX_SCALE, 1 + distance / width);
+        push = (scale - 1) * slideWidth * 0.75;
+      } else {
+        scale = Math.max(MIN_SCALE, 1 + distance / width);
+        push = 0;
+      }
+
+      const left = flip ? width - slideWidth - (x + push) : x + push;
+      node.style.transform = `translate3d(${left}px, -50%, 0) scale(${scale})`;
+
+      if (dimAmount > 0 && scale < 1) {
+        const t = (1 - scale) / Math.max(0.001, 1 - MIN_SCALE);
+        node.style.filter = `brightness(${1 - t * dimAmount})`;
+      } else {
+        node.style.filter = 'none';
+      }
+    }
+
+    updateUI();
+  }
+
+  function updateUI() {
+    const activeRaw = Math.round(current / step);
+    const activeIndex = wrap(activeRaw, items.length);
+
+    if (activeIndex !== lastReportedIndex) {
+      lastReportedIndex = activeIndex;
+      if (statusEl) {
+        statusEl.innerHTML = `${activeIndex + 1} / ${items.length} &mdash; ${items[activeIndex].title}`;
+      }
+      if (progressFill) {
+        const pct = ((activeIndex + 1) / items.length) * 100;
+        progressFill.style.width = `${pct}%`;
+      }
+    }
+  }
+
+  function tick(now) {
+    if (!isRunning) return;
+    rafId = requestAnimationFrame(tick);
+
+    const delta = lastTime ? Math.min((now - lastTime) / 1000, 0.1) : 1 / 60;
+    lastTime = now;
+
+    renderFrame(delta);
+  }
+
+  function startLoop() {
+    if (isRunning) return;
+    isRunning = true;
+    lastTime = 0;
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function stopLoop() {
+    isRunning = false;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = 0;
+    }
+  }
+
+  /* Resize handling */
+  const observer = new ResizeObserver((entries) => {
+    if (!entries[0]) return;
+    width = entries[0].contentRect.width;
+    renderFrame(1 / 60);
+  });
+  observer.observe(track);
+  width = track.clientWidth || 1200;
+
+  /* Wheel / Trackpad */
+  const onWheel = (e) => {
+    if (window.innerWidth <= 860) return;
+    e.preventDefault();
+    const dominant = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    target += dominant * wheelMultiplier;
+  };
+  track.addEventListener('wheel', onWheel, { passive: false });
+
+  /* Pointer drag */
+  let pointer = null;
+  let lastX = 0;
+  let startX = 0;
+  let startY = 0;
+  let startTime = 0;
+  let isDragging = false;
+
+  const onDown = (e) => {
+    if (window.innerWidth <= 860) return;
+    if (pointer !== null) return;
+    pointer = e.pointerId;
+    lastX = e.clientX;
+    startX = e.clientX;
+    startY = e.clientY;
+    startTime = Date.now();
+    isDragging = false;
+    try {
+      track.setPointerCapture(e.pointerId);
+    } catch (_) {}
+  };
+
+  const onMove = (e) => {
+    if (pointer !== e.pointerId) return;
+    const dx = e.clientX - lastX;
+    lastX = e.clientX;
+
+    if (!isDragging && Math.hypot(e.clientX - startX, e.clientY - startY) > 5) {
+      isDragging = true;
+      track.classList.add('is-dragging');
+    }
+
+    if (isDragging) {
+      target += (flip ? dx : -dx) * dragMultiplier;
+    }
+  };
+
+  const onUp = (e) => {
+    if (pointer !== e.pointerId) return;
+    pointer = null;
+    track.classList.remove('is-dragging');
+
+    try {
+      if (track.hasPointerCapture(e.pointerId)) {
+        track.releasePointerCapture(e.pointerId);
+      }
+    } catch (_) {}
+
+    // Tap/Click Detection -> Open Lightbox
+    if (!isDragging && Math.hypot(e.clientX - startX, e.clientY - startY) < 6 && (Date.now() - startTime) < 400) {
+      const targetSlide = e.target.closest('.smooth-slider-desktop-card');
+      if (targetSlide) {
+        const idx = parseInt(targetSlide.dataset.index, 10);
+        if (!isNaN(idx) && items[idx] && typeof window.openLightbox === 'function') {
+          window.openLightbox(items[idx].src, items[idx].title);
+        }
+      }
+    }
+
+    isDragging = false;
+  };
+
+  track.addEventListener('pointerdown', onDown, { passive: true });
+  track.addEventListener('pointermove', onMove, { passive: true });
+  track.addEventListener('pointerup', onUp, { passive: true });
+  track.addEventListener('pointercancel', onUp, { passive: true });
+
+  /* Arrow button controls */
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      target -= step;
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      target += step;
+    });
+  }
+
+  /* Render first frame and start loop */
+  renderFrame(1 / 60);
+  startLoop();
+
+  /* IntersectionObserver to pause when off-screen */
   if ('IntersectionObserver' in window) {
-    const cardObserver = new IntersectionObserver((entries) => {
+    const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('card-in-view');
-          cardObserver.unobserve(entry.target);
+        if (entry.isIntersecting && window.innerWidth > 860) {
+          startLoop();
+        } else {
+          stopLoop();
         }
       });
-    }, {
-      root: null,
-      threshold: 0.1,
-      rootMargin: '0px 0px -20px 0px'
-    });
-
-    cards.forEach((card) => {
-      cardObserver.observe(card);
-      // If already in viewport on load, reveal immediately
-      const r = card.getBoundingClientRect();
-      if (r.top < window.innerHeight - 30 && r.bottom > 30) {
-        card.classList.add('card-in-view');
-      }
-    });
-  } else {
-    // Fallback: reveal immediately
-    cards.forEach((card) => card.classList.add('card-in-view'));
+    }, { threshold: 0.05 });
+    io.observe(container);
   }
-
-  // Initialize Lenis smooth scroll if loaded
-  const lenis = window.__lenis;
-
-  let ticking = false;
-
-  function updateParallax() {
-    // Mobile view (<= 860px): Desktop parallax gallery is hidden, Skiper 47 Coverflow Carousel active
-    if (window.innerWidth <= 860) {
-      ticking = false;
-      return;
-    }
-
-    // Desktop view (> 860px): reset mobile transforms on cards & run desktop Skiper 30 parallax
-    cards.forEach((card) => {
-      const img = card.querySelector('img');
-      if (img && img.style.transform) img.style.transform = '';
-    });
-
-    const rect = gallery.getBoundingClientRect();
-    const H = window.innerHeight;
-
-    // Check if gallery is anywhere near the viewport
-    if (rect.bottom >= -200 && rect.top <= H + 200) {
-      // scrollYProgress matching offset: ["start end", "end start"]
-      // 0 when gallery top enters bottom of viewport, 1 when gallery bottom leaves top of viewport
-      const totalSpan = H + rect.height;
-      const progress = (H - rect.top) / totalSpan;
-      const clamped = Math.min(Math.max(progress, 0), 1);
-
-      // Exact Skiper 30 transforms:
-      // y  = scrollYProgress * (height * 2)
-      // y2 = scrollYProgress * (height * 3.3)
-      // y3 = scrollYProgress * (height * 1.25)
-      // y4 = scrollYProgress * (height * 3)
-      const y1 = clamped * (H * 2);
-      const y2 = clamped * (H * 3.3);
-      const y3 = clamped * (H * 1.25);
-      const y4 = clamped * (H * 3);
-
-      if (col1) col1.style.transform = `translate3d(0, ${y1.toFixed(2)}px, 0)`;
-      if (col2) col2.style.transform = `translate3d(0, ${y2.toFixed(2)}px, 0)`;
-      if (col3) col3.style.transform = `translate3d(0, ${y3.toFixed(2)}px, 0)`;
-      if (col4) col4.style.transform = `translate3d(0, ${y4.toFixed(2)}px, 0)`;
-    }
-    ticking = false;
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
-
-  if (lenis) {
-    lenis.on('scroll', onScroll);
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', updateParallax);
-
-  // Initial run
-  updateParallax();
 }
 
 /* ==========================================================================
