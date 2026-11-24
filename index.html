@@ -376,6 +376,19 @@
           </nav>
         </div>
 
+        <!-- View Mode Switcher (Laptop / Desktop View Only) -->
+        <div class="courses-desktop-view-mode reveal-fade-up" id="courses-desktop-view-mode">
+          <button type="button" class="course-view-pill active" data-view="both">
+            <i class="fa-solid fa-table-columns"></i> <span>All Views</span>
+          </button>
+          <button type="button" class="course-view-pill" data-view="book">
+            <i class="fa-solid fa-book-open"></i> <span>3D Interactive Book</span>
+          </button>
+          <button type="button" class="course-view-pill" data-view="grid">
+            <i class="fa-solid fa-grip"></i> <span>Course Cards Grid</span>
+          </button>
+        </div>
+
         <!-- 3D Interactive Hardcover Book Section (Framer-Motion 3D Realistic Page-Flip Animation) -->
         <div class="interactive-book-section-wrapper" id="interactive-book-section-wrapper">
           <!-- Top Controls & Meta Bar -->
@@ -955,6 +968,174 @@
           <div class="book-closed-hint" id="book-closed-hint">
             <i class="fa-solid fa-book-open"></i>
             <span>Click book to open &amp; explore all courses</span>
+          </div>
+        </div>
+
+        <!-- Previous Course Cards Grid (Laptop / Desktop View Only) -->
+        <div class="courses-desktop-cards-wrapper reveal-fade-up" id="courses-desktop-cards-wrapper">
+          <div class="courses-grid-divider">
+            <span class="courses-grid-badge"><i class="fa-solid fa-layer-group"></i> Course Directory</span>
+            <h3 class="courses-grid-title">All Programs at a Glance</h3>
+            <p class="courses-grid-subtitle">Browse comprehensive curriculum, age groups, and syllabus features across our 6 disciplines.</p>
+          </div>
+          <div class="courses-grid" id="courses-desktop-cards-grid">
+            <!-- Course 1: Drawing & Painting -->
+            <div class="course-card glass-panel reveal-fade-up" data-card-id="1" data-category="art">
+              <div class="course-media">
+                <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy" class="course-cover-img" loading="lazy">
+                <div class="course-icon-floating text-gold bg-gold-light"><i class="fa-solid fa-palette"></i></div>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Drawing &amp; Painting</h3>
+                <p class="course-desc">
+                  From pencil lines, geometrical shapes, and color mixing to landscape scenery, portraiture, and acrylic canvas painting across tiered levels.
+                </p>
+                <ul class="course-bullets">
+                  <li><i class="fa-solid fa-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Watercolor Washes &amp; Poster Colors</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Canvas Acrylics &amp; Exhibition Art</li>
+                </ul>
+                <div class="course-meta">
+                  <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Drawing & Painting');">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll Now</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course 2: Handwriting Improvement -->
+            <div class="course-card glass-panel reveal-fade-up" data-card-id="2" data-category="skills">
+              <div class="course-media">
+                <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy" class="course-cover-img" loading="lazy">
+                <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-pen-nib"></i></div>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Handwriting Improvement</h3>
+                <p class="course-desc">
+                  Scientific techniques to correct pencil grip, posture, stroke rhythm, letter spacing, and line alignment into neat, beautiful cursive handwriting.
+                </p>
+                <ul class="course-bullets">
+                  <li><i class="fa-solid fa-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Cursive &amp; Print Letter Perfection</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Enhanced Exam Writing Speed</li>
+                </ul>
+                <div class="course-meta">
+                  <span class="course-age"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Handwriting Improvement');">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll Now</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course 3: Calligraphy -->
+            <div class="course-card glass-panel reveal-fade-up" data-card-id="3" data-category="skills">
+              <div class="course-media">
+                <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy" class="course-cover-img" loading="lazy">
+                <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-feather-pointed"></i></div>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Calligraphy</h3>
+                <p class="course-desc">
+                  The noble art of beautiful lettering. Students master foundational nib angles, flourished alphabets, ink flow control, and creative ornamental scripts.
+                </p>
+                <ul class="course-bullets">
+                  <li><i class="fa-solid fa-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen Mastery</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Gothic, Italic &amp; Modern Script Styles</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Greeting Cards, Bookmarks &amp; Certificates</li>
+                </ul>
+                <div class="course-meta">
+                  <span class="course-age"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Calligraphy');">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll Now</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course 4: Abacus & Mental Math -->
+            <div class="course-card glass-panel reveal-fade-up" data-card-id="4" data-category="skills">
+              <div class="course-media">
+                <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy" class="course-cover-img" loading="lazy">
+                <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i></div>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Abacus</h3>
+                <p class="course-desc">
+                  Supercharge your child's brain. Enhances photographic concentration, visual calculations, mental agility, speed arithmetic, and numeric self-confidence.
+                </p>
+                <ul class="course-bullets">
+                  <li><i class="fa-solid fa-check text-green"></i> Soroban Bead Foundations &amp; Finger Movements</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Lightning Fast Mental Calculations</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Boosts Long-Term Focus &amp; Working Memory</li>
+                </ul>
+                <div class="course-meta">
+                  <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Abacus');">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll Now</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course 5: Creative Art & Craft -->
+            <div class="course-card glass-panel reveal-fade-up" data-card-id="5" data-category="art">
+              <div class="course-media">
+                <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy" class="course-cover-img" loading="lazy">
+                <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-scissors"></i></div>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Creative Art &amp; Craft</h3>
+                <p class="course-desc">
+                  Tactile hands-on discovery through origami paper folding, clay sculpting, scrapbooking, greeting card crafts, and colorful eco-friendly model making.
+                </p>
+                <ul class="course-bullets">
+                  <li><i class="fa-solid fa-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Japanese Origami &amp; Pop-up Cards</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Recycled Art &amp; Festive Projects</li>
+                </ul>
+                <div class="course-meta">
+                  <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Creative Art & Craft');">
+                    <span class="btn-shine-border" aria-hidden="true"></span>
+                    <span class="btn-shine-surface" aria-hidden="true"></span>
+                    <span class="btn-shine-text">Enroll Now</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course 6: Dance Classes -->
+            <div class="course-card glass-panel highlight-dance-card reveal-fade-up" data-card-id="6" data-category="dance">
+              <div class="course-media">
+                <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy" class="course-cover-img" loading="lazy">
+                <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-music"></i></div>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Dance Classes</h3>
+                <p class="course-desc">
+                  Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam, energetic Western dance, contemporary Free Style, and Tamil Folk.
+                </p>
+                <ul class="course-bullets">
+                  <li><i class="fa-solid fa-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
+                  <li><i class="fa-solid fa-check text-green"></i> High-Energy Western &amp; Freestyle Beats</li>
+                  <li><i class="fa-solid fa-check text-green"></i> Vibrant Cultural Tamil Folk Rhythms</li>
+                </ul>
+                <div class="course-meta">
+                  <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                  <a href="#dance" class="btn btn-sm btn-primary">Explore Dance</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

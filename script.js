@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStaggerTestimonials();
   initMobileDockNav();
   initInteractiveBook();
+  initCoursesViewSwitcher();
   initMobileFooterAutoFlip();
   initFeesSkiper47Carousel();
   initMascotVideoPlayers();
@@ -2100,6 +2101,49 @@ function initInteractiveBook() {
 
   // Initial State: Leaf stacking order when book is closed
   updateLeafStacking();
+}
+
+/* ==========================================================================
+   COURSES VIEW MODE SWITCHER (Laptop / Desktop View Only)
+   Toggles between 3D Interactive Book, Course Cards Grid, or Both
+   ========================================================================== */
+function initCoursesViewSwitcher() {
+  const switcher = document.getElementById('courses-desktop-view-mode');
+  if (!switcher) return;
+  const pills = Array.from(switcher.querySelectorAll('.course-view-pill'));
+  const bookWrapper = document.getElementById('interactive-book-section-wrapper');
+  const cardsWrapper = document.getElementById('courses-desktop-cards-wrapper');
+  if (!bookWrapper || !cardsWrapper) return;
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const view = pill.getAttribute('data-view');
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      if (view === 'book') {
+        bookWrapper.style.display = 'flex';
+        cardsWrapper.style.display = 'none';
+        if (window.__lenis) {
+          window.__lenis.scrollTo('#interactive-book-section-wrapper', { offset: -90 });
+        } else {
+          bookWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else if (view === 'grid') {
+        bookWrapper.style.display = 'none';
+        cardsWrapper.style.display = 'block';
+        if (window.__lenis) {
+          window.__lenis.scrollTo('#courses-desktop-cards-wrapper', { offset: -90 });
+        } else {
+          cardsWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        // 'both'
+        bookWrapper.style.display = 'flex';
+        cardsWrapper.style.display = 'block';
+      }
+    });
+  });
 }
 
 /* ==========================================================================
