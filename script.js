@@ -1856,18 +1856,27 @@ function initInteractiveBook() {
       return;
     }
 
+    const isMobile = window.innerWidth <= 860;
     if (currentPageIndex === -1) {
-      if (activeTitle) activeTitle.textContent = 'Table of Contents';
-      if (pageIndicator) pageIndicator.textContent = 'Overview • Pg 1';
-      if (dockLabel) dockLabel.textContent = 'Cover';
-      if (dockSlider) dockSlider.value = -1;
+      if (isMobile) {
+        if (activeTitle) activeTitle.textContent = courseTitles[0];
+        if (pageIndicator) pageIndicator.textContent = '1 / 6';
+        if (dockLabel) dockLabel.textContent = '1 / 6';
+        if (dockSlider) dockSlider.value = 0;
+      } else {
+        if (activeTitle) activeTitle.textContent = 'Table of Contents';
+        if (pageIndicator) pageIndicator.textContent = 'Overview • Pg 1';
+        if (dockLabel) dockLabel.textContent = 'Cover';
+        if (dockSlider) dockSlider.value = -1;
+      }
     } else if (currentPageIndex < totalLeaves - 1) {
-      const currentCourse = courseTitles[currentPageIndex + 1] || courseTitles[currentPageIndex];
+      const courseIndex = currentPageIndex + 1;
+      const currentCourse = courseTitles[courseIndex] || courseTitles[currentPageIndex];
       const pageNum = (currentPageIndex + 1) * 2 + 1;
       if (activeTitle) activeTitle.textContent = currentCourse;
-      if (pageIndicator) pageIndicator.textContent = `${currentPageIndex + 1} / ${totalLeaves} • Pg ${pageNum}`;
-      if (dockLabel) dockLabel.textContent = `${currentPageIndex + 1} / ${totalLeaves}`;
-      if (dockSlider) dockSlider.value = currentPageIndex;
+      if (pageIndicator) pageIndicator.textContent = isMobile ? `${courseIndex + 1} / ${totalLeaves}` : `${currentPageIndex + 1} / ${totalLeaves} • Pg ${pageNum}`;
+      if (dockLabel) dockLabel.textContent = `${courseIndex + 1} / ${totalLeaves}`;
+      if (dockSlider) dockSlider.value = isMobile ? courseIndex : currentPageIndex;
     } else {
       // All leaves flipped, viewing rear inside cover
       if (activeTitle) activeTitle.textContent = 'Admissions 2026-27';
@@ -2077,6 +2086,15 @@ function initInteractiveBook() {
       goToPage(4); // Flips Leaves 0..4, showing Dance Classes on right
     } else {
       goToPage(-1); // All programs: Table of Contents / First course
+    }
+  };
+
+  // Expose mobile syllabus toggle
+  window.toggleLeafSyllabus = function (e, btn) {
+    if (e) e.stopPropagation();
+    const leaf = btn.closest('.book-page-leaf');
+    if (leaf) {
+      leaf.classList.toggle('show-syllabus');
     }
   };
 
