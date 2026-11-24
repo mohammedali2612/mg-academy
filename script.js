@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroSlideshow();
   initStaggerTestimonials();
   initMobileDockNav();
-  initCourseCardStack();
+  initInteractiveBook();
   initMobileFooterAutoFlip();
   initFeesSkiper47Carousel();
   initMascotVideoPlayers();
@@ -191,9 +191,8 @@ function initCourseTabs() {
   if (!container || !stage || !list || !courseCards.length) return;
 
   function filterCards(category) {
-    if (window.innerWidth <= 860 && window.filterCourseStackByCategory) {
+    if (window.filterCourseStackByCategory) {
       window.filterCourseStackByCategory(category);
-      return;
     }
     courseCards.forEach(card => {
       const cardCat = card.getAttribute('data-category');
@@ -1796,194 +1795,293 @@ function initMobileDockNav() {
 
 
 /* ==========================================================================
-   16. 3D ANIMATED CARD STACK (Spring Physics Deck for Courses)
-   Emulates Framer Motion AnimatedCardStack (scale 1, 0.95, 0.9; y 12, -16, -44; exit 340)
+   16. 3D INTERACTIVE HARDCOVER BOOK CONTROLLER (Desktop & Mobile)
+   Realistic page flip animation based on Framer Motion 3D InteractiveBook
    ========================================================================== */
-function initCourseCardStack() {
-  const wrapper = document.getElementById('course-stack-deck-wrapper');
-  const cardsContainer = document.getElementById('course-stack-cards');
-  if (!wrapper || !cardsContainer) return;
+function initInteractiveBook() {
+  const wrapper = document.getElementById('interactive-book-section-wrapper');
+  const book = document.getElementById('interactive-book');
+  const cover = document.getElementById('book-cover');
+  const pagesStack = document.getElementById('book-pages-stack');
+  if (!wrapper || !book || !cover || !pagesStack) return;
 
-  const allCards = Array.from(cardsContainer.querySelectorAll('.course-stack-card'));
-  if (!allCards.length) return;
+  const leaves = Array.from(pagesStack.querySelectorAll('.book-page-leaf'));
+  const totalLeaves = leaves.length; // 6 courses
 
-  let activeQueue = [...allCards];
-  let isAnimating = false;
+  // UI Controls
+  const pageIndicator = document.getElementById('book-page-indicator');
+  const activeTitle = document.getElementById('book-active-title');
+  const btnClose = document.getElementById('btn-book-close');
+  const arrowPrev = document.getElementById('book-arrow-prev');
+  const arrowNext = document.getElementById('book-arrow-next');
+  const dock = document.getElementById('book-nav-dock');
+  const dockPrev = document.getElementById('dock-btn-prev');
+  const dockNext = document.getElementById('dock-btn-next');
+  const dockClose = document.getElementById('dock-btn-close');
+  const dockSlider = document.getElementById('dock-page-slider');
+  const dockLabel = document.getElementById('dock-page-label');
+  const closedHint = document.getElementById('book-closed-hint');
+  const btnRestart = document.getElementById('btn-book-restart');
+  const tocItems = wrapper.querySelectorAll('.book-toc-item');
 
-  const activeIndexEl = document.getElementById('course-stack-active-index');
-  const totalEl = document.getElementById('course-stack-total');
-  const activeNameEl = document.getElementById('course-stack-active-name');
-  const dotsContainer = document.getElementById('course-stack-dots');
-  const nextBtn = document.getElementById('course-stack-next-btn');
-  const prevBtn = document.getElementById('course-stack-prev-btn');
+  // Course Titles for Pill and Meta Display
+  const courseTitles = [
+    'Drawing & Painting',
+    'Handwriting Improvement',
+    'Calligraphy Art',
+    'Abacus & Mental Math',
+    'Creative Art & Craft',
+    'Dance Classes'
+  ];
 
-  // Render dots
-  function renderDots() {
-    if (!dotsContainer) return;
-    dotsContainer.innerHTML = '';
-    allCards.forEach((card, idx) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = `course-stack-dot ${idx === 0 ? 'active' : ''}`;
-      dot.setAttribute('aria-label', `Go to course ${idx + 1}`);
-      dot.addEventListener('click', (e) => {
-        e.stopPropagation();
-        goToCard(idx);
-      });
-      dotsContainer.appendChild(dot);
-    });
-  }
+  // State
+  let isOpen = false;
+  let currentPageIndex = -1; // -1: Cover open (TOC on left, Leaf 0 on right); 0..5: Leaf index flipped
 
-  function updateSlots() {
-    allCards.forEach(c => {
-      c.removeAttribute('data-slot');
-      c.classList.remove('card-exiting');
-    });
-
-    activeQueue.forEach((card, idx) => {
-      if (idx === 0) {
-        card.setAttribute('data-slot', '0');
-      } else if (idx === 1) {
-        card.setAttribute('data-slot', '1');
-      } else if (idx === 2) {
-        card.setAttribute('data-slot', '2');
-      } else {
-        card.setAttribute('data-slot', 'hidden');
-      }
+  function updateLeafStacking() {
+    leaves.forEach((leaf, idx) => {
+      const isFlipped = idx <= currentPageIndex;
+      leaf.classList.toggle('is-flipped', isFlipped);
+      // Dynamic stacking order so flipped leaves stack cleanly on the left,
+      // and unflipped leaves stack cleanly on the right:
+      leaf.style.zIndex = isFlipped ? (idx + 1) : (totalLeaves - idx);
     });
 
-    // Update meta
-    if (activeQueue.length > 0) {
-      const frontCard = activeQueue[0];
-      const titleEl = frontCard.querySelector('.course-title');
-      const title = titleEl ? titleEl.textContent.trim() : '';
-      const originalIndex = allCards.indexOf(frontCard) + 1;
+    // Update Meta and Labels
+    if (!isOpen) {
+      if (activeTitle) activeTitle.textContent = 'Course Prospectus';
+      if (pageIndicator) pageIndicator.textContent = 'Closed';
+      if (dockLabel) dockLabel.textContent = 'Closed';
+      if (dockSlider) dockSlider.value = -1;
+      return;
+    }
 
-      if (activeIndexEl) activeIndexEl.textContent = originalIndex;
-      if (totalEl) totalEl.textContent = allCards.length;
-      if (activeNameEl) activeNameEl.textContent = `— ${title}`;
+    if (currentPageIndex === -1) {
+      if (activeTitle) activeTitle.textContent = 'Table of Contents';
+      if (pageIndicator) pageIndicator.textContent = 'Overview • Pg 1';
+      if (dockLabel) dockLabel.textContent = 'Cover';
+      if (dockSlider) dockSlider.value = -1;
+    } else if (currentPageIndex < totalLeaves - 1) {
+      const currentCourse = courseTitles[currentPageIndex + 1] || courseTitles[currentPageIndex];
+      const pageNum = (currentPageIndex + 1) * 2 + 1;
+      if (activeTitle) activeTitle.textContent = currentCourse;
+      if (pageIndicator) pageIndicator.textContent = `${currentPageIndex + 1} / ${totalLeaves} • Pg ${pageNum}`;
+      if (dockLabel) dockLabel.textContent = `${currentPageIndex + 1} / ${totalLeaves}`;
+      if (dockSlider) dockSlider.value = currentPageIndex;
+    } else {
+      // All leaves flipped, viewing rear inside cover
+      if (activeTitle) activeTitle.textContent = 'Admissions 2026-27';
+      if (pageIndicator) pageIndicator.textContent = 'The End';
+      if (dockLabel) dockLabel.textContent = 'End';
+      if (dockSlider) dockSlider.value = totalLeaves - 1;
+    }
 
-      // Update dots
-      if (dotsContainer) {
-        const dots = dotsContainer.querySelectorAll('.course-stack-dot');
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('active', (allCards.indexOf(frontCard)) === idx);
-        });
-      }
+    // Update Arrow Enabled States
+    if (arrowPrev) {
+      arrowPrev.style.opacity = (currentPageIndex < 0) ? '0.4' : '1';
+    }
+    if (arrowNext) {
+      arrowNext.style.opacity = (currentPageIndex >= totalLeaves - 1) ? '0.4' : '1';
+    }
+    if (dockPrev) {
+      dockPrev.style.opacity = (currentPageIndex < 0) ? '0.4' : '1';
+    }
+    if (dockNext) {
+      dockNext.style.opacity = (currentPageIndex >= totalLeaves - 1) ? '0.4' : '1';
     }
   }
 
-  function nextCard() {
-    if (isAnimating || activeQueue.length <= 1) return;
-    isAnimating = true;
+  function openBook() {
+    if (isOpen) return;
+    isOpen = true;
+    book.classList.add('is-open');
 
-    const topCard = activeQueue[0];
-    topCard.classList.add('card-exiting');
+    // Show navigation controls
+    if (btnClose) btnClose.style.display = 'inline-flex';
+    if (arrowPrev) arrowPrev.style.display = 'flex';
+    if (arrowNext) arrowNext.style.display = 'flex';
+    if (dock) dock.style.display = 'inline-flex';
+    if (closedHint) closedHint.style.display = 'none';
 
-    setTimeout(() => {
-      topCard.classList.remove('card-exiting');
-      const first = activeQueue.shift();
-      activeQueue.push(first);
-      updateSlots();
-      isAnimating = false;
-    }, 400);
+    updateLeafStacking();
   }
 
-  function prevCard() {
-    if (isAnimating || activeQueue.length <= 1) return;
-    isAnimating = true;
+  function closeBook() {
+    if (!isOpen) return;
+    isOpen = false;
+    currentPageIndex = -1;
+    book.classList.remove('is-open');
 
-    const last = activeQueue.pop();
-    activeQueue.unshift(last);
-    updateSlots();
-    setTimeout(() => {
-      isAnimating = false;
-    }, 400);
+    // Reset all leaves
+    leaves.forEach((leaf, idx) => {
+      leaf.classList.remove('is-flipped');
+      leaf.style.zIndex = totalLeaves - idx;
+    });
+
+    // Hide navigation controls
+    if (btnClose) btnClose.style.display = 'none';
+    if (arrowPrev) arrowPrev.style.display = 'none';
+    if (arrowNext) arrowNext.style.display = 'none';
+    if (dock) dock.style.display = 'none';
+    if (closedHint) closedHint.style.display = 'inline-flex';
+
+    updateLeafStacking();
   }
 
-  function goToCard(targetIndex) {
-    if (isAnimating) return;
-    const targetCard = allCards[targetIndex];
-    if (!targetCard) return;
-
-    let iterations = 0;
-    while (activeQueue[0] !== targetCard && iterations < activeQueue.length) {
-      const first = activeQueue.shift();
-      activeQueue.push(first);
-      iterations++;
+  function nextPage() {
+    if (!isOpen) {
+      openBook();
+      return;
     }
-    updateSlots();
+    if (currentPageIndex < totalLeaves - 1) {
+      currentPageIndex++;
+      updateLeafStacking();
+    }
   }
 
-  // Next / Prev Button events
-  if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      nextCard();
-    });
+  function prevPage() {
+    if (!isOpen) return;
+    if (currentPageIndex >= 0) {
+      currentPageIndex--;
+      updateLeafStacking();
+    } else if (currentPageIndex === -1) {
+      closeBook();
+    }
   }
 
-  if (prevBtn) {
-    prevBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      prevCard();
-    });
+  function goToPage(targetIndex) {
+    if (!isOpen) openBook();
+    const clamped = Math.max(-1, Math.min(totalLeaves - 1, targetIndex));
+    currentPageIndex = clamped;
+    updateLeafStacking();
   }
 
-  // Click on front card to advance (mobile view only: <= 860px)
-  cardsContainer.addEventListener('click', (e) => {
-    if (window.innerWidth > 860) return; // Desktop uses standard grid!
-    if (e.target.closest('button') || e.target.closest('a')) return;
-    const clickedCard = e.target.closest('.course-stack-card');
-    if (!clickedCard) return;
+  function restartBook() {
+    if (!isOpen) openBook();
+    currentPageIndex = -1;
+    updateLeafStacking();
+  }
 
-    const slot = clickedCard.getAttribute('data-slot');
-    if (slot === '0' || slot === '1') {
-      nextCard();
+  // --- Click Listeners ---
+  // Cover click opens book
+  cover.addEventListener('click', (e) => {
+    // If click is on an inner element that has its own action (e.g. TOC item), don't trigger book click
+    if (e.target.closest('.book-toc-item')) return;
+    if (!isOpen) {
+      openBook();
+    } else {
+      // If book is open and user clicked inner cover, go back or close
+      prevPage();
     }
   });
 
-  // Touch Swipe for Mobile (swipe down or horizontal to advance)
+  // Table of Contents jump links
+  tocItems.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const gotoIdx = parseInt(item.getAttribute('data-goto'), 10);
+      if (!isNaN(gotoIdx)) {
+        // To show course gotoIdx on the right side:
+        // We flip leaves up to gotoIdx - 1. If gotoIdx == 0, currentPageIndex = -1.
+        goToPage(gotoIdx - 1);
+      }
+    });
+  });
+
+  // Pages Stack clicking:
+  // Clicking right-side page turns page forward (next)
+  // Clicking left-side flipped page turns page backward (prev)
+  leaves.forEach((leaf) => {
+    const frontFace = leaf.querySelector('.book-page-front');
+    const backFace = leaf.querySelector('.book-page-back');
+
+    if (frontFace) {
+      frontFace.addEventListener('click', (e) => {
+        // Prevent action if button or link clicked
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        e.stopPropagation();
+        nextPage();
+      });
+    }
+
+    if (backFace) {
+      backFace.addEventListener('click', (e) => {
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        e.stopPropagation();
+        prevPage();
+      });
+    }
+  });
+
+  // Controls Event Listeners
+  if (btnClose) btnClose.addEventListener('click', closeBook);
+  if (arrowPrev) arrowPrev.addEventListener('click', prevPage);
+  if (arrowNext) arrowNext.addEventListener('click', nextPage);
+  if (dockPrev) dockPrev.addEventListener('click', prevPage);
+  if (dockNext) dockNext.addEventListener('click', nextPage);
+  if (dockClose) dockClose.addEventListener('click', closeBook);
+  if (closedHint) closedHint.addEventListener('click', openBook);
+  if (btnRestart) btnRestart.addEventListener('click', restartBook);
+
+  // Dock Slider Range Input
+  if (dockSlider) {
+    dockSlider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      goToPage(val);
+    });
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!isOpen) return;
+    if (e.key === 'ArrowRight') {
+      nextPage();
+    } else if (e.key === 'ArrowLeft') {
+      prevPage();
+    } else if (e.key === 'Escape') {
+      closeBook();
+    }
+  });
+
+  // Touch Swipe for Mobile & Tablet
   let touchStartX = 0;
   let touchStartY = 0;
-  cardsContainer.addEventListener('touchstart', (e) => {
+  book.addEventListener('touchstart', (e) => {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
 
-  cardsContainer.addEventListener('touchend', (e) => {
+  book.addEventListener('touchend', (e) => {
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
     const diffX = touchEndX - touchStartX;
     const diffY = touchEndY - touchStartY;
 
-    // Swipe down to dismiss (matches exitAnimation y: 340)
-    if (diffY > 40 && Math.abs(diffY) > Math.abs(diffX)) {
-      nextCard();
-    } else if (diffX < -40 && Math.abs(diffX) > Math.abs(diffY)) {
-      nextCard();
-    } else if (diffX > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-      prevCard();
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX < 0) {
+        nextPage();
+      } else {
+        prevPage();
+      }
     }
   }, { passive: true });
 
-  // Expose category filter hook
+  // Expose global category filter hook (for gooey nav tabs on BOTH views)
   window.filterCourseStackByCategory = function (category) {
-    if (category === 'all' || !category) {
-      activeQueue = [...allCards];
+    if (!isOpen) openBook();
+    if (category === 'art') {
+      goToPage(-1); // Opens to Drawing & Painting (Leaf 0 on right)
+    } else if (category === 'skills') {
+      goToPage(0); // Flips Leaf 0, showing Handwriting on right
+    } else if (category === 'dance') {
+      goToPage(4); // Flips Leaves 0..4, showing Dance Classes on right
     } else {
-      const matches = allCards.filter(c => {
-        const cat = c.getAttribute('data-category') || '';
-        return cat === category || cat.includes(category);
-      });
-      const nonMatches = allCards.filter(c => !matches.includes(c));
-      activeQueue = [...matches, ...nonMatches];
+      goToPage(-1); // All programs: Table of Contents / First course
     }
-    updateSlots();
   };
 
-  renderDots();
-  updateSlots();
+  // Initial State: Leaf stacking order when book is closed
+  updateLeafStacking();
 }
 
 /* ==========================================================================

@@ -53,7 +53,7 @@
   <!-- Swiper 11 CSS (for 3D Creative Carousel) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-  <link rel="stylesheet" href="style.css?v=13.1">
+  <link rel="stylesheet" href="style.css?v=13.2">
 
 
 
@@ -376,234 +376,549 @@
           </nav>
         </div>
 
-        <!-- 3D Animated Card Stack Deck (Framer-Motion spring depth layering) -->
-        <div class="course-stack-deck-wrapper" id="course-stack-deck-wrapper">
-          <!-- Stack Meta Header: Counter & Instruction -->
-          <div class="course-stack-meta">
-            <div class="course-stack-counter-pill" id="course-stack-counter-pill">
-              <span class="course-stack-badge-icon"><i class="fa-solid fa-layer-group"></i></span>
-              <span class="course-stack-active-index" id="course-stack-active-index">1</span>
-              <span class="course-stack-sep">/</span>
-              <span class="course-stack-total" id="course-stack-total">6</span>
-              <span class="course-stack-active-name" id="course-stack-active-name">— Drawing &amp; Painting</span>
+        <!-- 3D Interactive Hardcover Book Section (Framer-Motion 3D Realistic Page-Flip Animation) -->
+        <div class="interactive-book-section-wrapper" id="interactive-book-section-wrapper">
+          <!-- Top Controls & Meta Bar -->
+          <div class="interactive-book-topbar">
+            <div class="book-counter-pill" id="book-counter-pill">
+              <span class="book-pill-icon"><i class="fa-solid fa-book-open"></i></span>
+              <span class="book-pill-title" id="book-active-title">Course Prospectus</span>
+              <span class="book-pill-sep">•</span>
+              <span class="book-pill-page" id="book-page-indicator">Closed</span>
             </div>
-            <div class="course-stack-instruction">
-              <i class="fa-solid fa-hand-pointer"></i> <span>Click card or Next</span>
-            </div>
+            
+            <button type="button" class="btn-book-close" id="btn-book-close" aria-label="Close Book" style="display: none;">
+              <i class="fa-solid fa-xmark"></i>
+              <span>Close Book</span>
+            </button>
           </div>
 
-          <!-- 3D Stack Stage -->
-          <div class="course-stack-stage" id="course-stack-stage">
-            <div class="course-stack-cards" id="course-stack-cards">
-              <!-- Course 1: Drawing & Painting -->
-              <div class="course-stack-card course-card glass-panel" data-slot="0" data-card-id="1" data-category="art">
-                <div class="course-media">
-                  <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy"
-                    class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-gold bg-gold-light"><i class="fa-solid fa-palette"></i></div>
+          <!-- 3D Book Stage Container -->
+          <div class="interactive-book-stage" id="interactive-book-stage">
+            <!-- Navigation Arrow Left -->
+            <button type="button" class="book-nav-arrow book-arrow-prev" id="book-arrow-prev" aria-label="Previous Page" style="display: none;">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <!-- Interactive 3D Book Object -->
+            <div class="interactive-book" id="interactive-book">
+              <!-- FRONT COVER (Swings open 180deg to left) -->
+              <div class="book-cover origin-left preserve-3d" id="book-cover">
+                <!-- Front Face (Hardcover Exterior) -->
+                <div class="book-cover-front backface-hidden">
+                  <div class="book-cover-bg" style="background-image: url('./assets/drawing_kids.jpg');"></div>
+                  <div class="book-cover-overlay"></div>
+                  <div class="book-spine-highlight"></div>
+                  <div class="book-spine-stitch"></div>
+                  
+                  <div class="book-cover-content">
+                    <div class="book-cover-crest">
+                      <span class="book-crest-badge"><i class="fa-solid fa-award"></i> MG ACADEMY</span>
+                      <span class="book-edition-tag">Admissions 2026-27</span>
+                    </div>
+                    
+                    <h2 class="book-cover-title">Course Directory &amp; Syllabus</h2>
+                    <p class="book-cover-author">Where Little Hands Create Big Dreams • Ages 4 to 16</p>
+                    
+                    <div class="book-open-prompt">
+                      <span class="book-prompt-pulse"><i class="fa-solid fa-hand-pointer"></i></span>
+                      <span>Click to Open Book</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="course-body">
-                  <h3 class="course-title">Drawing &amp; Painting</h3>
-                  <p class="course-desc">
-                    From pencil lines, geometrical shapes, and color mixing to landscape scenery, portraiture, and
-                    acrylic
-                    canvas painting across tiered levels.
-                  </p>
-                  <ul class="course-bullets">
-                    <li><i class="fa-solid fa-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Watercolor Washes &amp; Poster Colors</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Canvas Acrylics &amp; Exhibition Art</li>
-                  </ul>
-                  <div class="course-footer">
-                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                    <button class="btn btn-sm btn-outline btn-animated-shine"
-                      onclick="event.stopPropagation(); openAdmissionModal('Drawing & Painting')">
-                      <span class="btn-shine-border" aria-hidden="true"></span>
-                      <span class="btn-shine-surface" aria-hidden="true"></span>
-                      <span class="btn-shine-text">Enroll Now</span>
-                    </button>
+
+                <!-- Back Face (Inner Front Cover - Table of Contents) -->
+                <div class="book-cover-back backface-hidden">
+                  <div class="book-gutter-shadow right-shadow"></div>
+                  <div class="book-inner-cover-body">
+                    <div class="book-inner-header">
+                      <div class="book-inner-logo"><i class="fa-solid fa-feather"></i></div>
+                      <h3 class="book-inner-title">Table of Contents</h3>
+                      <div class="book-inner-divider"></div>
+                      <p class="book-inner-subtitle">Select a course or turn the page</p>
+                    </div>
+
+                    <ul class="book-toc-list">
+                      <li class="book-toc-item" data-goto="0">
+                        <span class="book-toc-num">01</span>
+                        <span class="book-toc-name">Drawing &amp; Painting</span>
+                        <span class="book-toc-dots"></span>
+                        <span class="book-toc-pg">Pg 1</span>
+                      </li>
+                      <li class="book-toc-item" data-goto="1">
+                        <span class="book-toc-num">02</span>
+                        <span class="book-toc-name">Handwriting</span>
+                        <span class="book-toc-dots"></span>
+                        <span class="book-toc-pg">Pg 3</span>
+                      </li>
+                      <li class="book-toc-item" data-goto="2">
+                        <span class="book-toc-num">03</span>
+                        <span class="book-toc-name">Calligraphy Art</span>
+                        <span class="book-toc-dots"></span>
+                        <span class="book-toc-pg">Pg 5</span>
+                      </li>
+                      <li class="book-toc-item" data-goto="3">
+                        <span class="book-toc-num">04</span>
+                        <span class="book-toc-name">Abacus Math</span>
+                        <span class="book-toc-dots"></span>
+                        <span class="book-toc-pg">Pg 7</span>
+                      </li>
+                      <li class="book-toc-item" data-goto="4">
+                        <span class="book-toc-num">05</span>
+                        <span class="book-toc-name">Creative Craft</span>
+                        <span class="book-toc-dots"></span>
+                        <span class="book-toc-pg">Pg 9</span>
+                      </li>
+                      <li class="book-toc-item" data-goto="5">
+                        <span class="book-toc-num">06</span>
+                        <span class="book-toc-name">Dance Classes</span>
+                        <span class="book-toc-dots"></span>
+                        <span class="book-toc-pg">Pg 11</span>
+                      </li>
+                    </ul>
+
+                    <div class="book-toc-footer">
+                      <i class="fa-solid fa-arrow-turn-down"></i> Turn page to browse full curriculum
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <!-- Course 2: Handwriting Improvement -->
-              <div class="course-stack-card course-card glass-panel" data-slot="1" data-card-id="2"
-                data-category="skills">
-                <div class="course-media">
-                  <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy"
-                    class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-pen-nib"></i></div>
+              <!-- PAGES STACK (6 Course Leaves) -->
+              <div class="book-pages-stack preserve-3d" id="book-pages-stack">
+                <!-- LEAF 0: Drawing & Painting -->
+                <div class="book-page-leaf preserve-3d" data-page-index="0" data-category="art">
+                  <!-- Front Face (Right Page: Course Overview) -->
+                  <div class="book-page-front backface-hidden">
+                    <div class="book-gutter-shadow left-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-category-tag bg-gold-subtle text-gold"><i class="fa-solid fa-palette"></i> Art &amp; Drawing</span>
+                      <span class="book-page-num">1</span>
+                    </div>
+                    <div class="book-page-photo">
+                      <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy" loading="lazy">
+                      <div class="book-floating-badge bg-gold-light text-gold"><i class="fa-solid fa-paint-brush"></i></div>
+                    </div>
+                    <div class="book-page-content">
+                      <h3 class="book-course-title">Drawing &amp; Painting</h3>
+                      <p class="book-course-desc">From pencil lines and color mixing to landscape scenery and canvas acrylics across tiered levels.</p>
+                      <ul class="book-course-bullets">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor Washes &amp; Poster Colors</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Canvas Acrylics &amp; Exhibition Art</li>
+                      </ul>
+                      <div class="book-page-footer">
+                        <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Drawing & Painting');">
+                          <span class="btn-shine-border" aria-hidden="true"></span>
+                          <span class="btn-shine-surface" aria-hidden="true"></span>
+                          <span class="btn-shine-text">Enroll Now</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Back Face (Left Page: Syllabus Deep-Dive) -->
+                  <div class="book-page-back backface-hidden">
+                    <div class="book-gutter-shadow right-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-page-num">2</span>
+                      <span class="book-deepdive-tag">Course Syllabus</span>
+                    </div>
+                    <div class="book-back-body">
+                      <h4 class="book-back-title">Curriculum Highlights</h4>
+                      <div class="book-syllabus-box">
+                        <div class="syllabus-step">
+                          <span class="step-badge">Level 1</span>
+                          <p>Grip control, color wheel harmony, oil pastel blending, and cartoon sketching.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Level 2</span>
+                          <p>Watercolour gradients, perspective scenery, still life, and shading fundamentals.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Level 3</span>
+                          <p>Acrylic canvas painting, portraiture, brush textures, and annual gallery showcase.</p>
+                        </div>
+                      </div>
+                      <div class="book-quote-card">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>"My daughter won 1st prize at her inter-school art competition after just 4 months at MG Academy!"</p>
+                        <span class="quote-author">— Priya S., Parent</span>
+                      </div>
+                    </div>
+                    <div class="book-flip-hint"><i class="fa-solid fa-chevron-left"></i> Tap to flip back</div>
+                  </div>
                 </div>
-                <div class="course-body">
-                  <h3 class="course-title">Handwriting Improvement</h3>
-                  <p class="course-desc">
-                    Scientific techniques to correct pencil grip, posture, stroke rhythm, letter spacing, and line
-                    alignment
-                    into neat, beautiful cursive handwriting.
-                  </p>
-                  <ul class="course-bullets">
-                    <li><i class="fa-solid fa-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Cursive &amp; Print Letter Perfection</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Enhanced Exam Writing Speed</li>
-                  </ul>
-                  <div class="course-footer">
-                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
-                    <button class="btn btn-sm btn-outline btn-animated-shine"
-                      onclick="event.stopPropagation(); openAdmissionModal('Handwriting Improvement')">
+
+                <!-- LEAF 1: Handwriting Improvement -->
+                <div class="book-page-leaf preserve-3d" data-page-index="1" data-category="skills">
+                  <div class="book-page-front backface-hidden">
+                    <div class="book-gutter-shadow left-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-category-tag bg-pink-subtle text-pink"><i class="fa-solid fa-pen-nib"></i> Handwriting</span>
+                      <span class="book-page-num">3</span>
+                    </div>
+                    <div class="book-page-photo">
+                      <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy" loading="lazy">
+                      <div class="book-floating-badge bg-pink-light text-pink"><i class="fa-solid fa-pencil"></i></div>
+                    </div>
+                    <div class="book-page-content">
+                      <h3 class="book-course-title">Handwriting Improvement</h3>
+                      <p class="book-course-desc">Scientific techniques to correct grip, posture, stroke rhythm, and line alignment into neat cursive script.</p>
+                      <ul class="book-course-bullets">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Cursive &amp; Print Letter Perfection</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Enhanced Exam Writing Speed</li>
+                      </ul>
+                      <div class="book-page-footer">
+                        <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Handwriting Improvement');">
+                          <span class="btn-shine-border" aria-hidden="true"></span>
+                          <span class="btn-shine-surface" aria-hidden="true"></span>
+                          <span class="btn-shine-text">Enroll Now</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-page-back backface-hidden">
+                    <div class="book-gutter-shadow right-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-page-num">4</span>
+                      <span class="book-deepdive-tag">Course Syllabus</span>
+                    </div>
+                    <div class="book-back-body">
+                      <h4 class="book-back-title">Transformation Methodology</h4>
+                      <div class="book-syllabus-box">
+                        <div class="syllabus-step">
+                          <span class="step-badge">Phase 1</span>
+                          <p>Grip correction using ergonomic triangular supports and wrist release warmups.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Phase 2</span>
+                          <p>Letter angle uniformity, ascender/descender proportions, and loop elegance.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Phase 3</span>
+                          <p>Timed paragraph speed drills ensuring pristine presentation even during exams.</p>
+                        </div>
+                      </div>
+                      <div class="book-quote-card">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>"Teachers noticed a massive change in his notebook presentation within 3 weeks!"</p>
+                        <span class="quote-author">— Karthik M., Parent</span>
+                      </div>
+                    </div>
+                    <div class="book-flip-hint"><i class="fa-solid fa-chevron-left"></i> Tap to flip back</div>
+                  </div>
+                </div>
+
+                <!-- LEAF 2: Calligraphy Art -->
+                <div class="book-page-leaf preserve-3d" data-page-index="2" data-category="skills">
+                  <div class="book-page-front backface-hidden">
+                    <div class="book-gutter-shadow left-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-category-tag bg-blue-subtle text-blue"><i class="fa-solid fa-feather-pointed"></i> Calligraphy</span>
+                      <span class="book-page-num">5</span>
+                    </div>
+                    <div class="book-page-photo">
+                      <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy" loading="lazy">
+                      <div class="book-floating-badge bg-blue-light text-blue"><i class="fa-solid fa-feather"></i></div>
+                    </div>
+                    <div class="book-page-content">
+                      <h3 class="book-course-title">Calligraphy Art</h3>
+                      <p class="book-course-desc">The noble art of lettering. Master foundational nib angles, flourished alphabets, and ornamental scripts.</p>
+                      <ul class="book-course-bullets">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Gothic, Italic &amp; Modern Scripts</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Greeting Cards, Quotes &amp; Certificates</li>
+                      </ul>
+                      <div class="book-page-footer">
+                        <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Calligraphy');">
+                          <span class="btn-shine-border" aria-hidden="true"></span>
+                          <span class="btn-shine-surface" aria-hidden="true"></span>
+                          <span class="btn-shine-text">Enroll Now</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-page-back backface-hidden">
+                    <div class="book-gutter-shadow right-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-page-num">6</span>
+                      <span class="book-deepdive-tag">Course Syllabus</span>
+                    </div>
+                    <div class="book-back-body">
+                      <h4 class="book-back-title">Script Mastery Path</h4>
+                      <div class="book-syllabus-box">
+                        <div class="syllabus-step">
+                          <span class="step-badge">Module 1</span>
+                          <p>Broad nib angle control (45°), pressure modulation, and ductus stroke sequence.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Module 2</span>
+                          <p>Foundational hand, elegant Italics, flourishing loops, and decorative swashes.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Module 3</span>
+                          <p>Modern brush calligraphy, metallic inks, personalized bookmarks, and gift crafts.</p>
+                        </div>
+                      </div>
+                      <div class="book-quote-card">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>"Calligraphy helped my son develop calm focus and immense pride in his handwritten work."</p>
+                        <span class="quote-author">— Ananya R., Parent</span>
+                      </div>
+                    </div>
+                    <div class="book-flip-hint"><i class="fa-solid fa-chevron-left"></i> Tap to flip back</div>
+                  </div>
+                </div>
+
+                <!-- LEAF 3: Abacus & Mental Math -->
+                <div class="book-page-leaf preserve-3d" data-page-index="3" data-category="skills">
+                  <div class="book-page-front backface-hidden">
+                    <div class="book-gutter-shadow left-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-category-tag bg-green-subtle text-green"><i class="fa-solid fa-calculator"></i> Mental Math</span>
+                      <span class="book-page-num">7</span>
+                    </div>
+                    <div class="book-page-photo">
+                      <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy" loading="lazy">
+                      <div class="book-floating-badge bg-green-light text-green"><i class="fa-solid fa-brain"></i></div>
+                    </div>
+                    <div class="book-page-content">
+                      <h3 class="book-course-title">Abacus &amp; Mental Math</h3>
+                      <p class="book-course-desc">Supercharge your child's brain. Enhances photographic concentration, visual calculations, and agility.</p>
+                      <ul class="book-course-bullets">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Soroban Bead Foundations &amp; Fingering</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Lightning Fast Mental Calculations</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Boosts Long-Term Focus &amp; Memory</li>
+                      </ul>
+                      <div class="book-page-footer">
+                        <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Abacus');">
+                          <span class="btn-shine-border" aria-hidden="true"></span>
+                          <span class="btn-shine-surface" aria-hidden="true"></span>
+                          <span class="btn-shine-text">Enroll Now</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-page-back backface-hidden">
+                    <div class="book-gutter-shadow right-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-page-num">8</span>
+                      <span class="book-deepdive-tag">Course Syllabus</span>
+                    </div>
+                    <div class="book-back-body">
+                      <h4 class="book-back-title">Brain Agility Framework</h4>
+                      <div class="book-syllabus-box">
+                        <div class="syllabus-step">
+                          <span class="step-badge">Level 1-3</span>
+                          <p>Soroban bead manipulation, 2-hand finger arithmetic, and single-digit addition/subtraction.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Level 4-6</span>
+                          <p>Multi-digit multiplication, division shortcuts, and flash anzan mental visualization.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Level 7-8</span>
+                          <p>Complex speed math competitions, photographic recall, and decimal arithmetic mastery.</p>
+                        </div>
+                      </div>
+                      <div class="book-quote-card">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>"Math was her biggest fear. Now she solves 3-digit calculations faster than a calculator!"</p>
+                        <span class="quote-author">— Suresh Kumar, Parent</span>
+                      </div>
+                    </div>
+                    <div class="book-flip-hint"><i class="fa-solid fa-chevron-left"></i> Tap to flip back</div>
+                  </div>
+                </div>
+
+                <!-- LEAF 4: Creative Art & Craft -->
+                <div class="book-page-leaf preserve-3d" data-page-index="4" data-category="art">
+                  <div class="book-page-front backface-hidden">
+                    <div class="book-gutter-shadow left-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-category-tag bg-purple-subtle text-purple"><i class="fa-solid fa-scissors"></i> Art &amp; Craft</span>
+                      <span class="book-page-num">9</span>
+                    </div>
+                    <div class="book-page-photo">
+                      <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy" loading="lazy">
+                      <div class="book-floating-badge bg-purple-light text-purple"><i class="fa-solid fa-shapes"></i></div>
+                    </div>
+                    <div class="book-page-content">
+                      <h3 class="book-course-title">Creative Art &amp; Craft</h3>
+                      <p class="book-course-desc">Tactile hands-on discovery through origami paper folding, clay sculpting, pop-up greeting cards, and models.</p>
+                      <ul class="book-course-bullets">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Japanese Origami &amp; Pop-up Cards</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Recycled Art &amp; Festive Projects</li>
+                      </ul>
+                      <div class="book-page-footer">
+                        <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Creative Art & Craft');">
+                          <span class="btn-shine-border" aria-hidden="true"></span>
+                          <span class="btn-shine-surface" aria-hidden="true"></span>
+                          <span class="btn-shine-text">Enroll Now</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-page-back backface-hidden">
+                    <div class="book-gutter-shadow right-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-page-num">10</span>
+                      <span class="book-deepdive-tag">Course Syllabus</span>
+                    </div>
+                    <div class="book-back-body">
+                      <h4 class="book-back-title">Tactile Creativity Units</h4>
+                      <div class="book-syllabus-box">
+                        <div class="syllabus-step">
+                          <span class="step-badge">Theme A</span>
+                          <p>3D clay modeling, air-dry dough figurines, pottery texture imprint, and painting.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Theme B</span>
+                          <p>Origami architecture, paper tessellations, pop-up mechanics, and greeting cards.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Theme C</span>
+                          <p>Eco-friendly upcycled crafts, festive decor, wall hangings, and parent showcase.</p>
+                        </div>
+                      </div>
+                      <div class="book-quote-card">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>"Every weekend my daughter brings home a delightful miniature creation she made with her own hands!"</p>
+                        <span class="quote-author">— Deepa V., Parent</span>
+                      </div>
+                    </div>
+                    <div class="book-flip-hint"><i class="fa-solid fa-chevron-left"></i> Tap to flip back</div>
+                  </div>
+                </div>
+
+                <!-- LEAF 5: Dance Classes -->
+                <div class="book-page-leaf preserve-3d" data-page-index="5" data-category="dance">
+                  <div class="book-page-front backface-hidden">
+                    <div class="book-gutter-shadow left-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-category-tag bg-pink-subtle text-pink"><i class="fa-solid fa-music"></i> Dance Academy</span>
+                      <span class="book-page-num">11</span>
+                    </div>
+                    <div class="book-page-photo">
+                      <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy" loading="lazy">
+                      <div class="book-floating-badge bg-pink-light text-pink"><i class="fa-solid fa-icons"></i></div>
+                    </div>
+                    <div class="book-page-content">
+                      <h3 class="book-course-title">Dance Classes</h3>
+                      <p class="book-course-desc">Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam, Western, and Folk.</p>
+                      <ul class="book-course-bullets">
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> High-Energy Western &amp; Freestyle Beats</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Vibrant Cultural Tamil Folk Rhythms</li>
+                      </ul>
+                      <div class="book-page-footer">
+                        <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
+                        <a href="#dance" class="btn btn-sm btn-primary" onclick="event.stopPropagation();">Explore Dance</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-page-back backface-hidden">
+                    <div class="book-gutter-shadow right-shadow"></div>
+                    <div class="book-page-header">
+                      <span class="book-page-num">12</span>
+                      <span class="book-deepdive-tag">Course Syllabus</span>
+                    </div>
+                    <div class="book-back-body">
+                      <h4 class="book-back-title">Disciplines &amp; Stage Training</h4>
+                      <div class="book-syllabus-box">
+                        <div class="syllabus-step">
+                          <span class="step-badge">Classical</span>
+                          <p>Bharatanatyam: Asamyuta/Samyuta Hastas, basic Adavu series, and Salangai Pooja.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Western</span>
+                          <p>Hip-hop grooves, isolations, synchronized footwork, and stage choreography.</p>
+                        </div>
+                        <div class="syllabus-step">
+                          <span class="step-badge">Folk</span>
+                          <p>Karagattam, Oyilattam, and Kummi folk steps celebrating regional cultural beats.</p>
+                        </div>
+                      </div>
+                      <div class="book-quote-card">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p>"Her stage fear completely vanished after joining MG Academy's dance wing!"</p>
+                        <span class="quote-author">— Meenakshi S., Parent</span>
+                      </div>
+                    </div>
+                    <div class="book-flip-hint"><i class="fa-solid fa-chevron-left"></i> Tap to flip back</div>
+                  </div>
+                </div>
+
+                <!-- REAR INNER COVER (Right Page when all leaves flipped) -->
+                <div class="book-cover-rear" id="book-cover-rear">
+                  <div class="book-gutter-shadow left-shadow"></div>
+                  <div class="book-rear-body">
+                    <div class="book-rear-crest">
+                      <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="book-rear-title">Admissions Open 2026-27</h3>
+                    <p class="book-rear-desc">Every child is gifted with natural imagination. Give them the wings to flourish with MG Academy's personalized guidance.</p>
+                    
+                    <div class="book-rear-features">
+                      <div class="rear-feature"><i class="fa-solid fa-users text-blue"></i> Small Batch Size (8:1)</div>
+                      <div class="rear-feature"><i class="fa-solid fa-calendar-check text-green"></i> Flexible Weekend Timings</div>
+                      <div class="rear-feature"><i class="fa-solid fa-certificate text-gold"></i> Recognized Certificate</div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-animated-shine btn-book-demo" onclick="openAdmissionModal('Free Demo Session');">
                       <span class="btn-shine-border" aria-hidden="true"></span>
                       <span class="btn-shine-surface" aria-hidden="true"></span>
-                      <span class="btn-shine-text">Enroll Now</span>
+                      <span class="btn-shine-text"><i class="fa-solid fa-sparkles"></i> Apply for Free Demo</span>
                     </button>
-                  </div>
-                </div>
-              </div>
 
-              <!-- Course 3: Calligraphy -->
-              <div class="course-stack-card course-card glass-panel" data-slot="2" data-card-id="3"
-                data-category="skills">
-                <div class="course-media">
-                  <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy"
-                    class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-feather-pointed"></i>
-                  </div>
-                </div>
-                <div class="course-body">
-                  <h3 class="course-title">Calligraphy</h3>
-                  <p class="course-desc">
-                    The noble art of beautiful lettering. Students master foundational nib angles, flourished alphabets,
-                    ink
-                    flow control, and creative ornamental scripts.
-                  </p>
-                  <ul class="course-bullets">
-                    <li><i class="fa-solid fa-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen Mastery</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Gothic, Italic &amp; Modern Script Styles</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Greeting Cards, Bookmarks &amp; Certificates</li>
-                  </ul>
-                  <div class="course-footer">
-                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
-                    <button class="btn btn-sm btn-outline btn-animated-shine"
-                      onclick="event.stopPropagation(); openAdmissionModal('Calligraphy')">
-                      <span class="btn-shine-border" aria-hidden="true"></span>
-                      <span class="btn-shine-surface" aria-hidden="true"></span>
-                      <span class="btn-shine-text">Enroll Now</span>
+                    <button type="button" class="btn-book-restart" id="btn-book-restart">
+                      <i class="fa-solid fa-rotate-left"></i>
+                      <span>Read From Beginning</span>
                     </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Course 4: Abacus & Mental Math -->
-              <div class="course-stack-card course-card glass-panel" data-slot="hidden" data-card-id="4"
-                data-category="skills">
-                <div class="course-media">
-                  <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy"
-                    class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i>
-                  </div>
-                </div>
-                <div class="course-body">
-                  <h3 class="course-title">Abacus</h3>
-                  <p class="course-desc">
-                    Supercharge your child's brain. Enhances photographic concentration, visual calculations, mental
-                    agility, speed arithmetic, and numeric self-confidence.
-                  </p>
-                  <ul class="course-bullets">
-                    <li><i class="fa-solid fa-check text-green"></i> Soroban Bead Foundations &amp; Finger Movements
-                    </li>
-                    <li><i class="fa-solid fa-check text-green"></i> Lightning Fast Mental Calculations</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Boosts Long-Term Focus &amp; Working Memory</li>
-                  </ul>
-                  <div class="course-footer">
-                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
-                    <button class="btn btn-sm btn-outline btn-animated-shine"
-                      onclick="event.stopPropagation(); openAdmissionModal('Abacus')">
-                      <span class="btn-shine-border" aria-hidden="true"></span>
-                      <span class="btn-shine-surface" aria-hidden="true"></span>
-                      <span class="btn-shine-text">Enroll Now</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Course 5: Creative Art & Craft -->
-              <div class="course-stack-card course-card glass-panel" data-slot="hidden" data-card-id="5"
-                data-category="art">
-                <div class="course-media">
-                  <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy"
-                    class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-scissors"></i>
-                  </div>
-                </div>
-                <div class="course-body">
-                  <h3 class="course-title">Creative Art &amp; Craft</h3>
-                  <p class="course-desc">
-                    Tactile hands-on discovery through origami paper folding, clay sculpting, scrapbooking, greeting
-                    card
-                    crafts, and colorful eco-friendly model making.
-                  </p>
-                  <ul class="course-bullets">
-                    <li><i class="fa-solid fa-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Japanese Origami &amp; Pop-up Cards</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Recycled Art &amp; Festive Projects</li>
-                  </ul>
-                  <div class="course-footer">
-                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
-                    <button class="btn btn-sm btn-outline btn-animated-shine"
-                      onclick="event.stopPropagation(); openAdmissionModal('Creative Art & Craft')">
-                      <span class="btn-shine-border" aria-hidden="true"></span>
-                      <span class="btn-shine-surface" aria-hidden="true"></span>
-                      <span class="btn-shine-text">Enroll Now</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Course 6: Dance Classes -->
-              <div class="course-stack-card course-card glass-panel highlight-dance-card" data-slot="hidden"
-                data-card-id="6" data-category="dance">
-                <div class="course-media">
-                  <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy"
-                    class="course-cover-img" loading="lazy">
-                  <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-music"></i></div>
-                </div>
-                <div class="course-body">
-                  <h3 class="course-title">Dance Classes</h3>
-                  <p class="course-desc">
-                    Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam,
-                    energetic
-                    Western dance, contemporary Free Style, and Tamil Folk.
-                  </p>
-                  <ul class="course-bullets">
-                    <li><i class="fa-solid fa-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
-                    <li><i class="fa-solid fa-check text-green"></i> High-Energy Western &amp; Freestyle Beats</li>
-                    <li><i class="fa-solid fa-check text-green"></i> Vibrant Cultural Tamil Folk Rhythms</li>
-                  </ul>
-                  <div class="course-footer">
-                    <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                    <a href="#dance" class="btn btn-sm btn-primary" onclick="event.stopPropagation();">Explore Dance</a>
                   </div>
                 </div>
               </div>
             </div>
+
+            <!-- Navigation Arrow Right -->
+            <button type="button" class="book-nav-arrow book-arrow-next" id="book-arrow-next" aria-label="Next Page" style="display: none;">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
           </div>
 
-          <!-- Bottom Navigation Controls -->
-          <div class="course-stack-controls">
-            <button type="button" class="course-stack-nav-btn course-stack-prev-btn" id="course-stack-prev-btn"
-              aria-label="Previous Course">
-              <i class="fa-solid fa-arrow-left"></i>
+          <!-- Floating Bottom Navigation Dock (when book is open) -->
+          <div class="book-nav-dock" id="book-nav-dock" style="display: none;">
+            <button type="button" class="dock-btn dock-prev" id="dock-btn-prev" aria-label="Previous Page" title="Previous Page">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <div class="dock-slider-wrap">
+              <input type="range" min="-1" max="5" value="-1" class="dock-page-slider" id="dock-page-slider" aria-label="Page slider">
+              <span class="dock-page-label" id="dock-page-label">Cover</span>
+            </div>
+
+            <button type="button" class="dock-btn dock-next" id="dock-btn-next" aria-label="Next Page" title="Next Page">
+              <i class="fa-solid fa-chevron-right"></i>
             </button>
 
-            <div class="course-stack-dots" id="course-stack-dots" aria-label="Course Stack Navigation Dots"></div>
+            <div class="dock-divider"></div>
 
-            <button type="button" class="btn btn-primary course-stack-next-btn btn-animated-shine"
-              id="course-stack-next-btn" aria-label="Next Course">
-              <span class="btn-shine-border" aria-hidden="true"></span>
-              <span class="btn-shine-surface" aria-hidden="true"></span>
-              <span class="btn-shine-text">
-                <span>Next Course</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </span>
+            <button type="button" class="dock-btn dock-close" id="dock-btn-close" aria-label="Close Book" title="Close Book">
+              <i class="fa-solid fa-xmark"></i>
             </button>
+          </div>
+
+          <!-- Bottom Prompt when Book is Closed -->
+          <div class="book-closed-hint" id="book-closed-hint">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Click book to open &amp; explore all courses</span>
           </div>
         </div>
       </div>
@@ -1727,7 +2042,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Swiper 11 JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="script.js?v=13.1"></script>
+  <script src="script.js?v=13.2"></script>
 
 </body>
 
