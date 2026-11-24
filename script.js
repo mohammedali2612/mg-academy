@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGlobalSmoothScroll();
   initNavbar();
   initCourseTabs();
-  initDanceScrollStack();
+  // initDanceScrollStack();
   initScrollReveal();
   initHeroAnimation();
   initModals();
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFeesSkiper47Carousel();
   initMascotVideoPlayers();
   initMascotPeekScroll();
-  initWebsiteCardSmoothScroll();
+  // initWebsiteCardSmoothScroll();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -2820,10 +2820,9 @@ function initSmoothScrollSliderMobile() {
 }
 
 /* ==========================================================================
-   SKIPER 47 3D COVERFLOW CAROUSEL (Carousel_001) - Fee Structure Cards (Mobile Only <= 860px)
-   Features:
-   - Mobile View (<= 860px): Swiper Coverflow with depth, centered active slide & chevrons
-   - Desktop View (> 860px): Static 3-column responsive grid (no swiper, no 3D animation)
+   CLEAN, STATIC & USER-FRIENDLY COURSE FEES (No Autoplay, No 3D Tilt)
+   - Mobile View (<= 860px): Clean vertical stack, stable, readable, zero autoplay
+   - Desktop View (> 860px): Static 3-column responsive grid (no swiper, no 3D tilt)
    ========================================================================== */
 let feesSwiperInstance = null;
 
@@ -2831,87 +2830,38 @@ function initFeesSkiper47Carousel() {
   const container = document.getElementById('fees-swiper');
   if (!container) return;
 
-  function update() {
-    const isMobile = window.innerWidth <= 860;
-
-    if (!isMobile) {
-      // Desktop View (> 860px): Destroy Swiper, restore static 3-column grid
-      if (feesSwiperInstance) {
+  function teardownSwiper() {
+    if (feesSwiperInstance) {
+      try {
         feesSwiperInstance.destroy(true, true);
-        feesSwiperInstance = null;
-      }
-      const wrapper = container.querySelector('.swiper-wrapper');
-      if (wrapper) {
-        wrapper.querySelectorAll('.cloned-tier-slide').forEach(c => c.remove());
-        wrapper.style.transform = '';
-        wrapper.style.transitionDuration = '';
-      }
-      const slides = container.querySelectorAll('.swiper-slide');
-      slides.forEach(slide => {
-        slide.style.transform = '';
-        slide.style.transitionDuration = '';
-        slide.style.width = '';
-        slide.style.marginRight = '';
-      });
-      return;
+      } catch (e) {}
+      feesSwiperInstance = null;
     }
-
-    // Mobile View (<= 860px): Initialize Coverflow Carousel with Loop & Autoplay
-    if (typeof Swiper === 'undefined') return;
-
     const wrapper = container.querySelector('.swiper-wrapper');
     if (wrapper) {
-      // Remove any previously cloned slides so Swiper manages loop duplicates cleanly
       wrapper.querySelectorAll('.cloned-tier-slide').forEach(c => c.remove());
-      wrapper.querySelectorAll('.fee-card').forEach(card => {
-        card.classList.remove('reveal-fade-up');
-        card.classList.add('is-visible');
-        card.style.opacity = '1';
-        card.style.visibility = 'visible';
-        card.style.transform = 'none';
-      });
+      wrapper.style.transform = '';
+      wrapper.style.transitionDuration = '';
     }
-
-    if (feesSwiperInstance) {
-      feesSwiperInstance.update();
-      return;
-    }
-
-    feesSwiperInstance = new Swiper('#fees-swiper', {
-      effect: 'coverflow',
-      grabCursor: true,
-      centeredSlides: true,
-      spaceBetween: 16,
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      slideToClickedSlide: true,
-      slidesPerView: 'auto',
-      coverflowEffect: {
-        rotate: 0,
-        slideShadows: false,
-        stretch: -8,
-        depth: 42,
-        modifier: 1.2,
-      },
-      pagination: {
-        el: '.fees-pagination',
-        clickable: true,
-      }
+    const slides = container.querySelectorAll('.swiper-slide');
+    slides.forEach(slide => {
+      slide.style.transform = '';
+      slide.style.transitionDuration = '';
+      slide.style.width = '';
+      slide.style.marginRight = '';
+      slide.style.opacity = '1';
+    });
+    const feeCards = container.querySelectorAll('.fee-card');
+    feeCards.forEach(card => {
+      card.style.opacity = '1';
+      card.style.visibility = 'visible';
+      card.style.transform = 'none';
+      card.classList.add('is-visible');
     });
   }
 
-  // Ensure Swiper library is loaded
-  if (typeof Swiper !== 'undefined') {
-    update();
-  } else {
-    window.addEventListener('load', update);
-  }
-
-  window.addEventListener('resize', update, { passive: true });
+  teardownSwiper();
+  window.addEventListener('resize', teardownSwiper, { passive: true });
 }
 
 /* ==========================================================================
