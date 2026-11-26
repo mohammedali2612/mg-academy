@@ -1437,8 +1437,10 @@ function initSmoothScrollSliderDesktop() {
 
       if (dimAmount > 0 && scale < 1) {
         const t = (1 - scale) / Math.max(0.001, 1 - MIN_SCALE);
-        node.style.filter = `brightness(${1 - t * dimAmount})`;
+        node.style.opacity = `${clamp(1 - t * 0.85, 0.15, 1)}`;
+        node.style.filter = `brightness(${clamp(1 - t * 0.25, 0.75, 1)})`;
       } else {
+        node.style.opacity = '1';
         node.style.filter = 'none';
       }
     }
