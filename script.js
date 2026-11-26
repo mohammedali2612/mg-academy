@@ -1248,74 +1248,74 @@ function initSmoothScrollSliderDesktop() {
   const items = [
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg',
-      title: 'Little Picasso Art Studio',
-      subtitle: 'Watercolor & Painting',
+      title: 'Live Portrait Sketching',
+      subtitle: 'Graphite Shading & Realism',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg',
-      title: 'Classical Poise & Rhythms',
-      subtitle: 'Bharatanatyam Dance',
+      title: 'Eco-Art Elephant Installation',
+      subtitle: 'Coimbatore Vizha Field Visit',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg',
-      title: 'Young Masters Exhibition',
-      subtitle: 'Fine Art & Creative Displays',
+      title: 'Oviya Sandhai Art Fair',
+      subtitle: 'Coimbatore Vizha Showcase',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg',
-      title: 'Hands-on Art Workshop',
-      subtitle: 'Pastel Blending & Canvas',
+      title: 'Focused Drawing Practice',
+      subtitle: 'Classroom Art Workshop',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg',
-      title: 'Creative Learning & Sketching',
-      subtitle: 'Focused Pencil Observation',
+      title: 'Certificates & Medals Ceremony',
+      subtitle: 'MG Academy Summer Camp',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg',
-      title: 'Competition Laurels & Awards',
-      subtitle: 'Pride with Medals & Trophies',
+      title: 'Team MG Academy Pride',
+      subtitle: 'Young Artist in Academy Jersey',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg',
-      title: 'Student Achievements & Growth',
-      subtitle: 'Confidence Building Milestones',
+      title: 'Junior Art & Skill Challenge',
+      subtitle: 'Studio Competition Session',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg',
-      title: 'Cultural Celebrations & Events',
-      subtitle: 'Festive Stage Performances',
+      title: 'Canvas Tribute Artwork',
+      subtitle: 'Inspiring Young Minds Through Art',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg',
-      title: 'Classroom Learning Workshop',
-      subtitle: 'Step-by-Step Guidance',
+      title: 'Outdoor Art Walk Memories',
+      subtitle: 'Students & Mentor Field Day',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg',
-      title: 'Creative Studio Exploration',
-      subtitle: 'Imaginative Mixed Media',
+      title: 'Competition Registration Desk',
+      subtitle: 'Welcoming Young Participants',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg',
-      title: 'Stage Dance Salangai',
-      subtitle: 'Traditional Bells & Mudras',
+      title: 'Studio Celebration Day',
+      subtitle: 'Festive Moments at MG Academy',
       offsetY: 0
     },
     {
       src: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg',
-      title: 'Joyful Creative Moments',
-      subtitle: 'Friendship & Smiles',
+      title: 'Art Museum Gallery Tour',
+      subtitle: 'Exploring Fine Art Exhibitions',
       offsetY: 0
     }
   ];
@@ -2647,85 +2647,85 @@ function initSmoothScrollSliderMobile() {
     {
       id: '1',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg',
-      title: 'Little Picasso Art Studio',
-      subtitle: 'Watercolor & Painting',
+      title: 'Live Portrait Sketching',
+      subtitle: 'Graphite Shading & Realism',
       offsetY: 0
     },
     {
       id: '2',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg',
-      title: 'Classical Poise & Rhythms',
-      subtitle: 'Bharatanatyam Dance',
+      title: 'Eco-Art Elephant Installation',
+      subtitle: 'Coimbatore Vizha Field Visit',
       offsetY: 0
     },
     {
       id: '3',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg',
-      title: 'Young Masters Exhibition',
-      subtitle: 'Fine Art & Creative Displays',
+      title: 'Oviya Sandhai Art Fair',
+      subtitle: 'Coimbatore Vizha Showcase',
       offsetY: 0
     },
     {
       id: '4',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg',
-      title: 'Hands-on Art Workshop',
-      subtitle: 'Pastel Blending & Canvas',
+      title: 'Focused Drawing Practice',
+      subtitle: 'Classroom Art Workshop',
       offsetY: 0
     },
     {
       id: '5',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg',
-      title: 'Creative Learning & Sketching',
-      subtitle: 'Focused Pencil Observation',
+      title: 'Certificates & Medals Ceremony',
+      subtitle: 'MG Academy Summer Camp',
       offsetY: 0
     },
     {
       id: '6',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg',
-      title: 'Competition Laurels & Awards',
-      subtitle: 'Pride with Medals & Trophies',
+      title: 'Team MG Academy Pride',
+      subtitle: 'Young Artist in Academy Jersey',
       offsetY: 0
     },
     {
       id: '7',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg',
-      title: 'Student Achievements & Growth',
-      subtitle: 'Confidence Building Milestones',
+      title: 'Junior Art & Skill Challenge',
+      subtitle: 'Studio Competition Session',
       offsetY: 0
     },
     {
       id: '8',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg',
-      title: 'Cultural Celebrations & Events',
-      subtitle: 'Festive Stage Performances',
+      title: 'Canvas Tribute Artwork',
+      subtitle: 'Inspiring Young Minds Through Art',
       offsetY: 0
     },
     {
       id: '9',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg',
-      title: 'Classroom Learning Workshop',
-      subtitle: 'Step-by-Step Guidance',
+      title: 'Outdoor Art Walk Memories',
+      subtitle: 'Students & Mentor Field Day',
       offsetY: 0
     },
     {
       id: '10',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg',
-      title: 'Creative Studio Exploration',
-      subtitle: 'Imaginative Mixed Media',
+      title: 'Competition Registration Desk',
+      subtitle: 'Welcoming Young Participants',
       offsetY: 0
     },
     {
       id: '11',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg',
-      title: 'Stage Dance Salangai',
-      subtitle: 'Traditional Bells & Mudras',
+      title: 'Studio Celebration Day',
+      subtitle: 'Festive Moments at MG Academy',
       offsetY: 0
     },
     {
       id: '12',
       img: './photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg',
-      title: 'Joyful Creative Moments',
-      subtitle: 'Friendship & Smiles',
+      title: 'Art Museum Gallery Tour',
+      subtitle: 'Exploring Fine Art Exhibitions',
       offsetY: 0
     }
   ];
