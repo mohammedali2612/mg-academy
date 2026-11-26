@@ -48,8 +48,8 @@ function initPreloader() {
 
   const progressFill = document.getElementById('preloader-progress-fill');
   const startTime = Date.now();
-  const minDisplayMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 950;
-  const maxWaitMs = 2400;
+  const minDisplayMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 800;
+  const maxWaitMs = 1700;
   let dismissed = false;
 
   function dismissPreloader() {
@@ -1617,6 +1617,7 @@ function initSmoothScrollSliderDesktop() {
     prevBtn.addEventListener('click', (e) => {
       e.preventDefault();
       target -= step;
+      startLoop();
     });
   }
 
@@ -1624,6 +1625,7 @@ function initSmoothScrollSliderDesktop() {
     nextBtn.addEventListener('click', (e) => {
       e.preventDefault();
       target += step;
+      startLoop();
     });
   }
 
