@@ -2976,7 +2976,6 @@ marquee,
   color: #38bdf8 !important;
   font-size: 0.85rem !important;
 }
-}
 
 /* ReactBits Masonry Core Styles */
 .masonry {
@@ -4909,7 +4908,7 @@ marquee,
     box-shadow: 0 4px 14px rgba(0, 90, 156, 0.25) !important;
   }
 
-  /* ---------------- 3. Mobile Hero Section (assets/mobile_hero_kids.jpg with top sky alignment) ---------------- */
+  /* ---------------- 3. Mobile Hero Section (assets/mobile upscale bg .png with top sky alignment) ---------------- */
   .hero-section {
     position: relative !important;
     display: flex !important;
@@ -8398,7 +8397,6 @@ marquee,
   color: #FFFFFF !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 22px rgba(0, 119, 182, 0.35) !important;
-}
 }
 
 /* Media Area */

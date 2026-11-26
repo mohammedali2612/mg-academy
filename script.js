@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initGlobalSmoothScroll();
   initNavbar();
   initCourseTabs();
-  // initDanceScrollStack();
   initScrollReveal();
   initHeroAnimation();
   initModals();
@@ -17,16 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScrollSliderMobile();
   initStatsCounter();
   initPeekAdmissionButton();
-  initHeroSlideshow();
   initStaggerTestimonials();
-  initMobileDockNav();
   initInteractiveBook();
-  initCoursesViewSwitcher();
   initMobileFooterAutoFlip();
   initFeesSkiper47Carousel();
   initMascotVideoPlayers();
   initMascotPeekScroll();
-  // initWebsiteCardSmoothScroll();
 
   // Handle ?scrollTo= param if present
   if (window.location.search.includes('scrollTo=')) {
@@ -1418,7 +1413,7 @@ function initSmoothScrollSliderDesktop() {
     card.setAttribute('aria-label', slide.title);
 
     card.innerHTML = `
-      <img src="${slide.src}" alt="${slide.title}" draggable="false" loading="lazy">
+      <img src="${slide.src}" alt="${slide.title}" draggable="false">
       <div class="smooth-desktop-card-caption">
         <span class="caption-title">${slide.title}</span>
         <span class="caption-sub">${slide.subtitle}</span>
@@ -1784,101 +1779,6 @@ function initPeekAdmissionButton() {
 }
 
 /* ==========================================================================
-   10. HERO PHOTO SLIDESHOW (Rotates every 3 seconds from ./photos)
-   ========================================================================== */
-function initHeroSlideshow() {
-  const container = document.getElementById('hero-slideshow-container');
-  const slide1 = document.getElementById('hero-slide-1');
-  const slide2 = document.getElementById('hero-slide-2');
-  const counterEl = document.getElementById('hero-slideshow-counter');
-  if (!container || !slide1 || !slide2) return;
-
-  const photos = [
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.44 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.33 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.34 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.35 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM (1).jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.36 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM (1).jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.37 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.38 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM (1).jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.39 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.40 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.41 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.42 AM.jpeg",
-    "./photos/WhatsApp Image 2026-11-14 at 10.27.43 AM.jpeg"
-  ];
-
-  // Preload next images into memory for instant transitions
-  photos.forEach(src => {
-    const img = new Image();
-    img.src = src;
-  });
-
-  let currentIndex = 0;
-  let activeSlide = slide1;
-  let nextSlide = slide2;
-  let intervalId = null;
-  let isHovered = false;
-
-  function showNextPhoto() {
-    if (isHovered) return;
-
-    currentIndex = (currentIndex + 1) % photos.length;
-    const nextSrc = photos[currentIndex];
-
-    // Load next photo onto background layer
-    nextSlide.src = nextSrc;
-
-    // Cross-fade smoothly between active and next
-    nextSlide.classList.add('slide-active');
-    activeSlide.classList.remove('slide-active');
-
-    // Update counter
-    if (counterEl) {
-      counterEl.textContent = `${currentIndex + 1} / ${photos.length}`;
-    }
-
-    // Flip references
-    const temp = activeSlide;
-    activeSlide = nextSlide;
-    nextSlide = temp;
-  }
-
-  function startSlideshow() {
-    if (intervalId) clearInterval(intervalId);
-    intervalId = setInterval(showNextPhoto, 3000); // Exactly every 3 seconds
-  }
-
-  // Pause when hovered, resume on leave
-  const frameEl = document.getElementById('hero-frame') || container;
-  frameEl.addEventListener('mouseenter', () => {
-    isHovered = true;
-  });
-  frameEl.addEventListener('mouseleave', () => {
-    isHovered = false;
-  });
-
-  // Start rotation
-  startSlideshow();
-}
-
-/* ==========================================================================
-   12. 3D CIRCULAR CAROUSEL (Mobile Gallery View Only: <= 860px)
-   ========================================================================== */
-/* ==========================================================================
-   MOBILE 3D CONTAINER-SCROLL GALLERY (Framer Motion emulation in pure JS)
-   - Perspective container with rotateX: 75deg -> 0deg as scroll progress goes 0 -> 0.5
-   - Scale: 1.2 -> 1.0 as progress goes 0.5 -> 0.9
-   - Column Parallax:
-     * Col 1: 0% -> -14%
-     * Col 2: -6% -> +10%
-     * Col 3: 0% -> -16%
-   - Optimized for smooth 60fps across all mobile viewports (360px - 430px)
-   ========================================================================== */
-/* ==========================================================================
    STAGGER TESTIMONIALS (Staggered polygon card stack carousel)
    - Chamfered cards with 45deg diagonal fold line
    - Active card centered, elevated with brand gradient, white text & shadow
@@ -2017,98 +1917,6 @@ function initStaggerTestimonials() {
 }
 
 /* ==========================================================================
-   FLOATING MOBILE PILL NAVBAR LOGIC
-   - Smooth active capsule transitions
-   - Tap to scroll smoothly to target section
-   - IntersectionObserver / scroll spy to auto-expand active section
-   - Hides when modals/lightboxes open
-   ========================================================================== */
-function initMobileDockNav() {
-  const dock = document.getElementById('mobile-dock-nav');
-  if (!dock) return;
-
-  const items = Array.from(dock.querySelectorAll('.mobile-dock-item'));
-  const targets = items.map(item => ({
-    item,
-    id: item.getAttribute('data-target'),
-    section: document.getElementById(item.getAttribute('data-target'))
-  })).filter(t => t.section);
-
-  function setActive(targetId) {
-    items.forEach(item => {
-      const match = item.getAttribute('data-target') === targetId;
-      item.classList.toggle('active', match);
-      if (match) {
-        item.setAttribute('aria-current', 'page');
-      } else {
-        item.removeAttribute('aria-current');
-      }
-    });
-  }
-
-  // Click handler
-  items.forEach(item => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetId = item.getAttribute('data-target');
-      const targetEl = document.getElementById(targetId);
-
-      setActive(targetId);
-
-      if (targetEl) {
-        if (window.__lenis) {
-          window.__lenis.scrollTo(targetEl, { offset: -65 });
-        } else {
-          const y = targetEl.getBoundingClientRect().top + window.pageYOffset - 65;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      }
-    });
-  });
-
-  // Scroll spy observer
-  let scrollTimeout = null;
-  function updateActiveOnScroll() {
-    if (window.innerWidth > 860) return;
-
-    const scrollPos = window.scrollY + 180;
-    let currentId = 'home';
-
-    targets.forEach(t => {
-      const top = t.section.offsetTop;
-      const height = t.section.offsetHeight;
-      if (scrollPos >= top && scrollPos < top + height) {
-        currentId = t.id;
-      }
-    });
-
-    // If near bottom of page, highlight contact
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 120) {
-      currentId = 'contact';
-    }
-
-    setActive(currentId);
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!scrollTimeout) {
-      scrollTimeout = setTimeout(() => {
-        updateActiveOnScroll();
-        scrollTimeout = null;
-      }, 50);
-    }
-  }, { passive: true });
-
-  if (window.__lenis) {
-    window.__lenis.on('scroll', updateActiveOnScroll);
-  }
-
-  // Initial check
-  updateActiveOnScroll();
-}
-
-
-/* ==========================================================================
    16. 3D INTERACTIVE HARDCOVER BOOK CONTROLLER (Desktop & Mobile)
    Realistic page flip animation based on Framer Motion 3D InteractiveBook
    ========================================================================== */
@@ -2128,12 +1936,6 @@ function initInteractiveBook() {
   const btnClose = document.getElementById('btn-book-close');
   const arrowPrev = document.getElementById('book-arrow-prev');
   const arrowNext = document.getElementById('book-arrow-next');
-  const dock = document.getElementById('book-nav-dock');
-  const dockPrev = document.getElementById('dock-btn-prev');
-  const dockNext = document.getElementById('dock-btn-next');
-  const dockClose = document.getElementById('dock-btn-close');
-  const dockSlider = document.getElementById('dock-page-slider');
-  const dockLabel = document.getElementById('dock-page-label');
   const closedHint = document.getElementById('book-closed-hint');
   const btnRestart = document.getElementById('btn-book-restart');
   const tocItems = wrapper.querySelectorAll('.book-toc-item');
@@ -2165,8 +1967,6 @@ function initInteractiveBook() {
     if (!isOpen) {
       if (activeTitle) activeTitle.textContent = 'Course Prospectus';
       if (pageIndicator) pageIndicator.textContent = 'Closed';
-      if (dockLabel) dockLabel.textContent = 'Closed';
-      if (dockSlider) dockSlider.value = -1;
       return;
     }
 
@@ -2175,28 +1975,20 @@ function initInteractiveBook() {
       if (isMobile) {
         if (activeTitle) activeTitle.textContent = courseTitles[0];
         if (pageIndicator) pageIndicator.textContent = '1 / 6';
-        if (dockLabel) dockLabel.textContent = '1 / 6';
-        if (dockSlider) dockSlider.value = 0;
       } else {
         if (activeTitle) activeTitle.textContent = 'Table of Contents';
         if (pageIndicator) pageIndicator.textContent = 'Overview • Pg 1';
-        if (dockLabel) dockLabel.textContent = 'Cover';
-        if (dockSlider) dockSlider.value = -1;
-      }
+        }
     } else if (currentPageIndex < totalLeaves - 1) {
       const courseIndex = currentPageIndex + 1;
       const currentCourse = courseTitles[courseIndex] || courseTitles[currentPageIndex];
       const pageNum = (currentPageIndex + 1) * 2 + 1;
       if (activeTitle) activeTitle.textContent = currentCourse;
       if (pageIndicator) pageIndicator.textContent = isMobile ? `${courseIndex + 1} / ${totalLeaves}` : `${currentPageIndex + 1} / ${totalLeaves} • Pg ${pageNum}`;
-      if (dockLabel) dockLabel.textContent = `${courseIndex + 1} / ${totalLeaves}`;
-      if (dockSlider) dockSlider.value = isMobile ? courseIndex : currentPageIndex;
     } else {
       // All leaves flipped, viewing rear inside cover
       if (activeTitle) activeTitle.textContent = 'Admissions 2026-27';
       if (pageIndicator) pageIndicator.textContent = 'The End';
-      if (dockLabel) dockLabel.textContent = 'End';
-      if (dockSlider) dockSlider.value = totalLeaves - 1;
     }
 
     // Update Arrow Enabled States
@@ -2205,12 +1997,6 @@ function initInteractiveBook() {
     }
     if (arrowNext) {
       arrowNext.style.opacity = (currentPageIndex >= totalLeaves - 1) ? '0.4' : '1';
-    }
-    if (dockPrev) {
-      dockPrev.style.opacity = (currentPageIndex < 0) ? '0.4' : '1';
-    }
-    if (dockNext) {
-      dockNext.style.opacity = (currentPageIndex >= totalLeaves - 1) ? '0.4' : '1';
     }
   }
 
@@ -2223,7 +2009,6 @@ function initInteractiveBook() {
     if (btnClose) btnClose.style.display = 'inline-flex';
     if (arrowPrev) arrowPrev.style.display = 'flex';
     if (arrowNext) arrowNext.style.display = 'flex';
-    if (dock) dock.style.display = 'inline-flex';
     if (closedHint) closedHint.style.display = 'none';
 
     updateLeafStacking();
@@ -2245,7 +2030,6 @@ function initInteractiveBook() {
     if (btnClose) btnClose.style.display = 'none';
     if (arrowPrev) arrowPrev.style.display = 'none';
     if (arrowNext) arrowNext.style.display = 'none';
-    if (dock) dock.style.display = 'none';
     if (closedHint) closedHint.style.display = 'inline-flex';
 
     updateLeafStacking();
@@ -2340,19 +2124,9 @@ function initInteractiveBook() {
   if (btnClose) btnClose.addEventListener('click', closeBook);
   if (arrowPrev) arrowPrev.addEventListener('click', prevPage);
   if (arrowNext) arrowNext.addEventListener('click', nextPage);
-  if (dockPrev) dockPrev.addEventListener('click', prevPage);
-  if (dockNext) dockNext.addEventListener('click', nextPage);
-  if (dockClose) dockClose.addEventListener('click', closeBook);
   if (closedHint) closedHint.addEventListener('click', openBook);
   if (btnRestart) btnRestart.addEventListener('click', restartBook);
 
-  // Dock Slider Range Input
-  if (dockSlider) {
-    dockSlider.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value, 10);
-      goToPage(val);
-    });
-  }
 
   // Keyboard navigation
   document.addEventListener('keydown', (e) => {
@@ -2414,49 +2188,6 @@ function initInteractiveBook() {
 
   // Initial State: Leaf stacking order when book is closed
   updateLeafStacking();
-}
-
-/* ==========================================================================
-   COURSES VIEW MODE SWITCHER (Laptop / Desktop View Only)
-   Toggles between 3D Interactive Book, Course Cards Grid, or Both
-   ========================================================================== */
-function initCoursesViewSwitcher() {
-  const switcher = document.getElementById('courses-desktop-view-mode');
-  if (!switcher) return;
-  const pills = Array.from(switcher.querySelectorAll('.course-view-pill'));
-  const bookWrapper = document.getElementById('interactive-book-section-wrapper');
-  const cardsWrapper = document.getElementById('courses-desktop-cards-wrapper');
-  if (!bookWrapper || !cardsWrapper) return;
-
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const view = pill.getAttribute('data-view');
-      pills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-
-      if (view === 'book') {
-        bookWrapper.style.display = 'flex';
-        cardsWrapper.style.display = 'none';
-        if (window.__lenis) {
-          window.__lenis.scrollTo('#interactive-book-section-wrapper', { offset: -90 });
-        } else {
-          bookWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } else if (view === 'grid') {
-        bookWrapper.style.display = 'none';
-        cardsWrapper.style.display = 'block';
-        if (window.__lenis) {
-          window.__lenis.scrollTo('#courses-desktop-cards-wrapper', { offset: -90 });
-        } else {
-          cardsWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } else {
-        // 'both'
-        bookWrapper.style.display = 'flex';
-        cardsWrapper.style.display = 'block';
-      }
-    });
-  });
 }
 
 /* ==========================================================================
@@ -2525,146 +2256,6 @@ function initMobileFooterAutoFlip() {
   }, { threshold: 0.35 });
 
   observer.observe(card);
-}
-
-/* ==========================================================================
-   DANCE CLASSES SCROLL STACK ENGINE
-   - Mobile View (<= 860px): Framer Motion StackedCards Engine
-     * Progressive sticky top: calc(68px + index * 16px)
-     * Step: 1 / total (0.25)
-     * Range: [Math.max(0, index * step), 1]
-     * TargetScale: 1 - (total - index - 1) * 0.075
-     * Scale: useTransform(progress, range, [1, targetScale])
-     * transformOrigin: 'top center'
-   - Desktop View (> 860px): Kexsio ScrollStack Horizontal Engine
-     * Pinned deck with stepped scale, vertical offset, and depth dimming
-   ========================================================================== */
-function initDanceScrollStack() {
-  const container = document.getElementById('dance-styles-grid');
-  if (!container) return;
-
-  const slots = Array.from(container.querySelectorAll('.dance-stack-slot'));
-  if (!slots.length) return;
-
-  let rafId = 0;
-
-  function update() {
-    rafId = 0;
-    const isMobile = window.innerWidth <= 860;
-
-    if (isMobile) {
-      // ----------------------------------------------------------------------
-      // Mobile View: Framer Motion StackedCards Physics
-      // ----------------------------------------------------------------------
-      const containerRect = container.getBoundingClientRect();
-      const containerTop = containerRect.top + window.scrollY;
-      const containerHeight = container.offsetHeight;
-      const stickyHeaderHeight = 68;
-      const startY = containerTop - stickyHeaderHeight;
-      const endY = containerTop + containerHeight - window.innerHeight;
-      const scrollY = window.scrollY;
-
-      let progress = 0;
-      if (endY > startY) {
-        progress = Math.min(1, Math.max(0, (scrollY - startY) / (endY - startY)));
-      }
-
-      const total = slots.length;
-      const step = 1 / total; // 0.25
-
-      slots.forEach((slot, index) => {
-        const card = slot.querySelector('.dance-style-card');
-        if (!card) return;
-
-        // Card scaling range: begins scaling down when the next card scrolls in
-        const rangeStart = Math.max(0, index * step);
-        const targetScale = total > 1 ? 1 - (total - index - 1) * 0.075 : 1;
-
-        let scale = 1;
-        if (progress >= 1) {
-          scale = targetScale;
-        } else if (progress > rangeStart) {
-          const p = (progress - rangeStart) / (1 - rangeStart);
-          scale = 1 - p * (1 - targetScale);
-        }
-
-        // Only apply stacked card physics once the card has been revealed by scroll
-        if (!card.classList.contains('is-visible')) {
-          card.style.removeProperty('transform');
-          return;
-        }
-
-        // Framer Motion: scale with transformOrigin: top center
-        if (scale >= 0.999) {
-          card.style.removeProperty('transform');
-        } else {
-          card.style.transformOrigin = 'top center';
-          card.style.transform = `scale(${scale.toFixed(4)})`;
-        }
-        card.style.filter = '';
-
-        // Depth dimming on mobile cards for physical depth
-        const depth = targetScale < 1 ? (1 - scale) / (1 - targetScale) : 0;
-        const dim = Math.min(0.22, depth * 0.18);
-        card.style.setProperty('--scroll-stack-dim', dim.toFixed(3));
-      });
-      return;
-    }
-
-    // ----------------------------------------------------------------------
-    // Desktop View (> 860px): Smooth Scroll-Linked 3D Wave Parallax
-    // ----------------------------------------------------------------------
-    const containerRect = container.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const progress = (vh - containerRect.top) / (vh + containerRect.height);
-
-    if (progress >= -0.2 && progress <= 1.2) {
-      slots.forEach((slot, index) => {
-        const card = slot.querySelector('.dance-style-card');
-        if (!card) return;
-
-        const cardRect = card.getBoundingClientRect();
-        const cardCenter = cardRect.top + cardRect.height / 2;
-        const normalizedY = (cardCenter - vh / 2) / (vh / 2);
-
-        const staggerMultipliers = [-24, 18, -16, 22];
-        const mult = staggerMultipliers[index % 4];
-        const floatY = normalizedY * mult;
-        const rotX = Math.max(-5, Math.min(5, normalizedY * -4));
-        const rotY = (index % 2 === 0 ? 1 : -1) * Math.max(-3, Math.min(3, normalizedY * 2.5));
-
-        card.style.setProperty('--card-scroll-y', `${floatY.toFixed(2)}px`);
-        card.style.setProperty('--card-scroll-tilt', `${rotX.toFixed(2)}deg`);
-        card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(2)}deg`);
-        card.style.removeProperty('--scroll-stack-dim');
-      });
-    } else {
-      slots.forEach(slot => {
-        const card = slot.querySelector('.dance-style-card');
-        if (card) {
-          card.style.setProperty('--card-scroll-y', '0px');
-          card.style.setProperty('--card-scroll-tilt', '0deg');
-          card.style.setProperty('--card-scroll-rot-y', '0deg');
-          card.style.removeProperty('--scroll-stack-dim');
-        }
-      });
-    }
-  }
-
-  function schedule() {
-    if (!rafId) rafId = requestAnimationFrame(update);
-  }
-
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule, { passive: true });
-  if (window.__lenis) {
-    window.__lenis.on('scroll', schedule);
-  } else {
-    window.addEventListener('load', () => {
-      if (window.__lenis) window.__lenis.on('scroll', schedule);
-    });
-  }
-  schedule();
 }
 
 /* ==========================================================================
@@ -2819,7 +2410,7 @@ function initSmoothScrollSliderMobile() {
     card.style.height = `${slideHeight}px`;
 
     card.innerHTML = `
-      <img src="${slide.img}" alt="${slide.title}" draggable="false" loading="lazy">
+      <img src="${slide.img}" alt="${slide.title}" draggable="false">
       <div class="smooth-slider-card-overlay">
         <h4 class="smooth-slider-card-title">${slide.title}</h4>
         <span class="smooth-slider-card-subtitle">${slide.subtitle}</span>
@@ -3583,92 +3174,4 @@ function initGlobalSmoothScroll() {
   }
 
   setup();
-}
-
-/* ==========================================================================
-   FULL WEBSITE CARD SMOOTH SCROLL FLOATING PARALLAX & 3D TILT ENGINE
-   Features:
-   - Smooth staggered depth parallax across all cards on the entire website
-   - Synchronized with Lenis inertial wheel scrolling on desktop & passive RAF on mobile
-   - Staggered vertical depth parallax for Course, Dance, Fee, Achievement, Pillar, Review, Stat & Contact cards
-   - Subtle 3D perspective pitch (rotateX) & yaw (rotateY) reacting to viewport position
-   ========================================================================== */
-function initWebsiteCardSmoothScroll() {
-  const cardSelectors = [
-    '.course-stack-card',
-    '.dance-style-card',
-    '.fee-card',
-    '.achievement-card',
-    '.pillar-card',
-    '.five-pillar-card',
-    '.mission-card',
-    '.vision-card',
-    '.stat-box',
-    '.other-courses-fee-box',
-    '.contact-info-panel',
-    '.contact-form-panel',
-    '.stagger-testimonials-stage'
-  ];
-
-  const cards = Array.from(document.querySelectorAll(cardSelectors.join(', ')));
-  if (!cards.length) return;
-
-  let ticking = false;
-  const staggerPatterns = [-18, 14, -12, 16, -10, 12, -15, 13];
-
-  function updateCards() {
-    ticking = false;
-    const isMobile = window.innerWidth <= 860;
-    const vh = window.innerHeight;
-
-    cards.forEach((card, idx) => {
-      const rect = card.getBoundingClientRect();
-      // Only calculate for cards in or near the viewport (-120px to vh + 120px)
-      if (rect.bottom >= -120 && rect.top <= vh + 120) {
-        const cardCenter = rect.top + rect.height / 2;
-        const normY = (cardCenter - vh / 2) / (vh / 2); // -1.2 to +1.2
-        const mult = staggerPatterns[idx % staggerPatterns.length];
-
-        if (isMobile) {
-          // Mobile: Gentle fluid vertical parallax & subtle depth (buttery smooth touch)
-          const scrollY = normY * (mult * 0.45);
-          const tiltX = Math.max(-2, Math.min(2, normY * -1.8));
-          const rotY = (idx % 2 === 0 ? 1 : -1) * Math.max(-1.2, Math.min(1.2, normY * 1.0));
-          card.style.setProperty('--card-scroll-y', `${scrollY.toFixed(1)}px`);
-          card.style.setProperty('--card-scroll-tilt', `${tiltX.toFixed(1)}deg`);
-          card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(1)}deg`);
-        } else {
-          // Desktop: Full 3D perspective tilt & staggered floating wave parallax
-          const scrollY = normY * mult;
-          const tiltX = Math.max(-4.5, Math.min(4.5, normY * -3.5));
-          const rotY = (idx % 2 === 0 ? 1 : -1) * Math.max(-2.5, Math.min(2.5, normY * 1.8));
-          card.style.setProperty('--card-scroll-y', `${scrollY.toFixed(2)}px`);
-          card.style.setProperty('--card-scroll-tilt', `${tiltX.toFixed(2)}deg`);
-          card.style.setProperty('--card-scroll-rot-y', `${rotY.toFixed(2)}deg`);
-        }
-      }
-    });
-  }
-
-  function schedule() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(updateCards);
-    }
-  }
-
-  window.__updateDesktopCards = schedule;
-
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule, { passive: true });
-
-  if (window.__lenis) {
-    window.__lenis.on('scroll', schedule);
-  } else {
-    window.addEventListener('load', () => {
-      if (window.__lenis) window.__lenis.on('scroll', schedule);
-    });
-  }
-
-  schedule();
 }
