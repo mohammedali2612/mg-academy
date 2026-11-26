@@ -9204,3 +9204,404 @@ marquee,
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   JOYFUL CREATIVE BRAND PRELOADER (MG Academy Logo Showcase)
+   ========================================================================== */
+body.preloader-active {
+  overflow: hidden !important;
+}
+
+.mg-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 42%, #FFFFFF 0%, #F0F9FF 45%, #E0F2FE 80%, #BAE6FD 100%);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0.65s ease;
+  overflow: hidden;
+}
+
+.mg-preloader.is-hidden {
+  opacity: 0;
+  transform: scale(1.04);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Soft ambient floating color blobs in background */
+.preloader-ambient-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.preloader-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(55px);
+  opacity: 0.38;
+  animation: preloaderBlobDrift 7s ease-in-out infinite alternate;
+}
+
+.preloader-blob.blob-pink {
+  width: 260px;
+  height: 260px;
+  background: #FF6584;
+  top: -60px;
+  left: -40px;
+}
+
+.preloader-blob.blob-gold {
+  width: 240px;
+  height: 240px;
+  background: #FFD166;
+  bottom: -50px;
+  left: 12%;
+  animation-delay: -2s;
+}
+
+.preloader-blob.blob-cyan {
+  width: 290px;
+  height: 290px;
+  background: #38BDF8;
+  top: 12%;
+  right: -70px;
+  animation-delay: -3.5s;
+}
+
+.preloader-blob.blob-mint {
+  width: 220px;
+  height: 220px;
+  background: #06D6A0;
+  bottom: -40px;
+  right: 10%;
+  animation-delay: -5s;
+}
+
+@keyframes preloaderBlobDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(18px, -22px) scale(1.1);
+  }
+}
+
+/* Central Stage */
+.preloader-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+}
+
+/* Orbiting Halo Rings & Paint Dots */
+.preloader-orbit-wrap {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.preloader-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.preloader-ring-outer {
+  inset: 0;
+  border: 2.5px dashed rgba(0, 119, 182, 0.25);
+  animation: preloaderSpinCW 14s linear infinite;
+}
+
+.preloader-ring-inner {
+  inset: 18px;
+  padding: 3px;
+  background: conic-gradient(
+    from 0deg,
+    #FF3366,
+    #FFB703,
+    #06D6A0,
+    #38BDF8,
+    #0077B6,
+    #FF3366
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.72;
+  animation: preloaderSpinCCW 4.2s linear infinite;
+}
+
+.preloader-orbit-dot {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(10, 37, 64, 0.18);
+  animation: preloaderSpinCW 8s linear infinite;
+}
+
+.preloader-orbit-dot.dot-1 {
+  background: #FF3366;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: 50% 128px;
+}
+
+.preloader-orbit-dot.dot-2 {
+  background: #FFB703;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: 50% 128px;
+  animation-delay: -2s;
+}
+
+.preloader-orbit-dot.dot-3 {
+  background: #06D6A0;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: 50% 128px;
+  animation-delay: -4s;
+}
+
+.preloader-orbit-dot.dot-4 {
+  background: #0096C7;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: 50% 128px;
+  animation-delay: -6s;
+}
+
+.preloader-sparkle {
+  position: absolute;
+  color: #FFB703;
+  filter: drop-shadow(0 2px 6px rgba(255, 183, 3, 0.55));
+  animation: preloaderTwinkle 2.2s ease-in-out infinite;
+}
+
+.preloader-sparkle.s-1 {
+  top: 14px;
+  right: 20px;
+  font-size: 1.15rem;
+}
+
+.preloader-sparkle.s-2 {
+  bottom: 24px;
+  left: 16px;
+  font-size: 0.95rem;
+  color: #00B4D8;
+  animation-delay: -1.1s;
+}
+
+@keyframes preloaderSpinCW {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preloaderSpinCCW {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes preloaderTwinkle {
+  0%, 100% { transform: scale(0.85) rotate(0deg); opacity: 0.65; }
+  50% { transform: scale(1.22) rotate(12deg); opacity: 1; }
+}
+
+/* Central Frosted White Logo Medallion */
+.preloader-logo-card {
+  position: relative;
+  z-index: 2;
+  width: 196px;
+  height: 196px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #F8FAFC 100%);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 18px 44px rgba(10, 37, 64, 0.14),
+    0 0 36px rgba(56, 189, 248, 0.32),
+    inset 0 2px 6px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-sizing: border-box;
+  animation: preloaderLogoPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.preloader-logo-img {
+  width: 100%;
+  height: auto;
+  max-height: 168px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(10, 37, 64, 0.12));
+  animation: preloaderFloat 2.8s ease-in-out infinite 0.5s;
+}
+
+@keyframes preloaderLogoPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes preloaderFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-5px) scale(1.03); }
+}
+
+/* Tagline & Rainbow Brushstroke Progress Track */
+.preloader-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: preloaderFadeUp 0.35s ease-out 0.05s both;
+}
+
+.preloader-tagline {
+  margin: 0;
+  font-family: var(--font-heading, 'Amaranth', sans-serif);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #0A2540;
+  letter-spacing: 0.01em;
+}
+
+.preloader-progress-track {
+  width: 240px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(0, 119, 182, 0.14);
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(10, 37, 64, 0.08);
+  padding: 1.5px;
+  box-sizing: border-box;
+}
+
+.preloader-progress-fill {
+  height: 100%;
+  width: 12%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #FF3366 0%, #FFB703 32%, #06D6A0 65%, #0096C7 100%);
+  background-size: 200% 100%;
+  animation: preloaderFillSweep 1.3s ease-in-out infinite, preloaderProgressGrow 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes preloaderFillSweep {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes preloaderProgressGrow {
+  0% { width: 10%; }
+  55% { width: 72%; }
+  100% { width: 100%; }
+}
+
+.preloader-dots-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'Open Sauce Sans', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.preloader-bouncing-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.preloader-bouncing-dots span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #0096C7;
+  animation: preloaderDotBounce 1.1s ease-in-out infinite;
+}
+
+.preloader-bouncing-dots span:nth-child(2) {
+  background: #FF3366;
+  animation-delay: 0.16s;
+}
+
+.preloader-bouncing-dots span:nth-child(3) {
+  background: #FFB703;
+  animation-delay: 0.32s;
+}
+
+@keyframes preloaderDotBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.55; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes preloaderFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .preloader-orbit-wrap {
+    width: 224px;
+    height: 224px;
+  }
+
+  .preloader-orbit-dot.dot-1,
+  .preloader-orbit-dot.dot-2,
+  .preloader-orbit-dot.dot-3,
+  .preloader-orbit-dot.dot-4 {
+    transform-origin: 50% 110px;
+  }
+
+  .preloader-logo-card {
+    width: 172px;
+    height: 172px;
+    padding: 6px;
+  }
+
+  .preloader-tagline {
+    font-size: 1.08rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-ring-outer,
+  .preloader-ring-inner,
+  .preloader-orbit-dot,
+  .preloader-sparkle,
+  .preloader-logo-img,
+  .preloader-blob {
+    animation: none !important;
+  }
+}

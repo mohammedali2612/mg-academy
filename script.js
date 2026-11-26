@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initPreloader();
   initGlobalSmoothScroll();
   initNavbar();
   initCourseTabs();
@@ -42,6 +43,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 150);
   }
 });
+
+/* ==========================================================================
+   0. JOYFUL BRAND PRELOADER CONTROLLER
+   ========================================================================== */
+function initPreloader() {
+  const preloader = document.getElementById('mg-preloader');
+  if (!preloader) return;
+
+  const progressFill = document.getElementById('preloader-progress-fill');
+  const startTime = Date.now();
+  const minDisplayMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 950;
+  const maxWaitMs = 2400;
+  let dismissed = false;
+
+  function dismissPreloader() {
+    if (dismissed) return;
+    dismissed = true;
+
+    const elapsed = Date.now() - startTime;
+    const delay = Math.max(0, minDisplayMs - elapsed);
+
+    setTimeout(() => {
+      if (progressFill) progressFill.style.width = '100%';
+      preloader.classList.add('is-hidden');
+      document.body.classList.remove('preloader-active');
+
+      setTimeout(() => {
+        if (preloader.parentNode) {
+          preloader.parentNode.removeChild(preloader);
+        }
+      }, 700);
+    }, delay);
+  }
+
+  if (document.readyState === 'complete') {
+    dismissPreloader();
+  } else {
+    window.addEventListener('load', dismissPreloader, { once: true });
+    // Safety fallback so slow external assets never block the visitor
+    setTimeout(dismissPreloader, maxWaitMs);
+  }
+}
 
 /* ==========================================================================
    1. NAVBAR & NAVIGATION
