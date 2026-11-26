@@ -2549,7 +2549,7 @@ marquee,
 
 .smooth-slider-desktop-topbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   padding: 0 16px;
@@ -7034,6 +7034,7 @@ marquee,
    Mobile (<= 860px): Show 3D Interactive Book; Hide Card Grid
    -------------------------------------------------------------------------- */
 @media (min-width: 861px) {
+
   /* Completely hide 3D interactive book on desktop view */
   .interactive-book-section-wrapper {
     display: none !important;
@@ -9273,8 +9274,8 @@ body.preloader-active {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              visibility 0.65s ease;
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.65s ease;
   overflow: hidden;
 }
 
@@ -9340,6 +9341,7 @@ body.preloader-active {
   0% {
     transform: translate(0, 0) scale(1);
   }
+
   100% {
     transform: translate(18px, -22px) scale(1.1);
   }
@@ -9384,15 +9386,13 @@ body.preloader-active {
 .preloader-ring-inner {
   inset: 18px;
   padding: 3px;
-  background: conic-gradient(
-    from 0deg,
-    #FF3366,
-    #FFB703,
-    #06D6A0,
-    #38BDF8,
-    #0077B6,
-    #FF3366
-  );
+  background: conic-gradient(from 0deg,
+      #FF3366,
+      #FFB703,
+      #06D6A0,
+      #38BDF8,
+      #0077B6,
+      #FF3366);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -9466,18 +9466,37 @@ body.preloader-active {
 }
 
 @keyframes preloaderSpinCW {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes preloaderSpinCCW {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes preloaderTwinkle {
-  0%, 100% { transform: scale(0.85) rotate(0deg); opacity: 0.65; }
-  50% { transform: scale(1.22) rotate(12deg); opacity: 1; }
+
+  0%,
+  100% {
+    transform: scale(0.85) rotate(0deg);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: scale(1.22) rotate(12deg);
+    opacity: 1;
+  }
 }
 
 /* Central Frosted White Logo Medallion */
@@ -9516,6 +9535,7 @@ body.preloader-active {
     opacity: 0;
     transform: scale(0.55);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -9523,8 +9543,15 @@ body.preloader-active {
 }
 
 @keyframes preloaderFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-5px) scale(1.03); }
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-5px) scale(1.03);
+  }
 }
 
 /* Tagline & Rainbow Brushstroke Progress Track */
@@ -9566,14 +9593,27 @@ body.preloader-active {
 }
 
 @keyframes preloaderFillSweep {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 @keyframes preloaderProgressGrow {
-  0% { width: 10%; }
-  55% { width: 72%; }
-  100% { width: 100%; }
+  0% {
+    width: 10%;
+  }
+
+  55% {
+    width: 72%;
+  }
+
+  100% {
+    width: 100%;
+  }
 }
 
 .preloader-dots-status {
@@ -9611,13 +9651,30 @@ body.preloader-active {
 }
 
 @keyframes preloaderDotBounce {
-  0%, 80%, 100% { transform: translateY(0); opacity: 0.55; }
-  40% { transform: translateY(-4px); opacity: 1; }
+
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
 }
 
 @keyframes preloaderFadeUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 480px) {
@@ -9645,6 +9702,7 @@ body.preloader-active {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .preloader-ring-outer,
   .preloader-ring-inner,
   .preloader-orbit-dot,
