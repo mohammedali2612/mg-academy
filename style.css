@@ -4037,14 +4037,13 @@ marquee,
   font-weight: 700;
   letter-spacing: 0.03em;
   text-decoration: none;
-  border-bottom: 1px solid rgba(96, 193, 229, 0.45);
-  padding-bottom: 1px;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  border-bottom: none;
+  transition: color 0.25s ease;
 }
 
 .footer-credit-link:hover {
   color: #A0E0EF;
-  border-bottom-color: #A0E0EF;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
