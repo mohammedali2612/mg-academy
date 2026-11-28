@@ -63,15 +63,45 @@
 
 <body class="preloader-active">
 
-  <!-- Simple Brand Preloader -->
-  <div class="mg-preloader" id="mg-preloader" role="status" aria-live="polite" aria-label="Welcome to MG Academy">
+  <!-- Joyful Creative Brand Preloader -->
+  <div class="mg-preloader" id="mg-preloader" role="status" aria-live="polite" aria-label="Loading MG Academy">
+    <div class="preloader-ambient-blobs" aria-hidden="true">
+      <span class="preloader-blob blob-pink"></span>
+      <span class="preloader-blob blob-gold"></span>
+      <span class="preloader-blob blob-cyan"></span>
+      <span class="preloader-blob blob-mint"></span>
+    </div>
+
     <div class="preloader-stage">
-      <div class="preloader-logo-card">
-        <img src="./assets/mg_academy_logo_mascot.png" alt="MG Academy Logo" class="preloader-logo-img" width="200" height="133">
+      <!-- Orbiting Artistic Rings & Central Logo Medallion -->
+      <div class="preloader-orbit-wrap">
+        <div class="preloader-ring preloader-ring-outer" aria-hidden="true"></div>
+        <div class="preloader-ring preloader-ring-inner" aria-hidden="true"></div>
+        <span class="preloader-orbit-dot dot-1" aria-hidden="true"></span>
+        <span class="preloader-orbit-dot dot-2" aria-hidden="true"></span>
+        <span class="preloader-orbit-dot dot-3" aria-hidden="true"></span>
+        <span class="preloader-orbit-dot dot-4" aria-hidden="true"></span>
+        <i class="fa-solid fa-sparkles preloader-sparkle s-1" aria-hidden="true"></i>
+        <i class="fa-solid fa-star preloader-sparkle s-2" aria-hidden="true"></i>
+
+        <div class="preloader-logo-card">
+          <img src="./assets/mg_academy_logo_mascot.png" alt="MG Academy - Every Child is an Artist"
+            class="preloader-logo-img" width="240" height="160">
+        </div>
       </div>
-      <p class="preloader-welcome">Welcome to <span class="preloader-brand">MG Academy</span></p>
-      <div class="preloader-progress-track" aria-hidden="true">
-        <div class="preloader-progress-fill" id="preloader-progress-fill"></div>
+
+      <!-- Tagline & Animated Paint Progress Track -->
+      <div class="preloader-text-group">
+        <p class="preloader-tagline">Where Little Hands Create Big Dreams</p>
+        <div class="preloader-progress-track" aria-hidden="true">
+          <div class="preloader-progress-fill" id="preloader-progress-fill"></div>
+        </div>
+        <div class="preloader-dots-status">
+          <span class="preloader-status-label">Preparing your creative studio</span>
+          <span class="preloader-bouncing-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -182,7 +212,8 @@
           </h1>
 
           <p class="hero-subtitle">
-            <strong>Every child is an artist.</strong> A joyful studio where children explore drawing, dance, calligraphy, and abacus with confidence and happy smiles.
+            <strong>Every child is an artist.</strong> A joyful studio where children explore drawing, dance,
+            calligraphy, and abacus with confidence and happy smiles.
           </p>
 
           <!-- Interactive Highlight Pills (Disciplines) -->
@@ -253,7 +284,7 @@
             <h3>Our Mission</h3>
             <p>
               To ignite children's imaginations through structured, enjoyable learning programs in fine arts, expressive
-              dance, and foundational mental skills. We ensure every child receives patient individual guidance,
+              dance, and foundational mental skills. We ensure every child receives dedicated individual guidance,
               nurturing creative thinking alongside technical excellence.
             </p>
             <ul class="check-list">
@@ -403,8 +434,9 @@
               <span class="book-pill-sep">•</span>
               <span class="book-pill-page" id="book-page-indicator">Closed</span>
             </div>
-            
-            <button type="button" class="btn-book-close" id="btn-book-close" aria-label="Close Book" style="display: none;">
+
+            <button type="button" class="btn-book-close" id="btn-book-close" aria-label="Close Book"
+              style="display: none;">
               <i class="fa-solid fa-xmark"></i>
               <span>Close Book</span>
             </button>
@@ -413,7 +445,8 @@
           <!-- 3D Book Stage Container -->
           <div class="interactive-book-stage" id="interactive-book-stage">
             <!-- Navigation Arrow Left -->
-            <button type="button" class="book-nav-arrow book-arrow-prev" id="book-arrow-prev" aria-label="Previous Page" style="display: none;">
+            <button type="button" class="book-nav-arrow book-arrow-prev" id="book-arrow-prev" aria-label="Previous Page"
+              style="display: none;">
               <i class="fa-solid fa-chevron-left"></i>
             </button>
 
@@ -493,27 +526,35 @@
                   <div class="book-page-front backface-hidden">
                     <div class="book-gutter-shadow left-shadow"></div>
                     <div class="book-page-header">
-                      <span class="book-category-tag bg-gold-subtle text-gold"><i class="fa-solid fa-palette"></i> Art &amp; Drawing</span>
+                      <span class="book-category-tag bg-gold-subtle text-gold"><i class="fa-solid fa-palette"></i> Art
+                        &amp; Drawing</span>
                       <button type="button" class="book-syllabus-btn" onclick="toggleLeafSyllabus(event, this)">
                         <span>Syllabus</span> <i class="fa-solid fa-repeat"></i>
                       </button>
                       <span class="book-page-num">1</span>
                     </div>
                     <div class="book-page-photo">
-                      <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy" loading="lazy">
-                      <div class="book-floating-badge bg-gold-light text-gold"><i class="fa-solid fa-paint-brush"></i></div>
+                      <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy"
+                        loading="lazy">
+                      <div class="book-floating-badge bg-gold-light text-gold"><i class="fa-solid fa-paint-brush"></i>
+                      </div>
                     </div>
                     <div class="book-page-content">
                       <h3 class="book-course-title">Drawing &amp; Painting</h3>
-                      <p class="book-course-desc">From pencil lines and color mixing to landscape scenery and canvas acrylics across tiered levels.</p>
+                      <p class="book-course-desc">From pencil lines and color mixing to landscape scenery and canvas
+                        acrylics across tiered levels.</p>
                       <ul class="book-course-bullets">
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor Washes &amp; Poster Colors</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Canvas Acrylics &amp; Exhibition Art</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels
+                        </li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Watercolor Washes &amp; Poster Colors
+                        </li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Canvas Acrylics &amp; Exhibition Art
+                        </li>
                       </ul>
                       <div class="book-page-footer">
                         <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Drawing & Painting');">
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                          onclick="event.stopPropagation(); openAdmissionModal('Drawing & Painting');">
                           <span class="btn-shine-border" aria-hidden="true"></span>
                           <span class="btn-shine-surface" aria-hidden="true"></span>
                           <span class="btn-shine-text">Enroll Now</span>
@@ -557,27 +598,33 @@
                   <div class="book-page-front backface-hidden">
                     <div class="book-gutter-shadow left-shadow"></div>
                     <div class="book-page-header">
-                      <span class="book-category-tag bg-pink-subtle text-pink"><i class="fa-solid fa-pen-nib"></i> Handwriting</span>
+                      <span class="book-category-tag bg-pink-subtle text-pink"><i class="fa-solid fa-pen-nib"></i>
+                        Handwriting</span>
                       <button type="button" class="book-syllabus-btn" onclick="toggleLeafSyllabus(event, this)">
                         <span>Syllabus</span> <i class="fa-solid fa-repeat"></i>
                       </button>
                       <span class="book-page-num">3</span>
                     </div>
                     <div class="book-page-photo">
-                      <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy" loading="lazy">
+                      <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy"
+                        loading="lazy">
                       <div class="book-floating-badge bg-pink-light text-pink"><i class="fa-solid fa-pencil"></i></div>
                     </div>
                     <div class="book-page-content">
                       <h3 class="book-course-title">Handwriting Improvement</h3>
-                      <p class="book-course-desc">Scientific techniques to correct grip, posture, stroke rhythm, and line alignment into neat cursive script.</p>
+                      <p class="book-course-desc">Scientific techniques to correct grip, posture, stroke rhythm, and
+                        line alignment into neat cursive script.</p>
                       <ul class="book-course-bullets">
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Cursive &amp; Print Letter Perfection</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Ergonomic Grip &amp; Posture Guidance
+                        </li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Cursive &amp; Print Letter Perfection
+                        </li>
                         <li><i class="fa-solid fa-circle-check text-green"></i> Enhanced Exam Writing Speed</li>
                       </ul>
                       <div class="book-page-footer">
                         <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
-                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Handwriting Improvement');">
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                          onclick="event.stopPropagation(); openAdmissionModal('Handwriting Improvement');">
                           <span class="btn-shine-border" aria-hidden="true"></span>
                           <span class="btn-shine-surface" aria-hidden="true"></span>
                           <span class="btn-shine-text">Enroll Now</span>
@@ -620,27 +667,32 @@
                   <div class="book-page-front backface-hidden">
                     <div class="book-gutter-shadow left-shadow"></div>
                     <div class="book-page-header">
-                      <span class="book-category-tag bg-blue-subtle text-blue"><i class="fa-solid fa-feather-pointed"></i> Calligraphy</span>
+                      <span class="book-category-tag bg-blue-subtle text-blue"><i
+                          class="fa-solid fa-feather-pointed"></i> Calligraphy</span>
                       <button type="button" class="book-syllabus-btn" onclick="toggleLeafSyllabus(event, this)">
                         <span>Syllabus</span> <i class="fa-solid fa-repeat"></i>
                       </button>
                       <span class="book-page-num">5</span>
                     </div>
                     <div class="book-page-photo">
-                      <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy" loading="lazy">
+                      <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy"
+                        loading="lazy">
                       <div class="book-floating-badge bg-blue-light text-blue"><i class="fa-solid fa-feather"></i></div>
                     </div>
                     <div class="book-page-content">
                       <h3 class="book-course-title">Calligraphy Art</h3>
-                      <p class="book-course-desc">The noble art of lettering. Master foundational nib angles, flourished alphabets, and ornamental scripts.</p>
+                      <p class="book-course-desc">The noble art of lettering. Master foundational nib angles, flourished
+                        alphabets, and ornamental scripts.</p>
                       <ul class="book-course-bullets">
                         <li><i class="fa-solid fa-circle-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen</li>
                         <li><i class="fa-solid fa-circle-check text-green"></i> Gothic, Italic &amp; Modern Scripts</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Greeting Cards, Quotes &amp; Certificates</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Greeting Cards, Quotes &amp;
+                          Certificates</li>
                       </ul>
                       <div class="book-page-footer">
                         <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
-                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Calligraphy');">
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                          onclick="event.stopPropagation(); openAdmissionModal('Calligraphy');">
                           <span class="btn-shine-border" aria-hidden="true"></span>
                           <span class="btn-shine-surface" aria-hidden="true"></span>
                           <span class="btn-shine-text">Enroll Now</span>
@@ -683,27 +735,32 @@
                   <div class="book-page-front backface-hidden">
                     <div class="book-gutter-shadow left-shadow"></div>
                     <div class="book-page-header">
-                      <span class="book-category-tag bg-green-subtle text-green"><i class="fa-solid fa-calculator"></i> Mental Math</span>
+                      <span class="book-category-tag bg-green-subtle text-green"><i class="fa-solid fa-calculator"></i>
+                        Mental Math</span>
                       <button type="button" class="book-syllabus-btn" onclick="toggleLeafSyllabus(event, this)">
                         <span>Syllabus</span> <i class="fa-solid fa-repeat"></i>
                       </button>
                       <span class="book-page-num">7</span>
                     </div>
                     <div class="book-page-photo">
-                      <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy" loading="lazy">
+                      <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy"
+                        loading="lazy">
                       <div class="book-floating-badge bg-green-light text-green"><i class="fa-solid fa-brain"></i></div>
                     </div>
                     <div class="book-page-content">
                       <h3 class="book-course-title">Abacus &amp; Mental Math</h3>
-                      <p class="book-course-desc">Supercharge your child's brain. Enhances photographic concentration, visual calculations, and agility.</p>
+                      <p class="book-course-desc">Supercharge your child's brain. Enhances photographic concentration,
+                        visual calculations, and agility.</p>
                       <ul class="book-course-bullets">
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Soroban Bead Foundations &amp; Fingering</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Soroban Bead Foundations &amp; Fingering
+                        </li>
                         <li><i class="fa-solid fa-circle-check text-green"></i> Lightning Fast Mental Calculations</li>
                         <li><i class="fa-solid fa-circle-check text-green"></i> Boosts Long-Term Focus &amp; Memory</li>
                       </ul>
                       <div class="book-page-footer">
                         <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
-                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Abacus');">
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                          onclick="event.stopPropagation(); openAdmissionModal('Abacus');">
                           <span class="btn-shine-border" aria-hidden="true"></span>
                           <span class="btn-shine-surface" aria-hidden="true"></span>
                           <span class="btn-shine-text">Enroll Now</span>
@@ -725,7 +782,8 @@
                       <div class="book-syllabus-box">
                         <div class="syllabus-step">
                           <span class="step-badge">Level 1-3</span>
-                          <p>Soroban bead manipulation, 2-hand finger arithmetic, and single-digit addition/subtraction.</p>
+                          <p>Soroban bead manipulation, 2-hand finger arithmetic, and single-digit addition/subtraction.
+                          </p>
                         </div>
                         <div class="syllabus-step">
                           <span class="step-badge">Level 4-6</span>
@@ -746,27 +804,33 @@
                   <div class="book-page-front backface-hidden">
                     <div class="book-gutter-shadow left-shadow"></div>
                     <div class="book-page-header">
-                      <span class="book-category-tag bg-purple-subtle text-purple"><i class="fa-solid fa-scissors"></i> Art &amp; Craft</span>
+                      <span class="book-category-tag bg-purple-subtle text-purple"><i class="fa-solid fa-scissors"></i>
+                        Art &amp; Craft</span>
                       <button type="button" class="book-syllabus-btn" onclick="toggleLeafSyllabus(event, this)">
                         <span>Syllabus</span> <i class="fa-solid fa-repeat"></i>
                       </button>
                       <span class="book-page-num">9</span>
                     </div>
                     <div class="book-page-photo">
-                      <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy" loading="lazy">
-                      <div class="book-floating-badge bg-purple-light text-purple"><i class="fa-solid fa-shapes"></i></div>
+                      <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy"
+                        loading="lazy">
+                      <div class="book-floating-badge bg-purple-light text-purple"><i class="fa-solid fa-shapes"></i>
+                      </div>
                     </div>
                     <div class="book-page-content">
                       <h3 class="book-course-title">Creative Art &amp; Craft</h3>
-                      <p class="book-course-desc">Tactile hands-on discovery through origami paper folding, clay sculpting, pop-up greeting cards, and models.</p>
+                      <p class="book-course-desc">Tactile hands-on discovery through origami paper folding, clay
+                        sculpting, pop-up greeting cards, and models.</p>
                       <ul class="book-course-bullets">
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures
+                        </li>
                         <li><i class="fa-solid fa-circle-check text-green"></i> Japanese Origami &amp; Pop-up Cards</li>
                         <li><i class="fa-solid fa-circle-check text-green"></i> Recycled Art &amp; Festive Projects</li>
                       </ul>
                       <div class="book-page-footer">
                         <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
-                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="event.stopPropagation(); openAdmissionModal('Creative Art & Craft');">
+                        <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                          onclick="event.stopPropagation(); openAdmissionModal('Creative Art & Craft');">
                           <span class="btn-shine-border" aria-hidden="true"></span>
                           <span class="btn-shine-surface" aria-hidden="true"></span>
                           <span class="btn-shine-text">Enroll Now</span>
@@ -809,27 +873,33 @@
                   <div class="book-page-front backface-hidden">
                     <div class="book-gutter-shadow left-shadow"></div>
                     <div class="book-page-header">
-                      <span class="book-category-tag bg-pink-subtle text-pink"><i class="fa-solid fa-music"></i> Dance Academy</span>
+                      <span class="book-category-tag bg-pink-subtle text-pink"><i class="fa-solid fa-music"></i> Dance
+                        Academy</span>
                       <button type="button" class="book-syllabus-btn" onclick="toggleLeafSyllabus(event, this)">
                         <span>Syllabus</span> <i class="fa-solid fa-repeat"></i>
                       </button>
                       <span class="book-page-num">11</span>
                     </div>
                     <div class="book-page-photo">
-                      <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy" loading="lazy">
+                      <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy"
+                        loading="lazy">
                       <div class="book-floating-badge bg-pink-light text-pink"><i class="fa-solid fa-icons"></i></div>
                     </div>
                     <div class="book-page-content">
                       <h3 class="book-course-title">Dance Classes</h3>
-                      <p class="book-course-desc">Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam, Western, and Folk.</p>
+                      <p class="book-course-desc">Expressive movement, body balance, and rhythmic joy. Comprehensive
+                        training in Bharatanatyam, Western, and Folk.</p>
                       <ul class="book-course-bullets">
-                        <li><i class="fa-solid fa-circle-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> High-Energy Western &amp; Freestyle Beats</li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> Classical Mudras, Adavus &amp; Salangai
+                        </li>
+                        <li><i class="fa-solid fa-circle-check text-green"></i> High-Energy Western &amp; Freestyle
+                          Beats</li>
                         <li><i class="fa-solid fa-circle-check text-green"></i> Vibrant Cultural Tamil Folk Rhythms</li>
                       </ul>
                       <div class="book-page-footer">
                         <span class="book-age-badge"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                        <a href="#dance" class="btn btn-sm btn-primary" onclick="event.stopPropagation();">Explore Dance</a>
+                        <a href="#dance" class="btn btn-sm btn-primary" onclick="event.stopPropagation();">Explore
+                          Dance</a>
                       </div>
                     </div>
                   </div>
@@ -871,15 +941,19 @@
                       <i class="fa-solid fa-award"></i>
                     </div>
                     <h3 class="book-rear-title">Admissions Open 2026-27</h3>
-                    <p class="book-rear-desc">Every child is gifted with natural imagination. Give them the wings to flourish with MG Academy's personalized guidance.</p>
-                    
+                    <p class="book-rear-desc">Every child is gifted with natural imagination. Give them the wings to
+                      flourish with MG Academy's personalized guidance.</p>
+
                     <div class="book-rear-features">
                       <div class="rear-feature"><i class="fa-solid fa-users text-blue"></i> Small Batch Size (8:1)</div>
-                      <div class="rear-feature"><i class="fa-solid fa-calendar-check text-green"></i> Flexible Weekend Timings</div>
-                      <div class="rear-feature"><i class="fa-solid fa-certificate text-gold"></i> Recognized Certificate</div>
+                      <div class="rear-feature"><i class="fa-solid fa-calendar-check text-green"></i> Flexible Weekend
+                        Timings</div>
+                      <div class="rear-feature"><i class="fa-solid fa-certificate text-gold"></i> Recognized Certificate
+                      </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary btn-animated-shine btn-book-demo" onclick="openAdmissionModal('Free Demo Session');">
+                    <button type="button" class="btn btn-primary btn-animated-shine btn-book-demo"
+                      onclick="openAdmissionModal('Free Demo Session');">
                       <span class="btn-shine-border" aria-hidden="true"></span>
                       <span class="btn-shine-surface" aria-hidden="true"></span>
                       <span class="btn-shine-text"><i class="fa-solid fa-sparkles"></i> Apply for Free Demo</span>
@@ -895,7 +969,8 @@
             </div>
 
             <!-- Navigation Arrow Right -->
-            <button type="button" class="book-nav-arrow book-arrow-next" id="book-arrow-next" aria-label="Next Page" style="display: none;">
+            <button type="button" class="book-nav-arrow book-arrow-next" id="book-arrow-next" aria-label="Next Page"
+              style="display: none;">
               <i class="fa-solid fa-chevron-right"></i>
             </button>
           </div>
@@ -912,19 +987,22 @@
           <div class="courses-grid-divider">
             <span class="courses-grid-badge"><i class="fa-solid fa-layer-group"></i> Course Directory</span>
             <h3 class="courses-grid-title">All Programs at a Glance</h3>
-            <p class="courses-grid-subtitle">Browse comprehensive curriculum, age groups, and syllabus features across our 6 disciplines.</p>
+            <p class="courses-grid-subtitle">Browse comprehensive curriculum, age groups, and syllabus features across
+              our 6 disciplines.</p>
           </div>
           <div class="courses-grid" id="courses-desktop-cards-grid">
             <!-- Course 1: Drawing & Painting -->
             <div class="course-card glass-panel reveal-fade-up" data-card-id="1" data-category="art">
               <div class="course-media">
-                <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy" class="course-cover-img" loading="lazy">
+                <img src="./assets/drawing_kids.jpg" alt="Drawing and Painting classes at MG Academy"
+                  class="course-cover-img" loading="lazy">
                 <div class="course-icon-floating text-gold bg-gold-light"><i class="fa-solid fa-palette"></i></div>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Drawing &amp; Painting</h3>
                 <p class="course-desc">
-                  From pencil lines, geometrical shapes, and color mixing to landscape scenery, portraiture, and acrylic canvas painting across tiered levels.
+                  From pencil lines, geometrical shapes, and color mixing to landscape scenery, portraiture, and acrylic
+                  canvas painting across tiered levels.
                 </p>
                 <ul class="course-bullets">
                   <li><i class="fa-solid fa-check text-green"></i> Basic Shapes, Crayon &amp; Oil Pastels</li>
@@ -933,7 +1011,8 @@
                 </ul>
                 <div class="course-meta">
                   <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4+ Years</span>
-                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Drawing & Painting');">
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                    onclick="openAdmissionModal('Drawing & Painting');">
                     <span class="btn-shine-border" aria-hidden="true"></span>
                     <span class="btn-shine-surface" aria-hidden="true"></span>
                     <span class="btn-shine-text">Enroll Now</span>
@@ -945,13 +1024,15 @@
             <!-- Course 2: Handwriting Improvement -->
             <div class="course-card glass-panel reveal-fade-up" data-card-id="2" data-category="skills">
               <div class="course-media">
-                <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy" class="course-cover-img" loading="lazy">
+                <img src="./assets/handwriting_kids.jpg" alt="Handwriting improvement at MG Academy"
+                  class="course-cover-img" loading="lazy">
                 <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-pen-nib"></i></div>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Handwriting Improvement</h3>
                 <p class="course-desc">
-                  Scientific techniques to correct pencil grip, posture, stroke rhythm, letter spacing, and line alignment into neat, beautiful cursive handwriting.
+                  Scientific techniques to correct pencil grip, posture, stroke rhythm, letter spacing, and line
+                  alignment into neat, beautiful cursive handwriting.
                 </p>
                 <ul class="course-bullets">
                   <li><i class="fa-solid fa-check text-green"></i> Ergonomic Grip &amp; Posture Guidance</li>
@@ -960,7 +1041,8 @@
                 </ul>
                 <div class="course-meta">
                   <span class="course-age"><i class="fa-solid fa-child"></i> Age: 5+ Years</span>
-                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Handwriting Improvement');">
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                    onclick="openAdmissionModal('Handwriting Improvement');">
                     <span class="btn-shine-border" aria-hidden="true"></span>
                     <span class="btn-shine-surface" aria-hidden="true"></span>
                     <span class="btn-shine-text">Enroll Now</span>
@@ -972,13 +1054,16 @@
             <!-- Course 3: Calligraphy -->
             <div class="course-card glass-panel reveal-fade-up" data-card-id="3" data-category="skills">
               <div class="course-media">
-                <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy" class="course-cover-img" loading="lazy">
-                <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-feather-pointed"></i></div>
+                <img src="./assets/calligraphy_kids.jpg" alt="Calligraphy lettering art at MG Academy"
+                  class="course-cover-img" loading="lazy">
+                <div class="course-icon-floating text-blue bg-blue-light"><i class="fa-solid fa-feather-pointed"></i>
+                </div>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Calligraphy</h3>
                 <p class="course-desc">
-                  The noble art of beautiful lettering. Students master foundational nib angles, flourished alphabets, ink flow control, and creative ornamental scripts.
+                  The noble art of beautiful lettering. Students master foundational nib angles, flourished alphabets,
+                  ink flow control, and creative ornamental scripts.
                 </p>
                 <ul class="course-bullets">
                   <li><i class="fa-solid fa-check text-green"></i> Broad Nib, Chisel &amp; Brush Pen Mastery</li>
@@ -987,7 +1072,8 @@
                 </ul>
                 <div class="course-meta">
                   <span class="course-age"><i class="fa-solid fa-child"></i> Age: 7+ Years</span>
-                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Calligraphy');">
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                    onclick="openAdmissionModal('Calligraphy');">
                     <span class="btn-shine-border" aria-hidden="true"></span>
                     <span class="btn-shine-surface" aria-hidden="true"></span>
                     <span class="btn-shine-text">Enroll Now</span>
@@ -999,13 +1085,15 @@
             <!-- Course 4: Abacus & Mental Math -->
             <div class="course-card glass-panel reveal-fade-up" data-card-id="4" data-category="skills">
               <div class="course-media">
-                <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy" class="course-cover-img" loading="lazy">
+                <img src="./assets/abacus_kids.jpg" alt="Abacus mental math training at MG Academy"
+                  class="course-cover-img" loading="lazy">
                 <div class="course-icon-floating text-green bg-green-light"><i class="fa-solid fa-calculator"></i></div>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Abacus</h3>
                 <p class="course-desc">
-                  Supercharge your child's brain. Enhances photographic concentration, visual calculations, mental agility, speed arithmetic, and numeric self-confidence.
+                  Supercharge your child's brain. Enhances photographic concentration, visual calculations, mental
+                  agility, speed arithmetic, and numeric self-confidence.
                 </p>
                 <ul class="course-bullets">
                   <li><i class="fa-solid fa-check text-green"></i> Soroban Bead Foundations &amp; Finger Movements</li>
@@ -1014,7 +1102,8 @@
                 </ul>
                 <div class="course-meta">
                   <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 12 Years</span>
-                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Abacus');">
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                    onclick="openAdmissionModal('Abacus');">
                     <span class="btn-shine-border" aria-hidden="true"></span>
                     <span class="btn-shine-surface" aria-hidden="true"></span>
                     <span class="btn-shine-text">Enroll Now</span>
@@ -1026,13 +1115,15 @@
             <!-- Course 5: Creative Art & Craft -->
             <div class="course-card glass-panel reveal-fade-up" data-card-id="5" data-category="art">
               <div class="course-media">
-                <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy" class="course-cover-img" loading="lazy">
+                <img src="./assets/craft_kids.jpg" alt="Creative Art and Craft workshops at MG Academy"
+                  class="course-cover-img" loading="lazy">
                 <div class="course-icon-floating text-purple bg-purple-light"><i class="fa-solid fa-scissors"></i></div>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Creative Art &amp; Craft</h3>
                 <p class="course-desc">
-                  Tactile hands-on discovery through origami paper folding, clay sculpting, scrapbooking, greeting card crafts, and colorful eco-friendly model making.
+                  Tactile hands-on discovery through origami paper folding, clay sculpting, scrapbooking, greeting card
+                  crafts, and colorful eco-friendly model making.
                 </p>
                 <ul class="course-bullets">
                   <li><i class="fa-solid fa-check text-green"></i> Clay Modeling &amp; 3D Dough Sculptures</li>
@@ -1041,7 +1132,8 @@
                 </ul>
                 <div class="course-meta">
                   <span class="course-age"><i class="fa-solid fa-child"></i> Age: 4 to 10 Years</span>
-                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine" onclick="openAdmissionModal('Creative Art & Craft');">
+                  <button type="button" class="btn btn-sm btn-outline btn-animated-shine"
+                    onclick="openAdmissionModal('Creative Art & Craft');">
                     <span class="btn-shine-border" aria-hidden="true"></span>
                     <span class="btn-shine-surface" aria-hidden="true"></span>
                     <span class="btn-shine-text">Enroll Now</span>
@@ -1051,15 +1143,18 @@
             </div>
 
             <!-- Course 6: Dance Classes -->
-            <div class="course-card glass-panel highlight-dance-card reveal-fade-up" data-card-id="6" data-category="dance">
+            <div class="course-card glass-panel highlight-dance-card reveal-fade-up" data-card-id="6"
+              data-category="dance">
               <div class="course-media">
-                <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy" class="course-cover-img" loading="lazy">
+                <img src="./assets/dance_kids.jpg" alt="Dance performance and training at MG Academy"
+                  class="course-cover-img" loading="lazy">
                 <div class="course-icon-floating text-pink bg-pink-light"><i class="fa-solid fa-music"></i></div>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Dance Classes</h3>
                 <p class="course-desc">
-                  Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam, energetic Western dance, contemporary Free Style, and Tamil Folk.
+                  Expressive movement, body balance, and rhythmic joy. Comprehensive training in Bharatanatyam,
+                  energetic Western dance, contemporary Free Style, and Tamil Folk.
                 </p>
                 <ul class="course-bullets">
                   <li><i class="fa-solid fa-check text-green"></i> Classical Mudras, Adavus &amp; Salangai</li>
@@ -1269,20 +1364,27 @@
               <i class="fa-solid fa-camera-retro"></i>
               <span id="desktop-slider-status">1 / 12 &mdash; Live Portrait Sketching</span>
             </div>
+            <div class="smooth-slider-desktop-instruction">
+              <i class="fa-solid fa-arrows-left-right"></i>
+              <span>Wheel &bull; Drag &bull; Click to Expand</span>
+            </div>
           </div>
 
-          <div class="smooth-slider-desktop-viewport" id="smooth-slider-desktop-track" aria-label="Student Photography Gallery Desktop Slider">
+          <div class="smooth-slider-desktop-viewport" id="smooth-slider-desktop-track"
+            aria-label="Student Photography Gallery Desktop Slider">
             <!-- Dynamically populated and driven by initSmoothScrollSliderDesktop() -->
           </div>
 
           <div class="smooth-slider-desktop-footer">
-            <button type="button" class="desktop-slider-arrow prev" id="desktop-slider-arrow-prev" aria-label="Previous slide" title="Previous slide">
+            <button type="button" class="desktop-slider-arrow prev" id="desktop-slider-arrow-prev"
+              aria-label="Previous slide" title="Previous slide">
               <i class="fa-solid fa-arrow-left"></i>
             </button>
             <div class="desktop-slider-progress-bar">
               <div class="desktop-slider-progress-fill" id="desktop-slider-progress-fill"></div>
             </div>
-            <button type="button" class="desktop-slider-arrow next" id="desktop-slider-arrow-next" aria-label="Next slide" title="Next slide">
+            <button type="button" class="desktop-slider-arrow next" id="desktop-slider-arrow-next"
+              aria-label="Next slide" title="Next slide">
               <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -1290,7 +1392,8 @@
 
         <!-- Smooth Scroll Slider (Originkit) - Mobile View Only (<= 860px) -->
         <div class="smooth-slider-gallery-mobile" id="smooth-slider-mobile-root" data-lenis-prevent>
-          <div class="smooth-scroll-slider-viewport" id="smooth-scroll-slider-track" aria-label="Student Photography Gallery Slider">
+          <div class="smooth-scroll-slider-viewport" id="smooth-scroll-slider-track"
+            aria-label="Student Photography Gallery Slider">
             <!-- Smooth scroll slider cards injected dynamically by initSmoothScrollSliderMobile() -->
           </div>
           <div class="smooth-slider-nav-bar">
@@ -1402,7 +1505,7 @@
               </div>
               <blockquote class="stagger-quote">
                 "My daughter joined at age 5 with no confidence in sketching. Within just 3 months, her pencil control,
-                color blending, and creativity amazed her school art teacher! Truly grateful to the patient mentors."
+                color blending, and creativity amazed her school art teacher! Truly grateful to the caring mentors."
               </blockquote>
               <div class="stagger-by">- Priya S., Parent</div>
             </div>
@@ -1995,7 +2098,8 @@
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
         <p>&copy; 2026 MG Academy. All rights reserved. Where Little Hands Create Big Dreams.</p>
-        <p class="footer-signature">Designed and Developed by <a href="https://genzworks.in/" target="_blank" rel="noopener noreferrer" class="footer-credit-link">GEN Z WORKS</a></p>
+        <p class="footer-signature">Designed and Developed by <a href="https://genzworks.in/" target="_blank"
+            rel="noopener noreferrer" class="footer-credit-link">GEN Z WORKS</a></p>
       </div>
     </div>
   </footer>
