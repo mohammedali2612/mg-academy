@@ -9280,7 +9280,7 @@ marquee,
 }
 
 /* ==========================================================================
-   SIMPLE BRAND PRELOADER (Website Colors Only: White, Sky Blue & Navy)
+   SIMPLE BRAND PRELOADER WITH SMOOTH OPEN REVEAL
    ========================================================================== */
 body.preloader-active {
   overflow: hidden !important;
@@ -9294,19 +9294,50 @@ body.preloader-active {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 60%, #E0F2FE 100%);
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.55s ease, visibility 0.55s ease;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.mg-preloader::before,
+.mg-preloader::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  z-index: 1;
+  will-change: transform;
+  box-shadow: none;
+  transition: transform 0.78s cubic-bezier(0.76, 0, 0.24, 1) 0.18s, box-shadow 0.2s ease 0.16s;
+}
+
+.mg-preloader::before {
+  top: 0;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F4FAFF 100%);
+}
+
+.mg-preloader::after {
+  bottom: 0;
+  background: linear-gradient(180deg, #F4FAFF 0%, #E0F2FE 100%);
 }
 
 .mg-preloader.is-hidden {
-  opacity: 0;
-  visibility: hidden;
   pointer-events: none;
 }
 
+.mg-preloader.is-hidden::before {
+  transform: translateY(-105%);
+  box-shadow: 0 10px 28px rgba(27, 54, 93, 0.08);
+}
+
+.mg-preloader.is-hidden::after {
+  transform: translateY(105%);
+  box-shadow: 0 -10px 28px rgba(27, 54, 93, 0.08);
+}
+
 .preloader-stage {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9315,7 +9346,26 @@ body.preloader-active {
   gap: 16px;
   max-width: 380px;
   width: 100%;
-  animation: preloaderFadeIn 0.45s ease-out both;
+  animation: preloaderFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mg-preloader.is-hidden .preloader-stage {
+  opacity: 0;
+  transform: scale(0.95) translateY(-10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mg-preloader::before,
+  .mg-preloader::after {
+    transition: opacity 0.25s ease;
+  }
+
+  .mg-preloader.is-hidden::before,
+  .mg-preloader.is-hidden::after {
+    transform: none;
+    opacity: 0;
+  }
 }
 
 .preloader-logo-card {

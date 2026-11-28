@@ -62,13 +62,16 @@ function initPreloader() {
     setTimeout(() => {
       if (progressFill) progressFill.style.width = '100%';
       preloader.classList.add('is-hidden');
-      document.body.classList.remove('preloader-active');
+
+      setTimeout(() => {
+        document.body.classList.remove('preloader-active');
+      }, 450);
 
       setTimeout(() => {
         if (preloader.parentNode) {
           preloader.parentNode.removeChild(preloader);
         }
-      }, 700);
+      }, 1020);
     }, delay);
   }
 
